@@ -10,10 +10,7 @@ import {
   type DocumentData
 } from 'firebase/firestore';
 import { DatabaseError } from '../utils/types/errors';
-import { getFirestore } from 'firebase/firestore/lite';
-
-// Initialize Firestore
-const db = getFirestore();
+import db from './firebaseInit';
 
 /**
  * Add data to a Firestore collection
