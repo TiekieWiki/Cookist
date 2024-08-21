@@ -1,0 +1,25 @@
+{
+    "loginPage": {
+        "title": "Log in",
+        "email": "Email",
+        "password": "Wachtwoord",
+        "login": "Log in",
+        "register": "Registreer",
+        "googleLogin": "Log in met Google",
+        "googleRegister": "Registreer met Google",
+        "errors": {
+            "invalidEmail": "Ongeldige email",
+            "wrongPassword": "Ongeldig wachtwoord",
+            "emailAlreadyExists": "Een account met het gegeven mailadres bestaat al",
+            "invalidPassword": "Het wachtwoord moet minimaal 6 karakters lang zijn",
+            "userNotFound": "Er was geen account met die email gevonden",
+            "default": "Email of wachtwoord was ongeldig"
+        },
+        "ariaLabel": {
+            "emailLoging": "Email voor inloggen",
+            "passwordLogin": "Wachtwoord voor inloggen",
+            "emailRegister": "Email voor registreren",
+            "passwordRegister": "Wachtwoord voor registreren"
+        }
+    }
+}

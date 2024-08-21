@@ -1,0 +1,10 @@
+{
+  "database": {
+    "errors": {
+      "add": "Er is een fout opgetreden bij het toevoegen van de data",
+      "get": "Er is een fout opgetreden bij het ophalen van de data",
+      "update": "Er is een fout opgetreden bij het updaten van de data",
+      "delete": "Er is een fout opgetreden bij het verwijderen van de data"
+    }
+  }
+}
