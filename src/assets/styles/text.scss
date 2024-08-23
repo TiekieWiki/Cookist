@@ -1,0 +1,44 @@
+h1 {
+    font-family: 'Quicksand-SemiBold', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1.5em;
+}
+
+h2 {
+    font-family: 'Quicksand-SemiBold', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    line-height: 1.4em;
+}
+
+body, p, a, label, input, select {
+    font-family: 'Switzer-Regular', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.2em;
+    text-wrap: pretty;
+}
+
+.menu, .submenu {
+    a {
+        font-family: 'Switzer-Regular', sans-serif;
+        font-size: 1.2rem;
+        font-weight: 400;
+        line-height: 1.3em;
+    }
+}
+
+button {
+    font-family: 'Switzer-Regular', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.2em;
+}
+
+img {
+    font-family: 'Switzer-Italic', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.2em;
+}

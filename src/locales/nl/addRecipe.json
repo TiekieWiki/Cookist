@@ -1,0 +1,45 @@
+{
+  "addRecipePage": {
+    "title": "Recept toevoegen",
+    "name": "Naam",
+    "category": "Categorie",
+    "categories": {
+      "breakfast": "Ontbijt",
+      "lunch": "Lunch",
+      "dinner": "Avondeten",
+      "snack": "Snack",
+      "dessert": "Dessert",
+      "drink": "Drankje",
+      "other": "Anders"
+    },
+    "duration": "Duur in minuten",
+    "portions": "Porties",
+    "rating": "Beoordeling",
+    "picture": "Afbeelding",
+    "ingredients": "Ingredienten",
+    "ingredient": "Ingredient",
+    "amount": "Hoeveelheid",
+    "unit": "Eenheid",
+    "instructions": "Instructies",
+    "instruction": "Instructie",
+    "lastEaten": "Laatst gegeten",
+    "notes": "Aantekeningen",
+    "save": "Opslaan",
+    "ariaLabel": {
+      "name": "Naam van het recept",
+      "category": "Categorie van het recept",
+      "duration": "Duur van het recept",
+      "portions": "Aantal porties van het recept",
+      "rating": "Beoordeling van het recept",
+      "picture": "Afbeelding van het recept",
+      "ingredients": "Ingredienten van het recept",
+      "ingredient": "Ingredient van het recept",
+      "amount": "Hoeveelheid van het ingredient",
+      "unit": "Eenheid van het ingredient",
+      "instructions": "Instructies van het recept",
+      "instruction": "Instructie van het recept",
+      "lastEaten": "Datum waarop het recept voor het laatst is gegeten",
+      "notes": "Aantekeningen over het recept"
+    }
+  }
+}

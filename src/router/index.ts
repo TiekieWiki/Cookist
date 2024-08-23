@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, type RouteLocation } from 'vue-router';
 import Home from '../views/HomeView.vue';
 import Recipes from '../views/RecipesView.vue';
+import AddRecipe from '../views/AddRecipeView.vue';
 import Login from '../views/LoginView.vue';
 import NotFound from '../views/NotFoundView.vue';
 import i18n from '@/i18n';
@@ -19,6 +20,14 @@ const routes = [
     path: '/recipes',
     name: i18n.global.t('recipesPage.title'),
     component: Recipes,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/add-recipe',
+    name: i18n.global.t('addRecipePage.title'),
+    component: AddRecipe,
     meta: {
       requiresAuth: true
     }

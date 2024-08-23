@@ -1,0 +1,45 @@
+{
+  "addRecipePage": {
+    "title": "Add Recipe",
+    "name": "Name",
+    "category": "Category",
+    "categories": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snack": "Snack",
+      "dessert": "Dessert",
+      "drink": "Drink",
+      "other": "Other"
+    },
+    "duration": "Duration in minutes",
+    "portions": "Portions",
+    "rating": "Rating",
+    "picture": "Picture",
+    "ingredients": "Ingredients",
+    "ingredient": "Ingredient",
+    "amount": "Amount",
+    "unit": "Unit",
+    "instructions": "Instructions",
+    "instruction": "Instruction",
+    "lastEaten": "Last eaten",
+    "notes": "Notes",
+    "save": "Save",
+    "ariaLabel": {
+      "name": "Name of the recipe",
+      "category": "Category of the recipe",
+      "duration": "Duration of the recipe",
+      "portions": "Number of portions of the recipe",
+      "rating": "Rating of the recipe",
+      "picture": "Picture of the recipe",
+      "ingredients": "Ingredients of the recipe",
+      "ingredient": "Ingredient of the recipe",
+      "amount": "Amount of the ingredient",
+      "unit": "Unit of the ingredient",
+      "instructions": "Instructions of the recipe",
+      "instruction": "Instruction of the recipe",
+      "lastEaten": "Date when the recipe was last eaten",
+      "notes": "Notes about the recipe"
+    }
+  }
+}

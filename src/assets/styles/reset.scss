@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    &::before,
+    &::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+}
+
+html,
+body {
+    position: relative;
+    overflow-x: hidden;
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+}
+
+:focus, :focus-visible {
+    outline: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul,
+ol,
+li {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+    background-repeat: none;
+    background-size: cover;
+}
+
+::placeholder {
+    opacity: 1;
+}

@@ -20,10 +20,10 @@
       <p v-if="errorMessageLogin">
         {{ $t(errorMessageLogin) }}
       </p>
-      <button @click="handleLogin" type="button">
+      <button @click.prevent="handleLogin" type="submit">
         {{ $t('loginPage.login') }}
       </button>
-      <button @click="signInWithGoogle" type="button">
+      <button @click.prevent="signInWithGoogle" type="submit">
         {{ $t('loginPage.googleLogin') }}
       </button>
     </form>
@@ -47,10 +47,10 @@
       <p v-if="errorMessageRegister">
         {{ $t(errorMessageRegister) }}
       </p>
-      <button @click="handleRegister" type="button">
+      <button @click.prevent="handleRegister" type="submit">
         {{ $t('loginPage.register') }}
       </button>
-      <button @click="signInWithGoogle" type="button">
+      <button @click.prevent="signInWithGoogle" type="submit">
         {{ $t('loginPage.googleRegister') }}
       </button>
     </form>
