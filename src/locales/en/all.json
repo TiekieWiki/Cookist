@@ -1,4 +1,7 @@
 {
+  "nav": {
+    "logout": "Logout"
+  },
   "database": {
     "errors": {
       "add": "An error occurred while adding the data",
@@ -6,5 +9,11 @@
       "update": "An error occurred while updating the data",
       "delete": "An error occurred while deleting the data"
     }
+  },
+  "ariaLabel": {
+    "logout": "Log out"
+  },
+  "alt": {
+    "banner": "Website banner"
   }
 }

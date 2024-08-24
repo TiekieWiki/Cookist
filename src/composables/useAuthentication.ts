@@ -1,5 +1,10 @@
 import { type Ref, ref } from 'vue';
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword
+} from 'firebase/auth';
 import router from '@/router';
 
 /** Register user or give error message */
@@ -78,4 +83,19 @@ export function useLogin(): {
     errorMessageLogin,
     login
   };
+}
+
+/** Check if user is logged in */
+export function useIsLoggedIn(): Ref<boolean> {
+  const isLoggedIn = ref<boolean>(false);
+
+  onAuthStateChanged(getAuth(), (user) => {
+    if (user) {
+      isLoggedIn.value = true;
+    } else {
+      isLoggedIn.value = false;
+    }
+  });
+
+  return isLoggedIn;
 }

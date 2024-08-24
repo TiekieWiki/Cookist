@@ -1,0 +1,45 @@
+@import '../mixins/interactions.scss';
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45vh;
+  width: 100%;
+  background: url('../images/Banner.jpg') no-repeat center center/cover;
+  // Photo by Andy Chilton on Unsplash
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $gap-medium $spacing-x-large;
+
+    .brand {
+      @include zoom-on-hover($scale-medium);
+      @include text-on-focus($color-secondary);
+
+      color: $color-primary;
+    }
+
+    .menu {
+      display: flex;
+      gap: $gap-large;
+
+      a {
+        @include zoom-on-hover($scale-medium);
+        @include text-on-focus($color-secondary);
+
+        color: white;
+
+        &.active {
+          @include zoom-on-hover($scale-medium);
+          @include text-on-focus($color-secondary);
+
+          color: $color-primary;
+        }
+      }
+    }
+  }
+}

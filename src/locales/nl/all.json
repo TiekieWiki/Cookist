@@ -1,4 +1,7 @@
 {
+  "nav": {
+    "logout": "Log uit"
+  },
   "database": {
     "errors": {
       "add": "Er is een fout opgetreden bij het toevoegen van de data",
@@ -6,5 +9,11 @@
       "update": "Er is een fout opgetreden bij het updaten van de data",
       "delete": "Er is een fout opgetreden bij het verwijderen van de data"
     }
+  },
+  "ariaLabel": {
+    "logout": "Uitloggen"
+  },
+  "alt": {
+    "banner": "Website banner"
   }
 }
