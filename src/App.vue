@@ -1,7 +1,5 @@
 <template>
-  <main>
-    <router-view />
-  </main>
+  <router-view />
   <aside :class="menuOpen ? 'menuOpen' : 'menuClose'">
     <nav>
       <transition name="switch" mode="out-in">

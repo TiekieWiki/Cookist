@@ -1,38 +1,40 @@
 <template>
-  <article>
-    <h2>{{ $t('profilePage.settings') }}</h2>
-    <form>
-      <div class="select">
-        <select v-model="selectedLanguage" :aria-label="$t('profilePage.ariaLabel.language')">
-          <option v-for="language in languages" :value="language.value" :key="language.value">
-            {{ $t(language.label) }}
-          </option>
-        </select>
-      </div>
-      <transition name="fade">
-        <p v-if="successMessage" class="success">{{ successMessage }}</p>
-      </transition>
-      <button @click="saveSettings" type="button">
-        {{ $t('profilePage.save') }}
-      </button>
-    </form>
-  </article>
-  <article>
-    <h2>{{ $t('profilePage.account') }}</h2>
-    <form>
-      <input
-        :placeholder="auth.currentUser?.email ?? ''"
-        type="email"
-        disabled
-        name="profileEmail"
-        autocomplete="email"
-        :aria-label="$t('profilePage.ariaLabel.userEmail')"
-      />
-      <button @click="handleSignOut" type="button">
-        {{ $t('profilePage.logout') }}
-      </button>
-    </form>
-  </article>
+  <main class="two-columns">
+    <article>
+      <h2>{{ $t('profilePage.settings') }}</h2>
+      <form>
+        <div class="select">
+          <select v-model="selectedLanguage" :aria-label="$t('profilePage.ariaLabel.language')">
+            <option v-for="language in languages" :value="language.value" :key="language.value">
+              {{ $t(language.label) }}
+            </option>
+          </select>
+        </div>
+        <transition name="fade">
+          <p v-if="successMessage" class="success">{{ successMessage }}</p>
+        </transition>
+        <button @click="saveSettings" type="button">
+          {{ $t('profilePage.save') }}
+        </button>
+      </form>
+    </article>
+    <article>
+      <h2>{{ $t('profilePage.account') }}</h2>
+      <form>
+        <input
+          :placeholder="auth.currentUser?.email ?? ''"
+          type="email"
+          disabled
+          name="profileEmail"
+          autocomplete="email"
+          :aria-label="$t('profilePage.ariaLabel.userEmail')"
+        />
+        <button @click="handleSignOut" type="button">
+          {{ $t('profilePage.logout') }}
+        </button>
+      </form>
+    </article>
+  </main>
 </template>
 
 <script setup lang="ts">

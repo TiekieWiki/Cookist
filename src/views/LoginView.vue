@@ -1,59 +1,65 @@
 <template>
-  <main class="login">
-    <form>
-      <input
-        type="text"
-        :placeholder="$t('loginPage.email')"
-        v-model="emailLogin"
-        name="emailLogin"
-        autocomplete="email"
-        :aria-label="$t('loginPage.ariaLabel.emailLogin')"
-      />
-      <input
-        type="password"
-        :placeholder="$t('loginPage.password')"
-        v-model="passwordLogin"
-        name="passwordLogin"
-        autocomplete="current-password"
-        :aria-label="$t('loginPage.ariaLabel.passwordLogin')"
-      />
-      <p v-if="errorMessageLogin">
-        {{ $t(errorMessageLogin) }}
-      </p>
-      <button @click.prevent="handleLogin" type="submit">
-        {{ $t('loginPage.login') }}
-      </button>
-      <button @click.prevent="signInWithGoogle" type="submit">
-        {{ $t('loginPage.googleLogin') }}
-      </button>
-    </form>
-    <form>
-      <input
-        type="text"
-        :placeholder="$t('loginPage.email')"
-        v-model="emailRegister"
-        name="emailRegister"
-        autocomplete="email"
-        :aria-label="$t('loginPage.ariaLabel.emailRegister')"
-      />
-      <input
-        type="password"
-        :placeholder="$t('loginPage.password')"
-        v-model="passwordRegister"
-        name="passwordRegister"
-        autocomplete="new-password"
-        :aria-label="$t('loginPage.ariaLabel.passwordRegister')"
-      />
-      <p v-if="errorMessageRegister">
-        {{ $t(errorMessageRegister) }}
-      </p>
-      <button @click.prevent="handleRegister" type="submit">
-        {{ $t('loginPage.register') }}
-      </button>
-      <button @click.prevent="signInWithGoogle" type="submit">
-        {{ $t('loginPage.googleRegister') }}
-      </button>
-    </form>
+  <main class="two-columns">
+    <article>
+      <h2>{{ $t('loginPage.login') }}</h2>
+      <form>
+        <input
+          type="text"
+          :placeholder="$t('loginPage.email')"
+          v-model="emailLogin"
+          name="emailLogin"
+          autocomplete="email"
+          :aria-label="$t('loginPage.ariaLabel.emailLogin')"
+        />
+        <input
+          type="password"
+          :placeholder="$t('loginPage.password')"
+          v-model="passwordLogin"
+          name="passwordLogin"
+          autocomplete="current-password"
+          :aria-label="$t('loginPage.ariaLabel.passwordLogin')"
+        />
+        <p v-if="errorMessageLogin">
+          {{ $t(errorMessageLogin) }}
+        </p>
+        <button @click.prevent="handleLogin" type="submit">
+          {{ $t('loginPage.login') }}
+        </button>
+        <button @click.prevent="signInWithGoogle" type="submit">
+          {{ $t('loginPage.googleLogin') }}
+        </button>
+      </form>
+    </article>
+    <article>
+      <h2>{{ $t('loginPage.register') }}</h2>
+      <form>
+        <input
+          type="text"
+          :placeholder="$t('loginPage.email')"
+          v-model="emailRegister"
+          name="emailRegister"
+          autocomplete="email"
+          :aria-label="$t('loginPage.ariaLabel.emailRegister')"
+        />
+        <input
+          type="password"
+          :placeholder="$t('loginPage.password')"
+          v-model="passwordRegister"
+          name="passwordRegister"
+          autocomplete="new-password"
+          :aria-label="$t('loginPage.ariaLabel.passwordRegister')"
+        />
+        <p v-if="errorMessageRegister">
+          {{ $t(errorMessageRegister) }}
+        </p>
+        <button @click.prevent="handleRegister" type="submit">
+          {{ $t('loginPage.register') }}
+        </button>
+        <button @click.prevent="signInWithGoogle" type="submit">
+          {{ $t('loginPage.googleRegister') }}
+        </button>
+      </form>
+    </article>
   </main>
 </template>
 

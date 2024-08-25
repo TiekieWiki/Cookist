@@ -1,4 +1,5 @@
 main {
+  container-name: main-container;
   position: absolute;
   top: 0;
   left: 0;
@@ -7,6 +8,12 @@ main {
   gap: $gap-medium;
   z-index: 1;
   width: calc(100vw - $side-width + 2 * $gap-large);
+
+  @media only screen and (min-width: 900px) {
+    &.two-columns {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
 
   article {
     display: grid;
