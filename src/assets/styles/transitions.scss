@@ -1,0 +1,29 @@
+// Slide fade transition
+.slide-fade-enter-active {
+  transition: all $speed-medium ease-in-out $speed-medium;
+}
+
+.slide-fade-leave-active {
+  transition: all $speed-medium ease-in-out;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+
+// Switch transition
+.switch-enter-active {
+  transition: all $speed-medium ease-in-out;
+}
+
+.switch-leave-active {
+  transition: all $speed-medium ease-in-out;
+}
+
+.switch-enter-from,
+.switch-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}

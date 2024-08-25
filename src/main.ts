@@ -5,6 +5,11 @@ import './assets/styles/main.scss';
 import i18n from './i18n';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+library.add(fas, far);
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDsV52geSwg2PTIwcAwoQrQ5qTlBN5HO8U',
@@ -22,4 +27,4 @@ initializeApp(firebaseConfig);
 const db = getFirestore();
 export default db;
 
-createApp(App).use(i18n).use(router).mount('#app');
+createApp(App).use(i18n).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app');

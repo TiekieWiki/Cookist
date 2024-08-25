@@ -5,16 +5,31 @@ aside {
   right: 0;
   top: 0;
   width: $side-width;
+  transition: all $speed-medium ease-in-out;
+
+  &.menuOpen {
+    width: 300px;
+    z-index: 2;
+  }
 
   nav {
     display: flex;
-    justify-content: end;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
     gap: $gap-large;
     position: absolute;
     width: 100%;
     z-index: 2;
     padding: $gap-medium $gap-large;
+
+    .menu-icon {
+      @include zoom-on-hover($scale-medium);
+      @include text-on-focus($color-secondary);
+
+      color: white;
+      font-size: 1.2rem;
+    }
 
     a {
       @include zoom-on-hover($scale-medium);

@@ -1,16 +1,15 @@
 @mixin zoom-on-hover($scale) {
-  transition: transform $speed-medium ease-in-out;
-
   &:hover {
+    transition: all $speed-medium ease-in-out;
     transform: scale($scale);
+    cursor: pointer;
   }
 }
 
 @mixin text-on-focus($color) {
-  transition: color $speed-medium ease-in-out;
-
   &:focus-visible,
   &:focus-within {
+    transition: all $speed-medium ease-in-out;
     color: $color;
   }
 }
