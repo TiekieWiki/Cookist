@@ -1,7 +1,10 @@
 <template>
-  <div>
+  <article>
     <h1>{{ $t('test') }}</h1>
-  </div>
+  </article>
+  <article>
+    <h1>{{ $t('test') }}</h1>
+  </article>
 </template>
 
 <script setup lang="ts"></script>

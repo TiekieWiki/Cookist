@@ -6,25 +6,6 @@
   }
 }
 
-// @mixin outline-on-focus {
-//     transition: border $speed-medium ease-in-out;
-
-//     &:focus-visible,
-//     &:focus-within {
-//         outline: none;
-//         box-shadow: 0 0 5px 1px $color-primary;
-//     }
-// }
-
-// @mixin icon-on-focus($color) {
-//     transition: color $speed-medium ease-in-out;
-
-//     &:focus-visible,
-//     &:focus-within {
-//         color: $color;
-//     }
-// }
-
 @mixin text-on-focus($color) {
   transition: color $speed-medium ease-in-out;
 
