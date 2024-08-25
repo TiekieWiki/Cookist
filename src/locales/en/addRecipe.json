@@ -1,6 +1,6 @@
 {
   "addRecipePage": {
-    "title": "Add Recipe",
+    "title": "Add recipe",
     "name": "Name",
     "category": "Category",
     "categories": {
@@ -12,7 +12,7 @@
       "drink": "Drink",
       "other": "Other"
     },
-    "duration": "Duration in minutes",
+    "duration": "Duration (min)",
     "portions": "Portions",
     "rating": "Rating",
     "picture": "Picture",

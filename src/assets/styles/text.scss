@@ -16,11 +16,19 @@ h2 {
 body,
 p,
 a,
-label,
 input,
-select {
+select,
+textarea {
   font-family: 'Switzer-Regular', sans-serif;
   font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.2em;
+  text-wrap: pretty;
+}
+
+label {
+  font-family: 'Switzer-Regular', sans-serif;
+  font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.2em;
   text-wrap: pretty;

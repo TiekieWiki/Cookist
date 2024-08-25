@@ -17,11 +17,11 @@ aside {
     flex-direction: column;
     justify-content: center;
     align-items: end;
-    gap: $gap-large;
+    gap: $gap-xlarge;
     position: absolute;
     width: 100%;
     z-index: 2;
-    padding: $gap-medium $gap-large;
+    padding: $gap-large $gap-xlarge;
 
     .menu-icon {
       @include zoom-on-hover($scale-medium);
@@ -75,8 +75,8 @@ aside {
 
     position: absolute;
     z-index: 2;
-    bottom: $gap-medium;
-    right: $gap-large;
+    bottom: $gap-large;
+    right: $gap-xlarge;
     font-style: italic;
     color: $color-secondary;
   }

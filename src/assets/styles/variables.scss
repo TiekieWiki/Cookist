@@ -1,10 +1,11 @@
 // Colors
 $color-primary: #199764;
 $color-secondary: #148054;
-$color-accent: linear-gradient(to top right, $color-secondary, $color-primary);
+$color-accent-primary: linear-gradient(to top right, $color-secondary, $color-primary);
 $color-background: #ebebeb;
 $color-success: #20a957;
 $color-error: #be1b16;
+$color-accent-error: linear-gradient(to top right, $color-error, rgba($color-error, 0.7));
 $color-disabled: #68696a;
 $color-text-primary: black;
 $color-text-secondary: white;
@@ -13,8 +14,9 @@ $color-text-secondary: white;
 $gap-xxsmall: 2px;
 $gap-xsmall: 5px;
 $gap-small: 10px;
-$gap-medium: 20px;
-$gap-large: 30px;
+$gap-medium: 15px;
+$gap-large: 20px;
+$gap-xlarge: 30px;
 
 $side-width: 35vw;
 

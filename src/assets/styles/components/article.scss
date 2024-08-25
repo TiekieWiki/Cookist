@@ -3,11 +3,11 @@ main {
   position: absolute;
   top: 0;
   left: 0;
-  padding: $gap-large;
+  padding: $gap-xlarge;
   display: grid;
-  gap: $gap-medium;
+  gap: $gap-large;
   z-index: 1;
-  width: calc(100vw - $side-width + 2 * $gap-large);
+  width: calc(100vw - $side-width + 2 * $gap-xlarge);
 
   @media only screen and (min-width: 900px) {
     &.two-columns {
@@ -17,8 +17,8 @@ main {
 
   article {
     display: grid;
-    gap: $gap-medium;
-    padding: $gap-medium;
+    gap: $gap-large;
+    padding: $gap-large;
     background-color: $color-background;
     border-radius: $border-radius-medium;
     box-shadow: $box-shadow;

@@ -2,13 +2,13 @@ export interface Recipe {
   id: string;
   name: string;
   category: string;
-  duration: number;
-  portions: number;
-  rating: number;
+  duration: number | undefined;
+  portions: number | undefined;
+  rating: number | undefined;
   picture: string;
   ingredients: Ingredient[];
   instructions: string[];
-  lastEaten: Date;
+  lastEaten: Date | undefined;
   notes: string;
 }
 
@@ -19,13 +19,13 @@ export interface Ingredient {
 }
 
 export enum RecipeCategories {
-  Breakfast = 'Breakfast',
-  Lunch = 'Lunch',
-  Dinner = 'Dinner',
-  Dessert = 'Dessert',
-  Snack = 'Snack',
-  Drink = 'Drink',
-  Other = 'Other'
+  Breakfast = 'breakfast',
+  Lunch = 'lunch',
+  Dinner = 'dinner',
+  Dessert = 'dessert',
+  Snack = 'snack',
+  Drink = 'drink',
+  Other = 'other'
 }
 
 export enum RecipeUnits {
