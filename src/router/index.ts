@@ -2,10 +2,12 @@ import { createRouter, createWebHistory, type RouteLocation } from 'vue-router';
 import Home from '../views/HomeView.vue';
 import Recipes from '../views/RecipesView.vue';
 import AddRecipe from '../views/AddRecipeView.vue';
+import Profile from '../views/ProfileView.vue';
 import Login from '../views/LoginView.vue';
 import NotFound from '../views/NotFoundView.vue';
 import i18n from '@/i18n';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import path from 'path';
 
 const routes = [
   {
@@ -28,6 +30,14 @@ const routes = [
     path: '/add-recipe',
     name: i18n.global.t('addRecipePage.title'),
     component: AddRecipe,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/profile',
+    name: i18n.global.t('profilePage.title'),
+    component: Profile,
     meta: {
       requiresAuth: true
     }

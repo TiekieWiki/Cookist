@@ -1,3 +1,106 @@
+@import '../mixins/interactions.scss';
+
+@mixin form-element {
+  width: 100%;
+  padding: $gap-small $gap-medium;
+  background-color: transparent;
+  border: $border-medium solid $color-primary;
+
+  &:not(:disabled) {
+    @include zoom-on-hover($scale-small);
+    @include outline-on-focus;
+  }
+}
+
 form {
   display: grid;
+  gap: $gap-medium;
+}
+
+input[type='text'],
+input[type='password'],
+input[type='search'],
+input[type='email'],
+input[type='number'] {
+  border-radius: $border-radius-medium;
+
+  @include form-element;
+}
+
+.select {
+  display: grid;
+  grid-template-areas: 'select';
+  align-items: center;
+  border-radius: $border-radius-medium;
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    grid-area: select;
+    justify-self: end;
+    width: $size-icon-small;
+    height: calc($size-icon-small / 3 * 2);
+    background-color: $color-primary;
+    clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  }
+
+  select {
+    appearance: none;
+    z-index: 1;
+    grid-area: select;
+    width: 100%;
+    padding: 0 $size-icon-small 0 0;
+    margin: 0;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    cursor: inherit;
+
+    &::-ms-expand {
+      display: none;
+    }
+  }
+
+  @include form-element;
+}
+
+button {
+  display: grid;
+  grid-template-columns: auto $size-icon-small;
+  justify-self: start;
+  align-self: center;
+  background-image: $color-accent;
+  border: none;
+  border-radius: $border-radius-medium;
+  color: $color-text-secondary;
+  cursor: pointer;
+
+  &.icon {
+    padding: 0;
+    width: $size-icon-medium;
+    height: $size-icon-medium;
+    background: none;
+    border-radius: 0;
+  }
+
+  &.cancel {
+    background-image: linear-gradient(to top right, $color-error, rgba($color-error, 0.7));
+  }
+
+  @include form-element;
+}
+
+.error {
+  padding: $gap-xxsmall $gap-small;
+  border-radius: $border-radius-medium;
+  background-color: $color-error;
+}
+
+.success {
+  padding: $gap-xxsmall $gap-small;
+  border-radius: $border-radius-medium;
+  background-color: $color-success;
 }

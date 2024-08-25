@@ -32,14 +32,9 @@
         }}</router-link>
       </transition>
       <transition name="slide-fade">
-        <a
-          @click="handleSignOut"
-          v-if="menuOpen && isLoggedIn"
-          :aria-label="$t('ariaLabel.logout')"
-          tabindex="0"
-        >
-          {{ $t('nav.logout') }}
-        </a>
+        <router-link to="/profile" v-if="menuOpen && isLoggedIn" tabindex="0">
+          {{ $t('profilePage.title') }}
+        </router-link>
       </transition>
     </nav>
     <div class="banner">
@@ -52,11 +47,19 @@
 </template>
 
 <script setup lang="ts">
-import { RouterView } from 'vue-router';
-import { handleSignOut } from './utils/authentication';
+import { RouterView, useRoute } from 'vue-router';
 import { useIsLoggedIn } from './composables/useAuthentication';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const isLoggedIn = useIsLoggedIn();
 const menuOpen = ref<boolean>(false);
+const route = useRoute();
+
+// Reset menuOpen when the route changes
+watch(
+  () => route.path,
+  () => {
+    menuOpen.value = false;
+  }
+);
 </script>

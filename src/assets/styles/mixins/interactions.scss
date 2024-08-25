@@ -6,6 +6,15 @@
   }
 }
 
+@mixin outline-on-focus {
+  &:focus-visible,
+  &:focus-within {
+    transition: border $speed-medium ease-in-out;
+    outline: none;
+    box-shadow: 0 0 5px 1px $color-primary;
+  }
+}
+
 @mixin text-on-focus($color) {
   &:focus-visible,
   &:focus-within {

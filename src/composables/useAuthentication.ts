@@ -6,6 +6,8 @@ import {
   signInWithEmailAndPassword
 } from 'firebase/auth';
 import router from '@/router';
+import type { User } from '@/utils/types/user';
+import { addData } from '@/utils/db';
 
 /** Register user or give error message */
 export function useRegister(): {
@@ -18,6 +20,13 @@ export function useRegister(): {
     try {
       // Create user with email and password
       createUserWithEmailAndPassword(getAuth(), email, password);
+
+      // Add user to database
+      const user: User = {
+        id: getAuth().currentUser?.uid,
+        language: 'system'
+      };
+      await addData('users', user);
 
       // Redirect to recipes page
       router.push('/recipes');

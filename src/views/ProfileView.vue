@@ -1,0 +1,89 @@
+<template>
+  <article>
+    <h2>{{ $t('profilePage.settings') }}</h2>
+    <form>
+      <div class="select">
+        <select v-model="selectedLanguage" :aria-label="$t('profilePage.ariaLabel.language')">
+          <option v-for="language in languages" :value="language.value" :key="language.value">
+            {{ $t(language.label) }}
+          </option>
+        </select>
+      </div>
+      <transition name="fade">
+        <p v-if="successMessage" class="success">{{ successMessage }}</p>
+      </transition>
+      <button @click="saveSettings" type="button">
+        {{ $t('profilePage.save') }}
+      </button>
+    </form>
+  </article>
+  <article>
+    <h2>{{ $t('profilePage.account') }}</h2>
+    <form>
+      <input
+        :placeholder="auth.currentUser?.email ?? ''"
+        type="email"
+        disabled
+        name="profileEmail"
+        autocomplete="email"
+        :aria-label="$t('profilePage.ariaLabel.userEmail')"
+      />
+      <button @click="handleSignOut" type="button">
+        {{ $t('profilePage.logout') }}
+      </button>
+    </form>
+  </article>
+</template>
+
+<script setup lang="ts">
+import { useSuccessTransition } from '@/composables/useSuccess';
+import i18n from '@/i18n';
+import { getData, updateData } from '@/utils/db';
+import { getAuth } from 'firebase/auth';
+import { where } from 'firebase/firestore';
+import { ref, onMounted, watch } from 'vue';
+import { handleSignOut } from '@/utils/authentication';
+
+const auth = getAuth();
+
+// Set language dropdown to user language
+const selectedLanguage = ref<string>('system');
+const languages = [
+  { value: 'system', label: 'profilePage.languages.system' },
+  { value: 'en', label: 'profilePage.languages.english' },
+  { value: 'nl', label: 'profilePage.languages.dutch' }
+];
+
+// Get user from database and set dropdowns to user settings
+onMounted(async () => {
+  try {
+    const users = await getData('users', where('id', '==', auth.currentUser?.uid));
+    if (users.length > 0) {
+      selectedLanguage.value = users[0].language;
+    }
+  } catch (error: any) {
+    alert(error.message);
+  }
+});
+
+// Watch for changes in selected language and update i18n
+watch(selectedLanguage, (newLanguage) => {
+  i18n.global.locale.value = newLanguage;
+});
+
+// Save settings to database
+const successMessage = ref<string>('');
+
+function saveSettings() {
+  const user = {
+    language: selectedLanguage.value
+  };
+
+  try {
+    updateData('users', where('id', '==', auth.currentUser?.uid), user);
+    useSuccessTransition(successMessage, 'profilePage.saveSuccess');
+  } catch (error: any) {
+    alert(error.message);
+  }
+}
+</script>

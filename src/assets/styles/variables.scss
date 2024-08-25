@@ -1,17 +1,33 @@
 // Colors
-$color-primary: #1dba7b;
-$color-secondary: #148457;
+$color-primary: #199764;
+$color-secondary: #148054;
+$color-accent: linear-gradient(to top right, $color-secondary, $color-primary);
+$color-background: #ebebeb;
+$color-success: #20a957;
+$color-error: #be1b16;
+$color-disabled: #68696a;
+$color-text-primary: black;
+$color-text-secondary: white;
 
 // Spacing
+$gap-xxsmall: 2px;
+$gap-xsmall: 5px;
+$gap-small: 10px;
 $gap-medium: 20px;
-$gap-large: 40px;
+$gap-large: 30px;
 
 $side-width: 35vw;
 
+// Sizing
+$size-icon-small: 1em;
+$size-icon-medium: 1.5em;
+
 // Border
+$border-medium: 2px;
 $border-radius-medium: 10px;
-$box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+$box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
 
 // Transitions
-$speed-medium: 0.8s;
+$scale-small: 1.008;
 $scale-medium: 1.1;
+$speed-medium: 0.8s;

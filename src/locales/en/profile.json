@@ -1,0 +1,19 @@
+{
+  "profilePage": {
+    "title": "Profile",
+    "account": "Account",
+    "logout": "Log out",
+    "settings": "Settings",
+    "languages": {
+      "system": "System language",
+      "english": "English",
+      "dutch": "Dutch"
+    },
+    "save": "Save",
+    "saveSuccess": "Settings saved successfully",
+    "ariaLabel": {
+      "userEmail": "User email",
+      "language": "Language"
+    }
+  }
+}

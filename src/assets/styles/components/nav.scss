@@ -8,7 +8,7 @@ aside {
   transition: all $speed-medium ease-in-out;
 
   &.menuOpen {
-    width: 300px;
+    width: max(300px, $side-width);
     z-index: 2;
   }
 
@@ -27,7 +27,7 @@ aside {
       @include zoom-on-hover($scale-medium);
       @include text-on-focus($color-secondary);
 
-      color: white;
+      color: $color-text-secondary;
       font-size: 1.2rem;
     }
 
@@ -35,7 +35,7 @@ aside {
       @include zoom-on-hover($scale-medium);
       @include text-on-focus($color-secondary);
 
-      color: white;
+      color: $color-text-secondary;
 
       &.active {
         @include zoom-on-hover($scale-medium);
@@ -56,9 +56,9 @@ aside {
       position: absolute;
       background: linear-gradient(
         0deg,
-        rgba(0, 0, 0, 0.5) 0%,
+        rgba(0, 0, 0, 0.6) 0%,
         rgba(0, 0, 0, 0) 50%,
-        rgba(0, 0, 0, 0.5) 100%
+        rgba(0, 0, 0, 0.6) 100%
       );
     }
 
