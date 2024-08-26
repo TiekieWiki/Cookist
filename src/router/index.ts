@@ -1,19 +1,12 @@
 import { createRouter, createWebHistory, type RouteLocation } from 'vue-router';
-import Home from '../views/HomeView.vue';
-import Recipes from '../views/RecipesView.vue';
-import AddRecipe from '../views/AddRecipeView.vue';
-import Profile from '../views/ProfileView.vue';
-import Login from '../views/LoginView.vue';
-import NotFound from '../views/NotFoundView.vue';
 import i18n from '@/i18n';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import path from 'path';
 
 const routes = [
   {
     path: '/',
     name: i18n.global.t('homePage.title'),
-    component: Home,
+    component: () => import('../views/HomeView.vue'),
     meta: {
       requiresAuth: false
     }
@@ -21,7 +14,7 @@ const routes = [
   {
     path: '/recipes',
     name: i18n.global.t('recipesPage.title'),
-    component: Recipes,
+    component: () => import('../views/RecipesView.vue'),
     meta: {
       requiresAuth: true
     }
@@ -29,7 +22,7 @@ const routes = [
   {
     path: '/add-recipe',
     name: i18n.global.t('addRecipePage.title'),
-    component: AddRecipe,
+    component: () => import('../views/AddRecipeView.vue'),
     meta: {
       requiresAuth: true
     }
@@ -37,7 +30,7 @@ const routes = [
   {
     path: '/profile',
     name: i18n.global.t('profilePage.title'),
-    component: Profile,
+    component: () => import('../views/ProfileView.vue'),
     meta: {
       requiresAuth: true
     }
@@ -45,7 +38,7 @@ const routes = [
   {
     path: '/login',
     name: i18n.global.t('loginPage.title'),
-    component: Login,
+    component: () => import('../views/LoginView.vue'),
     meta: {
       requiresAuth: false
     }
@@ -53,7 +46,7 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     name: i18n.global.t('notFoundPage.title'),
-    component: NotFound,
+    component: () => import('../views/NotFoundView.vue'),
     meta: {
       requiresAuth: false
     }
@@ -63,7 +56,15 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
-  linkActiveClass: 'active'
+  linkActiveClass: 'active',
+  scrollBehavior(to) {
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: 'smooth'
+      };
+    }
+  }
 });
 
 /** Gets the current user

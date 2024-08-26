@@ -3,6 +3,11 @@
     form {
       grid-template-columns: repeat(6, 1fr);
 
+      .list {
+        display: grid;
+        gap: $gap-small;
+      }
+
       #name {
         grid-column: 1/7;
       }
@@ -44,7 +49,7 @@
       #ingredients {
         grid-column: 1/7;
 
-        & > div {
+        .list > div {
           display: flex;
           gap: $gap-small;
 
@@ -57,7 +62,7 @@
       #instructions {
         grid-column: 1/7;
 
-        & > div {
+        .list > div {
           display: flex;
           gap: $gap-small;
 

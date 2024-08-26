@@ -87,53 +87,61 @@
         </label>
         <label id="ingredients"
           >{{ $t('addRecipePage.ingredients') }}
-          <div v-for="(ingredient, index) in newRecipe.ingredients" :key="index">
-            <input
-              type="number"
-              :placeholder="$t('addRecipePage.amount')"
-              v-model="ingredient.amount"
-              name="amount"
-              :aria-label="$t('addRecipePage.ariaLabel.amount')"
-            />
-            <div class="select">
-              <select
-                v-model="ingredient.unit"
-                name="unit"
-                :aria-label="$t('addRecipePage.ariaLabel.unit')"
-              >
-                <option value="" disabled>{{ $t('addRecipePage.unit') }}</option>
-                <option v-for="unit in RecipeUnits" :key="unit" :value="unit">
-                  {{ unit }}
-                </option>
-              </select>
+          <div class="list">
+            <div v-for="(ingredient, index) in newRecipe.ingredients" :key="index">
+              <input
+                type="number"
+                :placeholder="$t('addRecipePage.amount')"
+                v-model="ingredient.amount"
+                name="amount"
+                :aria-label="$t('addRecipePage.ariaLabel.amount')"
+              />
+              <div class="select">
+                <select
+                  v-model="ingredient.unit"
+                  name="unit"
+                  :aria-label="$t('addRecipePage.ariaLabel.unit')"
+                >
+                  <option value="" disabled>{{ $t('addRecipePage.unit') }}</option>
+                  <option v-for="unit in RecipeUnits" :key="unit" :value="unit">
+                    {{ unit }}
+                  </option>
+                </select>
+              </div>
+              <input
+                type="text"
+                :placeholder="$t('addRecipePage.ingredient')"
+                v-model="ingredient.name"
+                name="ingredient"
+                :aria-label="$t('addRecipePage.ariaLabel.ingredient')"
+                @input="addInputRow(newRecipe.ingredients, index)"
+              />
+              <button @click="deleteRow(newRecipe.ingredients, index)" class="delete" type="button">
+                <font-awesome-icon :icon="['fas', 'trash-can']" />
+              </button>
             </div>
-            <input
-              type="text"
-              :placeholder="$t('addRecipePage.ingredient')"
-              v-model="ingredient.name"
-              name="ingredient"
-              :aria-label="$t('addRecipePage.ariaLabel.ingredient')"
-              @input="addInputRow(newRecipe.ingredients, index)"
-            />
-            <button @click="deleteRow(newRecipe.ingredients, index)" class="delete" type="button">
-              <font-awesome-icon :icon="['fas', 'trash-can']" />
-            </button>
           </div>
         </label>
         <label id="instructions"
           >{{ $t('addRecipePage.instructions') }}
-          <div v-for="(instruction, index) in newRecipe.instructions" :key="index">
-            <input
-              type="text"
-              :placeholder="$t('addRecipePage.instruction')"
-              v-model="newRecipe.instructions[index]"
-              name="instruction"
-              :aria-label="$t('addRecipePage.ariaLabel.instruction')"
-              @input="addInputRow(newRecipe.instructions, index)"
-            />
-            <button @click="deleteRow(newRecipe.instructions, index)" class="delete" type="button">
-              <font-awesome-icon :icon="['fas', 'trash-can']" />
-            </button>
+          <div class="list">
+            <div v-for="(instruction, index) in newRecipe.instructions" :key="index">
+              <input
+                type="text"
+                :placeholder="$t('addRecipePage.instruction')"
+                v-model="newRecipe.instructions[index]"
+                name="instruction"
+                :aria-label="$t('addRecipePage.ariaLabel.instruction')"
+                @input="addInputRow(newRecipe.instructions, index)"
+              />
+              <button
+                @click="deleteRow(newRecipe.instructions, index)"
+                class="delete"
+                type="button"
+              >
+                <font-awesome-icon :icon="['fas', 'trash-can']" />
+              </button>
+            </div>
           </div>
         </label>
         <label id="notes"
