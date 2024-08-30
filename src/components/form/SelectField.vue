@@ -3,8 +3,9 @@
     {{ label }}
     <div class="select">
       <select v-model="selected" :aria-label="ariaLabel" :disabled="disabled">
-        <option v-for="item in items" :value="item.value" :key="item.value">
-          {{ $t(item.label) }}
+        <option v-if="placeholder" value="" disabled>{{ placeholder }}</option>
+        <option v-for="item in items" :value="item" :key="item">
+          {{ $t(labelPrefix + item) }}
         </option>
       </select>
     </div>
@@ -15,11 +16,12 @@
 defineProps<{
   id?: string;
   label?: string;
-  placeholder?: string;
   ariaLabel: string;
   disabled?: boolean;
-  items: { value: string; label: string }[];
+  placeholder?: string;
+  items: string[];
+  labelPrefix: string;
 }>();
 
-const selected = defineModel<{ value: string; label: string }>('selected');
+const selected = defineModel<string>('selected');
 </script>

@@ -12,21 +12,15 @@
           type="text"
           v-model:input="newRecipe.name"
         />
-        <label id="category"
-          >{{ $t('addRecipePage.category') }}
-          <div class="select">
-            <select
-              v-model="newRecipe.category"
-              name="category"
-              :aria-label="$t('addRecipePage.ariaLabel.category')"
-            >
-              <option value="" disabled>{{ $t('addRecipePage.category') }}</option>
-              <option v-for="category in RecipeCategories" :key="category" :value="category">
-                {{ $t('addRecipePage.categories.' + category) }}
-              </option>
-            </select>
-          </div>
-        </label>
+        <select-field
+          id="category"
+          :label="$t('addRecipePage.category')"
+          :ariaLabel="$t('addRecipePage.ariaLabel.category')"
+          :placeholder="$t('addRecipePage.category')"
+          :items="Object.values(RecipeCategories).map((category) => category.toLocaleLowerCase())"
+          labelPrefix="addRecipePage.categories."
+          v-model:selected="newRecipe.category"
+        />
         <input-field
           id="lastEaten"
           name="lastEaten"
@@ -151,6 +145,7 @@ import { RecipeCategories, RecipeUnits, type Recipe } from '@/utils/types/recipe
 import { ref } from 'vue';
 import TextArea from '@/components/form/TextArea.vue';
 import InputField from '@/components/form/InputField.vue';
+import SelectField from '@/components/form/SelectField.vue';
 import UploadImage from '@/components/form/UploadImage.vue';
 
 const newRecipe = ref<Recipe>({

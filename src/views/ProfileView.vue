@@ -6,6 +6,7 @@
         <select-field
           :ariaLabel="$t('profilePage.ariaLabel.language')"
           :items="languages"
+          labelPrefix="profilePage.languages."
           v-model:selected="selectedLanguage"
         />
         <transition name="fade">
@@ -49,12 +50,8 @@ import SelectField from '@/components/form/SelectField.vue';
 const auth = getAuth();
 
 // Set language dropdown to user language
-const languages = [
-  { value: 'system', label: 'profilePage.languages.system' },
-  { value: 'en', label: 'profilePage.languages.english' },
-  { value: 'nl', label: 'profilePage.languages.dutch' }
-];
-const selectedLanguage = ref<{ value: string; label: string }>(languages[0]);
+const languages = ['system', 'english', 'dutch'];
+const selectedLanguage = ref<string>();
 
 // Get user from database and set dropdowns to user settings
 onMounted(async () => {
