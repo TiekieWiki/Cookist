@@ -66,20 +66,13 @@
           :max="5"
           v-model="newRecipe.rating"
         />
-        <label id="picture"
-          >{{ $t('addRecipePage.picture') }}
-          <div>
-            <input
-              type="file"
-              accept="image/*"
-              :placeholder="$t('addRecipePage.picture')"
-              @change="uploadImage"
-              name="picture"
-              :aria-label="$t('addRecipePage.ariaLabel.picture')"
-            />
-            <img :src="previewImage" />
-          </div>
-        </label>
+        <import-picture
+          id="picture"
+          name="picture"
+          :label="$t('addRecipePage.picture')"
+          :placeholder="$t('addRecipePage.picture')"
+          :ariaLabel="$t('addRecipePage.ariaLabel.picture')"
+        />
         <label id="ingredients"
           >{{ $t('addRecipePage.ingredients') }}
           <div class="list">
@@ -158,6 +151,7 @@ import { RecipeCategories, RecipeUnits, type Recipe } from '@/utils/types/recipe
 import { ref } from 'vue';
 import TextArea from '@/components/form/TextArea.vue';
 import InputField from '@/components/form/InputField.vue';
+import ImportPicture from '@/components/form/ImportPicture.vue';
 
 const newRecipe = ref<Recipe>({
   id: '',
@@ -172,25 +166,6 @@ const newRecipe = ref<Recipe>({
   lastEaten: undefined,
   notes: ''
 });
-
-// Upload image
-const previewImage = ref('');
-
-/**
- * Upload image
- * @param event Upload event
- */
-function uploadImage(event: Event) {
-  const target = event.target as HTMLInputElement;
-  if (target.files) {
-    const image = target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(image);
-    reader.onload = () => {
-      previewImage.value = reader.result as string;
-    };
-  }
-}
 
 // Add or delete input rows
 /**
