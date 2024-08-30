@@ -9,7 +9,7 @@
           :ariaLabel="$t('loginPage.ariaLabel.emailLogin')"
           type="text"
           autocomplete="email"
-          v-model="emailLogin"
+          v-model:input="emailLogin"
         />
         <input-field
           name="passwordLogin"
@@ -17,7 +17,7 @@
           :ariaLabel="$t('loginPage.ariaLabel.passwordLogin')"
           type="password"
           autocomplete="current-password"
-          v-model="passwordLogin"
+          v-model:input="passwordLogin"
         />
         <p v-if="errorMessageLogin">
           {{ $t(errorMessageLogin) }}
@@ -39,7 +39,7 @@
           :ariaLabel="$t('loginPage.ariaLabel.emailRegister')"
           type="email"
           autocomplete="email"
-          v-model="emailRegister"
+          v-model:input="emailRegister"
         />
         <input-field
           name="passwordRegister"
@@ -47,7 +47,7 @@
           :ariaLabel="$t('loginPage.ariaLabel.passwordRegister')"
           type="password"
           autocomplete="new-password"
-          v-model="passwordRegister"
+          v-model:input="passwordRegister"
         />
         <p v-if="errorMessageRegister">
           {{ $t(errorMessageRegister) }}

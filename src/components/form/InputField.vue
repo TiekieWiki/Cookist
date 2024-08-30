@@ -29,5 +29,5 @@ defineProps<{
   max?: number;
 }>();
 
-const input = defineModel<string>('input');
+const input = defineModel<string | Date | number>('input');
 </script>

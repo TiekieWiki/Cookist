@@ -10,7 +10,7 @@
           :placeholder="$t('addRecipePage.name')"
           :ariaLabel="$t('addRecipePage.ariaLabel.name')"
           type="text"
-          v-model="newRecipe.name"
+          v-model:input="newRecipe.name"
         />
         <label id="category"
           >{{ $t('addRecipePage.category') }}
@@ -33,7 +33,7 @@
           :label="$t('addRecipePage.lastEaten')"
           :ariaLabel="$t('addRecipePage.ariaLabel.lastEaten')"
           type="date"
-          v-model="newRecipe.lastEaten"
+          v-model:input="newRecipe.lastEaten"
         />
         <input-field
           id="duration"
@@ -43,7 +43,7 @@
           :ariaLabel="$t('addRecipePage.ariaLabel.duration')"
           type="number"
           :min="1"
-          v-model="newRecipe.duration"
+          v-model:input="newRecipe.duration"
         />
         <input-field
           id="portions"
@@ -53,7 +53,7 @@
           :ariaLabel="$t('addRecipePage.ariaLabel.portions')"
           type="number"
           :min="1"
-          v-model="newRecipe.portions"
+          v-model:input="newRecipe.portions"
         />
         <input-field
           id="rating"
@@ -64,9 +64,9 @@
           type="number"
           :min="0"
           :max="5"
-          v-model="newRecipe.rating"
+          v-model:input="newRecipe.rating"
         />
-        <import-picture
+        <upload-image
           id="picture"
           name="picture"
           :label="$t('addRecipePage.picture')"
@@ -138,7 +138,7 @@
           :label="$t('addRecipePage.notes')"
           :placeholder="$t('addRecipePage.notes')"
           :ariaLabel="$t('addRecipePage.ariaLabel.notes')"
-          v-model="newRecipe.notes"
+          v-model:input="newRecipe.notes"
         />
         <button id="save" type="submit">{{ $t('addRecipePage.save') }}</button>
       </form>
@@ -151,7 +151,7 @@ import { RecipeCategories, RecipeUnits, type Recipe } from '@/utils/types/recipe
 import { ref } from 'vue';
 import TextArea from '@/components/form/TextArea.vue';
 import InputField from '@/components/form/InputField.vue';
-import ImportPicture from '@/components/form/ImportPicture.vue';
+import UploadImage from '@/components/form/UploadImage.vue';
 
 const newRecipe = ref<Recipe>({
   id: '',

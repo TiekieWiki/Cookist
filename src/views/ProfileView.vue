@@ -3,13 +3,11 @@
     <article>
       <h2>{{ $t('profilePage.settings') }}</h2>
       <form>
-        <div class="select">
-          <select v-model="selectedLanguage" :aria-label="$t('profilePage.ariaLabel.language')">
-            <option v-for="language in languages" :value="language.value" :key="language.value">
-              {{ $t(language.label) }}
-            </option>
-          </select>
-        </div>
+        <select-field
+          :ariaLabel="$t('profilePage.ariaLabel.language')"
+          :items="languages"
+          v-model:selected="selectedLanguage"
+        />
         <transition name="fade">
           <p v-if="successMessage" class="success">{{ successMessage }}</p>
         </transition>
@@ -46,16 +44,17 @@ import { where } from 'firebase/firestore';
 import { ref, onMounted, watch } from 'vue';
 import { handleSignOut } from '@/utils/authentication';
 import InputField from '@/components/form/InputField.vue';
+import SelectField from '@/components/form/SelectField.vue';
 
 const auth = getAuth();
 
 // Set language dropdown to user language
-const selectedLanguage = ref<string>('system');
 const languages = [
   { value: 'system', label: 'profilePage.languages.system' },
   { value: 'en', label: 'profilePage.languages.english' },
   { value: 'nl', label: 'profilePage.languages.dutch' }
 ];
+const selectedLanguage = ref<{ value: string; label: string }>(languages[0]);
 
 // Get user from database and set dropdowns to user settings
 onMounted(async () => {
