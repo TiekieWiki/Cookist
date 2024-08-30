@@ -144,15 +144,14 @@
             </div>
           </div>
         </label>
-        <label id="notes"
-          >{{ $t('addRecipePage.notes') }}
-          <textarea
-            :placeholder="$t('addRecipePage.notes')"
-            v-model="newRecipe.notes"
-            name="notes"
-            :aria-label="$t('addRecipePage.ariaLabel.notes')"
-          />
-        </label>
+        <text-area
+          id="notes"
+          name="notes"
+          label="addRecipePage.notes"
+          placeholder="addRecipePage.notes"
+          ariaLabel="addRecipePage.ariaLabel.notes"
+          v-model="newRecipe.notes"
+        />
         <button id="save" type="submit">{{ $t('addRecipePage.save') }}</button>
       </form>
     </article>
@@ -162,6 +161,7 @@
 <script setup lang="ts">
 import { RecipeCategories, RecipeUnits, type Recipe } from '@/utils/types/recipe';
 import { ref } from 'vue';
+import TextArea from '@/components/form/TextArea.vue';
 
 const newRecipe = ref<Recipe>({
   id: '',
