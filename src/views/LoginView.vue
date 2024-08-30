@@ -3,21 +3,21 @@
     <article>
       <h2>{{ $t('loginPage.login') }}</h2>
       <form>
-        <input
-          type="text"
-          :placeholder="$t('loginPage.email')"
-          v-model="emailLogin"
+        <text-input
           name="emailLogin"
+          :placeholder="$t('loginPage.email')"
+          :ariaLabel="$t('loginPage.ariaLabel.emailLogin')"
+          type="text"
           autocomplete="email"
-          :aria-label="$t('loginPage.ariaLabel.emailLogin')"
+          v-model="emailLogin"
         />
-        <input
-          type="password"
-          :placeholder="$t('loginPage.password')"
-          v-model="passwordLogin"
+        <text-input
           name="passwordLogin"
+          :placeholder="$t('loginPage.password')"
+          :ariaLabel="$t('loginPage.ariaLabel.passwordLogin')"
+          type="password"
           autocomplete="current-password"
-          :aria-label="$t('loginPage.ariaLabel.passwordLogin')"
+          v-model="passwordLogin"
         />
         <p v-if="errorMessageLogin">
           {{ $t(errorMessageLogin) }}
@@ -33,21 +33,21 @@
     <article>
       <h2>{{ $t('loginPage.register') }}</h2>
       <form>
-        <input
-          type="text"
-          :placeholder="$t('loginPage.email')"
-          v-model="emailRegister"
+        <text-input
           name="emailRegister"
+          :placeholder="$t('loginPage.email')"
+          :ariaLabel="$t('loginPage.ariaLabel.emailRegister')"
+          type="email"
           autocomplete="email"
-          :aria-label="$t('loginPage.ariaLabel.emailRegister')"
+          v-model="emailRegister"
         />
-        <input
-          type="password"
-          :placeholder="$t('loginPage.password')"
-          v-model="passwordRegister"
+        <text-input
           name="passwordRegister"
+          :placeholder="$t('loginPage.password')"
+          :ariaLabel="$t('loginPage.ariaLabel.passwordRegister')"
+          type="password"
           autocomplete="new-password"
-          :aria-label="$t('loginPage.ariaLabel.passwordRegister')"
+          v-model="passwordRegister"
         />
         <p v-if="errorMessageRegister">
           {{ $t(errorMessageRegister) }}
@@ -67,6 +67,7 @@
 import { ref } from 'vue';
 import { signInWithGoogle } from '@/utils/authentication';
 import { useLogin, useRegister } from '@/composables/useAuthentication';
+import TextInput from '@/components/form/TextInput.vue';
 
 /** Register */
 const emailRegister = ref<string>('');

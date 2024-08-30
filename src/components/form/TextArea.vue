@@ -1,20 +1,15 @@
 <template>
   <label :id="id">
-    {{ $t(label) }}
-    <textarea
-      :name="name"
-      :placeholder="$t(placeholder)"
-      :aria-label="$t(ariaLabel)"
-      v-model="input"
-    />
+    {{ label }}
+    <textarea :name="name" :placeholder="placeholder" :aria-label="ariaLabel" v-model="input" />
   </label>
 </template>
 
 <script setup lang="ts">
 defineProps<{
-  id: string;
+  id?: string;
   name: string;
-  label: string;
+  label?: string;
   placeholder: string;
   ariaLabel: string;
 }>();

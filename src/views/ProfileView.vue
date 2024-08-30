@@ -21,13 +21,13 @@
     <article>
       <h2>{{ $t('profilePage.account') }}</h2>
       <form>
-        <input
-          :placeholder="auth.currentUser?.email ?? ''"
-          type="email"
-          disabled
+        <text-input
           name="profileEmail"
+          :placeholder="auth.currentUser?.email ?? ''"
+          :ariaLabel="$t('profilePage.ariaLabel.userEmail')"
+          type="email"
+          :disabled="true"
           autocomplete="email"
-          :aria-label="$t('profilePage.ariaLabel.userEmail')"
         />
         <button @click="handleSignOut" type="button">
           {{ $t('profilePage.logout') }}
@@ -45,6 +45,7 @@ import { getAuth } from 'firebase/auth';
 import { where } from 'firebase/firestore';
 import { ref, onMounted, watch } from 'vue';
 import { handleSignOut } from '@/utils/authentication';
+import TextInput from '@/components/form/TextInput.vue';
 
 const auth = getAuth();
 

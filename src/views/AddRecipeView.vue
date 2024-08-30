@@ -3,16 +3,15 @@
     <article>
       <h2>{{ $t('addRecipePage.title') }}</h2>
       <form>
-        <label id="name"
-          >{{ $t('addRecipePage.name') }}
-          <input
-            type="text"
-            :placeholder="$t('addRecipePage.name')"
-            v-model="newRecipe.name"
-            name="name"
-            :aria-label="$t('addRecipePage.ariaLabel.name')"
-          />
-        </label>
+        <TextInput
+          id="name"
+          name="name"
+          :label="$t('addRecipePage.name')"
+          :placeholder="$t('addRecipePage.name')"
+          :ariaLabel="$t('addRecipePage.ariaLabel.name')"
+          type="text"
+          v-model="newRecipe.name"
+        />
         <label id="category"
           >{{ $t('addRecipePage.category') }}
           <div class="select">
@@ -147,9 +146,9 @@
         <text-area
           id="notes"
           name="notes"
-          label="addRecipePage.notes"
-          placeholder="addRecipePage.notes"
-          ariaLabel="addRecipePage.ariaLabel.notes"
+          :label="$t('addRecipePage.notes')"
+          :placeholder="$t('addRecipePage.notes')"
+          :ariaLabel="$t('addRecipePage.ariaLabel.notes')"
           v-model="newRecipe.notes"
         />
         <button id="save" type="submit">{{ $t('addRecipePage.save') }}</button>
@@ -162,6 +161,7 @@
 import { RecipeCategories, RecipeUnits, type Recipe } from '@/utils/types/recipe';
 import { ref } from 'vue';
 import TextArea from '@/components/form/TextArea.vue';
+import TextInput from '@/components/form/TextInput.vue';
 
 const newRecipe = ref<Recipe>({
   id: '',
