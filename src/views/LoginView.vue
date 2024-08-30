@@ -19,9 +19,7 @@
           autocomplete="current-password"
           v-model:input="passwordLogin"
         />
-        <p v-if="errorMessageLogin">
-          {{ $t(errorMessageLogin) }}
-        </p>
+        <error-message v-model:message="errorMessageLogin" />
         <button @click.prevent="handleLogin" type="submit">
           {{ $t('loginPage.login') }}
         </button>
@@ -49,9 +47,7 @@
           autocomplete="new-password"
           v-model:input="passwordRegister"
         />
-        <p v-if="errorMessageRegister">
-          {{ $t(errorMessageRegister) }}
-        </p>
+        <error-message v-model:message="errorMessageRegister" />
         <button @click.prevent="handleRegister" type="submit">
           {{ $t('loginPage.register') }}
         </button>
@@ -67,6 +63,7 @@
 import { ref } from 'vue';
 import { signInWithGoogle } from '@/utils/authentication';
 import { useLogin, useRegister } from '@/composables/useAuthentication';
+import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import InputField from '@/components/form/InputField.vue';
 
 /** Register */

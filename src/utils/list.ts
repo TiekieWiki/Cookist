@@ -3,9 +3,13 @@
  * @param list List of ingredients or instructions
  * @param index Index of the current ingredient or instruction
  */
-export function addInputRow(list: Object[] | string[], index: number) {
+export function addInputRow(
+  list: (Object | string)[],
+  index: number,
+  emptyObject: Object | string
+) {
   if (index === list.length - 1 && list[index] !== '') {
-    list.push('');
+    list.push(emptyObject);
   }
 }
 

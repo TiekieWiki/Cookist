@@ -29,6 +29,7 @@ export enum RecipeCategories {
 }
 
 export enum RecipeUnits {
+  Piece = 'pc',
   Milliliters = 'ml',
   Deciliters = 'dl',
   Liters = 'l',

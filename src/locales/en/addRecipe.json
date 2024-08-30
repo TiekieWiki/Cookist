@@ -21,6 +21,7 @@
     "amount": "Amount",
     "unit": "Unit",
     "units": {
+      "pc": "piece",
       "ml": "ml",
       "dl": "dl",
       "l": "l",
@@ -42,6 +43,16 @@
     "lastEaten": "Last eaten",
     "notes": "Notes",
     "save": "Save",
+    "errors": {
+      "name": "Name is required",
+      "category": "Category is required",
+      "duration": "Duration is required",
+      "portions": "Portions is required",
+      "rating": "Rating is required",
+      "ingredients": "Ingredients is required",
+      "instructions": "Instructions is required",
+      "save": "Something went wrong. Please try again."
+    },
     "ariaLabel": {
       "name": "Name of the recipe",
       "category": "Category of the recipe",

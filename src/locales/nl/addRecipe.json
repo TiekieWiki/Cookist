@@ -21,6 +21,7 @@
     "amount": "Hoeveelheid",
     "unit": "Eenheid",
     "units": {
+      "pc": "stuk",
       "ml": "ml",
       "dl": "dl",
       "l": "l",
@@ -42,6 +43,16 @@
     "lastEaten": "Laatst gegeten",
     "notes": "Aantekeningen",
     "save": "Opslaan",
+    "errors": {
+      "name": "Naam is verplicht",
+      "category": "Categorie is verplicht",
+      "duration": "Duur is verplicht",
+      "portions": "Porties is verplicht",
+      "rating": "Beoordeling is verplicht",
+      "ingredients": "Ingredienten is verplicht",
+      "instructions": "Instructies is verplicht",
+      "save": "Er is iets misgegaan. Probeer het opnieuw."
+    },
     "ariaLabel": {
       "name": "Naam van het recept",
       "category": "Categorie van het recept",
