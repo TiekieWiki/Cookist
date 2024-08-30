@@ -17,6 +17,10 @@ form {
   gap: $gap-large;
 }
 
+label {
+  width: 100%;
+}
+
 input[type='text'],
 input[type='password'],
 input[type='search'],

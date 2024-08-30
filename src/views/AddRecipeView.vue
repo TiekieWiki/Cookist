@@ -67,65 +67,49 @@
           :placeholder="$t('addRecipePage.picture')"
           :ariaLabel="$t('addRecipePage.ariaLabel.picture')"
         />
-        <label id="ingredients"
-          >{{ $t('addRecipePage.ingredients') }}
-          <div class="list">
-            <div v-for="(ingredient, index) in newRecipe.ingredients" :key="index">
-              <input
-                type="number"
-                :placeholder="$t('addRecipePage.amount')"
-                v-model="ingredient.amount"
-                name="amount"
-                :aria-label="$t('addRecipePage.ariaLabel.amount')"
-              />
-              <div class="select">
-                <select
-                  v-model="ingredient.unit"
-                  name="unit"
-                  :aria-label="$t('addRecipePage.ariaLabel.unit')"
-                >
-                  <option value="" disabled>{{ $t('addRecipePage.unit') }}</option>
-                  <option v-for="unit in RecipeUnits" :key="unit" :value="unit">
-                    {{ unit }}
-                  </option>
-                </select>
-              </div>
-              <input
-                type="text"
-                :placeholder="$t('addRecipePage.ingredient')"
-                v-model="ingredient.name"
-                name="ingredient"
-                :aria-label="$t('addRecipePage.ariaLabel.ingredient')"
-                @input="addInputRow(newRecipe.ingredients, index)"
-              />
-              <button @click="deleteRow(newRecipe.ingredients, index)" class="delete" type="button">
-                <font-awesome-icon :icon="['fas', 'trash-can']" />
-              </button>
-            </div>
-          </div>
-        </label>
-        <label id="instructions"
-          >{{ $t('addRecipePage.instructions') }}
-          <div class="list">
-            <div v-for="(instruction, index) in newRecipe.instructions" :key="index">
-              <input
-                type="text"
-                :placeholder="$t('addRecipePage.instruction')"
-                v-model="newRecipe.instructions[index]"
-                name="instruction"
-                :aria-label="$t('addRecipePage.ariaLabel.instruction')"
-                @input="addInputRow(newRecipe.instructions, index)"
-              />
-              <button
-                @click="deleteRow(newRecipe.instructions, index)"
-                class="delete"
-                type="button"
-              >
-                <font-awesome-icon :icon="['fas', 'trash-can']" />
-              </button>
-            </div>
-          </div>
-        </label>
+        <input-list
+          id="ingredients"
+          :label="$t('addRecipePage.ingredients')"
+          v-model:items="newRecipe.ingredients"
+          v-slot="{ index }"
+        >
+          <input-field
+            :name="'amount ' + index"
+            :placeholder="$t('addRecipePage.amount')"
+            :ariaLabel="$t('addRecipePage.ariaLabel.amount')"
+            type="number"
+            v-model:input="newRecipe.ingredients[index].amount"
+          />
+          <select-field
+            :ariaLabel="$t('addRecipePage.ariaLabel.unit')"
+            :placeholder="$t('addRecipePage.unit')"
+            :items="Object.values(RecipeUnits).map((unit) => unit.toLocaleLowerCase())"
+            labelPrefix="addRecipePage.units."
+            v-model:selected="newRecipe.ingredients[index].unit"
+          />
+          <input-field
+            :name="'ingredient ' + index"
+            :placeholder="$t('addRecipePage.ingredient')"
+            :ariaLabel="$t('addRecipePage.ariaLabel.ingredient')"
+            type="text"
+            v-model:input="newRecipe.ingredients[index].name"
+          />
+        </input-list>
+        <input-list
+          id="instructions"
+          :label="$t('addRecipePage.instructions')"
+          v-model:items="newRecipe.instructions"
+          v-slot="{ index }"
+        >
+          <input-field
+            :name="'instruction ' + index"
+            :placeholder="$t('addRecipePage.instruction')"
+            :ariaLabel="$t('addRecipePage.ariaLabel.instruction')"
+            type="text"
+            v-model:input="newRecipe.instructions[index]"
+            @input="addInputRow(newRecipe.instructions, index)"
+          />
+        </input-list>
         <text-area
           id="notes"
           name="notes"
@@ -143,9 +127,11 @@
 <script setup lang="ts">
 import { RecipeCategories, RecipeUnits, type Recipe } from '@/utils/types/recipe';
 import { ref } from 'vue';
-import TextArea from '@/components/form/TextArea.vue';
+import { addInputRow, deleteRow } from '@/utils/list';
 import InputField from '@/components/form/InputField.vue';
+import InputList from '@/components/form/InputList.vue';
 import SelectField from '@/components/form/SelectField.vue';
+import TextArea from '@/components/form/TextArea.vue';
 import UploadImage from '@/components/form/UploadImage.vue';
 
 const newRecipe = ref<Recipe>({
@@ -161,27 +147,4 @@ const newRecipe = ref<Recipe>({
   lastEaten: undefined,
   notes: ''
 });
-
-// Add or delete input rows
-/**
- * Add an input row to the list of ingredients or instructions
- * @param list List of ingredients or instructions
- * @param index Index of the current ingredient or instruction
- */
-function addInputRow(list: Object[] | string[], index: number) {
-  if (index === list.length - 1 && list[index] !== '') {
-    list.push('');
-  }
-}
-
-/**
- * Delete an input row from the list of ingredients or instructions
- * @param list List of ingredients or instructions
- * @param index Index of the current ingredient or instruction
- */
-function deleteRow(list: Object[] | string[], index: number) {
-  if (list.length > 1) {
-    list.splice(index, 1);
-  }
-}
 </script>
