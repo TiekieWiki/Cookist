@@ -62,7 +62,7 @@
 <script setup lang="ts">
 import { RouterView, useRoute } from 'vue-router';
 import { useIsLoggedIn } from './composables/useAuthentication';
-import { ref, watch } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 
 const isLoggedIn = useIsLoggedIn();
 const menuOpen = ref<boolean>(false);
@@ -75,4 +75,43 @@ watch(
     menuOpen.value = false;
   }
 );
+
+// Close menu
+onMounted(() => {
+  // Close menu when the window is resized
+  window.addEventListener('resize', () => {
+    menuOpen.value = false;
+  });
+
+  // Close menu when escape is pressed
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      menuOpen.value = false;
+    }
+  });
+
+  // Close menu when clicked outside of the menu
+  window.addEventListener('click', (event) => {
+    if (menuOpen.value && !(event.target as HTMLElement).closest('aside')) {
+      menuOpen.value = false;
+    }
+  });
+});
+
+// Remove event listeners when the component is unmounted
+onUnmounted(() => {
+  window.removeEventListener('resize', () => {
+    menuOpen.value = false;
+  });
+  window.removeEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      menuOpen.value = false;
+    }
+  });
+  window.removeEventListener('click', (event) => {
+    if (menuOpen.value && !(event.target as HTMLElement).closest('aside')) {
+      menuOpen.value = false;
+    }
+  });
+});
 </script>
