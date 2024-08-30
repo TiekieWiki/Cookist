@@ -8,6 +8,8 @@
       :type="type"
       :disabled="disabled"
       :autocomplete="autocomplete"
+      :min="min"
+      :max="max"
       v-model="input"
     />
   </label>
@@ -18,11 +20,13 @@ defineProps<{
   id?: string;
   name: string;
   label?: string;
-  placeholder: string;
+  placeholder?: string;
   ariaLabel: string;
   type: string;
   disabled?: boolean;
   autocomplete?: string;
+  min?: number;
+  max?: number;
 }>();
 
 const input = defineModel<string>('input');

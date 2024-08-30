@@ -3,7 +3,7 @@
     <article>
       <h2>{{ $t('loginPage.login') }}</h2>
       <form>
-        <text-input
+        <input-field
           name="emailLogin"
           :placeholder="$t('loginPage.email')"
           :ariaLabel="$t('loginPage.ariaLabel.emailLogin')"
@@ -11,7 +11,7 @@
           autocomplete="email"
           v-model="emailLogin"
         />
-        <text-input
+        <input-field
           name="passwordLogin"
           :placeholder="$t('loginPage.password')"
           :ariaLabel="$t('loginPage.ariaLabel.passwordLogin')"
@@ -33,7 +33,7 @@
     <article>
       <h2>{{ $t('loginPage.register') }}</h2>
       <form>
-        <text-input
+        <input-field
           name="emailRegister"
           :placeholder="$t('loginPage.email')"
           :ariaLabel="$t('loginPage.ariaLabel.emailRegister')"
@@ -41,7 +41,7 @@
           autocomplete="email"
           v-model="emailRegister"
         />
-        <text-input
+        <input-field
           name="passwordRegister"
           :placeholder="$t('loginPage.password')"
           :ariaLabel="$t('loginPage.ariaLabel.passwordRegister')"
@@ -67,7 +67,7 @@
 import { ref } from 'vue';
 import { signInWithGoogle } from '@/utils/authentication';
 import { useLogin, useRegister } from '@/composables/useAuthentication';
-import TextInput from '@/components/form/TextInput.vue';
+import InputField from '@/components/form/InputField.vue';
 
 /** Register */
 const emailRegister = ref<string>('');

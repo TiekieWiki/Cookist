@@ -21,7 +21,7 @@
     <article>
       <h2>{{ $t('profilePage.account') }}</h2>
       <form>
-        <text-input
+        <input-field
           name="profileEmail"
           :placeholder="auth.currentUser?.email ?? ''"
           :ariaLabel="$t('profilePage.ariaLabel.userEmail')"
@@ -45,7 +45,7 @@ import { getAuth } from 'firebase/auth';
 import { where } from 'firebase/firestore';
 import { ref, onMounted, watch } from 'vue';
 import { handleSignOut } from '@/utils/authentication';
-import TextInput from '@/components/form/TextInput.vue';
+import InputField from '@/components/form/InputField.vue';
 
 const auth = getAuth();
 

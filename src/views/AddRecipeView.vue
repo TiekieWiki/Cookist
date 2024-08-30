@@ -3,7 +3,7 @@
     <article>
       <h2>{{ $t('addRecipePage.title') }}</h2>
       <form>
-        <TextInput
+        <input-field
           id="name"
           name="name"
           :label="$t('addRecipePage.name')"
@@ -27,49 +27,45 @@
             </select>
           </div>
         </label>
-        <label id="lastEaten"
-          >{{ $t('addRecipePage.lastEaten') }}
-          <input
-            type="date"
-            v-model="newRecipe.lastEaten"
-            name="lastEaten"
-            :aria-label="$t('addRecipePage.ariaLabel.lastEaten')"
-          />
-        </label>
-        <label id="duration"
-          >{{ $t('addRecipePage.duration') }}
-          <input
-            type="number"
-            min="1"
-            :placeholder="$t('addRecipePage.duration')"
-            v-model="newRecipe.duration"
-            name="duration"
-            :aria-label="$t('addRecipePage.ariaLabel.duration')"
-          />
-        </label>
-        <label id="portions"
-          >{{ $t('addRecipePage.portions') }}
-          <input
-            type="number"
-            min="1"
-            :placeholder="$t('addRecipePage.portions')"
-            v-model="newRecipe.portions"
-            name="portions"
-            :aria-label="$t('addRecipePage.ariaLabel.portions')"
-          />
-        </label>
-        <label id="rating"
-          >{{ $t('addRecipePage.rating') }}
-          <input
-            type="number"
-            min="0"
-            max="5"
-            :placeholder="$t('addRecipePage.rating')"
-            v-model="newRecipe.rating"
-            name="rating"
-            :aria-label="$t('addRecipePage.ariaLabel.rating')"
-          />
-        </label>
+        <input-field
+          id="lastEaten"
+          name="lastEaten"
+          :label="$t('addRecipePage.lastEaten')"
+          :ariaLabel="$t('addRecipePage.ariaLabel.lastEaten')"
+          type="date"
+          v-model="newRecipe.lastEaten"
+        />
+        <input-field
+          id="duration"
+          name="duration"
+          :label="$t('addRecipePage.duration')"
+          :placeholder="$t('addRecipePage.duration')"
+          :ariaLabel="$t('addRecipePage.ariaLabel.duration')"
+          type="number"
+          :min="1"
+          v-model="newRecipe.duration"
+        />
+        <input-field
+          id="portions"
+          name="portions"
+          :label="$t('addRecipePage.portions')"
+          :placeholder="$t('addRecipePage.portions')"
+          :ariaLabel="$t('addRecipePage.ariaLabel.portions')"
+          type="number"
+          :min="1"
+          v-model="newRecipe.portions"
+        />
+        <input-field
+          id="rating"
+          name="rating"
+          :label="$t('addRecipePage.rating')"
+          :placeholder="$t('addRecipePage.rating')"
+          :ariaLabel="$t('addRecipePage.ariaLabel.rating')"
+          type="number"
+          :min="0"
+          :max="5"
+          v-model="newRecipe.rating"
+        />
         <label id="picture"
           >{{ $t('addRecipePage.picture') }}
           <div>
@@ -161,7 +157,7 @@
 import { RecipeCategories, RecipeUnits, type Recipe } from '@/utils/types/recipe';
 import { ref } from 'vue';
 import TextArea from '@/components/form/TextArea.vue';
-import TextInput from '@/components/form/TextInput.vue';
+import InputField from '@/components/form/InputField.vue';
 
 const newRecipe = ref<Recipe>({
   id: '',
