@@ -21,9 +21,9 @@ import { type Recipe } from '@/utils/types/recipe';
 import { ref } from 'vue';
 import i18n from '@/i18n';
 import { addData } from '@/utils/db';
-import { uploadImage } from '@/utils/newRecipe/uploadImage';
+import { uploadImage } from '@/utils/newRecipe/manageImage';
 import { validateRecipe } from '@/utils/newRecipe/validateRecipe';
-import NewRecipe from '@/components/form/NewRecipe.vue';
+import NewRecipe from '@/components/NewRecipe.vue';
 
 const recipe = ref<Recipe>({
   id: '',

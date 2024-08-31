@@ -67,6 +67,7 @@
     :label="$t('addRecipePage.image')"
     :placeholder="$t('addRecipePage.image')"
     :ariaLabel="$t('addRecipePage.ariaLabel.image')"
+    :oldImage="recipe.image"
     @image="(i: File | null) => (image = i)"
   />
   <input-list

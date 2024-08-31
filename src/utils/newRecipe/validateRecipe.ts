@@ -1,7 +1,7 @@
 import i18n from '@/i18n';
 import type { Recipe } from '../types/recipe';
 
-export function validateRecipe(recipe: Recipe) {
+export function validateRecipe(recipe: Recipe): string {
   if (recipe.name === '') {
     return i18n.global.t('addRecipePage.errors.name');
   } else if (recipe.category === '') {

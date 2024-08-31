@@ -1,7 +1,7 @@
 <template>
   <main class="addRecipe">
     <article>
-      <h2>{{ $t('addRecipePage.title') }}</h2>
+      <h2>{{ $t('editRecipePage.title') }}</h2>
       <form>
         <new-recipe
           v-model:recipe="recipe"
@@ -17,14 +17,18 @@
 </template>
 
 <script setup lang="ts">
-import { type Recipe } from '@/utils/types/recipe';
-import { ref } from 'vue';
+import NewRecipe from '@/components/NewRecipe.vue';
 import i18n from '@/i18n';
-import { addData } from '@/utils/db';
-import { uploadImage } from '@/utils/newRecipe/uploadImage';
+import { getData, updateData } from '@/utils/db';
+import { deleteImage, uploadImage } from '@/utils/newRecipe/manageImage';
 import { validateRecipe } from '@/utils/newRecipe/validateRecipe';
-import NewRecipe from '@/components/form/NewRecipe.vue';
+import type { Recipe } from '@/utils/types/recipe';
+import { where } from 'firebase/firestore';
+import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
+// Get the recipe from the database
+const route = useRoute();
 const recipe = ref<Recipe>({
   id: '',
   name: '',
@@ -38,7 +42,21 @@ const recipe = ref<Recipe>({
   lastEaten: undefined,
   notes: ''
 });
+const oldImage = ref<string>('');
 
+watch(
+  () => route.params.id,
+  async (id) => {
+    const recipes = await getData('recipes', where('id', '==', id));
+    if (recipes.length > 0) {
+      recipe.value = recipes[0] as Recipe;
+      oldImage.value = recipe.value.image;
+    }
+  },
+  { immediate: true }
+);
+
+// Set the image to the recipe image
 const image = ref<File | null>(null);
 
 const errorMessage = ref<string>('');
@@ -50,9 +68,6 @@ async function saveRecipe() {
   errorMessage.value = validateRecipe(recipe.value);
   if (errorMessage.value === '') {
     // Clean up the recipe
-    recipe.value.id = crypto.randomUUID();
-    recipe.value.image = image.value ? image.value.name : '';
-    recipe.value.lastEaten = new Date();
     recipe.value.ingredients = recipe.value.ingredients.filter(
       (ingredient) => ingredient.amount !== 0 && ingredient.unit !== '' && ingredient.name !== ''
     );
@@ -62,11 +77,12 @@ async function saveRecipe() {
 
     // Save the recipe
     try {
-      await addData('recipes', recipe.value);
+      await updateData('recipes', where('id', '==', recipe.value.id), recipe.value);
 
       //Save image
-      if (image.value) {
+      if (image.value && image.value.name !== oldImage.value) {
         uploadImage(image.value);
+        deleteImage(oldImage.value);
       }
     } catch (error) {
       errorMessage.value = i18n.global.t('addRecipePage.errors.save');

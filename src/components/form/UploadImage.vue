@@ -11,21 +11,25 @@
         accept="image/*"
         @change="showImagePreview"
       />
-      <img :src="previewImage" />
+      <Transition name="fade">
+        <img :src="previewImage" v-if="previewImage" />
+      </Transition>
     </div>
   </label>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { getImage } from '@/utils/newRecipe/manageImage';
+import { ref, watch } from 'vue';
 
-defineProps<{
+const props = defineProps<{
   id?: string;
   name: string;
   label?: string;
   placeholder?: string;
   ariaLabel: string;
   disabled?: boolean;
+  oldImage?: string;
 }>();
 
 const emit = defineEmits(['image']);
@@ -48,4 +52,17 @@ function showImagePreview(event: Event) {
     };
   }
 }
+
+// Set preview image to the image prop
+watch(
+  () => props.oldImage,
+  (newImage) => {
+    if (newImage) {
+      getImage(newImage).then((url) => {
+        previewImage.value = url;
+      });
+    }
+  },
+  { immediate: true }
+);
 </script>

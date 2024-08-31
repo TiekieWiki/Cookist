@@ -7,7 +7,7 @@ export function addInputRow(
   list: (Object | string)[],
   index: number,
   emptyObject: Object | string
-) {
+): void {
   if (index === list.length - 1 && list[index] !== '') {
     list.push(emptyObject);
   }
@@ -18,7 +18,7 @@ export function addInputRow(
  * @param list List of ingredients or instructions
  * @param index Index of the current ingredient or instruction
  */
-export function deleteRow(list: Object[] | string[], index: number) {
+export function deleteRow(list: Object[] | string[], index: number): void {
   if (list.length > 1) {
     list.splice(index, 1);
   }
