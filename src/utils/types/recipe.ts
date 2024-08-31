@@ -5,7 +5,7 @@ export interface Recipe {
   duration: number | undefined;
   portions: number | undefined;
   rating: number | undefined;
-  picture: string;
+  image: string;
   ingredients: Ingredient[];
   instructions: string[];
   lastEaten: Date | undefined;

@@ -28,6 +28,14 @@ const routes = [
     }
   },
   {
+    path: '/edit-recipe/:id',
+    name: i18n.global.t('editRecipePage.title'),
+    component: () => import('../views/EditRecipeView.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
     path: '/profile',
     name: i18n.global.t('profilePage.title'),
     component: () => import('../views/ProfileView.vue'),

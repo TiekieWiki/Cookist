@@ -32,7 +32,7 @@
         grid-column: 5/7;
       }
 
-      #picture {
+      #image {
         grid-column: 1/7;
 
         & > div {
@@ -93,7 +93,7 @@
         #duration,
         #portions,
         #rating,
-        #picture,
+        #image,
         #ingredients,
         #instructions,
         #notes,
@@ -101,7 +101,7 @@
           grid-column: 1/2;
         }
 
-        #picture {
+        #image {
           & > div {
             grid-template-columns: 1fr;
           }

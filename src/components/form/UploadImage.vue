@@ -9,7 +9,7 @@
         type="file"
         :disabled="disabled"
         accept="image/*"
-        @change="uploadImage"
+        @change="showImagePreview"
       />
       <img :src="previewImage" />
     </div>
@@ -28,16 +28,19 @@ defineProps<{
   disabled?: boolean;
 }>();
 
+const emit = defineEmits(['image']);
+
 const previewImage = ref('');
 
 /**
- * Upload image
+ * Show image
  * @param event Upload event
  */
-function uploadImage(event: Event) {
+function showImagePreview(event: Event) {
   const target = event.target as HTMLInputElement;
   if (target.files) {
     const image = target.files[0];
+    emit('image', image);
     const reader = new FileReader();
     reader.readAsDataURL(image);
     reader.onload = () => {

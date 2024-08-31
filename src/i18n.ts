@@ -14,7 +14,16 @@ async function loadLocaleMessages(): Promise<{ [x: string]: LocaleMessages<VueMe
     messages[locale] = messages[locale] || {};
 
     // List of files for each locale
-    const files = ['all', 'home', 'recipes', 'addRecipe', 'profile', 'login', 'notFound'];
+    const files = [
+      'all',
+      'home',
+      'recipes',
+      'addRecipe',
+      'editRecipe',
+      'profile',
+      'login',
+      'notFound'
+    ];
 
     // Dynamically import each JSON file
     for (const file of files) {

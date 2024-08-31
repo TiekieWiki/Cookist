@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { deleteRow } from '@/utils/list';
+import { deleteRow } from '@/utils/newRecipe/list';
 
 defineProps<{
   id?: string;
