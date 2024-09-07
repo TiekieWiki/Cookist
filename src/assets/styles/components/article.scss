@@ -16,7 +16,8 @@ main {
   }
 
   article {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: $gap-large;
     padding: $gap-large;
     background-color: $color-background;

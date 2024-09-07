@@ -47,10 +47,14 @@ const oldImage = ref<string>('');
 watch(
   () => route.params.id,
   async (id) => {
-    const recipes = await getData('recipes', where('id', '==', id));
-    if (recipes.length > 0) {
-      recipe.value = recipes[0] as Recipe;
-      oldImage.value = recipe.value.image;
+    try {
+      const recipes = await getData('recipes', where('id', '==', id));
+      if (recipes.length > 0) {
+        recipe.value = recipes[0] as Recipe;
+        oldImage.value = recipe.value.image;
+      }
+    } catch (error) {
+      console.error(error);
     }
   },
   { immediate: true }
@@ -74,6 +78,9 @@ async function saveRecipe() {
     recipe.value.instructions = recipe.value.instructions.filter(
       (instruction) => instruction !== ''
     );
+    if (image.value && image.value.name !== oldImage.value) {
+      recipe.value.image = image.value.name;
+    }
 
     // Save the recipe
     try {
