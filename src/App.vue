@@ -63,10 +63,33 @@
 import { RouterView, useRoute } from 'vue-router';
 import { useIsLoggedIn } from './composables/useAuthentication';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { getData } from './utils/db';
+import { where } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import type { User } from './utils/types/user';
+import { useSetSystemLanguage, useSetUserLanguage } from './composables/useI18n';
 
 const isLoggedIn = useIsLoggedIn();
+const user = ref<User | undefined>(undefined);
 const menuOpen = ref<boolean>(false);
 const route = useRoute();
+
+// Set user language
+watch(isLoggedIn, async () => {
+  if (isLoggedIn.value) {
+    try {
+      const users = await getData('users', where('id', '==', getAuth().currentUser?.uid));
+      if (users.length > 0) {
+        user.value = users[0] as User;
+        useSetUserLanguage(user.value?.language);
+      }
+    } catch (error: any) {
+      alert(error.message);
+    }
+  } else {
+    useSetSystemLanguage();
+  }
+});
 
 // Reset menuOpen when the route changes
 watch(
