@@ -16,7 +16,12 @@
       :ariaLabel="$t('addRecipePage.ariaLabel.category')"
       :placeholder="$t('addRecipePage.category')"
       :required="true"
-      :items="Object.values(RecipeCategories).map((category) => category.toLocaleLowerCase())"
+      :items="
+        Object.values(RecipeCategories).map((category) => ({
+          value: category.toLocaleLowerCase(),
+          label: category.toLocaleLowerCase()
+        }))
+      "
       labelPrefix="addRecipePage.categories."
       v-model:selected="recipe.category"
     />
@@ -78,7 +83,12 @@
       <select-field
         :ariaLabel="$t('addRecipePage.ariaLabel.unit')"
         :placeholder="$t('addRecipePage.unit')"
-        :items="Object.values(RecipeUnits).map((unit) => unit.toLocaleLowerCase())"
+        :items="
+          Object.values(RecipeUnits).map((unit) => ({
+            value: unit.toLocaleLowerCase(),
+            label: unit.toLocaleLowerCase()
+          }))
+        "
         labelPrefix="addRecipePage.units."
         v-model:selected="recipe.ingredients[index].unit"
       />

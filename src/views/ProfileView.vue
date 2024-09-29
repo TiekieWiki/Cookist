@@ -50,7 +50,11 @@ import SelectField from '@/components/form/SelectField.vue';
 const auth = getAuth();
 
 // Set language dropdown to user language
-const languages = ['system', 'english', 'dutch'];
+const languages = [
+  { value: 'system', label: 'system' },
+  { value: 'en', label: 'english' },
+  { value: 'nl', label: 'dutch' }
+];
 const selectedLanguage = ref<string>();
 
 // Get user from database and set dropdowns to user settings

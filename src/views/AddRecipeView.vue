@@ -68,6 +68,23 @@ async function saveRecipe() {
       if (image.value) {
         uploadImage(image.value);
       }
+
+      // Reset the form
+      recipe.value = {
+        id: '',
+        name: '',
+        category: '',
+        duration: undefined,
+        portions: undefined,
+        rating: undefined,
+        image: '',
+        ingredients: [{ amount: 0, unit: '', name: '' }],
+        instructions: [''],
+        lastEaten: undefined,
+        notes: ''
+      };
+      image.value = null;
+      errorMessage.value = '';
     } catch (error) {
       errorMessage.value = i18n.global.t('addRecipePage.errors.save');
     }

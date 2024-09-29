@@ -4,8 +4,8 @@
     <div class="select" :required="required">
       <select v-model="selected" :aria-label="ariaLabel" :disabled="disabled">
         <option v-if="placeholder" value="" disabled>{{ placeholder }}</option>
-        <option v-for="item in items" :value="item" :key="item">
-          {{ $t(labelPrefix + item) }}
+        <option v-for="item in items" :value="item.value" :key="item.value">
+          {{ $t(labelPrefix + item.label) }}
         </option>
       </select>
     </div>
@@ -20,7 +20,7 @@ defineProps<{
   disabled?: boolean;
   placeholder?: string;
   required?: boolean;
-  items: string[];
+  items: { value: string; label: string }[];
   labelPrefix: string;
 }>();
 
