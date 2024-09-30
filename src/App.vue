@@ -21,29 +21,20 @@
         />
       </transition>
       <transition name="slide-fade">
-        <router-link v-if="menuOpen" :to="{ name: $t('homePage.title') }" tabindex="0">{{
-          $t('homePage.title')
-        }}</router-link>
+        <router-link v-if="menuOpen" to="/" tabindex="0">{{ $t('homePage.title') }}</router-link>
       </transition>
       <transition name="slide-fade">
-        <router-link v-if="menuOpen" :to="{ name: $t('recipesPage.title') }" tabindex="0">{{
+        <router-link v-if="menuOpen" to="/recipes" tabindex="0">{{
           $t('recipesPage.title')
         }}</router-link>
       </transition>
       <transition name="slide-fade">
-        <router-link
-          :to="{ name: $t('loginPage.title') }"
-          v-if="menuOpen && !isLoggedIn"
-          tabindex="0"
-          >{{ $t('loginPage.title') }}</router-link
-        >
+        <router-link to="/login" v-if="menuOpen && !isLoggedIn" tabindex="0">{{
+          $t('loginPage.title')
+        }}</router-link>
       </transition>
       <transition name="slide-fade">
-        <router-link
-          :to="{ name: $t('profilePage.title') }"
-          v-if="menuOpen && isLoggedIn"
-          tabindex="0"
-        >
+        <router-link to="/profile" v-if="menuOpen && isLoggedIn" tabindex="0">
           {{ $t('profilePage.title') }}
         </router-link>
       </transition>
@@ -52,9 +43,7 @@
       <img src="/src/assets/images/Banner.jpg" :alt="$t('alt.banner')" />
     </div>
     <transition name="slide-fade">
-      <router-link v-if="menuOpen" :to="{ name: $t('homePage.title') }" class="brand"
-        >Cookist</router-link
-      >
+      <router-link v-if="menuOpen" to="\" class="brand">Cookist</router-link>
     </transition>
   </aside>
 </template>
