@@ -1,7 +1,26 @@
 <template>
   <main class="recipes">
-    <article>
+    <article class="header">
       <h2>{{ $t('recipesPage.title') }}</h2>
+      <div class="filters">
+        <button @click="openFilter = !openFilter" type="button">
+          <font-awesome-icon :icon="['fas', 'filter']" />{{ $t('recipesPage.filter') }}
+        </button>
+        <select-field
+          id="order"
+          :ariaLabel="$t('recipesPage.ariaLabel.order')"
+          :placeholder="$t('recipesPage.order')"
+          :required="false"
+          :items="
+            Object.values(OrderCategories).map((category) => ({
+              value: category,
+              label: category
+            }))
+          "
+          labelPrefix="recipesPage.orders."
+          v-model:selected="order"
+        />
+      </div>
     </article>
     <template v-for="recipe in recipes" :key="recipe.id">
       <article class="card" :id="recipe.id" @click="$router.push({ path: `/recipe/${recipe.id}` })">
@@ -34,6 +53,8 @@ import { getImage } from '@/utils/newRecipe/manageImage';
 import type { Recipe } from '@/utils/types/recipe';
 import { onMounted, ref } from 'vue';
 import { capitalizeFirstLetter } from '@/utils/text';
+import SelectField from '@/components/form/SelectField.vue';
+import { OrderCategories } from '@/utils/types/order';
 
 const recipes = ref<Recipe[]>([]);
 
@@ -65,4 +86,10 @@ function setImage(id: string, image: string) {
     }
   });
 }
+
+// Toggle filter
+const openFilter = ref<boolean>(false);
+
+// Order
+const order = ref<string>('');
 </script>

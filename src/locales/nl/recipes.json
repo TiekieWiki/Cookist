@@ -1,5 +1,18 @@
 {
   "recipesPage": {
-    "title": "Recepten"
+    "title": "Recepten",
+    "filter": "Filter",
+    "order": "Sorteer",
+    "orders": {
+      "lastEatenAsc": "Laatst gegeten (oud-nieuw)",
+      "lastEatenDsc": "Laatst gegeten (nieuw-oud)",
+      "ratingAsc": "Beoordeling (1-5)",
+      "ratingDsc": "Beoordeling (5-1)",
+      "nameAsc": "Naam (A-Z)",
+      "nameDsc": "Naam (Z-A)"
+    },
+    "ariaLabel": {
+      "order": "Recepten sorteren op"
+    }
   }
 }

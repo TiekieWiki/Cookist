@@ -2,6 +2,24 @@
 
 .recipes {
   article {
+    &.header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      .filters {
+        display: flex;
+        gap: $gap-small;
+        max-width: 50%;
+
+        button {
+          display: flex;
+          gap: $gap-small;
+          width: auto;
+        }
+      }
+    }
+
     &.card {
       @include zoom-on-hover($scale-small);
       @include outline-on-focus;
