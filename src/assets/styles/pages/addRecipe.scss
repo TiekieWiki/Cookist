@@ -10,19 +10,11 @@
         gap: $gap-medium;
       }
 
-      #ingredients {
-        .list > div {
-          display: flex;
-          gap: $gap-small;
+      .list {
+        display: grid;
+        gap: $gap-small;
 
-          button {
-            width: auto;
-          }
-        }
-      }
-
-      #instructions {
-        .list > div {
+        & > div {
           display: flex;
           gap: $gap-small;
 
