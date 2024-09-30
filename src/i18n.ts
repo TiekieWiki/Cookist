@@ -18,6 +18,7 @@ async function loadLocaleMessages(): Promise<{ [x: string]: LocaleMessages<VueMe
       'all',
       'home',
       'recipes',
+      'recipe',
       'addRecipe',
       'editRecipe',
       'profile',

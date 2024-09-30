@@ -1,6 +1,10 @@
+@import '../mixins/interactions.scss';
+
 .recipes {
   article {
     &.card {
+      @include zoom-on-hover($scale-small);
+      @include outline-on-focus;
       position: relative;
       background-repeat: no-repeat;
       background-size: cover;

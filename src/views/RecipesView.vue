@@ -4,7 +4,7 @@
       <h2>{{ $t('recipesPage.title') }}</h2>
     </article>
     <template v-for="recipe in recipes" :key="recipe.id">
-      <article class="card" :id="recipe.id">
+      <article class="card" :id="recipe.id" @click="$router.push({ path: `/recipe/${recipe.id}` })">
         <div class="title">
           <h3>{{ recipe.name }}</h3>
           <div>

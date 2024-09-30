@@ -20,6 +20,14 @@ const routes = [
     }
   },
   {
+    path: '/recipe/:id',
+    name: i18n.global.t('recipePage.title'),
+    component: () => import('../views/RecipeView.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
     path: '/add-recipe',
     name: i18n.global.t('addRecipePage.title'),
     component: () => import('../views/AddRecipeView.vue'),
