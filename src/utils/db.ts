@@ -31,8 +31,16 @@ export async function addData(table: string, data: any): Promise<void> {
  * @param tableQuery Firestore query constraint
  * @returns Firestore document data
  */
-export async function getData(table: string, tableQuery: QueryConstraint): Promise<DocumentData[]> {
-  const querySnapshot = await getDocs(query(collection(db, table), tableQuery));
+export async function getData(
+  table: string,
+  tableQuery?: QueryConstraint
+): Promise<DocumentData[]> {
+  let querySnapshot;
+  if (!tableQuery) {
+    querySnapshot = await getDocs(collection(db, table));
+  } else {
+    querySnapshot = await getDocs(query(collection(db, table), tableQuery));
+  }
 
   if (!querySnapshot.empty) {
     const data = querySnapshot.docs.map((doc) => doc.data());
