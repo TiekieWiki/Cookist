@@ -1,8 +1,8 @@
 export enum OrderCategories {
   lastEatenAsc = 'lastEatenAsc',
   lastEatenDsc = 'lastEatenDsc',
-  ratingAsc = 'ratingAsc',
   ratingDsc = 'ratingDsc',
+  ratingAsc = 'ratingAsc',
   nameAsc = 'nameAsc',
   nameDsc = 'nameDsc'
 }

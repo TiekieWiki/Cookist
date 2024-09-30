@@ -22,7 +22,7 @@
         />
       </div>
     </article>
-    <template v-for="recipe in recipes" :key="recipe.id">
+    <template v-for="recipe in orderedRecipes" :key="recipe.id">
       <article class="card" :id="recipe.id" @click="$router.push({ path: `/recipe/${recipe.id}` })">
         <div class="title">
           <h3>{{ recipe.name }}</h3>
@@ -51,7 +51,7 @@
 import { getData } from '@/utils/db';
 import { getImage } from '@/utils/newRecipe/manageImage';
 import type { Recipe } from '@/utils/types/recipe';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { capitalizeFirstLetter } from '@/utils/text';
 import SelectField from '@/components/form/SelectField.vue';
 import { OrderCategories } from '@/utils/types/order';
@@ -90,6 +90,32 @@ function setImage(id: string, image: string) {
 // Toggle filter
 const openFilter = ref<boolean>(false);
 
-// Order
-const order = ref<string>('');
+// Order recipes
+const order = ref<string>('lastEatenAsc');
+const orderedRecipes = computed<Recipe[]>(() => {
+  const tempRecipes = recipes.value;
+  return tempRecipes.sort((a: Recipe, b: Recipe) => {
+    if (order.value === 'lastEatenAsc') {
+      return (
+        (a.lastEaten != null ? a.lastEaten.valueOf() : 0) -
+        (b.lastEaten != null ? b.lastEaten.valueOf() : 0)
+      );
+    } else if (order.value === 'lastEatenDsc') {
+      return (
+        (b.lastEaten != null ? b.lastEaten.valueOf() : 0) -
+        (a.lastEaten != null ? a.lastEaten.valueOf() : 0)
+      );
+    } else if (order.value === 'ratingAsc') {
+      return (a.rating ?? 0) - (b.rating ?? 0);
+    } else if (order.value === 'ratingDsc') {
+      return (b.rating ?? 0) - (a.rating ?? 0);
+    } else if (order.value === 'nameAsc') {
+      return a.name.localeCompare(b.name);
+    } else if (order.value === 'nameDsc') {
+      return b.name.localeCompare(a.name);
+    } else {
+      return 0;
+    }
+  });
+});
 </script>
