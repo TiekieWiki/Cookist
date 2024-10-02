@@ -22,13 +22,13 @@
         />
       </div>
     </article>
-    <template v-for="recipe in orderedRecipes" :key="recipe.id">
+    <template v-for="recipe in recipes" :key="recipe.id">
       <article class="card" :id="recipe.id" @click="$router.push({ path: `/recipe/${recipe.id}` })">
         <div class="title">
           <h3>{{ recipe.name }}</h3>
           <div>
             <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
-            <font-awesome-icon v-for="n in 5 - recipe.rating" :icon="['far', 'star']" :key="n" />
+            <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
           </div>
         </div>
         <div class="info">
@@ -51,27 +51,53 @@
 import { getData } from '@/utils/db';
 import { getImage } from '@/utils/newRecipe/manageImage';
 import type { Recipe } from '@/utils/types/recipe';
-import { computed, onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { capitalizeFirstLetter } from '@/utils/text';
 import SelectField from '@/components/form/SelectField.vue';
 import { OrderCategories } from '@/utils/types/order';
+import { orderBy, QueryConstraint } from 'firebase/firestore';
 
 const recipes = ref<Recipe[]>([]);
+const order = ref<string>('lastEatenAsc');
 
-// Get the recipes from the database
-onMounted(async () => {
-  try {
-    const data = await getData('recipes');
-    recipes.value = data as Recipe[];
+// Get recipes
+watch(
+  order,
+  async () => {
+    try {
+      recipes.value = (await getData('recipes', getQuery())) as Recipe[];
+      recipes.value.forEach((recipe) => {
+        setImage(recipe.id, recipe.image);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  { immediate: true }
+);
 
-    // Set the image to the recipe
-    recipes.value.forEach((recipe) => {
-      setImage(recipe.id, recipe.image);
-    });
-  } catch (error) {
-    console.error(error);
+/**
+ * Get the query constraint for the recipes
+ * @returns QueryConstraint
+ */
+function getQuery(): QueryConstraint {
+  switch (order.value) {
+    case OrderCategories.lastEatenAsc:
+      return orderBy('lastEaten', 'asc');
+    case OrderCategories.lastEatenDesc:
+      return orderBy('lastEaten', 'desc');
+    case OrderCategories.ratingAsc:
+      return orderBy('rating', 'asc');
+    case OrderCategories.ratingDesc:
+      return orderBy('rating', 'desc');
+    case OrderCategories.nameAsc:
+      return orderBy('name', 'asc');
+    case OrderCategories.nameDesc:
+      return orderBy('name', 'desc');
+    default:
+      return orderBy('lastEaten', 'asc');
   }
-});
+}
 
 /**
  * Set the image to the recipe
@@ -89,33 +115,4 @@ function setImage(id: string, image: string) {
 
 // Toggle filter
 const openFilter = ref<boolean>(false);
-
-// Order recipes
-const order = ref<string>('lastEatenAsc');
-const orderedRecipes = computed<Recipe[]>(() => {
-  const tempRecipes = recipes.value;
-  return tempRecipes.sort((a: Recipe, b: Recipe) => {
-    if (order.value === 'lastEatenAsc') {
-      return (
-        (a.lastEaten != null ? a.lastEaten.valueOf() : 0) -
-        (b.lastEaten != null ? b.lastEaten.valueOf() : 0)
-      );
-    } else if (order.value === 'lastEatenDsc') {
-      return (
-        (b.lastEaten != null ? b.lastEaten.valueOf() : 0) -
-        (a.lastEaten != null ? a.lastEaten.valueOf() : 0)
-      );
-    } else if (order.value === 'ratingAsc') {
-      return (a.rating ?? 0) - (b.rating ?? 0);
-    } else if (order.value === 'ratingDsc') {
-      return (b.rating ?? 0) - (a.rating ?? 0);
-    } else if (order.value === 'nameAsc') {
-      return a.name.localeCompare(b.name);
-    } else if (order.value === 'nameDsc') {
-      return b.name.localeCompare(a.name);
-    } else {
-      return 0;
-    }
-  });
-});
 </script>

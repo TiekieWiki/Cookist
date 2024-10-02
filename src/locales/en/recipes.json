@@ -5,11 +5,11 @@
     "order": "Order",
     "orders": {
       "lastEatenAsc": "Last eaten (old-new)",
-      "lastEatenDsc": "Last eaten (new-old)",
+      "lastEatenDesc": "Last eaten (new-old)",
       "ratingAsc": "Rating (1-5)",
-      "ratingDsc": "Rating (5-1)",
+      "ratingDesc": "Rating (5-1)",
       "nameAsc": "Name (A-Z)",
-      "nameDsc": "Name (Z-A)"
+      "nameDesc": "Name (Z-A)"
     },
     "ariaLabel": {
       "order": "Order recipes by"
