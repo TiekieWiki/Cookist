@@ -2,7 +2,7 @@
   <main class="recipes">
     <article class="header">
       <h2>{{ $t('recipesPage.title') }}</h2>
-      <div class="filters">
+      <div class="sort">
         <button @click="openFilter = !openFilter" type="button">
           <font-awesome-icon :icon="['fas', 'filter']" />{{ $t('recipesPage.filter') }}
         </button>
@@ -40,6 +40,11 @@
             <font-awesome-icon :icon="['fas', 'utensils']" />
 
             {{ recipe.portions }}
+          </p>
+          |
+          <p>
+            <font-awesome-icon :icon="['far', 'calendar']" />
+            {{ recipe.lastEaten!.toDate().toLocaleDateString() }}
           </p>
         </div>
       </article>

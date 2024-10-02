@@ -24,6 +24,7 @@ import { addData } from '@/utils/db';
 import { uploadImage } from '@/utils/newRecipe/manageImage';
 import { validateRecipe } from '@/utils/newRecipe/validateRecipe';
 import NewRecipe from '@/components/NewRecipe.vue';
+import { Timestamp } from 'firebase/firestore';
 
 const recipe = ref<Recipe>({
   id: '',
@@ -52,7 +53,7 @@ async function saveRecipe() {
     // Clean up the recipe
     recipe.value.id = crypto.randomUUID();
     recipe.value.image = image.value ? image.value.name : '';
-    recipe.value.lastEaten = new Date();
+    recipe.value.lastEaten = Timestamp.fromDate(new Date());
     recipe.value.ingredients = recipe.value.ingredients.filter(
       (ingredient) => ingredient.amount !== 0 && ingredient.unit !== '' && ingredient.name !== ''
     );

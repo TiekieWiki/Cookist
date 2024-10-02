@@ -1,3 +1,5 @@
+import type { Timestamp } from 'firebase/firestore';
+
 export interface Recipe {
   id: string;
   name: string;
@@ -8,7 +10,7 @@ export interface Recipe {
   image: string;
   ingredients: Ingredient[];
   instructions: string[];
-  lastEaten: Date | undefined;
+  lastEaten: Timestamp | undefined;
   notes: string;
 }
 
