@@ -95,6 +95,10 @@ function getQuery(): QueryConstraint {
       return orderBy('rating', 'asc');
     case OrderCategories.ratingDesc:
       return orderBy('rating', 'desc');
+    case OrderCategories.durationAsc:
+      return orderBy('duration', 'asc');
+    case OrderCategories.durationDesc:
+      return orderBy('duration', 'desc');
     case OrderCategories.nameAsc:
       return orderBy('name', 'asc');
     case OrderCategories.nameDesc:

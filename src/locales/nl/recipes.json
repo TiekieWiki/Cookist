@@ -8,6 +8,8 @@
       "lastEatenDesc": "Laatst gegeten (nieuw-oud)",
       "ratingAsc": "Beoordeling (1-5)",
       "ratingDesc": "Beoordeling (5-1)",
+      "durationAsc": "Duur (kort-lang)",
+      "durationDesc": "Duur (lang-kort)",
       "nameAsc": "Naam (A-Z)",
       "nameDesc": "Naam (Z-A)"
     },

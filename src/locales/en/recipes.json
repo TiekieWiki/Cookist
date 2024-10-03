@@ -8,6 +8,8 @@
       "lastEatenDesc": "Last eaten (new-old)",
       "ratingAsc": "Rating (1-5)",
       "ratingDesc": "Rating (5-1)",
+      "durationAsc": "Duration (short-long)",
+      "durationDesc": "Duration (long-short)",
       "nameAsc": "Name (A-Z)",
       "nameDesc": "Name (Z-A)"
     },
