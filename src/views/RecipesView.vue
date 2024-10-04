@@ -1,26 +1,33 @@
 <template>
-  <main class="recipes">
-    <article class="header">
-      <h2>{{ $t('recipesPage.title') }}</h2>
-      <div class="sort">
-        <button @click="openFilter = !openFilter" type="button">
-          <font-awesome-icon :icon="['fas', 'filter']" />{{ $t('recipesPage.filter') }}
-        </button>
-        <select-field
-          id="order"
-          :ariaLabel="$t('recipesPage.ariaLabel.order')"
-          :placeholder="$t('recipesPage.order')"
-          :required="false"
-          :items="
-            Object.values(OrderCategories).map((category) => ({
-              value: category,
-              label: category
-            }))
-          "
-          labelPrefix="recipesPage.orders."
-          v-model:selected="order"
-        />
+  <main class="recipes two-columns">
+    <article>
+      <div class="header">
+        <h2>{{ $t('recipesPage.title') }}</h2>
+        <div class="sort">
+          <button @click="openFilter = !openFilter" type="button">
+            <font-awesome-icon :icon="['fas', 'filter']" />{{ $t('recipesPage.filter') }}
+          </button>
+          <select-field
+            id="order"
+            :ariaLabel="$t('recipesPage.ariaLabel.order')"
+            :placeholder="$t('recipesPage.order')"
+            :required="false"
+            :items="
+              Object.values(OrderCategories).map((category) => ({
+                value: category,
+                label: category
+              }))
+            "
+            labelPrefix="recipesPage.orders."
+            v-model:selected="order"
+          />
+        </div>
       </div>
+      <Transition name="fade">
+        <div v-if="openFilter" class="filters">
+          category checkboxes duration min max rating min max lastEaten min max ingredients list
+        </div>
+      </Transition>
     </article>
     <template v-for="recipe in recipes" :key="recipe.id">
       <article class="card" :id="recipe.id" @click="$router.push({ path: `/recipe/${recipe.id}` })">

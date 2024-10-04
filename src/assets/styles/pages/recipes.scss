@@ -2,10 +2,13 @@
 
 .recipes {
   article {
-    &.header {
-      flex-direction: row;
+    &:has(> .header) {
+      grid-column: 1 / -1;
+    }
+
+    .header {
+      display: flex;
       justify-content: space-between;
-      align-items: center;
 
       .sort {
         display: flex;
@@ -18,6 +21,10 @@
           width: auto;
         }
       }
+    }
+
+    .filters {
+      display: grid;
     }
 
     &.card {
