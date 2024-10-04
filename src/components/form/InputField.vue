@@ -17,6 +17,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Timestamp } from 'firebase/firestore';
+
 defineProps<{
   id?: string;
   name: string;
@@ -31,5 +33,5 @@ defineProps<{
   max?: number;
 }>();
 
-const input = defineModel<string | Date | number | undefined>('input');
+const input = defineModel<string | Timestamp | number | undefined>('input');
 </script>

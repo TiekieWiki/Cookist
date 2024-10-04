@@ -13,8 +13,20 @@
       "nameAsc": "Name (A-Z)",
       "nameDesc": "Name (Z-A)"
     },
+    "durationMin": "Minimum duration",
+    "durationMax": "Maximum duration",
+    "ratingMin": "Minimum rating",
+    "ratingMax": "Maximum rating",
+    "lastEatenMin": "Minimum last eaten",
+    "lastEatenMax": "Maximum last eaten",
     "ariaLabel": {
-      "order": "Order recipes by"
+      "order": "Order recipes by",
+      "durationMin": "Minimum duration of the recipe",
+      "durationMax": "Maximum duration of the recipe",
+      "ratingMin": "Minimum rating of the recipe",
+      "ratingMax": "Maximum rating of the recipe",
+      "lastEatenMin": "Minimum last eaten of the recipe",
+      "lastEatenMax": "Maximum last eaten of the recipe"
     }
   }
 }
