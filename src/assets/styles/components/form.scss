@@ -113,6 +113,51 @@ input::file-selector-button {
   cursor: pointer;
 }
 
+.label-group {
+  label {
+    display: grid;
+    grid-template-columns: $size-icon-small auto;
+    gap: $gap-small;
+
+    input[type='checkbox'] {
+      -webkit-appearance: none;
+      appearance: none;
+      display: grid;
+      place-content: center;
+      width: calc($size-icon-small + 0.2em);
+      height: calc($size-icon-small + 0.2em);
+      background-color: transparent;
+      color: $color-primary;
+      border: $border-medium solid $color-primary;
+      cursor: pointer;
+
+      @include zoom-on-hover($scale-medium);
+      @include outline-on-focus;
+
+      &::before {
+        content: '';
+        width: calc($size-icon-small - 0.3em);
+        height: calc($size-icon-small - 0.3em);
+        transform: scale(0);
+        transition: $speed-medium transform ease-in-out;
+        box-shadow: inset $size-icon-small $size-icon-small $color-primary;
+      }
+
+      &:checked::before {
+        transform: scale(1);
+      }
+    }
+
+    input[type='checkbox'] {
+      border-radius: $border-radius-small;
+    }
+
+    &:not(:first-child) {
+      margin-top: $gap-small;
+    }
+  }
+}
+
 .error {
   padding: $gap-xxsmall $gap-small;
   border-radius: $border-radius-medium;

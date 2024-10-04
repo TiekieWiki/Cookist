@@ -25,7 +25,15 @@
       </div>
       <Transition name="fade">
         <div v-if="openFilter" class="filters">
-          category checkboxes duration min max rating min max lastEaten min max ingredients list
+          <check-box-list
+            id="category"
+            :label="$t('addRecipePage.category')"
+            :items="filter.categories"
+          />
+          <div class="duration"></div>
+          <div class="rating"></div>
+          <div class="lastEaten"></div>
+          <div class="ingredients"></div>
         </div>
       </Transition>
     </article>
@@ -62,22 +70,35 @@
 <script setup lang="ts">
 import { getData } from '@/utils/db';
 import { getImage } from '@/utils/newRecipe/manageImage';
-import type { Recipe } from '@/utils/types/recipe';
+import { RecipeCategories, type Recipe } from '@/utils/types/recipe';
 import { ref, watch } from 'vue';
 import { capitalizeFirstLetter } from '@/utils/text';
 import SelectField from '@/components/form/SelectField.vue';
 import { OrderCategories } from '@/utils/types/order';
-import { orderBy, QueryConstraint } from 'firebase/firestore';
+import { getQuery } from '@/utils/recipes/queryRecipes';
+import CheckBoxList from '@/components/form/CheckBoxList.vue';
+import i18n from '@/i18n';
 
 const recipes = ref<Recipe[]>([]);
 const order = ref<string>('lastEatenAsc');
+const filter = ref({
+  categories: Object.values(RecipeCategories).map((category) => ({
+    id: category,
+    name: category,
+    label: i18n.global.t(`addRecipePage.categories.${category}`),
+    required: false,
+    disabled: false,
+    autocomplete: 'off',
+    checked: false
+  }))
+});
 
 // Get recipes
 watch(
   order,
   async () => {
     try {
-      recipes.value = (await getData('recipes', getQuery())) as Recipe[];
+      recipes.value = (await getData('recipes', getQuery(order.value))) as Recipe[];
       recipes.value.forEach((recipe) => {
         setImage(recipe.id, recipe.image);
       });
@@ -87,33 +108,6 @@ watch(
   },
   { immediate: true }
 );
-
-/**
- * Get the query constraint for the recipes
- * @returns QueryConstraint
- */
-function getQuery(): QueryConstraint {
-  switch (order.value) {
-    case OrderCategories.lastEatenAsc:
-      return orderBy('lastEaten', 'asc');
-    case OrderCategories.lastEatenDesc:
-      return orderBy('lastEaten', 'desc');
-    case OrderCategories.ratingAsc:
-      return orderBy('rating', 'asc');
-    case OrderCategories.ratingDesc:
-      return orderBy('rating', 'desc');
-    case OrderCategories.durationAsc:
-      return orderBy('duration', 'asc');
-    case OrderCategories.durationDesc:
-      return orderBy('duration', 'desc');
-    case OrderCategories.nameAsc:
-      return orderBy('name', 'asc');
-    case OrderCategories.nameDesc:
-      return orderBy('name', 'desc');
-    default:
-      return orderBy('lastEaten', 'asc');
-  }
-}
 
 /**
  * Set the image to the recipe
