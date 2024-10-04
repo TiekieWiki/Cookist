@@ -33,11 +33,13 @@ export async function addData(table: string, data: any): Promise<void> {
  */
 export async function getData(
   table: string,
-  tableQuery?: QueryConstraint
+  tableQuery?: QueryConstraint | QueryConstraint[]
 ): Promise<DocumentData[]> {
   let querySnapshot;
   if (!tableQuery) {
     querySnapshot = await getDocs(collection(db, table));
+  } else if (Array.isArray(tableQuery)) {
+    querySnapshot = await getDocs(query(collection(db, table), ...tableQuery));
   } else {
     querySnapshot = await getDocs(query(collection(db, table), tableQuery));
   }

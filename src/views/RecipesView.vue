@@ -24,94 +24,7 @@
         </div>
       </div>
       <Transition name="fade">
-        <div v-if="openFilter" class="filters">
-          <check-box-list
-            id="category"
-            :label="$t('addRecipePage.category')"
-            :items="filter.categories"
-          />
-          <div class="rangeFilters">
-            <div>
-              <input-field
-                id="durationMin"
-                name="durationMin"
-                :label="$t('recipesPage.durationMin')"
-                :ariaLabel="$t('recipesPage.ariaLabel.durationMin')"
-                type="number"
-                :min="0"
-                :max="10080"
-                v-model="filter.durationMin"
-              />
-              <input-field
-                id="durationMax"
-                name="durationMax"
-                :label="$t('recipesPage.durationMax')"
-                :ariaLabel="$t('recipesPage.ariaLabel.durationMax')"
-                type="number"
-                :min="0"
-                :max="10080"
-                v-model="filter.durationMax"
-              />
-            </div>
-            <div>
-              <input-field
-                id="ratingMin"
-                name="ratingMin"
-                :label="$t('recipesPage.ratingMin')"
-                :ariaLabel="$t('recipesPage.ariaLabel.ratingMin')"
-                type="number"
-                :min="0"
-                :max="5"
-                v-model="filter.ratingMin"
-              />
-              <input-field
-                id="ratingMax"
-                name="ratingMax"
-                :label="$t('recipesPage.ratingMax')"
-                :ariaLabel="$t('recipesPage.ariaLabel.ratingMax')"
-                type="number"
-                :min="0"
-                :max="5"
-                v-model="filter.ratingMax"
-              />
-            </div>
-            <div>
-              <input-field
-                id="lastEatenMin"
-                name="lastEatenMin"
-                :label="$t('recipesPage.lastEatenMin')"
-                :ariaLabel="$t('recipesPage.ariaLabel.lastEatenMin')"
-                type="date"
-                v-model:input="filter.lastEatenMin"
-              />
-              <input-field
-                id="lastEatenMax"
-                name="lastEatenMax"
-                :label="$t('recipesPage.lastEatenMax')"
-                :ariaLabel="$t('recipesPage.ariaLabel.lastEatenMax')"
-                type="date"
-                v-model:axput="filter.lastEatenMax"
-              />
-            </div>
-          </div>
-          <div class="ingredients">
-            <input-list
-              id="ingredients"
-              :label="$t('addRecipePage.ingredients')"
-              v-model:items="filter.ingredients"
-              v-slot="{ index }"
-            >
-              <input-field
-                :name="'ingredient ' + index"
-                :placeholder="$t('addRecipePage.ingredient')"
-                :ariaLabel="$t('addRecipePage.ariaLabel.ingredient')"
-                type="text"
-                v-model:input="filter.ingredients[index].name"
-                @input="addInputRow(filter.ingredients, index, { name: '' })"
-              />
-            </input-list>
-          </div>
-        </div>
+        <recipes-filter v-if="openFilter" :filter="filter" />
       </Transition>
     </article>
     <template v-for="recipe in recipes" :key="recipe.id">
@@ -151,18 +64,18 @@ import { RecipeCategories, type Recipe } from '@/utils/types/recipe';
 import { ref, watch } from 'vue';
 import { capitalizeFirstLetter } from '@/utils/text';
 import SelectField from '@/components/form/SelectField.vue';
-import { OrderCategories } from '@/utils/types/order';
+import RecipesFilter from '@/components/RecipesFilter.vue';
+import { OrderCategories, type Filter } from '@/utils/types/orderFilter';
 import { getQuery } from '@/utils/recipes/queryRecipes';
-import CheckBoxList from '@/components/form/CheckBoxList.vue';
-import InputField from '@/components/form/InputField.vue';
-import InputList from '@/components/form/InputList.vue';
 import i18n from '@/i18n';
 import { Timestamp } from 'firebase/firestore';
-import { addInputRow } from '@/utils/newRecipe/list';
 
 const recipes = ref<Recipe[]>([]);
 const order = ref<string>('lastEatenAsc');
-const filter = ref({
+
+// Filter
+const openFilter = ref<boolean>(false);
+const filter = ref<Filter>({
   categories: Object.values(RecipeCategories).map((category) => ({
     id: category,
     name: category,
@@ -186,7 +99,7 @@ watch(
   order,
   async () => {
     try {
-      recipes.value = (await getData('recipes', getQuery(order.value))) as Recipe[];
+      recipes.value = (await getData('recipes', getQuery(order.value, filter.value))) as Recipe[];
       recipes.value.forEach((recipe) => {
         setImage(recipe.id, recipe.image);
       });
@@ -210,7 +123,4 @@ function setImage(id: string, image: string) {
     }
   });
 }
-
-// Toggle filter
-const openFilter = ref<boolean>(false);
 </script>
