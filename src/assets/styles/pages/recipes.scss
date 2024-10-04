@@ -25,6 +25,36 @@
 
     .filters {
       display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: $gap-medium;
+
+      .rangeFilters {
+        display: grid;
+        gap: $gap-medium;
+
+        & > div {
+          display: flex;
+          gap: $gap-small;
+        }
+      }
+
+      .list {
+        display: grid;
+        gap: $gap-small;
+
+        & > div {
+          display: flex;
+          gap: $gap-small;
+
+          button {
+            width: auto;
+          }
+        }
+      }
+
+      @media only screen and (max-width: 900px) {
+        grid-template-columns: 1fr;
+      }
     }
 
     &.card {

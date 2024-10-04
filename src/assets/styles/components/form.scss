@@ -129,6 +129,7 @@ input::file-selector-button {
       background-color: transparent;
       color: $color-primary;
       border: $border-medium solid $color-primary;
+      border-radius: $border-radius-small;
       cursor: pointer;
 
       @include zoom-on-hover($scale-medium);
@@ -146,10 +147,6 @@ input::file-selector-button {
       &:checked::before {
         transform: scale(1);
       }
-    }
-
-    input[type='checkbox'] {
-      border-radius: $border-radius-small;
     }
 
     &:not(:first-child) {
