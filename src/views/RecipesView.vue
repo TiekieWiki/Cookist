@@ -24,7 +24,7 @@
         </div>
       </div>
       <Transition name="fade">
-        <recipes-filter v-if="openFilter" :filter="filter" />
+        <recipes-filter v-if="openFilter" v-model:filter="filter" />
       </Transition>
     </article>
     <template v-for="recipe in recipes" :key="recipe.id">
@@ -96,7 +96,7 @@ const filter = ref<Filter>({
 
 // Get recipes
 watch(
-  order,
+  [order, filter],
   async () => {
     try {
       recipes.value = (await getData('recipes', getQuery(order.value, filter.value))) as Recipe[];
@@ -107,7 +107,7 @@ watch(
       console.error(error);
     }
   },
-  { immediate: true }
+  { immediate: true, deep: true }
 );
 
 /**

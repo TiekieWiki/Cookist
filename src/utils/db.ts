@@ -7,7 +7,13 @@ import {
   QueryConstraint,
   deleteDoc,
   updateDoc,
-  type DocumentData
+  type DocumentData,
+  where,
+  and,
+  or,
+  type QueryFilterConstraint,
+  QueryCompositeFilterConstraint,
+  type QueryNonFilterConstraint
 } from 'firebase/firestore';
 import { DatabaseError } from '../utils/types/errors';
 import db from './firebaseInit';
@@ -33,15 +39,19 @@ export async function addData(table: string, data: any): Promise<void> {
  */
 export async function getData(
   table: string,
-  tableQuery?: QueryConstraint | QueryConstraint[]
+  tableQuery?:
+    | QueryConstraint
+    | { filters: QueryCompositeFilterConstraint; constraints: QueryNonFilterConstraint[] }
 ): Promise<DocumentData[]> {
   let querySnapshot;
   if (!tableQuery) {
     querySnapshot = await getDocs(collection(db, table));
-  } else if (Array.isArray(tableQuery)) {
-    querySnapshot = await getDocs(query(collection(db, table), ...tableQuery));
-  } else {
+  } else if (tableQuery instanceof QueryConstraint) {
     querySnapshot = await getDocs(query(collection(db, table), tableQuery));
+  } else {
+    querySnapshot = await getDocs(
+      query(collection(db, table), tableQuery.filters, ...tableQuery.constraints)
+    );
   }
 
   if (!querySnapshot.empty) {

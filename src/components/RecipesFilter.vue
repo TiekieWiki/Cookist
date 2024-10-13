@@ -3,7 +3,7 @@
     <check-box-list
       id="category"
       :label="$t('addRecipePage.category')"
-      :items="filter.categories"
+      v-model:items="filter.categories"
     />
     <div class="rangeFilters">
       <div>
@@ -15,7 +15,7 @@
           type="number"
           :min="0"
           :max="10080"
-          v-model="filter.durationMin"
+          v-model:input="filter.durationMin"
         />
         <input-field
           id="durationMax"
@@ -25,7 +25,7 @@
           type="number"
           :min="0"
           :max="10080"
-          v-model="filter.durationMax"
+          v-model:input="filter.durationMax"
         />
       </div>
       <div>
@@ -37,7 +37,7 @@
           type="number"
           :min="0"
           :max="5"
-          v-model="filter.ratingMin"
+          v-model:input="filter.ratingMin"
         />
         <input-field
           id="ratingMax"
@@ -47,7 +47,7 @@
           type="number"
           :min="0"
           :max="5"
-          v-model="filter.ratingMax"
+          v-model:input="filter.ratingMax"
         />
       </div>
       <div>
@@ -65,7 +65,7 @@
           :label="$t('recipesPage.lastEatenMax')"
           :ariaLabel="$t('recipesPage.ariaLabel.lastEatenMax')"
           type="date"
-          v-model:axput="filter.lastEatenMax"
+          v-model:input="filter.lastEatenMax"
         />
       </div>
     </div>

@@ -11,7 +11,7 @@
         :required="item.required"
         :disabled="item.disabled"
         :autocomplete="item.autocomplete"
-        v-model="item.checked"
+        v-model:input="item.checked"
       />
     </div>
   </label>
