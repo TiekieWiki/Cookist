@@ -1,7 +1,6 @@
 import {
   where,
   orderBy,
-  QueryConstraint,
   Timestamp,
   or,
   QueryFieldFilterConstraint,
@@ -24,7 +23,7 @@ export function getQuery(
   const filters: QueryFilterConstraint[] = [];
   const constraints: QueryNonFilterConstraint[] = [];
 
-  // Filter categories (needs to be or, not and)
+  // Filter categories
   const orQuery: QueryFieldFilterConstraint[] = [];
   if (filter.categories.length > 0) {
     filter.categories.forEach((category) => {
@@ -51,15 +50,15 @@ export function getQuery(
     filters.push(where('rating', '<=', filter.ratingMax));
   }
 
-  // Filter last eaten (does not work)
+  // Filter last eaten
   if (filter.lastEatenMin > Timestamp.fromDate(new Date(0))) {
-    filters.push(where('lastEaten', '>=', filter.lastEatenMin));
+    filters.push(where('lastEaten', '>=', new Date(filter.lastEatenMin.valueOf())));
   }
-  if (filter.lastEatenMax < Timestamp.fromDate(new Date())) {
-    filters.push(where('lastEaten', '<=', filter.lastEatenMax));
+  if (filter.lastEatenMax < Timestamp.fromDate(new Date('9999-12-31'))) {
+    filters.push(where('lastEaten', '<=', new Date(filter.lastEatenMax.valueOf())));
   }
 
-  // Filter ingredients (does not work)
+  // Filter ingredients (does not work, needs data structure change)
   let tempIngredients = filter.ingredients;
   tempIngredients = tempIngredients.filter((ingredient) => ingredient.name !== '');
   if (tempIngredients.length > 0) {

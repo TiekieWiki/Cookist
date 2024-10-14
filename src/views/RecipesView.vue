@@ -90,7 +90,7 @@ const filter = ref<Filter>({
   ratingMin: 0,
   ratingMax: 5,
   lastEatenMin: Timestamp.fromDate(new Date(0)),
-  lastEatenMax: Timestamp.fromDate(new Date()),
+  lastEatenMax: Timestamp.fromDate(new Date('9999-12-31')),
   ingredients: [{ name: '' }]
 });
 
