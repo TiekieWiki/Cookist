@@ -12,6 +12,7 @@ export interface Recipe {
   instructions: string[];
   lastEaten: Timestamp | undefined;
   notes: string;
+  filterIngredients: string[];
 }
 
 export interface Ingredient {

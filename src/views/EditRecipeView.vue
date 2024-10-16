@@ -40,7 +40,8 @@ const recipe = ref<Recipe>({
   ingredients: [{ amount: 0, unit: '', name: '' }],
   instructions: [''],
   lastEaten: undefined,
-  notes: ''
+  notes: '',
+  filterIngredients: []
 });
 const oldImage = ref<string>('');
 
@@ -78,6 +79,7 @@ async function saveRecipe() {
     recipe.value.instructions = recipe.value.instructions.filter(
       (instruction) => instruction !== ''
     );
+    recipe.value.filterIngredients = recipe.value.ingredients.map((ingredient) => ingredient.name);
     if (image.value && image.value.name !== oldImage.value) {
       recipe.value.image = image.value.name;
     }

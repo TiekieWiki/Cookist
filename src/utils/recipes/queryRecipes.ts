@@ -58,13 +58,12 @@ export function getQuery(
     filters.push(where('lastEaten', '<=', new Date(filter.lastEatenMax.valueOf())));
   }
 
-  // Filter ingredients (does not work, needs data structure change)
-  let tempIngredients = filter.ingredients;
-  tempIngredients = tempIngredients.filter((ingredient) => ingredient.name !== '');
-  if (tempIngredients.length > 0) {
-    tempIngredients.forEach((ingredient) => {
-      filters.push(where('ingredients', 'array-contains', ingredient.name));
-    });
+  // Filter ingredients
+  const ingredients = filter.ingredients
+    .filter((ingredient) => ingredient.name !== '')
+    .map((ingredient) => ingredient.name);
+  if (ingredients.length > 0) {
+    filters.push(where('filterIngredients', 'array-contains-any', ingredients));
   }
 
   // Order by the selected category

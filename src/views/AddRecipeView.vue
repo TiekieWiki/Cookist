@@ -37,7 +37,8 @@ const recipe = ref<Recipe>({
   ingredients: [{ amount: 0, unit: '', name: '' }],
   instructions: [''],
   lastEaten: undefined,
-  notes: ''
+  notes: '',
+  filterIngredients: []
 });
 
 const image = ref<File | null>(null);
@@ -60,6 +61,7 @@ async function saveRecipe() {
     recipe.value.instructions = recipe.value.instructions.filter(
       (instruction) => instruction !== ''
     );
+    recipe.value.filterIngredients = recipe.value.ingredients.map((ingredient) => ingredient.name);
 
     // Save the recipe
     try {
@@ -82,7 +84,8 @@ async function saveRecipe() {
         ingredients: [{ amount: 0, unit: '', name: '' }],
         instructions: [''],
         lastEaten: undefined,
-        notes: ''
+        notes: '',
+        filterIngredients: []
       };
       image.value = null;
       errorMessage.value = '';

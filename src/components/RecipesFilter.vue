@@ -82,7 +82,7 @@
           :ariaLabel="$t('addRecipePage.ariaLabel.ingredient')"
           type="text"
           v-model:input="filter.ingredients[index].name"
-          @input="addInputRow(filter.ingredients, index, { name: '' })"
+          @input="index < 9 ? addInputRow(filter.ingredients, index, { name: '' }) : null"
         />
       </input-list>
     </div>
