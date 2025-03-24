@@ -8,10 +8,6 @@ import {
   deleteDoc,
   updateDoc,
   type DocumentData,
-  where,
-  and,
-  or,
-  type QueryFilterConstraint,
   QueryCompositeFilterConstraint,
   type QueryNonFilterConstraint
 } from 'firebase/firestore';

@@ -1,5 +1,7 @@
 {
   "recipePage": {
-    "title": "Recept"
+    "title": "Recept",
+    "ingredients": "Ingrediënten",
+    "instructions": "Instructies"
   }
 }

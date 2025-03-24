@@ -1,0 +1,22 @@
+.recipe {
+  article {
+    &:has(> .header) {
+      grid-column: 1 / -1;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      z-index: 2;
+      color: $color-text-primary;
+    }
+
+    .info {
+      display: flex;
+      justify-content: space-around;
+      gap: $gap-small;
+      z-index: 2;
+      color: $color-text-primary;
+    }
+  }
+}
