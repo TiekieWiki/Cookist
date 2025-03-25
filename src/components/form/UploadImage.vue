@@ -32,7 +32,7 @@ const props = defineProps<{
   oldImage?: string;
 }>();
 
-const emit = defineEmits(['image']);
+const emit = defineEmits<{ image: [File] }>();
 
 const previewImage = ref('');
 

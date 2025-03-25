@@ -28,7 +28,12 @@
       </Transition>
     </article>
     <template v-for="recipe in recipes" :key="recipe.id">
-      <article class="card" :id="recipe.id" @click="$router.push({ path: `/recipe/${recipe.id}` })">
+      <article
+        class="card"
+        :id="recipe.id"
+        @click="$router.push({ path: `/recipe/${recipe.id}` })"
+        tabindex="0"
+      >
         <div class="title">
           <h3>{{ recipe.name }}</h3>
           <div>

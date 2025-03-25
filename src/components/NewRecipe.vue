@@ -18,8 +18,8 @@
       :required="true"
       :items="
         Object.values(RecipeCategories).map((category) => ({
-          value: category.toLocaleLowerCase(),
-          label: category.toLocaleLowerCase()
+          value: category.toLowerCase(),
+          label: category.toLowerCase()
         }))
       "
       labelPrefix="addRecipePage.categories."
@@ -85,8 +85,8 @@
         :placeholder="$t('addRecipePage.unit')"
         :items="
           Object.values(RecipeUnits).map((unit) => ({
-            value: unit.toLocaleLowerCase(),
-            label: unit.toLocaleLowerCase()
+            value: unit.toLowerCase(),
+            label: unit.toLowerCase()
           }))
         "
         labelPrefix="addRecipePage.units."
@@ -140,7 +140,6 @@
 <script setup lang="ts">
 import { RecipeCategories, RecipeUnits, type Recipe } from '@/utils/types/recipe';
 import { addInputRow } from '@/utils/newRecipe/list';
-import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import InputField from '@/components/form/InputField.vue';
 import InputList from '@/components/form/InputList.vue';
 import SelectField from '@/components/form/SelectField.vue';

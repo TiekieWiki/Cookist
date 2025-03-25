@@ -12,12 +12,14 @@
           @click="menuOpen = true"
           class="menu-icon"
           :icon="['fas', 'bars']"
+          tabindex="0"
         />
         <font-awesome-icon
           v-else
           @click="menuOpen = false"
           class="menu-icon"
           :icon="['fas', 'xmark']"
+          tabindex="0"
         />
       </transition>
       <transition name="slide-fade">
@@ -43,7 +45,7 @@
       <img src="/src/assets/images/Banner.jpg" :alt="$t('alt.banner')" />
     </div>
     <transition name="slide-fade">
-      <router-link v-if="menuOpen" to="\" class="brand">Cookist</router-link>
+      <router-link v-if="menuOpen" to="\" class="brand" tabindex="0">Cookist</router-link>
     </transition>
   </aside>
 </template>

@@ -32,7 +32,7 @@
         <label v-for="ingredient in recipe.ingredients" :key="ingredient.name">
           <input :name="ingredient.name" type="checkbox" />
           {{ ingredient.amount }} {{ $t(`addRecipePage.units.${ingredient.unit}`) }}
-          {{ ingredient.name.toLowerCase() }}
+          {{ ingredient.name }}
         </label>
       </div>
     </article>

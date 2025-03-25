@@ -58,6 +58,11 @@ async function saveRecipe() {
     recipe.value.ingredients = recipe.value.ingredients.filter(
       (ingredient) => ingredient.amount !== 0 && ingredient.unit !== '' && ingredient.name !== ''
     );
+    recipe.value.ingredients = recipe.value.ingredients.map((ingredient) => ({
+      amount: ingredient.amount,
+      unit: ingredient.unit,
+      name: ingredient.name.toLowerCase()
+    }));
     recipe.value.instructions = recipe.value.instructions.filter(
       (instruction) => instruction !== ''
     );
