@@ -59,11 +59,13 @@ import { where } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import type { User } from './utils/types/user';
 import { useSetSystemLanguage, useSetUserLanguage } from './composables/useI18n';
+import { useI18n } from 'vue-i18n';
 
 const isLoggedIn = useIsLoggedIn();
 const user = ref<User | undefined>(undefined);
 const menuOpen = ref<boolean>(false);
 const route = useRoute();
+const { t, locale } = useI18n();
 
 // Set user language
 watch(isLoggedIn, async () => {
@@ -80,6 +82,11 @@ watch(isLoggedIn, async () => {
   } else {
     useSetSystemLanguage();
   }
+});
+
+// Set page title
+watch(locale, () => {
+  document.title = t(String(route.meta.title)) || 'Cookist';
 });
 
 // Reset menuOpen when the route changes
