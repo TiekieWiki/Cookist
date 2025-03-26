@@ -72,7 +72,7 @@ import SelectField from '@/components/form/SelectField.vue';
 import RecipesFilter from '@/components/RecipesFilter.vue';
 import { OrderCategories, type Filter } from '@/utils/types/orderFilter';
 import { getQuery } from '@/utils/recipes/queryRecipes';
-import i18n from '@/i18n';
+import i18n from '@/i18n/index';
 import { Timestamp } from 'firebase/firestore';
 
 const recipes = ref<Recipe[]>([]);

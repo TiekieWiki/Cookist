@@ -56,7 +56,7 @@ import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { capitalizeFirstLetter } from '@/utils/text';
 import { getImage } from '@/utils/newRecipe/manageImage';
-import i18n from '@/i18n';
+import i18n from '@/i18n/index';
 
 // Get the recipe from the database
 const route = useRoute();

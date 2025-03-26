@@ -1,0 +1,170 @@
+{
+  "navigation": {
+    "alt": {
+      "banner": "Website banner"
+    }
+  },
+  "homePage": {
+    "title": "Home"
+  },
+  "loginPage": {
+    "title": "Log in",
+    "email": "Email",
+    "password": "Wachtwoord",
+    "login": "Log in",
+    "register": "Registreer",
+    "googleLogin": "Log in met Google",
+    "googleRegister": "Registreer met Google",
+    "errors": {
+      "invalidEmail": "Ongeldige email",
+      "wrongPassword": "Ongeldig wachtwoord",
+      "emailAlreadyExists": "Een account met het gegeven mailadres bestaat al",
+      "invalidPassword": "Het wachtwoord moet minimaal 6 karakters lang zijn",
+      "userNotFound": "Er was geen account met die email gevonden",
+      "default": "Email of wachtwoord was ongeldig"
+    },
+    "ariaLabel": {
+      "emailLoging": "Email voor inloggen",
+      "passwordLogin": "Wachtwoord voor inloggen",
+      "emailRegister": "Email voor registreren",
+      "passwordRegister": "Wachtwoord voor registreren"
+    }
+  },
+  "profilePage": {
+    "title": "Profiel",
+    "account": "Account",
+    "logout": "Log uit",
+    "settings": "Instellingen",
+    "languages": {
+      "en": "Engels",
+      "nl": "Nederlands"
+    },
+    "save": "Opslaan",
+    "saveSuccess": "Instellingen opgeslagen",
+    "ariaLabel": {
+      "userEmail": "Gebruiker e-mail",
+      "language": "Taal"
+    }
+  },
+  "recipesPage": {
+    "title": "Recepten",
+    "filter": "Filter",
+    "order": "Sorteer",
+    "orders": {
+      "lastEatenAsc": "Laatst gegeten (oud-nieuw)",
+      "lastEatenDesc": "Laatst gegeten (nieuw-oud)",
+      "ratingAsc": "Beoordeling (1-5)",
+      "ratingDesc": "Beoordeling (5-1)",
+      "durationAsc": "Duur (kort-lang)",
+      "durationDesc": "Duur (lang-kort)",
+      "nameAsc": "Naam (A-Z)",
+      "nameDesc": "Naam (Z-A)"
+    },
+    "durationMin": "Minimum duur",
+    "durationMax": "Maximum duur",
+    "ratingMin": "Minimum beoordeling",
+    "ratingMax": "Maximum beoordeling",
+    "lastEatenMin": "Minimum laatst gegeten",
+    "lastEatenMax": "Maximum laatst gegeten",
+    "ariaLabel": {
+      "order": "Recepten sorteren op",
+      "durationMin": "Minimum duur van het recept",
+      "durationMax": "Maximum duur van het recept",
+      "ratingMin": "Minimum beoordeling van het recept",
+      "ratingMax": "Maximum beoordeling van het recept",
+      "lastEatenMin": "Minimum laatst gegeten van het recept",
+      "lastEatenMax": "Maximum laatst gegeten van het recept"
+    }
+  },
+  "recipePage": {
+    "title": "Recept",
+    "ingredients": "Ingrediënten",
+    "instructions": "Instructies"
+  },
+  "addRecipePage": {
+    "title": "Recept toevoegen",
+    "name": "Naam",
+    "category": "Categorie",
+    "categories": {
+      "breakfast": "Ontbijt",
+      "lunch": "Lunch",
+      "dinner": "Avondeten",
+      "snack": "Snack",
+      "dessert": "Dessert",
+      "drink": "Drankje",
+      "other": "Anders"
+    },
+    "duration": "Duur (min)",
+    "portions": "Porties",
+    "rating": "Beoordeling",
+    "image": "Afbeelding",
+    "ingredients": "Ingredienten",
+    "ingredient": "Ingredient",
+    "amount": "Hoeveelheid",
+    "unit": "Eenheid",
+    "units": {
+      "pc": "stuk",
+      "ml": "ml",
+      "dl": "dl",
+      "l": "l",
+      "tsp": "tl",
+      "tbsp": "el",
+      "fl oz": "fl oz",
+      "cup": "cup",
+      "pt": "pt",
+      "qt": "qt",
+      "gal": "gal",
+      "mg": "mg",
+      "g": "g",
+      "kg": "kg",
+      "oz": "oz",
+      "lb": "lb"
+    },
+    "instructions": "Instructies",
+    "instruction": "Instructie",
+    "lastEaten": "Laatst gegeten",
+    "notes": "Aantekeningen",
+    "save": "Opslaan",
+    "errors": {
+      "name": "Naam is verplicht",
+      "category": "Categorie is verplicht",
+      "duration": "Duur is verplicht",
+      "portions": "Porties is verplicht",
+      "rating": "Beoordeling is verplicht",
+      "ingredients": "Ingredienten is verplicht",
+      "instructions": "Instructies is verplicht",
+      "save": "Er is iets misgegaan. Probeer het opnieuw."
+    },
+    "ariaLabel": {
+      "name": "Naam van het recept",
+      "category": "Categorie van het recept",
+      "duration": "Duur van het recept",
+      "portions": "Aantal porties van het recept",
+      "rating": "Beoordeling van het recept",
+      "image": "Afbeelding van het recept",
+      "ingredients": "Ingredienten van het recept",
+      "ingredient": "Ingredient van het recept",
+      "amount": "Hoeveelheid van het ingredient",
+      "unit": "Eenheid van het ingredient",
+      "instructions": "Instructies van het recept",
+      "instruction": "Instructie van het recept",
+      "lastEaten": "Datum waarop het recept voor het laatst is gegeten",
+      "notes": "Aantekeningen over het recept"
+    }
+  },
+  "editRecipePage": {
+    "title": "Recept bewerken"
+  },
+  "notFoundPage": {
+    "title": "Pagina niet gevonden",
+    "description": "De pagina die je zoekt bestaat niet."
+  },
+  "database": {
+    "errors": {
+      "add": "Er is een fout opgetreden bij het toevoegen van de data",
+      "get": "Er is een fout opgetreden bij het ophalen van de data",
+      "update": "Er is een fout opgetreden bij het updaten van de data",
+      "delete": "Er is een fout opgetreden bij het verwijderen van de data"
+    }
+  }
+}

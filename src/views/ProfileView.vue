@@ -38,7 +38,7 @@
 
 <script setup lang="ts">
 import { useSuccessTransition } from '@/composables/useSuccess';
-import i18n from '@/i18n';
+import i18n from '@/i18n/index';
 import { getData, updateData } from '@/utils/db';
 import { getAuth } from 'firebase/auth';
 import { where } from 'firebase/firestore';
@@ -50,11 +50,10 @@ import SelectField from '@/components/form/SelectField.vue';
 const auth = getAuth();
 
 // Set language dropdown to user language
-const languages = [
-  { value: 'system', label: 'system' },
-  { value: 'en', label: 'english' },
-  { value: 'nl', label: 'dutch' }
-];
+const languages = i18n.global.availableLocales.map((locale) => ({
+  value: locale,
+  label: locale
+}));
 const selectedLanguage = ref<string>();
 
 // Get user from database and set dropdowns to user settings

@@ -1,0 +1,170 @@
+{
+  "navigation": {
+    "alt": {
+      "banner": "Website banner"
+    }
+  },
+  "homePage": {
+    "title": "Home"
+  },
+  "loginPage": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "login": "Log in",
+    "register": "Register",
+    "googleLogin": "Log in with Google",
+    "googleRegister": "Register with Google",
+    "errors": {
+      "invalidEmail": "Invalid email",
+      "wrongPassword": "Invalid password",
+      "emailAlreadyExists": "An account with the given email already exists",
+      "invalidPassword": "The password must be at least 6 characters long",
+      "userNotFound": "No account with that email was found",
+      "default": "Email or password was incorrect"
+    },
+    "ariaLabel": {
+      "emailLoging": "Email for logging in",
+      "passwordLogin": "Password for logging in",
+      "emailRegister": "Email for registering",
+      "passwordRegister": "Password for registering"
+    }
+  },
+  "profilePage": {
+    "title": "Profile",
+    "account": "Account",
+    "logout": "Log out",
+    "settings": "Settings",
+    "languages": {
+      "en": "English",
+      "nl": "Dutch"
+    },
+    "save": "Save",
+    "saveSuccess": "Settings saved successfully",
+    "ariaLabel": {
+      "userEmail": "User email",
+      "language": "Language"
+    }
+  },
+  "recipesPage": {
+    "title": "Recipes",
+    "filter": "Filter",
+    "order": "Order",
+    "orders": {
+      "lastEatenAsc": "Last eaten (old-new)",
+      "lastEatenDesc": "Last eaten (new-old)",
+      "ratingAsc": "Rating (1-5)",
+      "ratingDesc": "Rating (5-1)",
+      "durationAsc": "Duration (short-long)",
+      "durationDesc": "Duration (long-short)",
+      "nameAsc": "Name (A-Z)",
+      "nameDesc": "Name (Z-A)"
+    },
+    "durationMin": "Minimum duration",
+    "durationMax": "Maximum duration",
+    "ratingMin": "Minimum rating",
+    "ratingMax": "Maximum rating",
+    "lastEatenMin": "Minimum last eaten",
+    "lastEatenMax": "Maximum last eaten",
+    "ariaLabel": {
+      "order": "Order recipes by",
+      "durationMin": "Minimum duration of the recipe",
+      "durationMax": "Maximum duration of the recipe",
+      "ratingMin": "Minimum rating of the recipe",
+      "ratingMax": "Maximum rating of the recipe",
+      "lastEatenMin": "Minimum last eaten of the recipe",
+      "lastEatenMax": "Maximum last eaten of the recipe"
+    }
+  },
+  "recipePage": {
+    "title": "Recipe",
+    "ingredients": "Ingredients",
+    "instructions": "Instructions"
+  },
+  "addRecipePage": {
+    "title": "Add recipe",
+    "name": "Name",
+    "category": "Category",
+    "categories": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snack": "Snack",
+      "dessert": "Dessert",
+      "drink": "Drink",
+      "other": "Other"
+    },
+    "duration": "Duration (min)",
+    "portions": "Portions",
+    "rating": "Rating",
+    "image": "Picture",
+    "ingredients": "Ingredients",
+    "ingredient": "Ingredient",
+    "amount": "Amount",
+    "unit": "Unit",
+    "units": {
+      "pc": "piece",
+      "ml": "ml",
+      "dl": "dl",
+      "l": "l",
+      "tsp": "tsp",
+      "tbsp": "tbsp",
+      "fl oz": "fl oz",
+      "cup": "cup",
+      "pt": "pt",
+      "qt": "qt",
+      "gal": "gal",
+      "mg": "mg",
+      "g": "g",
+      "kg": "kg",
+      "oz": "oz",
+      "lb": "lb"
+    },
+    "instructions": "Instructions",
+    "instruction": "Instruction",
+    "lastEaten": "Last eaten",
+    "notes": "Notes",
+    "save": "Save",
+    "errors": {
+      "name": "Name is required",
+      "category": "Category is required",
+      "duration": "Duration is required",
+      "portions": "Portions is required",
+      "rating": "Rating is required",
+      "ingredients": "Ingredients is required",
+      "instructions": "Instructions is required",
+      "save": "Something went wrong. Please try again."
+    },
+    "ariaLabel": {
+      "name": "Name of the recipe",
+      "category": "Category of the recipe",
+      "duration": "Duration of the recipe",
+      "portions": "Number of portions of the recipe",
+      "rating": "Rating of the recipe",
+      "image": "Picture of the recipe",
+      "ingredients": "Ingredients of the recipe",
+      "ingredient": "Ingredient of the recipe",
+      "amount": "Amount of the ingredient",
+      "unit": "Unit of the ingredient",
+      "instructions": "Instructions of the recipe",
+      "instruction": "Instruction of the recipe",
+      "lastEaten": "Date when the recipe was last eaten",
+      "notes": "Notes about the recipe"
+    }
+  },
+  "editRecipePage": {
+    "title": "Edit recipe"
+  },
+  "notFoundPage": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist."
+  },
+  "database": {
+    "errors": {
+      "add": "An error occurred while adding the data",
+      "get": "An error occurred while retrieving the data",
+      "update": "An error occurred while updating the data",
+      "delete": "An error occurred while deleting the data"
+    }
+  }
+}

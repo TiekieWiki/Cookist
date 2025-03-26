@@ -1,15 +1,23 @@
-import i18n from '@/i18n';
+import i18n, { lazyLoadLocaleMessages } from '@/i18n/index';
+import { useRoute } from 'vue-router';
 
 /**
  * Set the user's language based on the user's language in the database
  */
 export async function useSetUserLanguage(language: string): Promise<void> {
   i18n.global.locale.value = language;
+  const route = useRoute();
+  document.title = i18n.global.t(String(route.meta.title)) || 'Cookist';
+  lazyLoadLocaleMessages(i18n.global.locale.value);
 }
 
 /**
- * Set the system language to English
+ * Set the system language to the user's language
  */
 export async function useSetSystemLanguage(): Promise<void> {
-  i18n.global.locale.value = 'en';
+  navigator.language.includes('nl')
+    ? (i18n.global.locale.value = 'nl')
+    : navigator.language.includes('en')
+      ? (i18n.global.locale.value = 'en')
+      : (i18n.global.locale.value = 'en');
 }

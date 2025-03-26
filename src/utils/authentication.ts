@@ -23,7 +23,11 @@ export async function signInWithGoogle() {
       // Register user
       const user: User = {
         id: getAuth().currentUser?.uid,
-        language: 'system'
+        language: navigator.language.includes('nl')
+          ? 'nl'
+          : navigator.language.includes('en')
+            ? 'en'
+            : 'en'
       };
       addData('users', user)
         .then(() => {

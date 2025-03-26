@@ -24,7 +24,11 @@ export function useRegister(): {
       // Add user to database
       const user: User = {
         id: getAuth().currentUser?.uid,
-        language: 'system'
+        language: navigator.language.includes('nl')
+          ? 'nl'
+          : navigator.language.includes('en')
+            ? 'en'
+            : 'en'
       };
       await addData('users', user);
 

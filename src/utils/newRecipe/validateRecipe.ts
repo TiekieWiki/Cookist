@@ -1,4 +1,4 @@
-import i18n from '@/i18n';
+import i18n from '@/i18n/index';
 import type { Recipe } from '../types/recipe';
 
 export function validateRecipe(recipe: Recipe): string {

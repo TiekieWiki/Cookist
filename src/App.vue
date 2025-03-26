@@ -42,7 +42,7 @@
       </transition>
     </nav>
     <div class="banner">
-      <img src="/src/assets/images/Banner.jpg" :alt="$t('alt.banner')" />
+      <img src="/src/assets/images/Banner.jpg" :alt="$t('navigation.alt.banner')" />
     </div>
     <transition name="slide-fade">
       <router-link v-if="menuOpen" to="\" class="brand" tabindex="0">Cookist</router-link>
@@ -60,6 +60,7 @@ import { getAuth } from 'firebase/auth';
 import type { User } from './utils/types/user';
 import { useSetSystemLanguage, useSetUserLanguage } from './composables/useI18n';
 import { useI18n } from 'vue-i18n';
+import { lazyLoadLocaleMessages } from './i18n';
 
 const isLoggedIn = useIsLoggedIn();
 const user = ref<User | undefined>(undefined);
@@ -84,9 +85,10 @@ watch(isLoggedIn, async () => {
   }
 });
 
-// Set page title
+// Set language
 watch(locale, () => {
   document.title = t(String(route.meta.title)) || 'Cookist';
+  lazyLoadLocaleMessages(locale.value);
 });
 
 // Reset menuOpen when the route changes

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, type RouteLocation } from 'vue-router';
-import i18n from '@/i18n';
+import i18n from '@/i18n/index';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const routes = [

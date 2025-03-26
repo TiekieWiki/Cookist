@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import NewRecipe from '@/components/NewRecipe.vue';
-import i18n from '@/i18n';
+import i18n from '@/i18n/index';
 import { getData, updateData } from '@/utils/db';
 import { deleteImage, uploadImage } from '@/utils/newRecipe/manageImage';
 import { validateRecipe } from '@/utils/newRecipe/validateRecipe';

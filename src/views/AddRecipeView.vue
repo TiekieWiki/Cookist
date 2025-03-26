@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { type Recipe } from '@/utils/types/recipe';
 import { ref } from 'vue';
-import i18n from '@/i18n';
+import i18n from '@/i18n/index';
 import { addData } from '@/utils/db';
 import { uploadImage } from '@/utils/newRecipe/manageImage';
 import { validateRecipe } from '@/utils/newRecipe/validateRecipe';
