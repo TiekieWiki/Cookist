@@ -133,7 +133,8 @@
       "rating": "Beoordeling is verplicht",
       "ingredients": "Ingredienten is verplicht",
       "instructions": "Instructies is verplicht",
-      "save": "Er is iets misgegaan. Probeer het opnieuw."
+      "save": "Er is iets misgegaan. Probeer het opnieuw.",
+      "unsavedChanges": "Er zijn niet opgeslagen wijzigingen. Weet je zeker dat je de pagina wilt verlaten?"
     },
     "ariaLabel": {
       "name": "Naam van het recept",

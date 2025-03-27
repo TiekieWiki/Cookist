@@ -49,3 +49,18 @@ export enum RecipeUnits {
   Ounce = 'oz',
   Pound = 'lb'
 }
+
+export const emptyRecipe: Recipe = {
+  id: '',
+  name: '',
+  category: '',
+  duration: undefined,
+  portions: undefined,
+  rating: undefined,
+  image: '',
+  ingredients: [{ amount: 0, unit: '', name: '' }],
+  instructions: [''],
+  lastEaten: undefined,
+  notes: '',
+  filterIngredients: []
+};

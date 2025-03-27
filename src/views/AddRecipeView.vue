@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { type Recipe } from '@/utils/types/recipe';
+import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
 import { ref } from 'vue';
 import i18n from '@/i18n/index';
 import { addData } from '@/utils/db';
@@ -25,21 +25,9 @@ import { uploadImage } from '@/utils/newRecipe/manageImage';
 import { validateRecipe } from '@/utils/newRecipe/validateRecipe';
 import NewRecipe from '@/components/NewRecipe.vue';
 import { Timestamp } from 'firebase/firestore';
+import { onBeforeRouteLeave } from 'vue-router';
 
-const recipe = ref<Recipe>({
-  id: '',
-  name: '',
-  category: '',
-  duration: undefined,
-  portions: undefined,
-  rating: undefined,
-  image: '',
-  ingredients: [{ amount: 0, unit: '', name: '' }],
-  instructions: [''],
-  lastEaten: undefined,
-  notes: '',
-  filterIngredients: []
-});
+const recipe = ref<Recipe>(emptyRecipe);
 
 const image = ref<File | null>(null);
 
@@ -78,20 +66,7 @@ async function saveRecipe() {
       }
 
       // Reset the form
-      recipe.value = {
-        id: '',
-        name: '',
-        category: '',
-        duration: undefined,
-        portions: undefined,
-        rating: undefined,
-        image: '',
-        ingredients: [{ amount: 0, unit: '', name: '' }],
-        instructions: [''],
-        lastEaten: undefined,
-        notes: '',
-        filterIngredients: []
-      };
+      recipe.value = emptyRecipe;
       image.value = null;
       errorMessage.value = '';
     } catch (error) {
@@ -99,4 +74,12 @@ async function saveRecipe() {
     }
   }
 }
+
+// Prevent leaving the page if there are unsaved changes
+onBeforeRouteLeave(() => {
+  if (recipe.value !== emptyRecipe) {
+    const answer = window.confirm(i18n.global.t('addRecipePage.errors.unsavedChanges'));
+    if (!answer) return false;
+  }
+});
 </script>

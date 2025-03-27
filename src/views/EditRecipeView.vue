@@ -22,27 +22,15 @@ import i18n from '@/i18n/index';
 import { getData, updateData } from '@/utils/db';
 import { deleteImage, uploadImage } from '@/utils/newRecipe/manageImage';
 import { validateRecipe } from '@/utils/newRecipe/validateRecipe';
-import type { Recipe } from '@/utils/types/recipe';
+import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
 import { where } from 'firebase/firestore';
 import { ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { onBeforeRouteLeave, useRoute } from 'vue-router';
 
 // Get the recipe from the database
 const route = useRoute();
-const recipe = ref<Recipe>({
-  id: '',
-  name: '',
-  category: '',
-  duration: undefined,
-  portions: undefined,
-  rating: undefined,
-  image: '',
-  ingredients: [{ amount: 0, unit: '', name: '' }],
-  instructions: [''],
-  lastEaten: undefined,
-  notes: '',
-  filterIngredients: []
-});
+const oldRecipe = ref<Recipe>(emptyRecipe);
+const recipe = ref<Recipe>(emptyRecipe);
 const oldImage = ref<string>('');
 
 watch(
@@ -52,6 +40,7 @@ watch(
       const recipes = await getData('recipes', where('id', '==', id));
       if (recipes.length > 0) {
         recipe.value = recipes[0] as Recipe;
+        oldRecipe.value = recipes[0] as Recipe;
         oldImage.value = recipe.value.image;
       }
     } catch (error) {
@@ -103,4 +92,12 @@ async function saveRecipe() {
     }
   }
 }
+
+// Prevent leaving the page if there are unsaved changes
+onBeforeRouteLeave(() => {
+  if (recipe.value !== oldRecipe.value) {
+    const answer = window.confirm(i18n.global.t('addRecipePage.errors.unsavedChanges'));
+    if (!answer) return false;
+  }
+});
 </script>
