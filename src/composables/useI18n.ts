@@ -6,8 +6,6 @@ import { useRoute } from 'vue-router';
  */
 export async function useSetUserLanguage(language: string): Promise<void> {
   i18n.global.locale.value = language;
-  const route = useRoute();
-  document.title = i18n.global.t(String(route.meta.title)) || 'Cookist';
   lazyLoadLocaleMessages(i18n.global.locale.value);
 }
 
