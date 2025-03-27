@@ -145,6 +145,7 @@ import InputList from '@/components/form/InputList.vue';
 import SelectField from '@/components/form/SelectField.vue';
 import TextArea from '@/components/form/TextArea.vue';
 import UploadImage from '@/components/form/UploadImage.vue';
+import ErrorMessage from '@/components/form/ErrorMessage.vue';
 
 const recipe = defineModel<Recipe>('recipe', { required: true });
 const errorMessage = defineModel<string>('errorMessage', { required: true });

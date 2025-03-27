@@ -10,6 +10,10 @@
     @include zoom-on-hover($scale-small);
     @include outline-on-focus;
   }
+
+  &:user-invalid {
+    border-color: $color-error;
+  }
 }
 
 form {
