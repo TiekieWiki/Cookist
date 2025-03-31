@@ -41,6 +41,7 @@ async function saveRecipe() {
   if (errorMessage.value === '') {
     // Clean up the recipe
     recipe.value.id = crypto.randomUUID();
+    recipe.value.name = recipe.value.name.toLowerCase();
     recipe.value.image = image.value ? image.value.name : '';
     recipe.value.lastEaten = Timestamp.fromDate(new Date());
     recipe.value.ingredients = recipe.value.ingredients.filter(
@@ -53,6 +54,9 @@ async function saveRecipe() {
     }));
     recipe.value.instructions = recipe.value.instructions.filter(
       (instruction) => instruction !== ''
+    );
+    recipe.value.instructions = recipe.value.instructions.map((instruction) =>
+      instruction.toLowerCase()
     );
     recipe.value.filterIngredients = recipe.value.ingredients.map((ingredient) => ingredient.name);
 

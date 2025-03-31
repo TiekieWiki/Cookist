@@ -48,6 +48,7 @@
   },
   "recipesPage": {
     "title": "Recepten",
+    "searchPlaceholder": "Zoek recepten",
     "filter": "Filter",
     "order": "Sorteer",
     "orders": {
@@ -66,7 +67,9 @@
     "ratingMax": "Maximum beoordeling",
     "lastEatenMin": "Minimum laatst gegeten",
     "lastEatenMax": "Maximum laatst gegeten",
+    "noRecipes": "Geen recepten gevonden",
     "ariaLabel": {
+      "search": "Zoeken",
       "order": "Recepten sorteren op",
       "durationMin": "Minimum duur van het recept",
       "durationMax": "Maximum duur van het recept",

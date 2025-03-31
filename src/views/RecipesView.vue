@@ -4,6 +4,17 @@
       <div class="header">
         <h2>{{ $t('recipesPage.title') }}</h2>
         <div class="sort">
+          <input-field
+            id="search"
+            name="search"
+            :ariaLabel="$t('recipesPage.ariaLabel.search')"
+            type="text"
+            :placeholder="$t('recipesPage.searchPlaceholder')"
+            :required="false"
+            :disabled="false"
+            :autocomplete="'off'"
+            v-model:input="filter.name"
+          />
           <button @click="openFilter = !openFilter" type="button">
             <font-awesome-icon :icon="['fas', 'filter']" />{{ $t('recipesPage.filter') }}
           </button>
@@ -27,7 +38,10 @@
         <recipes-filter v-if="openFilter" v-model:filter="filter" />
       </Transition>
     </article>
-    <template v-for="recipe in recipes" :key="recipe.id">
+    <article v-if="noRecipes" class="noRecipes">
+      <h3>{{ $t('recipesPage.noRecipes') }}</h3>
+    </article>
+    <template v-else v-for="recipe in recipes" :key="recipe.id">
       <article
         class="card"
         :id="recipe.id"
@@ -35,7 +49,7 @@
         tabindex="0"
       >
         <div class="title">
-          <h3>{{ recipe.name }}</h3>
+          <h3>{{ capitalizeFirstLetter(recipe.name) }}</h3>
           <div>
             <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
             <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
@@ -68,6 +82,7 @@ import { getImage } from '@/utils/newRecipe/manageImage';
 import { RecipeCategories, type Recipe } from '@/utils/types/recipe';
 import { ref, watch } from 'vue';
 import { capitalizeFirstLetter } from '@/utils/text';
+import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
 import RecipesFilter from '@/components/RecipesFilter.vue';
 import { OrderCategories, type Filter } from '@/utils/types/orderFilter';
@@ -81,6 +96,7 @@ const order = ref<string>('lastEatenAsc');
 // Filter
 const openFilter = ref<boolean>(false);
 const filter = ref<Filter>({
+  name: '',
   categories: Object.values(RecipeCategories).map((category) => ({
     id: category,
     name: category,
@@ -98,6 +114,7 @@ const filter = ref<Filter>({
   lastEatenMax: Timestamp.fromDate(new Date('9999-12-31')),
   ingredients: [{ name: '' }]
 });
+const noRecipes = ref<boolean>(false);
 
 // Get recipes
 watch(
@@ -108,8 +125,9 @@ watch(
       recipes.value.forEach((recipe) => {
         setImage(recipe.id, recipe.image);
       });
+      noRecipes.value = false;
     } catch (error) {
-      console.error(error);
+      noRecipes.value = true;
     }
   },
   { immediate: true, deep: true }

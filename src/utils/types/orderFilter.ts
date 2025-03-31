@@ -12,6 +12,7 @@ export enum OrderCategories {
 }
 
 export interface Filter {
+  name: string;
   categories: Category[];
   durationMin: number;
   durationMax: number;

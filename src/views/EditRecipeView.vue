@@ -22,6 +22,7 @@ import i18n from '@/i18n/index';
 import { getData, updateData } from '@/utils/db';
 import { deleteImage, uploadImage } from '@/utils/newRecipe/manageImage';
 import { validateRecipe } from '@/utils/newRecipe/validateRecipe';
+import { capitalizeFirstLetter } from '@/utils/text';
 import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
 import { where } from 'firebase/firestore';
 import { ref, watch } from 'vue';
@@ -40,6 +41,7 @@ watch(
       const recipes = await getData('recipes', where('id', '==', id));
       if (recipes.length > 0) {
         recipe.value = recipes[0] as Recipe;
+        recipe.value.name = capitalizeFirstLetter(recipe.value.name);
         oldRecipe.value = recipes[0] as Recipe;
         oldImage.value = recipe.value.image;
       }
@@ -62,6 +64,7 @@ async function saveRecipe() {
   errorMessage.value = validateRecipe(recipe.value);
   if (errorMessage.value === '') {
     // Clean up the recipe
+    recipe.value.name = recipe.value.name.toLowerCase();
     recipe.value.ingredients = recipe.value.ingredients.filter(
       (ingredient) => ingredient.amount !== 0 && ingredient.unit !== '' && ingredient.name !== ''
     );
@@ -72,6 +75,9 @@ async function saveRecipe() {
     }));
     recipe.value.instructions = recipe.value.instructions.filter(
       (instruction) => instruction !== ''
+    );
+    recipe.value.instructions = recipe.value.instructions.map((instruction) =>
+      instruction.toLowerCase()
     );
     recipe.value.filterIngredients = recipe.value.ingredients.map((ingredient) => ingredient.name);
     if (image.value && image.value.name !== oldImage.value) {

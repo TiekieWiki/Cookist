@@ -23,6 +23,12 @@ export function getQuery(
   const filters: QueryFilterConstraint[] = [];
   const constraints: QueryNonFilterConstraint[] = [];
 
+  // Filter name
+  if (filter.name !== '') {
+    filters.push(where('name', '>=', filter.name.toLowerCase()));
+    filters.push(where('name', '<=', filter.name.toLowerCase() + '\uf8ff'));
+  }
+
   // Filter categories
   const orQuery: QueryFieldFilterConstraint[] = [];
   if (filter.categories.length > 0) {

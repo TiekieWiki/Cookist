@@ -13,7 +13,7 @@
       .sort {
         display: flex;
         gap: $gap-small;
-        max-width: 50%;
+        max-width: 60%;
 
         button {
           display: flex;
@@ -55,6 +55,10 @@
       @media only screen and (max-width: 900px) {
         grid-template-columns: 1fr;
       }
+    }
+
+    &.noRecipes {
+      grid-column: 1 / -1;
     }
 
     &.card {

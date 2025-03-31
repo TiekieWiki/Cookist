@@ -2,7 +2,7 @@
   <main class="recipe two-columns">
     <article>
       <div class="header">
-        <h2>{{ recipe.name }}</h2>
+        <h2>{{ capitalizeFirstLetter(recipe.name) }}</h2>
         <div>
           <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
           <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
@@ -41,7 +41,7 @@
       <div class="label-group">
         <label v-for="instruction in recipe.instructions" :key="instruction">
           <input :name="instruction" type="checkbox" />
-          {{ instruction }}
+          {{ capitalizeFirstLetter(instruction) }}
         </label>
       </div>
     </article>
