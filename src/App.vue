@@ -31,6 +31,11 @@
         }}</router-link>
       </transition>
       <transition name="slide-fade">
+        <router-link v-if="menuOpen" to="/cookgroups" tabindex="0">{{
+          $t('cookGroupsPage.title')
+        }}</router-link>
+      </transition>
+      <transition name="slide-fade">
         <router-link to="/login" v-if="menuOpen && !isLoggedIn" tabindex="0">{{
           $t('loginPage.title')
         }}</router-link>

@@ -159,6 +159,27 @@
   "editRecipePage": {
     "title": "Recept bewerken"
   },
+  "cookGroupsPage": {
+    "title": "Kookgroepen",
+    "addCookGroup": "Kookgroep toevoegen"
+  },
+  "addCookGroupPage": {
+    "title": "Kookgroep toevoegen",
+    "name": "Naam",
+    "memberEmails": "Deelnemer e-mailadressen",
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "ariaLabel": {
+      "name": "Naam van de kookgroep",
+      "memberEmails": "E-mailadressen van de deelnemers"
+    },
+    "errors": {
+      "name": "Naam is verplicht",
+      "save": "Er is iets misgegaan. Probeer het opnieuw.",
+      "members": "Ten minste één e-mailadres is verplicht",
+      "invalidEmail": "Ongeldig e-mailadres"
+    }
+  },
   "notFoundPage": {
     "title": "Pagina niet gevonden",
     "description": "De pagina die je zoekt bestaat niet."

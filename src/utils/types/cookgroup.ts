@@ -3,15 +3,12 @@ export interface CookGroup {
   name: string;
   owner: string;
   personal: boolean;
-  members?: Member[];
+  members: Member[];
 }
 
 export interface Member {
-  id: string;
   userId: string;
-  name: string;
   email: string;
-  accepted: boolean;
 }
 
 export interface CookGroupRecipes {
@@ -19,4 +16,14 @@ export interface CookGroupRecipes {
   cookGroupId: string;
   recipeId: string;
   lastEaten: string;
+}
+
+export function emptyCookGroupMembers(): CookGroup {
+  return {
+    id: '',
+    name: '',
+    owner: '',
+    personal: true,
+    members: [{ userId: '', email: '' }]
+  };
 }

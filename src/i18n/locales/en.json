@@ -159,6 +159,27 @@
   "editRecipePage": {
     "title": "Edit recipe"
   },
+  "cookGroupsPage": {
+    "title": "Cook groups",
+    "addCookGroup": "Add cook group"
+  },
+  "addCookGroupPage": {
+    "title": "Add cook group",
+    "name": "Name",
+    "memberEmails": "Member emails",
+    "cancel": "Cancel",
+    "save": "Save",
+    "ariaLabel": {
+      "name": "Name of the cook group",
+      "memberEmails": "Emails of the members of the cook group"
+    },
+    "errors": {
+      "name": "Name is required",
+      "save": "Something went wrong. Please try again.",
+      "members": "At least one member is required",
+      "invalidEmail": "Invalid email address"
+    }
+  },
   "notFoundPage": {
     "title": "Page not found",
     "description": "The page you are looking for does not exist."

@@ -30,8 +30,8 @@ import { onBeforeRouteLeave, useRoute } from 'vue-router';
 
 // Get the recipe from the database
 const route = useRoute();
-const oldRecipe = ref<Recipe>(emptyRecipe);
-const recipe = ref<Recipe>(emptyRecipe);
+const oldRecipe = ref<Recipe>(emptyRecipe());
+const recipe = ref<Recipe>(emptyRecipe());
 const oldImage = ref<string>('');
 
 watch(
