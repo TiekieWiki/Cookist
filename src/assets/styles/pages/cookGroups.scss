@@ -30,6 +30,11 @@
 
       .title {
         color: $color-text-primary;
+
+        .editCookGroup {
+          color: $color-primary;
+          cursor: pointer;
+        }
       }
 
       .info {
