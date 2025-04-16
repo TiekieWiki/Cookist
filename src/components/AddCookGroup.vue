@@ -59,7 +59,7 @@ import { getAuth } from 'firebase/auth';
 
 const auth = getAuth();
 
-const emit = defineEmits<{ closePopUp: [] }>();
+const emit = defineEmits<{ closePopUp: []; refreshCookGroups: [] }>();
 
 const cookGroup = ref<CookGroup>(emptyCookGroupMembers());
 const errorMessage = ref<string>('');
@@ -86,13 +86,14 @@ async function saveCookGroup() {
 
     // Save the cook group to the database
     try {
-      await addData('cookGroup', cookGroup.value);
+      await addData('cookGroups', cookGroup.value);
 
       // Reset the form
       cookGroup.value = emptyCookGroupMembers();
       errorMessage.value = '';
 
       // Emit the event to close the pop-up
+      emit('refreshCookGroups');
       emit('closePopUp');
     } catch (error) {
       errorMessage.value = i18n.global.t('addCookGroupPage.errors.save');

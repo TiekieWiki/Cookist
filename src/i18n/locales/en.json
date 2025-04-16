@@ -161,7 +161,12 @@
   },
   "cookGroupsPage": {
     "title": "Cook groups",
-    "addCookGroup": "Add cook group"
+    "noCookGroups": "No cook groups found",
+    "personalCookGroup": "Personal cook group",
+    "member": "member",
+    "members": "members",
+    "recipe": "recipe",
+    "recipes": "recipes"
   },
   "addCookGroupPage": {
     "title": "Add cook group",

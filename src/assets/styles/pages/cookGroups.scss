@@ -1,6 +1,47 @@
+@import '../mixins/interactions.scss';
+@import '../mixins/lists.scss';
+
 .cookGroups {
   position: relative;
 
+  & > *:nth-child(2n - 1):nth-last-of-type(1) {
+    grid-column: span 1;
+  }
+
+  & > *:nth-child(2n):nth-last-of-type(1) {
+    grid-column: span 2;
+  }
+
   article {
+    &:has(> .header) {
+      grid-column: 1 / -1;
+    }
+
+    .header {
+      @include header;
+    }
+
+    &.noCookGroups {
+      @include emptyCard;
+    }
+
+    &.card {
+      @include cardContent;
+
+      .title {
+        color: $color-text-primary;
+      }
+
+      .info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: $gap-large;
+        color: $color-text-primary;
+      }
+
+      &.newCookGroup {
+        justify-content: center;
+      }
+    }
   }
 }

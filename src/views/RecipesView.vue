@@ -24,7 +24,7 @@
             :placeholder="$t('recipesPage.order')"
             :required="false"
             :items="
-              Object.values(OrderCategories).map((category) => ({
+              Object.values(RecipeOrderCategories).map((category) => ({
                 value: category,
                 label: category
               }))
@@ -41,38 +41,39 @@
     <article v-if="noRecipes" class="noRecipes">
       <h3>{{ $t('recipesPage.noRecipes') }}</h3>
     </article>
-    <template v-else v-for="recipe in recipes" :key="recipe.id">
-      <article
-        class="card"
-        :id="recipe.id"
-        @click="$router.push({ path: `/recipe/${recipe.id}` })"
-        tabindex="0"
-      >
-        <div class="title">
-          <h3>{{ capitalizeFirstLetter(recipe.name) }}</h3>
-          <div>
-            <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
-            <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
-          </div>
+    <article
+      v-else
+      v-for="recipe in recipes"
+      :key="recipe.id"
+      class="card"
+      :id="recipe.id"
+      @click="$router.push({ path: `/recipe/${recipe.id}` })"
+      tabindex="0"
+    >
+      <div class="title">
+        <h3>{{ capitalizeFirstLetter(recipe.name) }}</h3>
+        <div>
+          <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
+          <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
         </div>
-        <div class="info">
-          <p>{{ capitalizeFirstLetter(recipe.category) }}</p>
-          |
-          <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipe.duration }}</p>
-          |
-          <p>
-            <font-awesome-icon :icon="['fas', 'utensils']" />
+      </div>
+      <div class="info">
+        <p>{{ capitalizeFirstLetter(recipe.category) }}</p>
+        |
+        <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipe.duration }}</p>
+        |
+        <p>
+          <font-awesome-icon :icon="['fas', 'utensils']" />
 
-            {{ recipe.portions }}
-          </p>
-          |
-          <p>
-            <font-awesome-icon :icon="['far', 'calendar']" />
-            {{ recipe.lastEaten!.toDate().toLocaleDateString() }}
-          </p>
-        </div>
-      </article>
-    </template>
+          {{ recipe.portions }}
+        </p>
+        |
+        <p>
+          <font-awesome-icon :icon="['far', 'calendar']" />
+          {{ recipe.lastEaten!.toDate().toLocaleDateString() }}
+        </p>
+      </div>
+    </article>
   </main>
 </template>
 
@@ -85,8 +86,8 @@ import { capitalizeFirstLetter } from '@/utils/text';
 import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
 import RecipesFilter from '@/components/RecipesFilter.vue';
-import { OrderCategories, type Filter } from '@/utils/types/orderFilter';
-import { getQuery } from '@/utils/recipes/queryRecipes';
+import { RecipeOrderCategories, type Filter } from '@/utils/types/orderFilter';
+import { getQueryRecipes } from '@/utils/recipes/queryRecipes';
 import i18n from '@/i18n/index';
 import { Timestamp } from 'firebase/firestore';
 
@@ -121,7 +122,10 @@ watch(
   [order, filter],
   async () => {
     try {
-      recipes.value = (await getData('recipes', getQuery(order.value, filter.value))) as Recipe[];
+      recipes.value = (await getData(
+        'recipes',
+        getQueryRecipes(order.value, filter.value)
+      )) as Recipe[];
       recipes.value.forEach((recipe) => {
         setImage(recipe.id, recipe.image);
       });

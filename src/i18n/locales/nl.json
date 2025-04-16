@@ -161,7 +161,12 @@
   },
   "cookGroupsPage": {
     "title": "Kookgroepen",
-    "addCookGroup": "Kookgroep toevoegen"
+    "noCookGroups": "Geen kookgroepen gevonden",
+    "personalCookGroup": "Persoonlijke kookgroep",
+    "member": "deelnemer",
+    "members": "deelnemers",
+    "recipe": "recept",
+    "recipes": "recepten"
   },
   "addCookGroupPage": {
     "title": "Kookgroep toevoegen",

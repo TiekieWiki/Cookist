@@ -1,4 +1,5 @@
 @import '../mixins/interactions.scss';
+@import '../mixins/lists.scss';
 
 .recipes {
   article {
@@ -7,8 +8,7 @@
     }
 
     .header {
-      display: flex;
-      justify-content: space-between;
+      @include header;
 
       .sort {
         display: flex;
@@ -58,12 +58,13 @@
     }
 
     &.noRecipes {
-      grid-column: 1 / -1;
+      @include emptyCard;
     }
 
     &.card {
       @include zoom-on-hover($scale-small);
       @include outline-on-focus;
+      @include cardContent;
       position: relative;
       background-repeat: no-repeat;
       background-size: cover;
@@ -83,17 +84,11 @@
       }
 
       .title {
-        display: flex;
-        justify-content: space-between;
-        z-index: 2;
         color: $color-text-secondary;
       }
 
       .info {
-        display: flex;
         justify-content: end;
-        gap: $gap-small;
-        z-index: 2;
         color: $color-text-secondary;
       }
     }

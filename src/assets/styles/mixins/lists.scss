@@ -1,0 +1,22 @@
+@mixin header() {
+  display: flex;
+  justify-content: space-between;
+}
+
+@mixin cardContent() {
+  .title {
+    display: flex;
+    justify-content: space-between;
+    z-index: 2;
+  }
+
+  .info {
+    display: flex;
+    gap: $gap-small;
+    z-index: 2;
+  }
+}
+
+@mixin emptyCard() {
+  grid-column: 1 / -1;
+}

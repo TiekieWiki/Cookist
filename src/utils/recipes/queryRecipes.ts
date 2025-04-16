@@ -9,14 +9,15 @@ import {
   QueryCompositeFilterConstraint,
   type QueryNonFilterConstraint
 } from 'firebase/firestore';
-import { OrderCategories, type Filter } from '../types/orderFilter';
+import { RecipeOrderCategories, type Filter } from '../types/orderFilter';
 
 /**
  * Get the query constraint for the recipes
  * @param order Order category
- * @returns QueryConstraint
+ * @param filter Filter object
+ * @returns QueryCompositeFilterConstraint, QueryConstraint
  */
-export function getQuery(
+export function getQueryRecipes(
   order: string,
   filter: Filter
 ): { filters: QueryCompositeFilterConstraint; constraints: QueryNonFilterConstraint[] } {
@@ -74,28 +75,28 @@ export function getQuery(
 
   // Order by the selected category
   switch (order) {
-    case OrderCategories.lastEatenAsc:
+    case RecipeOrderCategories.lastEatenAsc:
       constraints.push(orderBy('lastEaten', 'asc'));
       break;
-    case OrderCategories.lastEatenDesc:
+    case RecipeOrderCategories.lastEatenDesc:
       constraints.push(orderBy('lastEaten', 'desc'));
       break;
-    case OrderCategories.ratingAsc:
+    case RecipeOrderCategories.ratingAsc:
       constraints.push(orderBy('rating', 'asc'));
       break;
-    case OrderCategories.ratingDesc:
+    case RecipeOrderCategories.ratingDesc:
       constraints.push(orderBy('rating', 'desc'));
       break;
-    case OrderCategories.durationAsc:
+    case RecipeOrderCategories.durationAsc:
       constraints.push(orderBy('duration', 'asc'));
       break;
-    case OrderCategories.durationDesc:
+    case RecipeOrderCategories.durationDesc:
       constraints.push(orderBy('duration', 'desc'));
       break;
-    case OrderCategories.nameAsc:
+    case RecipeOrderCategories.nameAsc:
       constraints.push(orderBy('name', 'asc'));
       break;
-    case OrderCategories.nameDesc:
+    case RecipeOrderCategories.nameDesc:
       constraints.push(orderBy('name', 'desc'));
       break;
     default:

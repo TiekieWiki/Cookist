@@ -1,6 +1,6 @@
 import type { Timestamp } from 'firebase/firestore';
 
-export enum OrderCategories {
+export enum RecipeOrderCategories {
   lastEatenAsc = 'lastEatenAsc',
   lastEatenDesc = 'lastEatenDesc',
   ratingDesc = 'ratingDesc',
