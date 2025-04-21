@@ -48,6 +48,7 @@
   },
   "recipesPage": {
     "title": "Recipes",
+    "cookGroups": "Cook groups",
     "searchPlaceholder": "Search recipes",
     "filter": "Filter",
     "order": "Order",
@@ -69,6 +70,7 @@
     "lastEatenMax": "Maximum last eaten",
     "noRecipes": "No recipes found",
     "ariaLabel": {
+      "cookGroups": "Cook groups of the user",
       "search": "Search",
       "order": "Order recipes by",
       "durationMin": "Minimum duration of the recipe",
@@ -85,7 +87,10 @@
     "instructions": "Instructions"
   },
   "addRecipePage": {
-    "title": "Add recipe",
+    "title": "Add recipe"
+  },
+  "editRecipePage": {
+    "title": "Edit recipe",
     "name": "Name",
     "category": "Category",
     "categories": {
@@ -156,9 +161,6 @@
       "notes": "Notes about the recipe"
     }
   },
-  "editRecipePage": {
-    "title": "Edit recipe"
-  },
   "cookGroupsPage": {
     "title": "Cook groups",
     "noCookGroups": "No cook groups found",
@@ -168,20 +170,20 @@
     "recipe": "recipe",
     "recipes": "recipes"
   },
-  "addCookGroupPage": {
-    "title": "Add cook group",
+  "editCookGroupPage": {
+    "title": "Edit cook group",
     "name": "Name",
-    "memberEmails": "Member emails",
+    "inviteeEmails": "Invitee emails",
     "cancel": "Cancel",
     "save": "Save",
     "ariaLabel": {
       "name": "Name of the cook group",
-      "memberEmails": "Emails of the members of the cook group"
+      "inviteeEmails": "Emails of the invitees of the cook group"
     },
     "errors": {
       "name": "Name is required",
       "save": "Something went wrong. Please try again.",
-      "members": "At least one member is required",
+      "invitees": "At least one invitee is required",
       "invalidEmail": "Invalid email address"
     }
   },

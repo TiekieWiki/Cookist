@@ -4,6 +4,7 @@ import { addData, getData } from './db';
 import { where } from 'firebase/firestore';
 import type { User } from './types/user';
 import { DatabaseError } from './types/errors';
+import type { CookGroup } from './types/cookgroup';
 
 /** Sign user in with google or give an alert */
 export async function signInWithGoogle() {
@@ -29,7 +30,20 @@ export async function signInWithGoogle() {
             ? 'en'
             : 'en'
       };
-      addData('users', user)
+      addData('users', user).catch((error: any) => {
+        alert(error.message);
+      });
+
+      // Create user's personal cook group
+      const cookGroup: CookGroup = {
+        id: crypto.randomUUID(),
+        name: '',
+        owner: getAuth().currentUser?.uid || '',
+        personal: true,
+        invitees: [],
+        members: [getAuth().currentUser?.uid || '']
+      };
+      addData('cookGroups', cookGroup)
         .then(() => {
           // Redirect to recipes page
           router.push('/recipes');

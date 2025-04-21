@@ -48,6 +48,7 @@
   },
   "recipesPage": {
     "title": "Recepten",
+    "cookGroups": "Kookgroepen",
     "searchPlaceholder": "Zoek recepten",
     "filter": "Filter",
     "order": "Sorteer",
@@ -69,6 +70,7 @@
     "lastEatenMax": "Maximum laatst gegeten",
     "noRecipes": "Geen recepten gevonden",
     "ariaLabel": {
+      "cookGroups": "Kookgroepen van de gebruiker",
       "search": "Zoeken",
       "order": "Recepten sorteren op",
       "durationMin": "Minimum duur van het recept",
@@ -85,7 +87,10 @@
     "instructions": "Instructies"
   },
   "addRecipePage": {
-    "title": "Recept toevoegen",
+    "title": "Recept toevoegen"
+  },
+  "editRecipePage": {
+    "title": "Recept bewerken",
     "name": "Naam",
     "category": "Categorie",
     "categories": {
@@ -156,9 +161,6 @@
       "notes": "Aantekeningen over het recept"
     }
   },
-  "editRecipePage": {
-    "title": "Recept bewerken"
-  },
   "cookGroupsPage": {
     "title": "Kookgroepen",
     "noCookGroups": "Geen kookgroepen gevonden",
@@ -168,20 +170,20 @@
     "recipe": "recept",
     "recipes": "recepten"
   },
-  "addCookGroupPage": {
+  "editCookGroupPage": {
     "title": "Kookgroep toevoegen",
     "name": "Naam",
-    "memberEmails": "Deelnemer e-mailadressen",
+    "inviteeEmails": "E-mailadressen van de genodigden",
     "cancel": "Annuleren",
     "save": "Opslaan",
     "ariaLabel": {
       "name": "Naam van de kookgroep",
-      "memberEmails": "E-mailadressen van de deelnemers"
+      "inviteeEmails": "E-mailadressen van de genodigden"
     },
     "errors": {
       "name": "Naam is verplicht",
       "save": "Er is iets misgegaan. Probeer het opnieuw.",
-      "members": "Ten minste één e-mailadres is verplicht",
+      "invitees": "Ten minste één e-mailadres is verplicht",
       "invalidEmail": "Ongeldig e-mailadres"
     }
   },

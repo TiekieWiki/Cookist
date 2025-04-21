@@ -1,27 +1,26 @@
 import {
-  where,
   orderBy,
-  Timestamp,
-  or,
-  QueryFieldFilterConstraint,
-  and,
   type QueryFilterConstraint,
   QueryCompositeFilterConstraint,
-  type QueryNonFilterConstraint
+  type QueryNonFilterConstraint,
+  where,
+  or
 } from 'firebase/firestore';
 
 /**
  * Get the query constraint for the cookGroups
  * @returns QueryCompositeFilterConstraint, QueryConstraint
  */
-export function getQueryCookGroups(): {
+export function getQueryCookGroups(userId: string): {
   filters: QueryCompositeFilterConstraint;
   constraints: QueryNonFilterConstraint[];
 } {
   const filters: QueryFilterConstraint[] = [];
   const constraints: QueryNonFilterConstraint[] = [];
 
-  constraints.push(orderBy('name', 'asc'));
+  // Filter personal cook groups
+  filters.push(where('owner', '==', userId));
+  filters.push(where('invitees', 'array-contains', userId));
 
-  return { filters: and(...filters), constraints: constraints };
+  return { filters: or(...filters), constraints: constraints };
 }

@@ -6,13 +6,13 @@
 @import 'transitions.scss';
 
 // Pages
-@import 'pages/addRecipe.scss';
+@import 'pages/editRecipe.scss';
 @import 'pages/recipe.scss';
 @import 'pages/recipes.scss';
 @import 'pages/cookGroups.scss';
 
 // Components
-@import 'components/addCookGroup.scss';
 @import 'components/article.scss';
+@import 'components/editCookGroup.scss';
 @import 'components/form.scss';
 @import 'components/nav.scss';

@@ -1,15 +1,16 @@
 <template>
-  <main class="addRecipe">
+  <main class="editRecipe">
     <article>
       <h2>{{ $t('addRecipePage.title') }}</h2>
       <form>
         <new-recipe
           v-model:recipe="recipe"
+          v-model:cookGroupRecipe="cookGroupRecipe"
           v-model:image="image"
           v-model:errorMessage="errorMessage"
         />
         <button @click.prevent="saveRecipe" id="save" type="submit">
-          {{ $t('addRecipePage.save') }}
+          {{ $t('editRecipePage.save') }}
         </button>
       </form>
     </article>
@@ -26,11 +27,14 @@ import { validateRecipe } from '@/utils/newRecipe/validateRecipe';
 import NewRecipe from '@/components/NewRecipe.vue';
 import { Timestamp } from 'firebase/firestore';
 import { onBeforeRouteLeave } from 'vue-router';
+import { getAuth } from 'firebase/auth';
+import { emptyCookGroupRecipes, type CookGroupRecipes } from '@/utils/types/cookgroup';
+
+const auth = getAuth();
 
 const recipe = ref<Recipe>(emptyRecipe());
-
+const cookGroupRecipe = ref<CookGroupRecipes>(emptyCookGroupRecipes());
 const image = ref<File | null>(null);
-
 const errorMessage = ref<string>('');
 
 /**
@@ -41,9 +45,9 @@ async function saveRecipe() {
   if (errorMessage.value === '') {
     // Clean up the recipe
     recipe.value.id = crypto.randomUUID();
+    recipe.value.owner = auth.currentUser?.uid || '';
     recipe.value.name = recipe.value.name.toLowerCase();
     recipe.value.image = image.value ? image.value.name : '';
-    recipe.value.lastEaten = Timestamp.fromDate(new Date());
     recipe.value.ingredients = recipe.value.ingredients.filter(
       (ingredient) => ingredient.amount !== 0 && ingredient.unit !== '' && ingredient.name !== ''
     );
@@ -60,9 +64,18 @@ async function saveRecipe() {
     );
     recipe.value.filterIngredients = recipe.value.ingredients.map((ingredient) => ingredient.name);
 
+    // Clean up the cook group recipe
+    cookGroupRecipe.value.id = crypto.randomUUID();
+    cookGroupRecipe.value.cookGroupId = auth.currentUser?.uid || '';
+    cookGroupRecipe.value.recipeId = recipe.value.id;
+    if (!cookGroupRecipe.value.lastEaten) {
+      cookGroupRecipe.value.lastEaten = Timestamp.fromDate(new Date());
+    }
+
     // Save the recipe
     try {
       await addData('recipes', recipe.value);
+      await addData('cookGroupRecipes', cookGroupRecipe.value);
 
       //Save image
       if (image.value) {
@@ -71,10 +84,11 @@ async function saveRecipe() {
 
       // Reset the form
       recipe.value = emptyRecipe();
+      cookGroupRecipe.value = emptyCookGroupRecipes();
       image.value = null;
       errorMessage.value = '';
     } catch (error) {
-      errorMessage.value = i18n.global.t('addRecipePage.errors.save');
+      errorMessage.value = i18n.global.t('editRecipePage.errors.save');
     }
   }
 }
@@ -82,7 +96,7 @@ async function saveRecipe() {
 // Prevent leaving the page if there are unsaved changes
 onBeforeRouteLeave(() => {
   if (recipe.value !== emptyRecipe()) {
-    const answer = window.confirm(i18n.global.t('addRecipePage.errors.unsavedChanges'));
+    const answer = window.confirm(i18n.global.t('editRecipePage.errors.unsavedChanges'));
     if (!answer) return false;
   }
 });

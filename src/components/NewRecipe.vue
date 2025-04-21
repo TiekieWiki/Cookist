@@ -3,18 +3,18 @@
     <input-field
       id="name"
       name="name"
-      :label="$t('addRecipePage.name')"
-      :placeholder="$t('addRecipePage.name')"
-      :ariaLabel="$t('addRecipePage.ariaLabel.name')"
+      :label="$t('editRecipePage.name')"
+      :placeholder="$t('editRecipePage.name')"
+      :ariaLabel="$t('editRecipePage.ariaLabel.name')"
       type="text"
       :required="true"
       v-model:input="recipe.name"
     />
     <select-field
       id="category"
-      :label="$t('addRecipePage.category')"
-      :ariaLabel="$t('addRecipePage.ariaLabel.category')"
-      :placeholder="$t('addRecipePage.category')"
+      :label="$t('editRecipePage.category')"
+      :ariaLabel="$t('editRecipePage.ariaLabel.category')"
+      :placeholder="$t('editRecipePage.category')"
       :required="true"
       :items="
         Object.values(RecipeCategories).map((category) => ({
@@ -22,23 +22,23 @@
           label: category.toLowerCase()
         }))
       "
-      labelPrefix="addRecipePage.categories."
+      labelPrefix="editRecipePage.categories."
       v-model:selected="recipe.category"
     />
     <input-field
       id="lastEaten"
       name="lastEaten"
-      :label="$t('addRecipePage.lastEaten')"
-      :ariaLabel="$t('addRecipePage.ariaLabel.lastEaten')"
+      :label="$t('editRecipePage.lastEaten')"
+      :ariaLabel="$t('editRecipePage.ariaLabel.lastEaten')"
       type="date"
-      v-model:input="recipe.lastEaten"
+      v-model:input="cookGroupRecipe.lastEaten"
     />
     <input-field
       id="duration"
       name="duration"
-      :label="$t('addRecipePage.duration')"
-      :placeholder="$t('addRecipePage.duration')"
-      :ariaLabel="$t('addRecipePage.ariaLabel.duration')"
+      :label="$t('editRecipePage.duration')"
+      :placeholder="$t('editRecipePage.duration')"
+      :ariaLabel="$t('editRecipePage.ariaLabel.duration')"
       type="number"
       :required="true"
       :min="1"
@@ -47,9 +47,9 @@
     <input-field
       id="portions"
       name="portions"
-      :label="$t('addRecipePage.portions')"
-      :placeholder="$t('addRecipePage.portions')"
-      :ariaLabel="$t('addRecipePage.ariaLabel.portions')"
+      :label="$t('editRecipePage.portions')"
+      :placeholder="$t('editRecipePage.portions')"
+      :ariaLabel="$t('editRecipePage.ariaLabel.portions')"
       type="number"
       :required="true"
       :min="1"
@@ -58,9 +58,9 @@
     <input-field
       id="rating"
       name="rating"
-      :label="$t('addRecipePage.rating')"
-      :placeholder="$t('addRecipePage.rating')"
-      :ariaLabel="$t('addRecipePage.ariaLabel.rating')"
+      :label="$t('editRecipePage.rating')"
+      :placeholder="$t('editRecipePage.rating')"
+      :ariaLabel="$t('editRecipePage.ariaLabel.rating')"
       type="number"
       :required="true"
       :min="0"
@@ -69,33 +69,33 @@
     />
     <input-list
       id="ingredients"
-      :label="$t('addRecipePage.ingredients')"
+      :label="$t('editRecipePage.ingredients')"
       v-model:items="recipe.ingredients"
       v-slot="{ index }"
     >
       <input-field
         :name="'amount ' + index"
-        :placeholder="$t('addRecipePage.amount')"
-        :ariaLabel="$t('addRecipePage.ariaLabel.amount')"
+        :placeholder="$t('editRecipePage.amount')"
+        :ariaLabel="$t('editRecipePage.ariaLabel.amount')"
         type="number"
         v-model:input="recipe.ingredients[index].amount"
       />
       <select-field
-        :ariaLabel="$t('addRecipePage.ariaLabel.unit')"
-        :placeholder="$t('addRecipePage.unit')"
+        :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
+        :placeholder="$t('editRecipePage.unit')"
         :items="
           Object.values(RecipeUnits).map((unit) => ({
             value: unit.toLowerCase(),
             label: unit.toLowerCase()
           }))
         "
-        labelPrefix="addRecipePage.units."
+        labelPrefix="editRecipePage.units."
         v-model:selected="recipe.ingredients[index].unit"
       />
       <input-field
         :name="'ingredient ' + index"
-        :placeholder="$t('addRecipePage.ingredient')"
-        :ariaLabel="$t('addRecipePage.ariaLabel.ingredient')"
+        :placeholder="$t('editRecipePage.ingredient')"
+        :ariaLabel="$t('editRecipePage.ariaLabel.ingredient')"
         type="text"
         v-model:input="recipe.ingredients[index].name"
         @input="addInputRow(recipe.ingredients, index, { amount: 0, unit: '', name: '' })"
@@ -103,14 +103,14 @@
     </input-list>
     <input-list
       id="instructions"
-      :label="$t('addRecipePage.instructions')"
+      :label="$t('editRecipePage.instructions')"
       v-model:items="recipe.instructions"
       v-slot="{ index }"
     >
       <input-field
         :name="'instruction ' + index"
-        :placeholder="$t('addRecipePage.instruction')"
-        :ariaLabel="$t('addRecipePage.ariaLabel.instruction')"
+        :placeholder="$t('editRecipePage.instruction')"
+        :ariaLabel="$t('editRecipePage.ariaLabel.instruction')"
         type="text"
         v-model:input="recipe.instructions[index]"
         @input="addInputRow(recipe.instructions, index, '')"
@@ -119,18 +119,18 @@
     <text-area
       id="notes"
       name="notes"
-      :label="$t('addRecipePage.notes')"
-      :placeholder="$t('addRecipePage.notes')"
-      :ariaLabel="$t('addRecipePage.ariaLabel.notes')"
+      :label="$t('editRecipePage.notes')"
+      :placeholder="$t('editRecipePage.notes')"
+      :ariaLabel="$t('editRecipePage.ariaLabel.notes')"
       v-model:input="recipe.notes"
     />
   </div>
   <upload-image
     id="image"
     name="image"
-    :label="$t('addRecipePage.image')"
-    :placeholder="$t('addRecipePage.image')"
-    :ariaLabel="$t('addRecipePage.ariaLabel.image')"
+    :label="$t('editRecipePage.image')"
+    :placeholder="$t('editRecipePage.image')"
+    :ariaLabel="$t('editRecipePage.ariaLabel.image')"
     :oldImage="recipe.image"
     @image="(i: File | null) => (image = i)"
   />
@@ -146,8 +146,10 @@ import SelectField from '@/components/form/SelectField.vue';
 import TextArea from '@/components/form/TextArea.vue';
 import UploadImage from '@/components/form/UploadImage.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
+import type { CookGroupRecipes } from '@/utils/types/cookgroup';
 
 const recipe = defineModel<Recipe>('recipe', { required: true });
+const cookGroupRecipe = defineModel<CookGroupRecipes>('cookGroupRecipe', { required: true });
 const errorMessage = defineModel<string>('errorMessage', { required: true });
 const image = defineModel<File | null>('image', { required: true });
 </script>

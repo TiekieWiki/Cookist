@@ -1,7 +1,6 @@
-import type { Timestamp } from 'firebase/firestore';
-
 export interface Recipe {
   id: string;
+  owner: string;
   name: string;
   category: string;
   duration: number | undefined;
@@ -10,7 +9,6 @@ export interface Recipe {
   image: string;
   ingredients: Ingredient[];
   instructions: string[];
-  lastEaten: Timestamp | undefined;
   notes: string;
   filterIngredients: string[];
 }
@@ -53,6 +51,7 @@ export enum RecipeUnits {
 export function emptyRecipe(): Recipe {
   return {
     id: '',
+    owner: '',
     name: '',
     category: RecipeCategories.Other,
     duration: undefined,
@@ -61,7 +60,6 @@ export function emptyRecipe(): Recipe {
     image: '',
     ingredients: [{ amount: 0, unit: '', name: '' }],
     instructions: [''],
-    lastEaten: undefined,
     notes: '',
     filterIngredients: []
   };

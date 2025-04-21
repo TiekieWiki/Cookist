@@ -10,16 +10,19 @@
     .header {
       @include header;
 
-      .sort {
+      #cookGroup {
+        max-width: 50%;
+      }
+    }
+
+    .sort {
+      display: flex;
+      gap: $gap-small;
+
+      button {
         display: flex;
         gap: $gap-small;
-        max-width: 60%;
-
-        button {
-          display: flex;
-          gap: $gap-small;
-          width: auto;
-        }
+        width: auto;
       }
     }
 

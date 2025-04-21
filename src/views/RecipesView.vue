@@ -3,36 +3,49 @@
     <article>
       <div class="header">
         <h2>{{ $t('recipesPage.title') }}</h2>
-        <div class="sort">
-          <input-field
-            id="search"
-            name="search"
-            :ariaLabel="$t('recipesPage.ariaLabel.search')"
-            type="text"
-            :placeholder="$t('recipesPage.searchPlaceholder')"
-            :required="false"
-            :disabled="false"
-            :autocomplete="'off'"
-            v-model:input="filter.name"
-          />
-          <button @click="openFilter = !openFilter" type="button">
-            <font-awesome-icon :icon="['fas', 'filter']" />{{ $t('recipesPage.filter') }}
-          </button>
-          <select-field
-            id="order"
-            :ariaLabel="$t('recipesPage.ariaLabel.order')"
-            :placeholder="$t('recipesPage.order')"
-            :required="false"
-            :items="
-              Object.values(RecipeOrderCategories).map((category) => ({
-                value: category,
-                label: category
-              }))
-            "
-            labelPrefix="recipesPage.orders."
-            v-model:selected="order"
-          />
-        </div>
+        <select-field
+          id="cookGroup"
+          :ariaLabel="$t('recipesPage.ariaLabel.cookGroups')"
+          :placeholder="$t('recipesPage.cookGroups')"
+          :required="false"
+          :items="
+            cookGroups.map((group) => ({
+              value: group.id,
+              label: group.name
+            }))
+          "
+          v-model:selected="selectedCookGroup"
+        />
+      </div>
+      <div class="sort">
+        <input-field
+          id="search"
+          name="search"
+          :ariaLabel="$t('recipesPage.ariaLabel.search')"
+          type="text"
+          :placeholder="$t('recipesPage.searchPlaceholder')"
+          :required="false"
+          :disabled="false"
+          :autocomplete="'off'"
+          v-model:input="filter.name"
+        />
+        <button @click="openFilter = !openFilter" type="button">
+          <font-awesome-icon :icon="['fas', 'filter']" />{{ $t('recipesPage.filter') }}
+        </button>
+        <select-field
+          id="order"
+          :ariaLabel="$t('recipesPage.ariaLabel.order')"
+          :placeholder="$t('recipesPage.order')"
+          :required="false"
+          :items="
+            Object.values(RecipeOrderCategories).map((category) => ({
+              value: category,
+              label: category
+            }))
+          "
+          labelPrefix="recipesPage.orders."
+          v-model:selected="order"
+        />
       </div>
       <Transition name="fade">
         <recipes-filter v-if="openFilter" v-model:filter="filter" />
@@ -81,7 +94,7 @@
 import { getData } from '@/utils/db';
 import { getImage } from '@/utils/newRecipe/manageImage';
 import { RecipeCategories, type Recipe } from '@/utils/types/recipe';
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { capitalizeFirstLetter } from '@/utils/text';
 import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
@@ -89,7 +102,36 @@ import RecipesFilter from '@/components/RecipesFilter.vue';
 import { RecipeOrderCategories, type Filter } from '@/utils/types/orderFilter';
 import { getQueryRecipes } from '@/utils/recipes/queryRecipes';
 import i18n from '@/i18n/index';
-import { Timestamp } from 'firebase/firestore';
+import { and, Timestamp, where, type QueryFilterConstraint } from 'firebase/firestore';
+import type { CookGroup } from '@/utils/types/cookgroup';
+import { getAuth } from 'firebase/auth';
+
+const auth = getAuth();
+
+const cookGroups = ref<CookGroup[]>([]);
+const selectedCookGroup = ref<string>();
+
+// Get cook groups
+onMounted(async () => {
+  try {
+    const filters: QueryFilterConstraint[] = [];
+    filters.push(
+      where('owner', '==', auth.currentUser?.uid),
+      where('members', 'array-contains', auth.currentUser?.uid)
+    );
+    cookGroups.value = (await getData('cookGroups', {
+      filters: and(...filters),
+      constraints: []
+    })) as CookGroup[];
+    if (cookGroups.value.length > 0) {
+      selectedCookGroup.value = cookGroups.value.find((group) => group.personal == true)?.id;
+    } else {
+      selectedCookGroup.value = undefined;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 const recipes = ref<Recipe[]>([]);
 const order = ref<string>('lastEatenAsc');
@@ -149,5 +191,9 @@ function setImage(id: string, image: string) {
       article.style.backgroundImage = `url(${url})`;
     }
   });
+}
+
+function useAuth(): { auth: any } {
+  throw new Error('Function not implemented.');
 }
 </script>

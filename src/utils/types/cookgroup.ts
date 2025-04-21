@@ -1,29 +1,36 @@
+import type { Timestamp } from 'firebase/firestore';
+
 export interface CookGroup {
   id: string;
   name: string;
   owner: string;
   personal: boolean;
-  members: Member[];
+  invitees: string[];
+  members: string[];
 }
-
-export interface Member {
-  userId: string;
-  email: string;
-}
-
 export interface CookGroupRecipes {
   id: string;
   cookGroupId: string;
   recipeId: string;
-  lastEaten: string;
+  lastEaten: Timestamp | undefined;
 }
 
-export function emptyCookGroupMembers(): CookGroup {
+export function emptyCookGroup(): CookGroup {
   return {
     id: '',
     name: '',
     owner: '',
     personal: true,
-    members: [{ userId: '', email: '' }]
+    invitees: [''],
+    members: []
+  };
+}
+
+export function emptyCookGroupRecipes(): CookGroupRecipes {
+  return {
+    id: '',
+    cookGroupId: '',
+    recipeId: '',
+    lastEaten: undefined
   };
 }

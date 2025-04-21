@@ -1,8 +1,8 @@
 <template>
-  <main class="addCookGroup">
+  <main class="editCookGroup">
     <article>
       <div class="header">
-        <h2>{{ $t('addCookGroupPage.title') }}</h2>
+        <h2>{{ $t('editCookGroupPage.title') }}</h2>
         <h2>
           <font-awesome-icon @click="$emit('closePopUp')" :icon="['fas', 'xmark']" />
         </h2>
@@ -10,35 +10,35 @@
       <input-field
         id="name"
         name="name"
-        :label="$t('addCookGroupPage.name')"
-        :placeholder="$t('addCookGroupPage.name')"
-        :ariaLabel="$t('addCookGroupPage.ariaLabel.name')"
+        :label="$t('editCookGroupPage.name')"
+        :placeholder="$t('editCookGroupPage.name')"
+        :ariaLabel="$t('editCookGroupPage.ariaLabel.name')"
         type="text"
         :required="true"
         v-model:input="cookGroup.name"
       />
       <input-list
-        id="memberEmails"
-        :label="$t('addCookGroupPage.memberEmails')"
-        v-model:items="cookGroup.members"
+        id="inviteeEmails"
+        :label="$t('editCookGroupPage.inviteeEmails')"
+        v-model:items="cookGroup.invitees"
         v-slot="{ index }"
       >
         <input-field
-          :name="'member email ' + index"
-          :placeholder="$t('addCookGroupPage.memberEmails')"
-          :ariaLabel="$t('addCookGroupPage.ariaLabel.memberEmails')"
+          :name="'invitee email ' + index"
+          :placeholder="$t('editCookGroupPage.inviteeEmails')"
+          :ariaLabel="$t('editCookGroupPage.ariaLabel.inviteeEmails')"
           type="text"
-          v-model:input="cookGroup.members[index].email"
-          @input="addInputRow(cookGroup.members, index, { email: '' })"
+          v-model:input="cookGroup.invitees[index]"
+          @input="addInputRow(cookGroup.invitees, index, '')"
         />
       </input-list>
       <error-message v-model:message="errorMessage" />
       <div class="footer">
         <button @click="closePopUp" type="button">
-          {{ $t('addCookGroupPage.cancel') }}
+          {{ $t('editCookGroupPage.cancel') }}
         </button>
         <button @click.prevent="saveCookGroup" type="submit">
-          {{ $t('addCookGroupPage.save') }}
+          {{ $t('editCookGroupPage.save') }}
         </button>
       </div>
     </article>
@@ -52,7 +52,7 @@ import InputList from './form/InputList.vue';
 import ErrorMessage from './form/ErrorMessage.vue';
 import { addInputRow } from '@/utils/newRecipe/list';
 import { validateCookGroup } from '@/utils/cookGroups/validateCookGroup';
-import { emptyCookGroupMembers, type CookGroup, type Member } from '@/utils/types/cookgroup';
+import { emptyCookGroup, type CookGroup } from '@/utils/types/cookgroup';
 import { addData, updateData } from '@/utils/db';
 import i18n from '@/i18n/index';
 import { getAuth } from 'firebase/auth';
@@ -65,7 +65,7 @@ const emit = defineEmits<{ closePopUp: []; refreshCookGroups: [] }>();
 
 const auth = getAuth();
 
-const cookGroup = ref<CookGroup>(emptyCookGroupMembers());
+const cookGroup = ref<CookGroup>(emptyCookGroup());
 const errorMessage = ref<string>('');
 
 // Add cook group to edit if it exists
@@ -73,7 +73,7 @@ onMounted(() => {
   if (props.cookGroup) {
     cookGroup.value = JSON.parse(JSON.stringify(props.cookGroup));
     cookGroup.value.name = capitalize(cookGroup.value.name);
-    cookGroup.value.members = [...cookGroup.value.members, { userId: '', email: '' }];
+    cookGroup.value.invitees.push('');
   }
 });
 
@@ -83,7 +83,7 @@ onMounted(() => {
  */
 async function saveCookGroup(): Promise<void> {
   errorMessage.value = validateCookGroup(cookGroup.value);
-  const members = cookGroup.value.members.filter((member) => member.email !== '');
+  const invitees = cookGroup.value.invitees.filter((invitee) => invitee !== '');
   if (errorMessage.value === '') {
     if (!props.cookGroup) {
       cookGroup.value.id = crypto.randomUUID();
@@ -91,14 +91,7 @@ async function saveCookGroup(): Promise<void> {
       cookGroup.value.personal = false;
     }
     cookGroup.value.name = cookGroup.value.name.toLowerCase();
-    cookGroup.value.members = [
-      ...new Set(
-        members.map((member) => ({
-          userId: '',
-          email: member.email.toLowerCase()
-        })) as Member[]
-      )
-    ];
+    cookGroup.value.invitees = [...new Set(invitees.map((invitee) => invitee.toLowerCase()))];
 
     // Save the cook group to the database
     try {
@@ -110,14 +103,14 @@ async function saveCookGroup(): Promise<void> {
       }
 
       // Reset the form
-      cookGroup.value = emptyCookGroupMembers();
+      cookGroup.value = emptyCookGroup();
       errorMessage.value = '';
 
       // Emit the event to close the pop-up
       emit('refreshCookGroups');
       emit('closePopUp');
     } catch (error) {
-      errorMessage.value = i18n.global.t('addCookGroupPage.errors.save');
+      errorMessage.value = i18n.global.t('editCookGroupPage.errors.save');
     }
   }
 }
@@ -127,7 +120,7 @@ async function saveCookGroup(): Promise<void> {
  */
 function closePopUp(): void {
   emit('closePopUp');
-  cookGroup.value = emptyCookGroupMembers();
+  cookGroup.value = emptyCookGroup();
   errorMessage.value = '';
 }
 </script>

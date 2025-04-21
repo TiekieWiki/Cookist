@@ -1,15 +1,16 @@
 <template>
-  <main class="addRecipe">
+  <main class="editRecipe">
     <article>
       <h2>{{ $t('editRecipePage.title') }}</h2>
       <form>
         <new-recipe
           v-model:recipe="recipe"
+          v-model:cookGroupRecipe="cookGroupRecipe"
           v-model:image="image"
           v-model:errorMessage="errorMessage"
         />
         <button @click.prevent="saveRecipe" id="save" type="submit">
-          {{ $t('addRecipePage.save') }}
+          {{ $t('editRecipePage.save') }}
         </button>
       </form>
     </article>
@@ -23,6 +24,7 @@ import { getData, updateData } from '@/utils/db';
 import { deleteImage, uploadImage } from '@/utils/newRecipe/manageImage';
 import { validateRecipe } from '@/utils/newRecipe/validateRecipe';
 import { capitalizeFirstLetter } from '@/utils/text';
+import { emptyCookGroupRecipes, type CookGroupRecipes } from '@/utils/types/cookgroup';
 import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
 import { where } from 'firebase/firestore';
 import { ref, watch } from 'vue';
@@ -33,17 +35,21 @@ const route = useRoute();
 const oldRecipe = ref<Recipe>(emptyRecipe());
 const recipe = ref<Recipe>(emptyRecipe());
 const oldImage = ref<string>('');
+const cookGroupRecipe = ref<CookGroupRecipes>(emptyCookGroupRecipes());
 
 watch(
   () => route.params.id,
   async (id) => {
     try {
       const recipes = await getData('recipes', where('id', '==', id));
-      if (recipes.length > 0) {
+      const cookGroupRecipes = await getData('cookGroupRecipes', where('recipeId', '==', id));
+      if (recipes.length > 0 && cookGroupRecipes.length > 0) {
         recipe.value = recipes[0] as Recipe;
         recipe.value.name = capitalizeFirstLetter(recipe.value.name);
         oldRecipe.value = recipes[0] as Recipe;
         oldImage.value = recipe.value.image;
+        cookGroupRecipe.value = cookGroupRecipes[0] as CookGroupRecipes;
+        console.log(cookGroupRecipe.value);
       }
     } catch (error) {
       console.error(error);
@@ -87,6 +93,11 @@ async function saveRecipe() {
     // Save the recipe
     try {
       await updateData('recipes', where('id', '==', recipe.value.id), recipe.value);
+      await updateData(
+        'cookGroupRecipes',
+        where('recipeId', '==', recipe.value.id),
+        cookGroupRecipe.value
+      );
 
       //Save image
       if (image.value && image.value.name !== oldImage.value) {
@@ -94,7 +105,7 @@ async function saveRecipe() {
         deleteImage(oldImage.value);
       }
     } catch (error) {
-      errorMessage.value = i18n.global.t('addRecipePage.errors.save');
+      errorMessage.value = i18n.global.t('editRecipePage.errors.save');
     }
   }
 }
@@ -102,7 +113,7 @@ async function saveRecipe() {
 // Prevent leaving the page if there are unsaved changes
 onBeforeRouteLeave(() => {
   if (recipe.value !== oldRecipe.value) {
-    const answer = window.confirm(i18n.global.t('addRecipePage.errors.unsavedChanges'));
+    const answer = window.confirm(i18n.global.t('editRecipePage.errors.unsavedChanges'));
     if (!answer) return false;
   }
 });
