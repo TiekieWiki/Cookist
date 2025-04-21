@@ -93,6 +93,7 @@ async function getCookGroups(): Promise<void> {
 
     noCookGroups.value = false;
   } catch (error) {
+    console.error(error);
     noCookGroups.value = true;
   }
 }

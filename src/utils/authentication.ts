@@ -20,6 +20,7 @@ export async function signInWithGoogle() {
       router.push('/recipes');
     }
   } catch (error) {
+    console.error(error);
     if (error instanceof DatabaseError) {
       // Register user
       const user: User = {

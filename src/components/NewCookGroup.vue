@@ -110,6 +110,7 @@ async function saveCookGroup(): Promise<void> {
       emit('refreshCookGroups');
       emit('closePopUp');
     } catch (error) {
+      console.error(error);
       errorMessage.value = i18n.global.t('editCookGroupPage.errors.save');
     }
   }

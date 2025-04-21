@@ -1,8 +1,6 @@
 import type { Timestamp } from 'firebase/firestore';
 
 export enum RecipeOrderCategories {
-  lastEatenAsc = 'lastEatenAsc',
-  lastEatenDesc = 'lastEatenDesc',
   ratingDesc = 'ratingDesc',
   ratingAsc = 'ratingAsc',
   durationAsc = 'durationAsc',
@@ -18,8 +16,6 @@ export interface Filter {
   durationMax: number;
   ratingMin: number;
   ratingMax: number;
-  lastEatenMin: Timestamp;
-  lastEatenMax: Timestamp;
   ingredients: { name: string }[];
 }
 

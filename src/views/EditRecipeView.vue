@@ -49,7 +49,6 @@ watch(
         oldRecipe.value = recipes[0] as Recipe;
         oldImage.value = recipe.value.image;
         cookGroupRecipe.value = cookGroupRecipes[0] as CookGroupRecipes;
-        console.log(cookGroupRecipe.value);
       }
     } catch (error) {
       console.error(error);
@@ -105,6 +104,7 @@ async function saveRecipe() {
         deleteImage(oldImage.value);
       }
     } catch (error) {
+      console.error(error);
       errorMessage.value = i18n.global.t('editRecipePage.errors.save');
     }
   }

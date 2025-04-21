@@ -26,14 +26,6 @@
       v-model:selected="recipe.category"
     />
     <input-field
-      id="lastEaten"
-      name="lastEaten"
-      :label="$t('editRecipePage.lastEaten')"
-      :ariaLabel="$t('editRecipePage.ariaLabel.lastEaten')"
-      type="date"
-      v-model:input="cookGroupRecipe.lastEaten"
-    />
-    <input-field
       id="duration"
       name="duration"
       :label="$t('editRecipePage.duration')"

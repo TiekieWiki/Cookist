@@ -2,7 +2,7 @@
   <div class="filters">
     <check-box-list
       id="category"
-      :label="$t('addRecipePage.category')"
+      :label="$t('editRecipePage.category')"
       v-model:items="filter.categories"
     />
     <div class="rangeFilters">
@@ -50,36 +50,18 @@
           v-model:input="filter.ratingMax"
         />
       </div>
-      <div>
-        <input-field
-          id="lastEatenMin"
-          name="lastEatenMin"
-          :label="$t('recipesPage.lastEatenMin')"
-          :ariaLabel="$t('recipesPage.ariaLabel.lastEatenMin')"
-          type="date"
-          v-model:input="filter.lastEatenMin"
-        />
-        <input-field
-          id="lastEatenMax"
-          name="lastEatenMax"
-          :label="$t('recipesPage.lastEatenMax')"
-          :ariaLabel="$t('recipesPage.ariaLabel.lastEatenMax')"
-          type="date"
-          v-model:input="filter.lastEatenMax"
-        />
-      </div>
     </div>
     <div class="ingredients">
       <input-list
         id="ingredients"
-        :label="$t('addRecipePage.ingredients')"
+        :label="$t('editRecipePage.ingredients')"
         v-model:items="filter.ingredients"
         v-slot="{ index }"
       >
         <input-field
           :name="'ingredient ' + index"
-          :placeholder="$t('addRecipePage.ingredient')"
-          :ariaLabel="$t('addRecipePage.ariaLabel.ingredient')"
+          :placeholder="$t('editRecipePage.ingredient')"
+          :ariaLabel="$t('editRecipePage.ariaLabel.ingredient')"
           type="text"
           v-model:input="filter.ingredients[index].name"
           @input="index < 9 ? addInputRow(filter.ingredients, index, { name: '' }) : null"

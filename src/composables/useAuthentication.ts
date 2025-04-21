@@ -35,6 +35,7 @@ export function useRegister(): {
       // Redirect to recipes page
       router.push('/recipes');
     } catch (error) {
+      console.error(error);
       switch ((error as any).code) {
         case 'auth/invalid-email':
           errorMessageRegister.value = 'loginPage.errors.invalidEmail';
@@ -75,6 +76,7 @@ export function useLogin(): {
         router.push('/recipes');
       });
     } catch (error) {
+      console.error(error);
       switch ((error as any).code) {
         case 'auth/invalid-email':
           errorMessageLogin.value = 'loginPage.errors.invalidEmail';

@@ -83,6 +83,7 @@ watch(isLoggedIn, async () => {
         useSetUserLanguage(user.value?.language);
       }
     } catch (error: any) {
+      console.error(error);
       alert(error.message);
     }
   } else {

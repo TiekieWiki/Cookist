@@ -18,10 +18,10 @@
 
           {{ recipe.portions }}
         </p>
-        |
+        <!-- |
         <p>
           <font-awesome-icon :icon="['far', 'calendar']" />
-          {{ recipe.lastEaten!.toDate().toLocaleDateString() }}
+          {{ recipe.lastEaten!.toDate().toLocaleDateString() }} -->
         </p>
       </div>
       <p v-if="recipe.notes">{{ recipe.notes }}</p>
@@ -31,7 +31,7 @@
       <div class="label-group">
         <label v-for="ingredient in recipe.ingredients" :key="ingredient.name">
           <input :name="ingredient.name" type="checkbox" />
-          {{ ingredient.amount }} {{ $t(`addRecipePage.units.${ingredient.unit}`) }}
+          {{ ingredient.amount }} {{ $t(`editRecipePage.units.${ingredient.unit}`) }}
           {{ ingredient.name }}
         </label>
       </div>
@@ -62,6 +62,7 @@ import i18n from '@/i18n/index';
 const route = useRoute();
 const recipe = ref<Recipe>({
   id: '',
+  owner: '',
   name: '',
   category: '',
   duration: undefined,
@@ -70,7 +71,6 @@ const recipe = ref<Recipe>({
   image: '',
   ingredients: [{ amount: 0, unit: '', name: '' }],
   instructions: [''],
-  lastEaten: undefined,
   notes: '',
   filterIngredients: []
 });

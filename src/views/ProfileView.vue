@@ -64,6 +64,7 @@ onMounted(async () => {
       selectedLanguage.value = users[0].language;
     }
   } catch (error: any) {
+    console.error(error);
     alert(error.message);
   }
 });
@@ -85,6 +86,7 @@ function saveSettings() {
     updateData('users', where('id', '==', auth.currentUser?.uid), user);
     useSuccessTransition(successMessage, 'profilePage.saveSuccess');
   } catch (error: any) {
+    console.error(error);
     alert(error.message);
   }
 }

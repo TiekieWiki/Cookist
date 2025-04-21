@@ -11,7 +11,7 @@
           :items="
             cookGroups.map((group) => ({
               value: group.id,
-              label: group.name
+              label: capitalizeFirstLetter(group.name)
             }))
           "
           v-model:selected="selectedCookGroup"
@@ -80,11 +80,11 @@
 
           {{ recipe.portions }}
         </p>
-        |
+        <!-- |
         <p>
           <font-awesome-icon :icon="['far', 'calendar']" />
           {{ recipe.lastEaten!.toDate().toLocaleDateString() }}
-        </p>
+        </p> -->
       </div>
     </article>
   </main>
@@ -102,9 +102,10 @@ import RecipesFilter from '@/components/RecipesFilter.vue';
 import { RecipeOrderCategories, type Filter } from '@/utils/types/orderFilter';
 import { getQueryRecipes } from '@/utils/recipes/queryRecipes';
 import i18n from '@/i18n/index';
-import { and, Timestamp, where, type QueryFilterConstraint } from 'firebase/firestore';
-import type { CookGroup } from '@/utils/types/cookgroup';
+import { where } from 'firebase/firestore';
+import type { CookGroup, CookGroupRecipes } from '@/utils/types/cookgroup';
 import { getAuth } from 'firebase/auth';
+import { getQueryCookGroups } from '@/utils/cookGroups/queryCookGroups';
 
 const auth = getAuth();
 
@@ -114,17 +115,17 @@ const selectedCookGroup = ref<string>();
 // Get cook groups
 onMounted(async () => {
   try {
-    const filters: QueryFilterConstraint[] = [];
-    filters.push(
-      where('owner', '==', auth.currentUser?.uid),
-      where('members', 'array-contains', auth.currentUser?.uid)
-    );
-    cookGroups.value = (await getData('cookGroups', {
-      filters: and(...filters),
-      constraints: []
-    })) as CookGroup[];
+    cookGroups.value = (await getData(
+      'cookGroups',
+      getQueryCookGroups(auth.currentUser?.uid || '')
+    )) as CookGroup[];
     if (cookGroups.value.length > 0) {
-      selectedCookGroup.value = cookGroups.value.find((group) => group.personal == true)?.id;
+      // Get the personal cook group
+      const personalCookGroup = cookGroups.value.find((group) => group.personal == true);
+      if (personalCookGroup) {
+        personalCookGroup.name = i18n.global.t('cookGroupsPage.personalCookGroup');
+        selectedCookGroup.value = personalCookGroup?.id;
+      }
     } else {
       selectedCookGroup.value = undefined;
     }
@@ -133,8 +134,9 @@ onMounted(async () => {
   }
 });
 
+// Get the recipes of the selected cook group
 const recipes = ref<Recipe[]>([]);
-const order = ref<string>('lastEatenAsc');
+const order = ref<string>('nameAsc');
 
 // Filter
 const openFilter = ref<boolean>(false);
@@ -143,7 +145,7 @@ const filter = ref<Filter>({
   categories: Object.values(RecipeCategories).map((category) => ({
     id: category,
     name: category,
-    label: i18n.global.t(`addRecipePage.categories.${category}`),
+    label: i18n.global.t(`editRecipePage.categories.${category}`),
     required: false,
     disabled: false,
     autocomplete: 'off',
@@ -153,27 +155,27 @@ const filter = ref<Filter>({
   durationMax: 10080,
   ratingMin: 0,
   ratingMax: 5,
-  lastEatenMin: Timestamp.fromDate(new Date(0)),
-  lastEatenMax: Timestamp.fromDate(new Date('9999-12-31')),
   ingredients: [{ name: '' }]
 });
 const noRecipes = ref<boolean>(false);
 
-// Get recipes
+// Get recipes based on the selected cook group and filter
 watch(
-  [order, filter],
+  [selectedCookGroup, order, filter],
   async () => {
     try {
       recipes.value = (await getData(
         'recipes',
-        getQueryRecipes(order.value, filter.value)
+        await getQueryRecipes(order.value, filter.value, selectedCookGroup.value || '')
       )) as Recipe[];
+
       recipes.value.forEach((recipe) => {
         setImage(recipe.id, recipe.image);
       });
       noRecipes.value = false;
     } catch (error) {
       noRecipes.value = true;
+      console.error(error);
     }
   },
   { immediate: true, deep: true }
@@ -191,9 +193,5 @@ function setImage(id: string, image: string) {
       article.style.backgroundImage = `url(${url})`;
     }
   });
-}
-
-function useAuth(): { auth: any } {
-  throw new Error('Function not implemented.');
 }
 </script>

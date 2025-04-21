@@ -67,10 +67,6 @@ async function saveRecipe() {
     // Clean up the cook group recipe
     cookGroupRecipe.value.id = crypto.randomUUID();
     cookGroupRecipe.value.cookGroupId = auth.currentUser?.uid || '';
-    cookGroupRecipe.value.recipeId = recipe.value.id;
-    if (!cookGroupRecipe.value.lastEaten) {
-      cookGroupRecipe.value.lastEaten = Timestamp.fromDate(new Date());
-    }
 
     // Save the recipe
     try {
@@ -88,6 +84,7 @@ async function saveRecipe() {
       image.value = null;
       errorMessage.value = '';
     } catch (error) {
+      console.error(error);
       errorMessage.value = i18n.global.t('editRecipePage.errors.save');
     }
   }

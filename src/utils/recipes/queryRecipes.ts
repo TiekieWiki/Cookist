@@ -1,7 +1,6 @@
 import {
   where,
   orderBy,
-  Timestamp,
   or,
   QueryFieldFilterConstraint,
   and,
@@ -10,6 +9,8 @@ import {
   type QueryNonFilterConstraint
 } from 'firebase/firestore';
 import { RecipeOrderCategories, type Filter } from '../types/orderFilter';
+import type { CookGroupRecipes } from '../types/cookgroup';
+import { getData } from '../db';
 
 /**
  * Get the query constraint for the recipes
@@ -17,12 +18,33 @@ import { RecipeOrderCategories, type Filter } from '../types/orderFilter';
  * @param filter Filter object
  * @returns QueryCompositeFilterConstraint, QueryConstraint
  */
-export function getQueryRecipes(
+export async function getQueryRecipes(
   order: string,
-  filter: Filter
-): { filters: QueryCompositeFilterConstraint; constraints: QueryNonFilterConstraint[] } {
+  filter: Filter,
+  cookGroup: string
+): Promise<{ filters: QueryCompositeFilterConstraint; constraints: QueryNonFilterConstraint[] }> {
   const filters: QueryFilterConstraint[] = [];
   const constraints: QueryNonFilterConstraint[] = [];
+
+  // Get cook group recipes
+  let cookGroupRecipes: CookGroupRecipes[] = [];
+  if (cookGroup !== '') {
+    cookGroupRecipes = (await getData(
+      'cookGroupRecipes',
+      where('cookGroupId', '==', cookGroup)
+    )) as CookGroupRecipes[];
+  }
+
+  // Filter recipes
+  const recipeQuery: QueryFieldFilterConstraint[] = [];
+  if (cookGroupRecipes.length > 0) {
+    cookGroupRecipes.forEach((cookGroupRecipe) => {
+      if (cookGroupRecipe.recipeId !== '') {
+        recipeQuery.push(where('id', '==', cookGroupRecipe.recipeId));
+      }
+    });
+    filters.push(or(...recipeQuery));
+  }
 
   // Filter name
   if (filter.name !== '') {
@@ -31,14 +53,14 @@ export function getQueryRecipes(
   }
 
   // Filter categories
-  const orQuery: QueryFieldFilterConstraint[] = [];
+  const categoryQuery: QueryFieldFilterConstraint[] = [];
   if (filter.categories.length > 0) {
     filter.categories.forEach((category) => {
       if (category.checked) {
-        orQuery.push(where('category', '==', category.name));
+        categoryQuery.push(where('category', '==', category.name));
       }
     });
-    filters.push(or(...orQuery));
+    filters.push(or(...categoryQuery));
   }
 
   // Filter duration
@@ -57,14 +79,6 @@ export function getQueryRecipes(
     filters.push(where('rating', '<=', filter.ratingMax));
   }
 
-  // Filter last eaten
-  if (filter.lastEatenMin > Timestamp.fromDate(new Date(0))) {
-    filters.push(where('lastEaten', '>=', new Date(filter.lastEatenMin.valueOf())));
-  }
-  if (filter.lastEatenMax < Timestamp.fromDate(new Date('9999-12-31'))) {
-    filters.push(where('lastEaten', '<=', new Date(filter.lastEatenMax.valueOf())));
-  }
-
   // Filter ingredients
   const ingredients = filter.ingredients
     .filter((ingredient) => ingredient.name !== '')
@@ -75,12 +89,6 @@ export function getQueryRecipes(
 
   // Order by the selected category
   switch (order) {
-    case RecipeOrderCategories.lastEatenAsc:
-      constraints.push(orderBy('lastEaten', 'asc'));
-      break;
-    case RecipeOrderCategories.lastEatenDesc:
-      constraints.push(orderBy('lastEaten', 'desc'));
-      break;
     case RecipeOrderCategories.ratingAsc:
       constraints.push(orderBy('rating', 'asc'));
       break;
@@ -100,7 +108,7 @@ export function getQueryRecipes(
       constraints.push(orderBy('name', 'desc'));
       break;
     default:
-      constraints.push(orderBy('lastEaten', 'asc'));
+      constraints.push(orderBy('name', 'asc'));
   }
 
   return { filters: and(...filters), constraints: constraints };
