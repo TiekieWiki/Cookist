@@ -60,7 +60,11 @@
       :key="recipe.id"
       class="card"
       :id="recipe.id"
-      @click="$router.push({ path: `/recipe/${recipe.id}` })"
+      @click="
+        $router.push({
+          path: `/recipe/${currentCookGroupRecipes.find((group) => group.cookGroupId == selectedCookGroup)?.id || ''}/${recipe.id}`
+        })
+      "
       tabindex="0"
     >
       <div class="title">
@@ -80,11 +84,13 @@
 
           {{ recipe.portions }}
         </p>
-        <template v-if="getRecipeLastEaten(recipe)">
+        <template
+          v-if="getRecipesLastEaten(recipe, currentCookGroupRecipes, selectedCookGroup ?? '')"
+        >
           |
           <p>
             <font-awesome-icon :icon="['fas', 'calendar']" />
-            {{ getRecipeLastEaten(recipe) }}
+            {{ getRecipesLastEaten(recipe, currentCookGroupRecipes, selectedCookGroup ?? '') }}
           </p>
         </template>
       </div>
@@ -104,15 +110,15 @@ import RecipesFilter from '@/components/RecipesFilter.vue';
 import { RecipeOrderCategories, type Filter } from '@/utils/types/orderFilter';
 import { getQueryRecipes } from '@/utils/recipes/queryRecipes';
 import i18n from '@/i18n/index';
-import type { CookGroup, CookGroupRecipes } from '@/utils/types/cookgroup';
+import type { CookGroup, CookGroupRecipe } from '@/utils/types/cookgroup';
 import { getAuth } from 'firebase/auth';
 import { getQueryCookGroups } from '@/utils/cookGroups/queryCookGroups';
-import { Timestamp } from 'firebase/firestore';
+import { getRecipesLastEaten } from '@/utils/recipes/lastEaten';
 
 const auth = getAuth();
 
 const cookGroups = ref<CookGroup[]>([]);
-const currentCookGroupRecipes = ref<CookGroupRecipes[]>([]);
+const currentCookGroupRecipes = ref<CookGroupRecipe[]>([]);
 const selectedCookGroup = ref<string>();
 
 // Get cook groups
@@ -139,7 +145,7 @@ onMounted(async () => {
 
 // Get the recipes of the selected cook group
 const recipes = ref<Recipe[]>([]);
-const order = ref<string>('nameAsc');
+const order = ref<string>('lastEatenAsc');
 
 // Filter
 const openFilter = ref<boolean>(false);
@@ -208,22 +214,5 @@ function setImage(id: string, image: string) {
       article.style.backgroundImage = `url(${url})`;
     }
   });
-}
-
-/**
- *
- * @param recipe Recipe object
- * @returns The last eaten date of the recipe in a readable format
- */
-function getRecipeLastEaten(recipe: Recipe): string | undefined {
-  const lastEaten = currentCookGroupRecipes.value.find(
-    (group) => group.cookGroupId === selectedCookGroup.value && group.recipeId == recipe.id
-  )?.lastEaten;
-
-  if (lastEaten && lastEaten > new Timestamp(0, 0)) {
-    return lastEaten.toDate().toLocaleDateString();
-  } else {
-    return undefined;
-  }
 }
 </script>

@@ -8,7 +8,7 @@ export interface CookGroup {
   invitees: string[];
   members: string[];
 }
-export interface CookGroupRecipes {
+export interface CookGroupRecipe {
   id: string;
   cookGroupId: string;
   recipeId: string;
@@ -26,7 +26,7 @@ export function emptyCookGroup(): CookGroup {
   };
 }
 
-export function emptyCookGroupRecipes(): CookGroupRecipes {
+export function emptyCookGroupRecipe(): CookGroupRecipe {
   return {
     id: '',
     cookGroupId: '',

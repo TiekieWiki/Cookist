@@ -10,7 +10,7 @@ import {
   Timestamp
 } from 'firebase/firestore';
 import { RecipeOrderCategories, type Filter } from '../types/orderFilter';
-import type { CookGroupRecipes } from '../types/cookgroup';
+import type { CookGroupRecipe } from '../types/cookgroup';
 import { getData } from '../db';
 
 /**
@@ -24,7 +24,7 @@ export async function getQueryRecipes(
   filter: Filter,
   cookGroup: string
 ): Promise<{
-  cookGroupRecipes: CookGroupRecipes[];
+  cookGroupRecipes: CookGroupRecipe[];
   recipeLastEatenOrder: string[];
   recipeFilter: {
     filters: QueryCompositeFilterConstraint;
@@ -62,13 +62,13 @@ export async function getQueryRecipes(
   }
 
   // Get cook group recipes
-  let cookGroupRecipes: CookGroupRecipes[] = [];
+  let cookGroupRecipes: CookGroupRecipe[] = [];
   if (cookGroup !== '') {
     cookGroupFilter.push(where('cookGroupId', '==', cookGroup));
     cookGroupRecipes = (await getData('cookGroupRecipes', {
       filters: and(...cookGroupFilter),
       constraints: cookGroupConstraints
-    })) as CookGroupRecipes[];
+    })) as CookGroupRecipe[];
   }
 
   // Create last eaten filter if selected by user

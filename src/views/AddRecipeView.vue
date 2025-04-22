@@ -28,12 +28,12 @@ import NewRecipe from '@/components/NewRecipe.vue';
 import { Timestamp } from 'firebase/firestore';
 import { onBeforeRouteLeave } from 'vue-router';
 import { getAuth } from 'firebase/auth';
-import { emptyCookGroupRecipes, type CookGroupRecipes } from '@/utils/types/cookgroup';
+import { emptyCookGroupRecipe, type CookGroupRecipe } from '@/utils/types/cookgroup';
 
 const auth = getAuth();
 
 const recipe = ref<Recipe>(emptyRecipe());
-const cookGroupRecipe = ref<CookGroupRecipes>(emptyCookGroupRecipes());
+const cookGroupRecipe = ref<CookGroupRecipe>(emptyCookGroupRecipe());
 const image = ref<File | null>(null);
 const errorMessage = ref<string>('');
 
@@ -82,7 +82,7 @@ async function saveRecipe() {
 
       // Reset the form
       recipe.value = emptyRecipe();
-      cookGroupRecipe.value = emptyCookGroupRecipes();
+      cookGroupRecipe.value = emptyCookGroupRecipe();
       image.value = null;
       errorMessage.value = '';
     } catch (error) {

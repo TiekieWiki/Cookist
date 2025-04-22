@@ -24,7 +24,7 @@ import { getData, updateData } from '@/utils/db';
 import { deleteImage, uploadImage } from '@/utils/newRecipe/manageImage';
 import { validateRecipe } from '@/utils/newRecipe/validateRecipe';
 import { capitalizeFirstLetter } from '@/utils/text';
-import { emptyCookGroupRecipes, type CookGroupRecipes } from '@/utils/types/cookgroup';
+import { emptyCookGroupRecipe, type CookGroupRecipe } from '@/utils/types/cookgroup';
 import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
 import { where } from 'firebase/firestore';
 import { ref, watch } from 'vue';
@@ -35,7 +35,7 @@ const route = useRoute();
 const oldRecipe = ref<Recipe>(emptyRecipe());
 const recipe = ref<Recipe>(emptyRecipe());
 const oldImage = ref<string>('');
-const cookGroupRecipe = ref<CookGroupRecipes>(emptyCookGroupRecipes());
+const cookGroupRecipe = ref<CookGroupRecipe>(emptyCookGroupRecipe());
 
 watch(
   () => route.params.id,
@@ -48,7 +48,7 @@ watch(
         recipe.value.name = capitalizeFirstLetter(recipe.value.name);
         oldRecipe.value = recipes[0] as Recipe;
         oldImage.value = recipe.value.image;
-        cookGroupRecipe.value = cookGroupRecipes[0] as CookGroupRecipes;
+        cookGroupRecipe.value = cookGroupRecipes[0] as CookGroupRecipe;
       }
     } catch (error) {
       console.error(error);

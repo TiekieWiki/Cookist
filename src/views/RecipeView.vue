@@ -18,11 +18,13 @@
 
           {{ recipe.portions }}
         </p>
-        <!-- |
-        <p>
-          <font-awesome-icon :icon="['far', 'calendar']" />
-          {{ recipe.lastEaten!.toDate().toLocaleDateString() }} -->
-        </p>
+        <template v-if="lastEaten">
+          |
+          <p>
+            <font-awesome-icon :icon="['fas', 'calendar']" />
+            {{ lastEaten }}
+          </p>
+        </template>
       </div>
       <p v-if="recipe.notes">{{ recipe.notes }}</p>
     </article>
@@ -57,6 +59,8 @@ import { useRoute } from 'vue-router';
 import { capitalizeFirstLetter } from '@/utils/text';
 import { getImage } from '@/utils/newRecipe/manageImage';
 import i18n from '@/i18n/index';
+import { getRecipeLastEaten } from '@/utils/recipes/lastEaten';
+import { Timestamp } from 'firebase/firestore';
 
 // Get the recipe from the database
 const route = useRoute();
@@ -74,15 +78,24 @@ const recipe = ref<Recipe>({
   notes: '',
   filterIngredients: []
 });
+const lastEaten = ref<string>();
 
 watch(
-  () => route.params.id,
-  async (id) => {
+  [route.params.cookGroupRecipeId, route.params.recipeId],
+  async () => {
     try {
-      const recipes = await getData('recipes', where('id', '==', id));
+      const recipes = await getData('recipes', where('id', '==', route.params.recipeId));
       if (recipes.length > 0) {
         recipe.value = recipes[0] as Recipe;
       }
+
+      // Get the recipe last eaten date
+      const lastEatenDate = await getRecipeLastEaten(
+        Array.isArray(route.params.cookGroupRecipeId)
+          ? route.params.cookGroupRecipeId[0]
+          : route.params.cookGroupRecipeId
+      );
+      lastEaten.value = lastEatenDate ? lastEatenDate.toDate().toLocaleDateString() : undefined;
     } catch (error) {
       console.error(error);
     }
