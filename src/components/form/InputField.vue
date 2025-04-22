@@ -18,8 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import type { Timestamp } from 'firebase/firestore';
-
 defineProps<{
   id?: string;
   name: string;
@@ -35,5 +33,5 @@ defineProps<{
   step?: number;
 }>();
 
-const input = defineModel<string | Timestamp | number | undefined>('input');
+const input = defineModel<string | number | undefined>('input');
 </script>

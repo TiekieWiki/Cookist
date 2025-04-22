@@ -105,6 +105,7 @@ import i18n from '@/i18n/index';
 import type { CookGroup } from '@/utils/types/cookgroup';
 import { getAuth } from 'firebase/auth';
 import { getQueryCookGroups } from '@/utils/cookGroups/queryCookGroups';
+import { Timestamp } from 'firebase/firestore';
 
 const auth = getAuth();
 
@@ -154,6 +155,8 @@ const filter = ref<Filter>({
   durationMax: 10080,
   ratingMin: 0,
   ratingMax: 5,
+  lastEatenMin: new Date(0).toISOString().slice(0, 10),
+  lastEatenMax: new Date('9999-12-31').toISOString().slice(0, 10),
   ingredients: [{ name: '' }]
 });
 const noRecipes = ref<boolean>(false);
@@ -163,10 +166,20 @@ watch(
   [selectedCookGroup, order, filter],
   async () => {
     try {
-      recipes.value = (await getData(
-        'recipes',
-        await getQueryRecipes(order.value, filter.value, selectedCookGroup.value || '')
-      )) as Recipe[];
+      const { recipeLastEatenOrder, recipeFilter } = await getQueryRecipes(
+        order.value,
+        filter.value,
+        selectedCookGroup.value || ''
+      );
+      recipes.value = (await getData('recipes', recipeFilter)) as Recipe[];
+
+      // Order the recipes on last eaten if selected
+      if (recipeLastEatenOrder.length > 0) {
+        recipes.value = recipeLastEatenOrder
+          .map((recipeId: string) => recipes.value.find((recipe) => recipe.id === recipeId))
+          .filter(Boolean) as Recipe[];
+      }
+
       recipes.value.forEach((recipe) => {
         setImage(recipe.id, recipe.image);
       });

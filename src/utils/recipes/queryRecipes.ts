@@ -6,7 +6,8 @@ import {
   and,
   type QueryFilterConstraint,
   QueryCompositeFilterConstraint,
-  type QueryNonFilterConstraint
+  type QueryNonFilterConstraint,
+  Timestamp
 } from 'firebase/firestore';
 import { RecipeOrderCategories, type Filter } from '../types/orderFilter';
 import type { CookGroupRecipes } from '../types/cookgroup';
@@ -22,28 +23,74 @@ export async function getQueryRecipes(
   order: string,
   filter: Filter,
   cookGroup: string
-): Promise<{ filters: QueryCompositeFilterConstraint; constraints: QueryNonFilterConstraint[] }> {
+): Promise<{
+  recipeLastEatenOrder: string[];
+  recipeFilter: {
+    filters: QueryCompositeFilterConstraint;
+    constraints: QueryNonFilterConstraint[];
+  };
+}> {
   const filters: QueryFilterConstraint[] = [];
   const constraints: QueryNonFilterConstraint[] = [];
+
+  // Filter last eaten
+  const cookGroupFilter: QueryFieldFilterConstraint[] = [];
+  // console.log(Timestamp.fromMillis(Date.parse(filter.lastEatenMax)));
+  // if (Timestamp.fromMillis(Date.parse(filter.lastEatenMin)) > new Timestamp(0, 0)) {
+  //   console.log(
+  //     'lastEatenMin',
+  //     Timestamp.fromMillis(Date.parse(filter.lastEatenMin)),
+  //     Timestamp.fromDate(new Date(0))
+  //   );
+  //   cookGroupFilter.push(
+  //     where('lastEaten', '>=', Timestamp.fromMillis(Date.parse(filter.lastEatenMax)))
+  //   );
+  // }
+  // if (filter.lastEatenMax < Timestamp.fromDate(new Date('9999-12-31'))) {
+  //   console.log('lastEatenMax', filter.lastEatenMax, Timestamp.fromDate(new Date('9999-12-31')));
+  //   cookGroupFilter.push(where('lastEaten', '<=', new Date(filter.lastEatenMax.valueOf())));
+  // }
+
+  // Order last eaten
+  const cookGroupConstraints: QueryNonFilterConstraint[] = [];
+  switch (order) {
+    case RecipeOrderCategories.lastEatenAsc:
+      cookGroupConstraints.push(orderBy('lastEaten', 'asc'));
+      break;
+    case RecipeOrderCategories.lastEatenDesc:
+      cookGroupConstraints.push(orderBy('lastEaten', 'desc'));
+      break;
+  }
 
   // Get cook group recipes
   let cookGroupRecipes: CookGroupRecipes[] = [];
   if (cookGroup !== '') {
-    cookGroupRecipes = (await getData(
-      'cookGroupRecipes',
-      where('cookGroupId', '==', cookGroup)
-    )) as CookGroupRecipes[];
+    cookGroupFilter.push(where('cookGroupId', '==', cookGroup));
+    cookGroupRecipes = (await getData('cookGroupRecipes', {
+      filters: and(...cookGroupFilter),
+      constraints: cookGroupConstraints
+    })) as CookGroupRecipes[];
+  }
+
+  // Create last eaten filter if selected by user
+  const recipeLastEatenOrder: string[] = [];
+  if (cookGroupConstraints.length > 0) {
+    cookGroupRecipes.forEach((cookGroupRecipe) => {
+      if (cookGroupRecipe.recipeId !== '') {
+        recipeLastEatenOrder.push(cookGroupRecipe.recipeId);
+      }
+    });
   }
 
   // Filter recipes
-  const recipeQuery: QueryFieldFilterConstraint[] = [];
+  const recipeFilter: QueryFieldFilterConstraint[] = [];
   if (cookGroupRecipes.length > 0) {
     cookGroupRecipes.forEach((cookGroupRecipe) => {
       if (cookGroupRecipe.recipeId !== '') {
-        recipeQuery.push(where('id', '==', cookGroupRecipe.recipeId));
+        recipeFilter.push(where('id', '==', cookGroupRecipe.recipeId));
       }
     });
-    filters.push(or(...recipeQuery));
+    filters.push(or(...recipeFilter));
   }
 
   // Filter name
@@ -53,14 +100,14 @@ export async function getQueryRecipes(
   }
 
   // Filter categories
-  const categoryQuery: QueryFieldFilterConstraint[] = [];
+  const categoryFilter: QueryFieldFilterConstraint[] = [];
   if (filter.categories.length > 0) {
     filter.categories.forEach((category) => {
       if (category.checked) {
-        categoryQuery.push(where('category', '==', category.name));
+        categoryFilter.push(where('category', '==', category.name));
       }
     });
-    filters.push(or(...categoryQuery));
+    filters.push(or(...categoryFilter));
   }
 
   // Filter duration
@@ -107,9 +154,10 @@ export async function getQueryRecipes(
     case RecipeOrderCategories.nameDesc:
       constraints.push(orderBy('name', 'desc'));
       break;
-    default:
-      constraints.push(orderBy('name', 'asc'));
   }
 
-  return { filters: and(...filters), constraints: constraints };
+  return {
+    recipeLastEatenOrder: recipeLastEatenOrder,
+    recipeFilter: { filters: and(...filters), constraints: constraints }
+  };
 }

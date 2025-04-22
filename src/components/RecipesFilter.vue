@@ -8,6 +8,24 @@
     <div class="rangeFilters">
       <div>
         <input-field
+          id="lastEatenMin"
+          name="lastEatenMin"
+          :label="$t('recipesPage.lastEatenMin')"
+          :ariaLabel="$t('recipesPage.ariaLabel.lastEatenMin')"
+          type="date"
+          v-model:input="filter.lastEatenMin"
+        />
+        <input-field
+          id="lastEatenMax"
+          name="lastEatenMax"
+          :label="$t('recipesPage.lastEatenMax')"
+          :ariaLabel="$t('recipesPage.ariaLabel.lastEatenMax')"
+          type="date"
+          v-model:input="filter.lastEatenMax"
+        />
+      </div>
+      <div>
+        <input-field
           id="durationMin"
           name="durationMin"
           :label="$t('recipesPage.durationMin')"

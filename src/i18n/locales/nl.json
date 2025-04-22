@@ -53,6 +53,8 @@
     "filter": "Filter",
     "order": "Sorteer",
     "orders": {
+      "lastEatenAsc": "Laatst gegeten (oud-nieuw)",
+      "lastEatenDesc": "Laatst gegeten (nieuw-oud)",
       "ratingAsc": "Beoordeling (1-5)",
       "ratingDesc": "Beoordeling (5-1)",
       "durationAsc": "Duur (kort-lang)",
@@ -64,6 +66,8 @@
     "durationMax": "Maximum duur",
     "ratingMin": "Minimum beoordeling",
     "ratingMax": "Maximum beoordeling",
+    "lastEatenMin": "Minimum laatst gegeten",
+    "lastEatenMax": "Maximum laatst gegeten",
     "noRecipes": "Geen recepten gevonden",
     "ariaLabel": {
       "cookGroups": "Kookgroepen van de gebruiker",
@@ -72,7 +76,9 @@
       "durationMin": "Minimum duur van het recept",
       "durationMax": "Maximum duur van het recept",
       "ratingMin": "Minimum beoordeling van het recept",
-      "ratingMax": "Maximum beoordeling van het recept"
+      "ratingMax": "Maximum beoordeling van het recept",
+      "lastEatenMin": "Minimum laatst gegeten van het recept",
+      "lastEatenMax": "Maximum laatst gegeten van het recept"
     }
   },
   "recipePage": {

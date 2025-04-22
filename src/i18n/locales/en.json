@@ -53,6 +53,8 @@
     "filter": "Filter",
     "order": "Order",
     "orders": {
+      "lastEatenAsc": "Last eaten (old-new)",
+      "lastEatenDesc": "Last eaten (new-old)",
       "ratingAsc": "Rating (1-5)",
       "ratingDesc": "Rating (5-1)",
       "durationAsc": "Duration (short-long)",
@@ -64,6 +66,8 @@
     "durationMax": "Maximum duration",
     "ratingMin": "Minimum rating",
     "ratingMax": "Maximum rating",
+    "lastEatenMin": "Minimum last eaten",
+    "lastEatenMax": "Maximum last eaten",
     "noRecipes": "No recipes found",
     "ariaLabel": {
       "cookGroups": "Cook groups of the user",
@@ -72,7 +76,9 @@
       "durationMin": "Minimum duration of the recipe",
       "durationMax": "Maximum duration of the recipe",
       "ratingMin": "Minimum rating of the recipe",
-      "ratingMax": "Maximum rating of the recipe"
+      "ratingMax": "Maximum rating of the recipe",
+      "lastEatenMin": "Minimum last eaten of the recipe",
+      "lastEatenMax": "Maximum last eaten of the recipe"
     }
   },
   "recipePage": {
