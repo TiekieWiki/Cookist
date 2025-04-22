@@ -24,6 +24,7 @@ export async function getQueryRecipes(
   filter: Filter,
   cookGroup: string
 ): Promise<{
+  cookGroupRecipes: CookGroupRecipes[];
   recipeLastEatenOrder: string[];
   recipeFilter: {
     filters: QueryCompositeFilterConstraint;
@@ -155,6 +156,7 @@ export async function getQueryRecipes(
   }
 
   return {
+    cookGroupRecipes: cookGroupRecipes,
     recipeLastEatenOrder: recipeLastEatenOrder,
     recipeFilter: { filters: and(...filters), constraints: constraints }
   };

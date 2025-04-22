@@ -80,11 +80,13 @@
 
           {{ recipe.portions }}
         </p>
-        <!-- |
-        <p>
-          <font-awesome-icon :icon="['far', 'calendar']" />
-          {{ recipe.lastEaten!.toDate().toLocaleDateString() }}
-        </p> -->
+        <template v-if="getRecipeLastEaten(recipe)">
+          |
+          <p>
+            <font-awesome-icon :icon="['fas', 'calendar']" />
+            {{ getRecipeLastEaten(recipe) }}
+          </p>
+        </template>
       </div>
     </article>
   </main>
@@ -102,7 +104,7 @@ import RecipesFilter from '@/components/RecipesFilter.vue';
 import { RecipeOrderCategories, type Filter } from '@/utils/types/orderFilter';
 import { getQueryRecipes } from '@/utils/recipes/queryRecipes';
 import i18n from '@/i18n/index';
-import type { CookGroup } from '@/utils/types/cookgroup';
+import type { CookGroup, CookGroupRecipes } from '@/utils/types/cookgroup';
 import { getAuth } from 'firebase/auth';
 import { getQueryCookGroups } from '@/utils/cookGroups/queryCookGroups';
 import { Timestamp } from 'firebase/firestore';
@@ -110,6 +112,7 @@ import { Timestamp } from 'firebase/firestore';
 const auth = getAuth();
 
 const cookGroups = ref<CookGroup[]>([]);
+const currentCookGroupRecipes = ref<CookGroupRecipes[]>([]);
 const selectedCookGroup = ref<string>();
 
 // Get cook groups
@@ -166,11 +169,12 @@ watch(
   [selectedCookGroup, order, filter],
   async () => {
     try {
-      const { recipeLastEatenOrder, recipeFilter } = await getQueryRecipes(
+      const { cookGroupRecipes, recipeLastEatenOrder, recipeFilter } = await getQueryRecipes(
         order.value,
         filter.value,
         selectedCookGroup.value || ''
       );
+      currentCookGroupRecipes.value = cookGroupRecipes;
       recipes.value = (await getData('recipes', recipeFilter)) as Recipe[];
 
       // Order the recipes on last eaten if selected
@@ -204,5 +208,22 @@ function setImage(id: string, image: string) {
       article.style.backgroundImage = `url(${url})`;
     }
   });
+}
+
+/**
+ *
+ * @param recipe Recipe object
+ * @returns The last eaten date of the recipe in a readable format
+ */
+function getRecipeLastEaten(recipe: Recipe): string | undefined {
+  const lastEaten = currentCookGroupRecipes.value.find(
+    (group) => group.cookGroupId === selectedCookGroup.value && group.recipeId == recipe.id
+  )?.lastEaten;
+
+  if (lastEaten && lastEaten > new Timestamp(0, 0)) {
+    return lastEaten.toDate().toLocaleDateString();
+  } else {
+    return undefined;
+  }
 }
 </script>
