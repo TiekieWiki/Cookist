@@ -20,7 +20,7 @@ export function getQueryCookGroups(userId: string): {
 
   // Filter personal cook groups
   filters.push(where('owner', '==', userId));
-  filters.push(where('invitees', 'array-contains', userId));
+  filters.push(where('members', 'array-contains', userId));
 
   return { filters: or(...filters), constraints: constraints };
 }

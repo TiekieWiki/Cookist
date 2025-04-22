@@ -20,7 +20,6 @@ export async function signInWithGoogle() {
       router.push('/recipes');
     }
   } catch (error) {
-    console.error(error);
     if (error instanceof DatabaseError) {
       // Register user
       const user: User = {
@@ -37,7 +36,7 @@ export async function signInWithGoogle() {
 
       // Create user's personal cook group
       const cookGroup: CookGroup = {
-        id: crypto.randomUUID(),
+        id: getAuth().currentUser?.uid || '',
         name: '',
         owner: getAuth().currentUser?.uid || '',
         personal: true,
@@ -53,6 +52,7 @@ export async function signInWithGoogle() {
           alert(error.message);
         });
     } else if (error instanceof Error) {
+      console.error(error);
       alert(error.message);
     }
   }

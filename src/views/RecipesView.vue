@@ -102,8 +102,7 @@ import RecipesFilter from '@/components/RecipesFilter.vue';
 import { RecipeOrderCategories, type Filter } from '@/utils/types/orderFilter';
 import { getQueryRecipes } from '@/utils/recipes/queryRecipes';
 import i18n from '@/i18n/index';
-import { where } from 'firebase/firestore';
-import type { CookGroup, CookGroupRecipes } from '@/utils/types/cookgroup';
+import type { CookGroup } from '@/utils/types/cookgroup';
 import { getAuth } from 'firebase/auth';
 import { getQueryCookGroups } from '@/utils/cookGroups/queryCookGroups';
 
@@ -168,7 +167,6 @@ watch(
         'recipes',
         await getQueryRecipes(order.value, filter.value, selectedCookGroup.value || '')
       )) as Recipe[];
-
       recipes.value.forEach((recipe) => {
         setImage(recipe.id, recipe.image);
       });

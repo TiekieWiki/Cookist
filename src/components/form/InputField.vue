@@ -11,6 +11,7 @@
       :autocomplete="autocomplete"
       :min="min"
       :max="max"
+      :step="step"
       v-model="input"
     />
   </label>
@@ -31,6 +32,7 @@ defineProps<{
   autocomplete?: string;
   min?: number;
   max?: number;
+  step?: number;
 }>();
 
 const input = defineModel<string | Timestamp | number | undefined>('input');

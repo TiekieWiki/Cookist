@@ -69,6 +69,7 @@
         :name="'amount ' + index"
         :placeholder="$t('editRecipePage.amount')"
         :ariaLabel="$t('editRecipePage.ariaLabel.amount')"
+        :step="0.01"
         type="number"
         v-model:input="recipe.ingredients[index].amount"
       />
@@ -138,10 +139,8 @@ import SelectField from '@/components/form/SelectField.vue';
 import TextArea from '@/components/form/TextArea.vue';
 import UploadImage from '@/components/form/UploadImage.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
-import type { CookGroupRecipes } from '@/utils/types/cookgroup';
 
 const recipe = defineModel<Recipe>('recipe', { required: true });
-const cookGroupRecipe = defineModel<CookGroupRecipes>('cookGroupRecipe', { required: true });
 const errorMessage = defineModel<string>('errorMessage', { required: true });
 const image = defineModel<File | null>('image', { required: true });
 </script>

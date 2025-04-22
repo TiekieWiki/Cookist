@@ -66,7 +66,9 @@ async function saveRecipe() {
 
     // Clean up the cook group recipe
     cookGroupRecipe.value.id = crypto.randomUUID();
+    cookGroupRecipe.value.recipeId = recipe.value.id;
     cookGroupRecipe.value.cookGroupId = auth.currentUser?.uid || '';
+    cookGroupRecipe.value.lastEaten = new Timestamp(0, 0);
 
     // Save the recipe
     try {

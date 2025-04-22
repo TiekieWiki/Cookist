@@ -1,4 +1,4 @@
-import type { Timestamp } from 'firebase/firestore';
+import { Timestamp } from 'firebase/firestore';
 
 export interface CookGroup {
   id: string;
@@ -31,6 +31,6 @@ export function emptyCookGroupRecipes(): CookGroupRecipes {
     id: '',
     cookGroupId: '',
     recipeId: '',
-    lastEaten: undefined
+    lastEaten: new Timestamp(0, 0)
   };
 }
