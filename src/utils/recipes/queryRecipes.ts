@@ -35,21 +35,19 @@ export async function getQueryRecipes(
 
   // Filter last eaten
   const cookGroupFilter: QueryFieldFilterConstraint[] = [];
-  // console.log(Timestamp.fromMillis(Date.parse(filter.lastEatenMax)));
-  // if (Timestamp.fromMillis(Date.parse(filter.lastEatenMin)) > new Timestamp(0, 0)) {
-  //   console.log(
-  //     'lastEatenMin',
-  //     Timestamp.fromMillis(Date.parse(filter.lastEatenMin)),
-  //     Timestamp.fromDate(new Date(0))
-  //   );
-  //   cookGroupFilter.push(
-  //     where('lastEaten', '>=', Timestamp.fromMillis(Date.parse(filter.lastEatenMax)))
-  //   );
-  // }
-  // if (filter.lastEatenMax < Timestamp.fromDate(new Date('9999-12-31'))) {
-  //   console.log('lastEatenMax', filter.lastEatenMax, Timestamp.fromDate(new Date('9999-12-31')));
-  //   cookGroupFilter.push(where('lastEaten', '<=', new Date(filter.lastEatenMax.valueOf())));
-  // }
+  if (Timestamp.fromMillis(Date.parse(filter.lastEatenMin)) > new Timestamp(0, 0)) {
+    cookGroupFilter.push(
+      where('lastEaten', '>=', Timestamp.fromMillis(Date.parse(filter.lastEatenMin)))
+    );
+  }
+  if (
+    Timestamp.fromMillis(Date.parse(filter.lastEatenMax)) <
+    Timestamp.fromDate(new Date('9999-12-31'))
+  ) {
+    cookGroupFilter.push(
+      where('lastEaten', '<=', Timestamp.fromMillis(Date.parse(filter.lastEatenMax.valueOf())))
+    );
+  }
 
   // Order last eaten
   const cookGroupConstraints: QueryNonFilterConstraint[] = [];
