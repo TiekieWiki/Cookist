@@ -3,10 +3,16 @@
     <article>
       <div class="header">
         <h2>{{ capitalizeFirstLetter(recipe.name) }}</h2>
-        <div>
-          <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
-          <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
-        </div>
+        <font-awesome-icon
+          v-if="recipe.owner === getAuth().currentUser?.uid"
+          @click="
+            $router.push({
+              path: `/edit-recipe/${recipe.id}`
+            })
+          "
+          class="edit"
+          :icon="['fas', 'pen']"
+        />
       </div>
       <div class="info">
         <p>{{ capitalizeFirstLetter(recipe.category) }}</p>
@@ -25,6 +31,11 @@
             {{ lastEaten }}
           </p>
         </template>
+        |
+        <div>
+          <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
+          <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
+        </div>
       </div>
       <p v-if="recipe.notes">{{ recipe.notes }}</p>
     </article>
@@ -54,13 +65,13 @@
 import { getData } from '@/utils/db';
 import type { Recipe } from '@/utils/types/recipe';
 import { where } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { capitalizeFirstLetter } from '@/utils/text';
 import { getImage } from '@/utils/newRecipe/manageImage';
 import i18n from '@/i18n/index';
 import { getRecipeLastEaten } from '@/utils/recipes/lastEaten';
-import { Timestamp } from 'firebase/firestore';
 
 // Get the recipe from the database
 const route = useRoute();
@@ -90,11 +101,7 @@ watch(
       }
 
       // Get the recipe last eaten date
-      const lastEatenDate = await getRecipeLastEaten(
-        Array.isArray(route.params.cookGroupRecipeId)
-          ? route.params.cookGroupRecipeId[0]
-          : route.params.cookGroupRecipeId
-      );
+      const lastEatenDate = await getRecipeLastEaten(route.params.cookGroupRecipeId as string);
       lastEaten.value = lastEatenDate ? lastEatenDate.toDate().toLocaleDateString() : undefined;
     } catch (error) {
       console.error(error);

@@ -62,7 +62,7 @@
       :id="recipe.id"
       @click="
         $router.push({
-          path: `/recipe/${currentCookGroupRecipes.find((group) => group.cookGroupId == selectedCookGroup)?.id || ''}/${recipe.id}`
+          path: `/recipe/${currentCookGroupRecipes.find((group) => group.cookGroupId == selectedCookGroup && group.recipeId == recipe.id)?.id || ''}/${recipe.id}`
         })
       "
       tabindex="0"
