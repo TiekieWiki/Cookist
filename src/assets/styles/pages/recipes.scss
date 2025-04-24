@@ -1,23 +1,11 @@
 @import '../mixins/interactions.scss';
-@import '../mixins/lists.scss';
+@import '../mixins/visuals.scss';
 
 .recipes {
-  & > *:nth-child(2n - 1):nth-last-of-type(1) {
-    grid-column: span 1;
-  }
-
-  & > *:nth-child(2n):nth-last-of-type(1) {
-    grid-column: span 2;
-  }
+  @include fill-out-cards;
 
   article {
-    &:has(> .header) {
-      grid-column: 1 / -1;
-    }
-
     .header {
-      @include header;
-
       #cookGroup {
         max-width: 50%;
       }
@@ -50,17 +38,7 @@
       }
 
       .list {
-        display: grid;
-        gap: $gap-small;
-
-        & > div {
-          display: flex;
-          gap: $gap-small;
-
-          button {
-            width: auto;
-          }
-        }
+        @include list;
       }
 
       @media only screen and (max-width: 900px) {
@@ -69,40 +47,19 @@
     }
 
     &.noRecipes {
-      @include emptyCard;
+      @include empty-card;
     }
 
     &.card {
       @include zoom-on-hover($scale-small);
       @include outline-on-focus;
-      @include cardContent;
       position: relative;
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
 
       &:not(.newRecipe) {
-        &::before {
-          content: '';
-          z-index: 1;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          display: block;
-          position: absolute;
-          border-radius: $border-radius-medium;
-          background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
-        }
-
-        .title {
-          color: $color-text-secondary;
-        }
-
-        .info {
-          justify-content: end;
-          color: $color-text-secondary;
-        }
+        @include background-image-card;
       }
 
       &.newRecipe {

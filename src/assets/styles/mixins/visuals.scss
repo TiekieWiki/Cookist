@@ -1,0 +1,51 @@
+@mixin background-image-card() {
+  &::before {
+    content: '';
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    border-radius: $border-radius-medium;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
+  }
+
+  .title {
+    color: $color-text-secondary;
+  }
+
+  .info {
+    justify-content: end;
+    color: $color-text-secondary;
+  }
+}
+
+@mixin empty-card() {
+  grid-column: 1 / -1;
+}
+
+@mixin list() {
+  display: grid;
+  gap: $gap-small;
+
+  & > div {
+    display: flex;
+    gap: $gap-small;
+
+    button {
+      width: auto;
+    }
+  }
+}
+
+@mixin fill-out-cards() {
+  & > *:nth-child(2n - 1):nth-last-of-type(1) {
+    grid-column: span 1;
+  }
+
+  & > *:nth-child(2n):nth-last-of-type(1) {
+    grid-column: span 2;
+  }
+}

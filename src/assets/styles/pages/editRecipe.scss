@@ -1,3 +1,5 @@
+@import '../mixins/visuals.scss';
+
 .editRecipe {
   article {
     form {
@@ -11,17 +13,7 @@
       }
 
       .list {
-        display: grid;
-        gap: $gap-small;
-
-        & > div {
-          display: flex;
-          gap: $gap-small;
-
-          button {
-            width: auto;
-          }
-        }
+        @include list;
       }
 
       #image {
