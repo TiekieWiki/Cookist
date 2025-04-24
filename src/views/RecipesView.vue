@@ -95,6 +95,18 @@
         </template>
       </div>
     </article>
+    <article class="card newRecipe">
+      <button
+        @click="
+          $router.push({
+            path: '/add-recipe'
+          })
+        "
+        type="button"
+      >
+        <font-awesome-icon :icon="['fas', 'plus']" />
+      </button>
+    </article>
   </main>
 </template>
 
