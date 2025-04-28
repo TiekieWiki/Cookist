@@ -9,7 +9,10 @@ import router from '@/router';
 import type { User } from '@/utils/types/user';
 import { addData } from '@/utils/db';
 
-/** Register user or give error message */
+/**
+ * Register user with email and password
+ * @returns {Promise<void>} A promise that resolves when the user is registered
+ */
 export function useRegister(): {
   errorMessageRegister: Ref<string>;
   register: (email: string, password: string) => Promise<void>;
@@ -62,7 +65,10 @@ export function useRegister(): {
   };
 }
 
-/** Login user or give error message */
+/**
+ * Login user with email and password
+ * @returns {Promise<void>} A promise that resolves when the user is logged in
+ */
 export function useLogin(): {
   errorMessageLogin: Ref<string>;
   login: (email: string, password: string) => Promise<void>;
@@ -71,6 +77,7 @@ export function useLogin(): {
 
   const login = async (email: string, password: string) => {
     try {
+      // Sign in user with email and password
       signInWithEmailAndPassword(getAuth(), email, password).then(() => {
         // Redirect to recipes page
         router.push('/recipes');
@@ -100,7 +107,10 @@ export function useLogin(): {
   };
 }
 
-/** Check if user is logged in */
+/**
+ * Check if user is logged in
+ * @returns {Ref<boolean>} A ref that is true if user is logged in, false otherwise
+ */
 export function useIsLoggedIn(): Ref<boolean> {
   const isLoggedIn = ref<boolean>(false);
 

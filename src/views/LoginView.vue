@@ -66,21 +66,27 @@ import { useLogin, useRegister } from '@/composables/useAuthentication';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import InputField from '@/components/form/InputField.vue';
 
-/** Register */
+// Register
 const emailRegister = ref<string>('');
 const passwordRegister = ref<string>('');
 const { errorMessageRegister, register } = useRegister();
 
-function handleRegister() {
+/**
+ * Handle the register button click
+ */
+function handleRegister(): void {
   register(emailRegister.value, passwordRegister.value);
 }
 
-/** Login */
+// Login
 const emailLogin = ref<string>('');
 const passwordLogin = ref<string>('');
 const { errorMessageLogin, login } = useLogin();
 
-function handleLogin() {
+/**
+ * Handle the login button click
+ */
+function handleLogin(): void {
   login(emailLogin.value, passwordLogin.value);
 }
 </script>

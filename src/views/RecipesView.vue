@@ -112,7 +112,7 @@
 
 <script setup lang="ts">
 import { getData } from '@/utils/db';
-import { getImage } from '@/utils/newRecipe/manageImage';
+import { setImage } from '@/utils/manageImage';
 import { RecipeCategories, type Recipe } from '@/utils/types/recipe';
 import { onMounted, ref, watch } from 'vue';
 import { capitalizeFirstLetter } from '@/utils/text';
@@ -129,6 +129,7 @@ import { getRecipesLastEaten } from '@/utils/recipes/lastEaten';
 
 const auth = getAuth();
 
+// Cook groups
 const cookGroups = ref<CookGroup[]>([]);
 const currentCookGroupRecipes = ref<CookGroupRecipe[]>([]);
 const selectedCookGroup = ref<string>();
@@ -155,11 +156,10 @@ onMounted(async () => {
   }
 });
 
-// Get the recipes of the selected cook group
+// Recipes
 const recipes = ref<Recipe[]>([]);
+const noRecipes = ref<boolean>(false);
 const order = ref<string>('lastEatenAsc');
-
-// Filter
 const openFilter = ref<boolean>(false);
 const filter = ref<Filter>({
   name: '',
@@ -180,7 +180,6 @@ const filter = ref<Filter>({
   lastEatenMax: new Date('9999-12-31').toISOString().slice(0, 10),
   ingredients: [{ name: '' }]
 });
-const noRecipes = ref<boolean>(false);
 
 // Get recipes based on the selected cook group and filter
 watch(
@@ -213,18 +212,4 @@ watch(
   },
   { immediate: true, deep: true }
 );
-
-/**
- * Set the image to the recipe
- * @param id Recipe ID
- * @param image Image name
- */
-function setImage(id: string, image: string) {
-  getImage(image).then((url) => {
-    const article = document.getElementById(id);
-    if (article) {
-      article.style.backgroundImage = `url(${url})`;
-    }
-  });
-}
 </script>

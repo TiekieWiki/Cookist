@@ -66,15 +66,15 @@ import { getData } from '@/utils/db';
 import type { Recipe } from '@/utils/types/recipe';
 import { where } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
-import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { capitalizeFirstLetter } from '@/utils/text';
-import { getImage } from '@/utils/newRecipe/manageImage';
-import i18n from '@/i18n/index';
 import { getRecipeLastEaten } from '@/utils/recipes/lastEaten';
+import { useSetRecipeImage } from '@/composables/useManageImage';
+import { ref, watch } from 'vue';
 
-// Get the recipe from the database
 const route = useRoute();
+
+// Recipe
 const recipe = ref<Recipe>({
   id: '',
   owner: '',
@@ -91,6 +91,7 @@ const recipe = ref<Recipe>({
 });
 const lastEaten = ref<string>();
 
+// Get the recipe data
 watch(
   [route.params.cookGroupRecipeId, route.params.recipeId],
   async () => {
@@ -110,23 +111,6 @@ watch(
   { immediate: true }
 );
 
-// Set the recipe image
-onMounted(() => {
-  getImage(recipe.value.image).then((url) => {
-    const img = document.querySelector('.banner')?.querySelector('img');
-    if (img) {
-      img.src = url;
-      img.alt = recipe.value.name;
-    }
-  });
-});
-
-// Remove the image when the component is unmounted
-onUnmounted(() => {
-  const img = document.querySelector('.banner')?.querySelector('img');
-  if (img) {
-    img.src = '/src/assets/images/Banner.jpg';
-    img.alt = i18n.global.t('alt.banner');
-  }
-});
+// Set the image
+useSetRecipeImage(recipe);
 </script>

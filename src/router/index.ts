@@ -86,6 +86,7 @@ const routes = [
   }
 ];
 
+// Create the router instance
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
@@ -100,9 +101,7 @@ const router = createRouter({
   }
 });
 
-/** Gets the current user
- * @returns Promise
- */
+// Gets the current user
 const getCurrentUser = () => {
   return new Promise((resolve, reject) => {
     const removeListener = onAuthStateChanged(
@@ -116,8 +115,8 @@ const getCurrentUser = () => {
   });
 };
 
+// Navigation guard to check if user is logged in
 router.beforeEach(async (to: RouteLocation, from: RouteLocation, next) => {
-  //Check if route needs authentication
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (await getCurrentUser()) {
       next();

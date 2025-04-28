@@ -8,7 +8,7 @@ import { getData } from '../db';
  * @param recipe Recipe object
  * @param cookGroupRecipe CookGroupRecipe object
  * @param cookGroup CookGroup object
- * @returns The last eaten date of the recipe in a readable format
+ * @returns {Timestamp | undefined} The last eaten date of the recipe in a readable format
  */
 export function getRecipesLastEaten(
   recipe: Recipe,
@@ -29,7 +29,7 @@ export function getRecipesLastEaten(
 /**
  * Get the last eaten date of the cook group recipe
  * @param cookGroupRecipeId CookGroupRecipe id
- * @returns The last eaten date of the recipe in a readable format
+ * @returns {Promise<Timestamp | undefined>} The last eaten date of the recipe in a readable format
  */
 export async function getRecipeLastEaten(
   cookGroupRecipeId: string

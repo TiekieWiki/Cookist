@@ -15,7 +15,7 @@ export function uploadImage(file: File): void {
 /**
  * Get image from Firebase Storage
  * @param name Image name to get
- * @returns URL of the image
+ * @returns {Promise<string>} URL of the image
  */
 export async function getImage(name: string): Promise<string> {
   const storage = getStorage();
@@ -33,5 +33,19 @@ export function deleteImage(name: string): void {
   const storageRef = ref(storage, name);
   deleteObject(storageRef).catch((error) => {
     alert(error);
+  });
+}
+
+/**
+ * Set the image to the recipe
+ * @param id Recipe ID
+ * @param image Image name
+ */
+export function setImage(id: string, image: string) {
+  getImage(image).then((url) => {
+    const article = document.getElementById(id);
+    if (article) {
+      article.style.backgroundImage = `url(${url})`;
+    }
   });
 }

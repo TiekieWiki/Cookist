@@ -6,8 +6,11 @@ import type { User } from './types/user';
 import { DatabaseError } from './types/errors';
 import type { CookGroup } from './types/cookgroup';
 
-/** Sign user in with google or give an alert */
-export async function signInWithGoogle() {
+/**
+ * Sign in user with Google and register if not already registered
+ * @returns {Promise<void>} A promise that resolves when the user is signed in and registered
+ */
+export async function signInWithGoogle(): Promise<void> {
   // Register or sign in user with google
   const provider = new GoogleAuthProvider();
   const result = await signInWithPopup(getAuth(), provider);

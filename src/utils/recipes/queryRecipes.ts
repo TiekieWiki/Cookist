@@ -17,7 +17,7 @@ import { getData } from '../db';
  * Get the query constraint for the recipes
  * @param order Order category
  * @param filter Filter object
- * @returns QueryCompositeFilterConstraint, QueryConstraint
+ * @returns {Promise<{CookGroupRecipe[], string[], { QueryCompositeFilterConstraint, QueryNonFilterConstraint }}>} - A promise that resolves to an object containing the cook group recipes, recipe last eaten order, and recipe filter
  */
 export async function getQueryRecipes(
   order: string,

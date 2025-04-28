@@ -1,5 +1,4 @@
 import {
-  orderBy,
   type QueryFilterConstraint,
   QueryCompositeFilterConstraint,
   type QueryNonFilterConstraint,
@@ -9,7 +8,7 @@ import {
 
 /**
  * Get the query constraint for the cookGroups
- * @returns QueryCompositeFilterConstraint, QueryConstraint
+ * @returns {QueryCompositeFilterConstraint, QueryNonFilterConstraint} An object containing the cook group filters and constraints
  */
 export function getQueryCookGroups(userId: string): {
   filters: QueryCompositeFilterConstraint;

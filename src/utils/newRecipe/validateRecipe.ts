@@ -1,6 +1,10 @@
-import i18n from '@/i18n/index';
 import type { Recipe } from '../types/recipe';
 
+/**
+ * Validates a recipe object to ensure all required fields are filled out
+ * @param recipe The recipe to validate
+ * @returns {string} Validation error message key or empty string if valid
+ */
 export function validateRecipe(recipe: Recipe): string {
   if (recipe.name === '') {
     return 'editRecipePage.errors.name';

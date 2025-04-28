@@ -21,7 +21,7 @@
 import NewRecipe from '@/components/NewRecipe.vue';
 import i18n from '@/i18n/index';
 import { getData, updateData } from '@/utils/db';
-import { deleteImage, uploadImage } from '@/utils/newRecipe/manageImage';
+import { deleteImage, uploadImage } from '@/utils/manageImage';
 import { validateRecipe } from '@/utils/newRecipe/validateRecipe';
 import { capitalizeFirstLetter } from '@/utils/text';
 import { emptyCookGroupRecipe, type CookGroupRecipe } from '@/utils/types/cookgroup';
@@ -30,19 +30,23 @@ import { where } from 'firebase/firestore';
 import { ref, watch } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
 
-// Get the recipe from the database
 const route = useRoute();
+
+// Recipe and cook group recipe
 const oldRecipe = ref<Recipe>(emptyRecipe());
 const recipe = ref<Recipe>(emptyRecipe());
 const oldImage = ref<string>('');
 const cookGroupRecipe = ref<CookGroupRecipe>(emptyCookGroupRecipe());
 
+// Get the recipe from the database
 watch(
   () => route.params.id,
   async (id) => {
     try {
       const recipes = await getData('recipes', where('id', '==', id));
       const cookGroupRecipes = await getData('cookGroupRecipes', where('recipeId', '==', id));
+
+      // Prepare the recipe and cook group recipe for editing
       if (recipes.length > 0 && cookGroupRecipes.length > 0) {
         recipe.value = recipes[0] as Recipe;
         recipe.value.name = capitalizeFirstLetter(recipe.value.name);
@@ -59,13 +63,13 @@ watch(
 
 // Set the image to the recipe image
 const image = ref<File | null>(null);
-
 const errorMessage = ref<string>('');
 
 /**
  * Save the new recipe
+ * @returns {Promise<void>} A promise that resolves when the recipe is saved
  */
-async function saveRecipe() {
+async function saveRecipe(): Promise<void> {
   errorMessage.value = validateRecipe(recipe.value);
   if (errorMessage.value === '') {
     // Clean up the recipe
@@ -98,7 +102,7 @@ async function saveRecipe() {
         cookGroupRecipe.value
       );
 
-      //Save image
+      // Save image
       if (image.value && image.value.name !== oldImage.value) {
         uploadImage(image.value);
         deleteImage(oldImage.value);

@@ -63,10 +63,9 @@ import { getAuth } from 'firebase/auth';
 
 const auth = getAuth();
 
+// Get cook groups
 const cookGroups = ref<CookGroup[]>([]);
 const noCookGroups = ref<boolean>(true);
-const editCookGroupOpen = ref<boolean>(false);
-const editableCookGroup = ref<CookGroup | undefined>(undefined);
 
 // Get cook groups
 onMounted(async () => {
@@ -75,7 +74,7 @@ onMounted(async () => {
 
 /**
  * Get cook groups from the database
- * @returns {Promise<void>} - A promise that resolves when the cook groups are fetched
+ * @returns {Promise<void>} A promise that resolves when the cook groups are fetched
  */
 async function getCookGroups(): Promise<void> {
   try {
@@ -98,9 +97,12 @@ async function getCookGroups(): Promise<void> {
   }
 }
 
+// Edit cook group
+const editCookGroupOpen = ref<boolean>(false);
+const editableCookGroup = ref<CookGroup | undefined>(undefined);
+
 /**
  * Edit cook group
- * @returns {void}
  */
 function editCookGroup(cookGroup: CookGroup): void {
   editCookGroupOpen.value = true;
@@ -109,7 +111,6 @@ function editCookGroup(cookGroup: CookGroup): void {
 
 /**
  * Close the pop up
- * @returns {void}
  */
 function closePopUp(): void {
   editCookGroupOpen.value = false;

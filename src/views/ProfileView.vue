@@ -77,7 +77,10 @@ watch(selectedLanguage, (newLanguage) => {
 // Save settings to database
 const successMessage = ref<string>('');
 
-function saveSettings() {
+/**
+ * Save the user settings to the database
+ */
+function saveSettings(): void {
   const user = {
     language: selectedLanguage.value
   };

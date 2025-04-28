@@ -22,7 +22,7 @@ import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
 import { ref } from 'vue';
 import i18n from '@/i18n/index';
 import { addData } from '@/utils/db';
-import { uploadImage } from '@/utils/newRecipe/manageImage';
+import { uploadImage } from '@/utils/manageImage';
 import { validateRecipe } from '@/utils/newRecipe/validateRecipe';
 import NewRecipe from '@/components/NewRecipe.vue';
 import { Timestamp } from 'firebase/firestore';
@@ -32,6 +32,7 @@ import { emptyCookGroupRecipe, type CookGroupRecipe } from '@/utils/types/cookgr
 
 const auth = getAuth();
 
+// Recipe and cook group recipe
 const recipe = ref<Recipe>(emptyRecipe());
 const cookGroupRecipe = ref<CookGroupRecipe>(emptyCookGroupRecipe());
 const image = ref<File | null>(null);
@@ -39,8 +40,9 @@ const errorMessage = ref<string>('');
 
 /**
  * Save the new recipe
+ * @returns {Promise<void>} A promise that resolves when the recipe is saved
  */
-async function saveRecipe() {
+async function saveRecipe(): Promise<void> {
   errorMessage.value = validateRecipe(recipe.value);
   if (errorMessage.value === '') {
     // Clean up the recipe
@@ -75,7 +77,7 @@ async function saveRecipe() {
       await addData('recipes', recipe.value);
       await addData('cookGroupRecipes', cookGroupRecipe.value);
 
-      //Save image
+      // Save image
       if (image.value) {
         uploadImage(image.value);
       }

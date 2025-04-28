@@ -65,6 +65,7 @@ const emit = defineEmits<{ closePopUp: []; refreshCookGroups: [] }>();
 
 const auth = getAuth();
 
+// Cook group
 const cookGroup = ref<CookGroup>(emptyCookGroup());
 const errorMessage = ref<string>('');
 
@@ -79,7 +80,7 @@ onMounted(() => {
 
 /**
  * Save the new cook group
- * @returns {Promise<void>} - A promise that resolves when the cook group is saved
+ * @returns {Promise<void>} A promise that resolves when the cook group is saved
  */
 async function saveCookGroup(): Promise<void> {
   errorMessage.value = validateCookGroup(cookGroup.value);

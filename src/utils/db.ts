@@ -31,7 +31,7 @@ export async function addData(table: string, data: any): Promise<void> {
  * Get data from a Firestore collection
  * @param table Firestore collection name
  * @param tableQuery Firestore query constraint
- * @returns Firestore document data
+ * @returns {Promise<DocumentData[]>} Firestore document data
  */
 export async function getData(
   table: string,
@@ -63,8 +63,13 @@ export async function getData(
  * @param table Firestore collection name
  * @param tableQuery Firestore query constraint
  * @param data Data to update
+ * @returns {Promise<void>} A promise that resolves when the data is updated
  */
-export async function updateData(table: string, tableQuery: QueryConstraint, data: any) {
+export async function updateData(
+  table: string,
+  tableQuery: QueryConstraint,
+  data: any
+): Promise<void> {
   const querySnapshot = await getDocs(query(collection(db, table), tableQuery));
 
   if (!querySnapshot.empty) {
@@ -80,8 +85,9 @@ export async function updateData(table: string, tableQuery: QueryConstraint, dat
  * Delete data from a Firestore collection
  * @param table Firestore collection name
  * @param tableQuery Firestore query constraint
+ * @returns {Promise<void>} A promise that resolves when the data is deleted
  */
-export async function deleteData(table: string, tableQuery: QueryConstraint) {
+export async function deleteData(table: string, tableQuery: QueryConstraint): Promise<void> {
   const querySnapshot = await getDocs(query(collection(db, table), tableQuery));
 
   if (!querySnapshot.empty) {

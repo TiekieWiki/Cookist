@@ -1,5 +1,4 @@
 import i18n, { lazyLoadLocaleMessages } from '@/i18n/index';
-import { useRoute } from 'vue-router';
 
 /**
  * Set the user's language based on the user's language in the database
