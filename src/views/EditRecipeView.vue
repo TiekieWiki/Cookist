@@ -18,11 +18,11 @@
 </template>
 
 <script setup lang="ts">
-import NewRecipe from '@/components/NewRecipe.vue';
+import NewRecipe from '@/components/recipe/NewRecipe.vue';
 import i18n from '@/i18n/index';
 import { addData, getData, updateData } from '@/utils/db';
 import { deleteImage, uploadImage } from '@/utils/manageImage';
-import { validateRecipe } from '@/utils/newRecipe/validateRecipe';
+import { validateRecipe } from '@/utils/recipe/validateRecipe';
 import { capitalizeFirstLetter } from '@/utils/text';
 import { emptyCookGroupRecipe, type CookGroupRecipe } from '@/utils/types/cookgroup';
 import { emptyRecipe, type Recipe } from '@/utils/types/recipe';

@@ -118,14 +118,14 @@ import { onMounted, ref, watch } from 'vue';
 import { capitalizeFirstLetter } from '@/utils/text';
 import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
-import RecipesFilter from '@/components/RecipesFilter.vue';
+import RecipesFilter from '@/components/recipe/RecipesFilter.vue';
 import { RecipeOrderCategories, type Filter } from '@/utils/types/orderFilter';
-import { getQueryRecipes } from '@/utils/recipes/queryRecipes';
+import { getQueryRecipes } from '@/utils/recipe/queryRecipes';
 import i18n from '@/i18n/index';
 import type { CookGroup, CookGroupRecipe } from '@/utils/types/cookgroup';
 import { getAuth } from 'firebase/auth';
-import { getQueryCookGroups } from '@/utils/cookGroups/queryCookGroups';
-import { getRecipesLastEaten } from '@/utils/recipes/lastEaten';
+import { getQueryCookGroups } from '@/utils/cook group/queryCookGroups';
+import { getRecipesLastEaten } from '@/utils/recipe/lastEaten';
 
 const auth = getAuth();
 

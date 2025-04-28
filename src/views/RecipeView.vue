@@ -68,7 +68,7 @@ import { where } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useRoute } from 'vue-router';
 import { capitalizeFirstLetter } from '@/utils/text';
-import { getRecipeLastEaten } from '@/utils/recipes/lastEaten';
+import { getRecipeLastEaten } from '@/utils/recipe/lastEaten';
 import { useSetRecipeImage } from '@/composables/useManageImage';
 import { ref, watch } from 'vue';
 

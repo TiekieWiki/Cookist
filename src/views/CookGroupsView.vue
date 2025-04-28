@@ -10,32 +10,13 @@
     </article>
     <template v-else>
       <article v-for="cookGroup in cookGroups" :key="cookGroup.id" class="card" :id="cookGroup.id">
-        <div class="title">
-          <h3>
-            {{
-              cookGroup.name
-                ? capitalizeFirstLetter(cookGroup.name)
-                : $t('cookGroupsPage.personalCookGroup')
-            }}
-          </h3>
-          <font-awesome-icon
-            v-if="cookGroup.owner === getAuth().currentUser?.uid"
-            @click="editCookGroup(cookGroup)"
-            class="edit"
-            :icon="['fas', 'pen']"
-          />
-        </div>
-        <div class="info">
-          <p>{{ 1 }} {{ true ? $t('cookGroupsPage.recipes') : $t('cookGroupsPage.recipe') }}</p>
-          <p>
-            {{ cookGroup.members.length }}
-            {{
-              cookGroup.members.length > 1
-                ? $t('cookGroupsPage.members')
-                : $t('cookGroupsPage.member')
-            }}
-          </p>
-        </div>
+        <CookGroupCard
+          :cookGroup="cookGroup"
+          :editCookGroupOpen="editCookGroupOpen"
+          :editableCookGroup="editableCookGroup"
+          @update:edit-cook-group-open="(e) => (editCookGroupOpen = e)"
+          @update:editable-cook-group="(e) => (editableCookGroup = e)"
+        />
       </article>
     </template>
     <article class="card newCookGroup">
@@ -54,12 +35,12 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import NewCookGroup from '@/components/NewCookGroup.vue';
+import NewCookGroup from '@/components/cook group/NewCookGroup.vue';
 import type { CookGroup } from '@/utils/types/cookgroup';
 import { getData } from '@/utils/db';
-import { getQueryCookGroups } from '@/utils/cookGroups/queryCookGroups';
-import { capitalizeFirstLetter } from '@/utils/text';
+import { getQueryCookGroups } from '@/utils/cook group/queryCookGroups';
 import { getAuth } from 'firebase/auth';
+import CookGroupCard from '@/components/cook group/CookGroupCard.vue';
 
 const auth = getAuth();
 
@@ -100,14 +81,6 @@ async function getCookGroups(): Promise<void> {
 // Edit cook group
 const editCookGroupOpen = ref<boolean>(false);
 const editableCookGroup = ref<CookGroup | undefined>(undefined);
-
-/**
- * Edit cook group
- */
-function editCookGroup(cookGroup: CookGroup): void {
-  editCookGroupOpen.value = true;
-  editableCookGroup.value = cookGroup;
-}
 
 /**
  * Close the pop up

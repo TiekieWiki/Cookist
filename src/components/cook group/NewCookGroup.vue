@@ -47,11 +47,11 @@
 
 <script lang="ts" setup>
 import { capitalize, onMounted, ref } from 'vue';
-import InputField from './form/InputField.vue';
-import InputList from './form/InputList.vue';
-import ErrorMessage from './form/ErrorMessage.vue';
-import { addInputRow } from '@/utils/newRecipe/list';
-import { validateCookGroup } from '@/utils/cookGroups/validateCookGroup';
+import InputField from '../form/InputField.vue';
+import InputList from '../form/InputList.vue';
+import ErrorMessage from '../form/ErrorMessage.vue';
+import { addInputRow } from '@/utils/recipe/list';
+import { validateCookGroup } from '@/utils/cook group/validateCookGroup';
 import { emptyCookGroup, type CookGroup } from '@/utils/types/cookgroup';
 import { addData, updateData } from '@/utils/db';
 import i18n from '@/i18n/index';
