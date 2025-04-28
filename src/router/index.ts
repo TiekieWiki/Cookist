@@ -31,16 +31,7 @@ const routes = [
     }
   },
   {
-    path: '/add-recipe',
-    name: 'Add Recipe',
-    component: () => import('../views/AddRecipeView.vue'),
-    meta: {
-      requiresAuth: true,
-      title: 'addRecipePage.title'
-    }
-  },
-  {
-    path: '/edit-recipe/:id',
+    path: '/edit-recipe/:id?',
     name: 'Edit Recipe',
     component: () => import('../views/EditRecipeView.vue'),
     meta: {

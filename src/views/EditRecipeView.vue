@@ -20,16 +20,18 @@
 <script setup lang="ts">
 import NewRecipe from '@/components/NewRecipe.vue';
 import i18n from '@/i18n/index';
-import { getData, updateData } from '@/utils/db';
+import { addData, getData, updateData } from '@/utils/db';
 import { deleteImage, uploadImage } from '@/utils/manageImage';
 import { validateRecipe } from '@/utils/newRecipe/validateRecipe';
 import { capitalizeFirstLetter } from '@/utils/text';
 import { emptyCookGroupRecipe, type CookGroupRecipe } from '@/utils/types/cookgroup';
 import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
-import { where } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { Timestamp, where } from 'firebase/firestore';
 import { ref, watch } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
 
+const auth = getAuth();
 const route = useRoute();
 
 // Recipe and cook group recipe
@@ -42,6 +44,10 @@ const cookGroupRecipe = ref<CookGroupRecipe>(emptyCookGroupRecipe());
 watch(
   () => route.params.id,
   async (id) => {
+    // Check if the recipe needs to be edited or added
+    if (!id) return;
+
+    // Get the recipe that needs to be edited
     try {
       const recipes = await getData('recipes', where('id', '==', id));
       const cookGroupRecipes = await getData('cookGroupRecipes', where('recipeId', '==', id));
@@ -66,7 +72,7 @@ const image = ref<File | null>(null);
 const errorMessage = ref<string>('');
 
 /**
- * Save the new recipe
+ * Save the recipe
  * @returns {Promise<void>} A promise that resolves when the recipe is saved
  */
 async function saveRecipe(): Promise<void> {
@@ -89,24 +95,57 @@ async function saveRecipe(): Promise<void> {
       instruction.toLowerCase()
     );
     recipe.value.filterIngredients = recipe.value.ingredients.map((ingredient) => ingredient.name);
-    if (image.value && image.value.name !== oldImage.value) {
-      recipe.value.image = image.value.name;
+
+    // Clean or update the recipe
+    if (oldRecipe.value == emptyRecipe()) {
+      recipe.value.id = crypto.randomUUID();
+      recipe.value.owner = auth.currentUser?.uid || '';
+      recipe.value.image = image.value ? image.value.name : '';
+
+      // Clean up the cook group recipe
+      cookGroupRecipe.value.id = crypto.randomUUID();
+      cookGroupRecipe.value.recipeId = recipe.value.id;
+      cookGroupRecipe.value.cookGroupId = auth.currentUser?.uid || '';
+      cookGroupRecipe.value.lastEaten = new Timestamp(0, 0);
+    } else {
+      if (image.value && image.value.name !== oldImage.value) {
+        recipe.value.image = image.value.name;
+      }
     }
 
     // Save the recipe
     try {
-      await updateData('recipes', where('id', '==', recipe.value.id), recipe.value);
-      await updateData(
-        'cookGroupRecipes',
-        where('recipeId', '==', recipe.value.id),
-        cookGroupRecipe.value
-      );
+      // Check if the user is editing an existing recipe
+      if (oldRecipe.value == emptyRecipe()) {
+        await addData('recipes', recipe.value);
+        await addData('cookGroupRecipes', cookGroupRecipe.value);
 
-      // Save image
-      if (image.value && image.value.name !== oldImage.value) {
-        uploadImage(image.value);
-        deleteImage(oldImage.value);
+        // Save image
+        if (image.value) {
+          uploadImage(image.value);
+        }
+      } else {
+        await updateData('recipes', where('id', '==', recipe.value.id), recipe.value);
+        await updateData(
+          'cookGroupRecipes',
+          where('recipeId', '==', recipe.value.id),
+          cookGroupRecipe.value
+        );
+
+        // Save image
+        if (image.value && image.value.name !== oldImage.value) {
+          uploadImage(image.value);
+          deleteImage(oldImage.value);
+        }
       }
+
+      // Reset the form
+      recipe.value = emptyRecipe();
+      oldRecipe.value = emptyRecipe();
+      cookGroupRecipe.value = emptyCookGroupRecipe();
+      image.value = null;
+      oldImage.value = '';
+      errorMessage.value = '';
     } catch (error) {
       console.error(error);
       errorMessage.value = i18n.global.t('editRecipePage.errors.save');
@@ -116,7 +155,10 @@ async function saveRecipe(): Promise<void> {
 
 // Prevent leaving the page if there are unsaved changes
 onBeforeRouteLeave(() => {
-  if (recipe.value !== oldRecipe.value) {
+  if (
+    (oldRecipe.value !== emptyRecipe() && recipe.value !== oldRecipe.value) ||
+    recipe.value !== emptyRecipe()
+  ) {
     const answer = window.confirm(i18n.global.t('editRecipePage.errors.unsavedChanges'));
     if (!answer) return false;
   }

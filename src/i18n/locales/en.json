@@ -86,9 +86,6 @@
     "ingredients": "Ingredients",
     "instructions": "Instructions"
   },
-  "addRecipePage": {
-    "title": "Add recipe"
-  },
   "editRecipePage": {
     "title": "Edit recipe",
     "name": "Name",

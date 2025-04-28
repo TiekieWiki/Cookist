@@ -99,7 +99,7 @@
       <button
         @click="
           $router.push({
-            path: '/add-recipe'
+            path: '/edit-recipe'
           })
         "
         type="button"
