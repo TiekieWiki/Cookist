@@ -67,33 +67,11 @@
       "
       tabindex="0"
     >
-      <div class="title">
-        <h3>{{ capitalizeFirstLetter(recipe.name) }}</h3>
-        <div>
-          <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
-          <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
-        </div>
-      </div>
-      <div class="info">
-        <p>{{ capitalizeFirstLetter(recipe.category) }}</p>
-        |
-        <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipe.duration }}</p>
-        |
-        <p>
-          <font-awesome-icon :icon="['fas', 'utensils']" />
-
-          {{ recipe.portions }}
-        </p>
-        <template
-          v-if="getRecipesLastEaten(recipe, currentCookGroupRecipes, selectedCookGroup ?? '')"
-        >
-          |
-          <p>
-            <font-awesome-icon :icon="['fas', 'calendar']" />
-            {{ getRecipesLastEaten(recipe, currentCookGroupRecipes, selectedCookGroup ?? '') }}
-          </p>
-        </template>
-      </div>
+      <recipe-card
+        :recipe="recipe"
+        :current-cook-group-recipes="currentCookGroupRecipes"
+        :selected-cook-group="selectedCookGroup"
+      />
     </article>
     <article class="card newRecipe">
       <button
@@ -125,14 +103,14 @@ import i18n from '@/i18n/index';
 import type { CookGroup, CookGroupRecipe } from '@/utils/types/cookgroup';
 import { getAuth } from 'firebase/auth';
 import { getQueryCookGroups } from '@/utils/cook group/queryCookGroups';
-import { getRecipesLastEaten } from '@/utils/recipe/lastEaten';
+import RecipeCard from '@/components/recipe/RecipeCard.vue';
 
 const auth = getAuth();
 
 // Cook groups
 const cookGroups = ref<CookGroup[]>([]);
 const currentCookGroupRecipes = ref<CookGroupRecipe[]>([]);
-const selectedCookGroup = ref<string>();
+const selectedCookGroup = ref<string | undefined>();
 
 // Get cook groups
 onMounted(async () => {

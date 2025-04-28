@@ -10,7 +10,7 @@
     </article>
     <template v-else>
       <article v-for="cookGroup in cookGroups" :key="cookGroup.id" class="card" :id="cookGroup.id">
-        <CookGroupCard
+        <cook-group-card
           :cookGroup="cookGroup"
           :editCookGroupOpen="editCookGroupOpen"
           :editableCookGroup="editableCookGroup"
@@ -25,7 +25,7 @@
       </button>
     </article>
   </main>
-  <NewCookGroup
+  <new-cook-group
     v-if="editCookGroupOpen"
     :cook-group="editableCookGroup"
     @close-pop-up="closePopUp()"
