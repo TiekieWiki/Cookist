@@ -17,39 +17,7 @@
           v-model:selected="selectedCookGroup"
         />
       </div>
-      <div class="sort">
-        <input-field
-          id="search"
-          name="search"
-          :ariaLabel="$t('recipesPage.ariaLabel.search')"
-          type="text"
-          :placeholder="$t('recipesPage.searchPlaceholder')"
-          :required="false"
-          :disabled="false"
-          :autocomplete="'off'"
-          v-model:input="filter.name"
-        />
-        <button @click="openFilter = !openFilter" type="button">
-          <font-awesome-icon :icon="['fas', 'filter']" />{{ $t('recipesPage.filter') }}
-        </button>
-        <select-field
-          id="order"
-          :ariaLabel="$t('recipesPage.ariaLabel.order')"
-          :placeholder="$t('recipesPage.order')"
-          :required="false"
-          :items="
-            Object.values(RecipeOrderCategories).map((category) => ({
-              value: category,
-              label: category
-            }))
-          "
-          labelPrefix="recipesPage.orders."
-          v-model:selected="order"
-        />
-      </div>
-      <Transition name="fade">
-        <recipes-filter v-if="openFilter" v-model:filter="filter" />
-      </Transition>
+      <recipe-order-filter v-model:filter="filter" v-model:order="order" />
     </article>
     <article v-if="noRecipes" class="noRecipes">
       <h3>{{ $t('recipesPage.noRecipes') }}</h3>
@@ -94,16 +62,15 @@ import { setImage } from '@/utils/manageImage';
 import { RecipeCategories, type Recipe } from '@/utils/types/recipe';
 import { onMounted, ref, watch } from 'vue';
 import { capitalizeFirstLetter } from '@/utils/text';
-import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
-import RecipesFilter from '@/components/recipe/RecipesFilter.vue';
-import { RecipeOrderCategories, type Filter } from '@/utils/types/orderFilter';
+import { type Filter } from '@/utils/types/orderFilter';
 import { getQueryRecipes } from '@/utils/recipe/queryRecipes';
 import i18n from '@/i18n/index';
 import type { CookGroup, CookGroupRecipe } from '@/utils/types/cookgroup';
 import { getAuth } from 'firebase/auth';
 import { getQueryCookGroups } from '@/utils/cook group/queryCookGroups';
 import RecipeCard from '@/components/recipe/RecipeCard.vue';
+import RecipeOrderFilter from '@/components/recipe/RecipeOrderFilter.vue';
 
 const auth = getAuth();
 
@@ -138,7 +105,6 @@ onMounted(async () => {
 const recipes = ref<Recipe[]>([]);
 const noRecipes = ref<boolean>(false);
 const order = ref<string>('lastEatenAsc');
-const openFilter = ref<boolean>(false);
 const filter = ref<Filter>({
   name: '',
   categories: Object.values(RecipeCategories).map((category) => ({

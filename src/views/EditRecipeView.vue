@@ -5,9 +5,9 @@
       <form>
         <new-recipe
           v-model:recipe="recipe"
-          v-model:cookGroupRecipe="cookGroupRecipe"
+          v-model:cook-group-recipe="cookGroupRecipe"
           v-model:image="image"
-          v-model:errorMessage="errorMessage"
+          v-model:error-message="errorMessage"
         />
         <button @click.prevent="saveRecipe" id="save" type="submit">
           {{ $t('editRecipePage.save') }}

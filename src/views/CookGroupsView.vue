@@ -11,11 +11,9 @@
     <template v-else>
       <article v-for="cookGroup in cookGroups" :key="cookGroup.id" class="card" :id="cookGroup.id">
         <cook-group-card
-          :cookGroup="cookGroup"
-          :editCookGroupOpen="editCookGroupOpen"
-          :editableCookGroup="editableCookGroup"
-          @update:edit-cook-group-open="(e) => (editCookGroupOpen = e)"
-          @update:editable-cook-group="(e) => (editableCookGroup = e)"
+          :cook-group="cookGroup"
+          v-model:edit-cook-group-open="editCookGroupOpen"
+          v-model:editable-cook-group="editableCookGroup"
         />
       </article>
     </template>
@@ -64,7 +62,7 @@ async function getCookGroups(): Promise<void> {
       getQueryCookGroups(auth.currentUser?.uid || '')
     )) as CookGroup[];
 
-    // Sort the cook groups by personal first, then by name
+    // Order the cook groups by personal first, then by name
     cookGroups.value.sort((a, b) => {
       if (a.personal && !b.personal) return -1;
       if (!a.personal && b.personal) return 1;
