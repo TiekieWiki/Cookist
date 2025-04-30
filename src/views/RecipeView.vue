@@ -7,7 +7,7 @@
           v-if="recipe.owner === getAuth().currentUser?.uid"
           @click="
             $router.push({
-              path: `/edit-recipe/${cookGroupRecipeId}`
+              path: `/edit-recipe/${cookGroupRecipe.id}`
             })
           "
           class="edit"
@@ -71,7 +71,15 @@ import { capitalizeFirstLetter } from '@/utils/text';
 import { getRecipeLastEaten } from '@/utils/recipe/lastEaten';
 import { useSetRecipeImage } from '@/composables/useManageImage';
 import { ref, watch } from 'vue';
+import { getQueryCookGroups } from '@/utils/cook group/queryCookGroups';
+import {
+  emptyCookGroup,
+  emptyCookGroupRecipe,
+  type CookGroup,
+  type CookGroupRecipe
+} from '@/utils/types/cookgroup';
 
+const auth = getAuth();
 const route = useRoute();
 
 // Recipe
@@ -90,30 +98,46 @@ const recipe = ref<Recipe>({
   filterIngredients: []
 });
 const lastEaten = ref<string>();
-const cookGroupRecipeId = ref<string>('');
+const cookGroupRecipe = ref<CookGroupRecipe>(emptyCookGroupRecipe());
 
-// Get the recipe data
+// Get the recipe from the database
 watch(
-  [route.params.cookGroupRecipeId, route.params.recipeId],
+  [route.params.cookGroupRecipeId],
   async () => {
     try {
-      const recipes = await getData('recipes', where('id', '==', route.params.recipeId));
-      if (recipes.length > 0) {
-        recipe.value = recipes[0] as Recipe;
-      }
-
-      // Get the cook group id
+      // Get the cook group recipe
       const cookGroupRecipes = await getData(
         'cookGroupRecipes',
         where('id', '==', route.params.cookGroupRecipeId)
       );
       if (cookGroupRecipes.length > 0) {
-        cookGroupRecipeId.value = cookGroupRecipes[0].id;
-      }
+        cookGroupRecipe.value = cookGroupRecipes[0] as CookGroupRecipe;
 
-      // Get the recipe last eaten date
-      const lastEatenDate = await getRecipeLastEaten(route.params.cookGroupRecipeId as string);
-      lastEaten.value = lastEatenDate ? lastEatenDate.toDate().toLocaleDateString() : undefined;
+        // Check if the user has access to the cook group recipe
+        const cookGroups = (await getData(
+          'cookGroups',
+          getQueryCookGroups(auth.currentUser?.uid || '')
+        )) as CookGroup[];
+        if (
+          cookGroups.length > 0 ||
+          cookGroups.some((group) => group.id === cookGroupRecipe.value.cookGroupId)
+        ) {
+          // Get the recipe
+          const recipes = await getData(
+            'recipes',
+            where('id', '==', cookGroupRecipe.value.recipeId)
+          );
+          if (recipes.length > 0) {
+            recipe.value = recipes[0] as Recipe;
+
+            // Get the recipe last eaten date
+            const lastEatenDate = await getRecipeLastEaten(cookGroupRecipe.value.id as string);
+            lastEaten.value = lastEatenDate
+              ? lastEatenDate.toDate().toLocaleDateString()
+              : undefined;
+          }
+        }
+      }
     } catch (error) {
       console.error(error);
     }
