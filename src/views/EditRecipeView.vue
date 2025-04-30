@@ -19,18 +19,13 @@
 
 <script setup lang="ts">
 import NewRecipe from '@/components/recipe/NewRecipe.vue';
+import { useSecureRecipe } from '@/composables/useSecurity';
 import i18n from '@/i18n/index';
-import router from '@/router';
-import { getQueryCookGroups } from '@/utils/cook group/queryCookGroups';
-import { addData, getData, updateData } from '@/utils/db';
+import { addData, updateData } from '@/utils/db';
 import { deleteImage, uploadImage } from '@/utils/manageImage';
 import { validateRecipe } from '@/utils/recipe/validateRecipe';
 import { capitalizeFirstLetter } from '@/utils/text';
-import {
-  emptyCookGroupRecipe,
-  type CookGroup,
-  type CookGroupRecipe
-} from '@/utils/types/cookgroup';
+import { emptyCookGroupRecipe, type CookGroupRecipe } from '@/utils/types/cookgroup';
 import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
 import { getAuth } from 'firebase/auth';
 import { Timestamp, where } from 'firebase/firestore';
@@ -53,42 +48,17 @@ watch(
     // Check if the recipe needs to be edited or added
     if (!route.params.cookGroupRecipeId) return;
 
-    try {
-      // Get the cook group recipe
-      const cookGroupRecipes = await getData(
-        'cookGroupRecipes',
-        where('id', '==', route.params.cookGroupRecipeId)
-      );
-      if (cookGroupRecipes.length > 0) {
-        cookGroupRecipe.value = cookGroupRecipes[0] as CookGroupRecipe;
-
-        // Check if the user has access to the cook group recipe
-        const cookGroups = (await getData(
-          'cookGroups',
-          getQueryCookGroups(auth.currentUser?.uid || '')
-        )) as CookGroup[];
-        if (
-          cookGroups.length > 0 ||
-          cookGroups.some((group) => group.id === cookGroupRecipe.value.cookGroupId)
-        ) {
-          // Get the recipe that needs to be edited
-          const recipes = await getData(
-            'recipes',
-            where('id', '==', cookGroupRecipe.value.recipeId)
-          );
-
+    // Get the recipe if user has access to it
+    useSecureRecipe(route.params.cookGroupRecipeId as string, cookGroupRecipe, recipe).then(
+      async (result) => {
+        if (result) {
           // Prepare the recipe for editing
-          if (recipes.length > 0 && cookGroupRecipes.length > 0) {
-            recipe.value = recipes[0] as Recipe;
-            recipe.value.name = capitalizeFirstLetter(recipe.value.name);
-            oldRecipe.value = recipes[0] as Recipe;
-            oldImage.value = recipe.value.image;
-          }
+          oldRecipe.value = recipe.value;
+          recipe.value.name = capitalizeFirstLetter(recipe.value.name);
+          oldImage.value = recipe.value.image;
         }
       }
-    } catch (error) {
-      console.error(error);
-    }
+    );
   },
   { immediate: true }
 );

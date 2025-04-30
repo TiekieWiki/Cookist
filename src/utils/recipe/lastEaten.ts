@@ -29,18 +29,11 @@ export function getRecipesLastEaten(
 /**
  * Get the last eaten date of the cook group recipe
  * @param cookGroupRecipeId CookGroupRecipe id
- * @returns {Promise<Timestamp | undefined>} The last eaten date of the recipe in a readable format
+ * @returns {Timestamp | undefined} The last eaten date of the recipe in a readable format
  */
-export async function getRecipeLastEaten(
-  cookGroupRecipeId: string
-): Promise<Timestamp | undefined> {
-  const cookGroupRecipes = await getData('cookGroupRecipes', where('id', '==', cookGroupRecipeId));
-  if (
-    cookGroupRecipes &&
-    cookGroupRecipes.length > 0 &&
-    cookGroupRecipes[0].lastEaten > new Timestamp(0, 0)
-  ) {
-    return cookGroupRecipes[0].lastEaten;
+export function getRecipeLastEaten(cookGroupRecipe: CookGroupRecipe): Timestamp | undefined {
+  if (cookGroupRecipe.lastEaten && cookGroupRecipe.lastEaten > new Timestamp(0, 0)) {
+    return cookGroupRecipe.lastEaten;
   } else {
     return undefined;
   }

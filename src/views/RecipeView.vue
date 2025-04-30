@@ -62,22 +62,15 @@
 </template>
 
 <script setup lang="ts">
-import { getData } from '@/utils/db';
 import type { Recipe } from '@/utils/types/recipe';
-import { where } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useRoute } from 'vue-router';
 import { capitalizeFirstLetter } from '@/utils/text';
 import { getRecipeLastEaten } from '@/utils/recipe/lastEaten';
 import { useSetRecipeImage } from '@/composables/useManageImage';
 import { ref, watch } from 'vue';
-import { getQueryCookGroups } from '@/utils/cook group/queryCookGroups';
-import {
-  emptyCookGroup,
-  emptyCookGroupRecipe,
-  type CookGroup,
-  type CookGroupRecipe
-} from '@/utils/types/cookgroup';
+import { emptyCookGroupRecipe, type CookGroupRecipe } from '@/utils/types/cookgroup';
+import { useSecureRecipe } from '@/composables/useSecurity';
 
 const auth = getAuth();
 const route = useRoute();
@@ -104,43 +97,16 @@ const cookGroupRecipe = ref<CookGroupRecipe>(emptyCookGroupRecipe());
 watch(
   [route.params.cookGroupRecipeId],
   async () => {
-    try {
-      // Get the cook group recipe
-      const cookGroupRecipes = await getData(
-        'cookGroupRecipes',
-        where('id', '==', route.params.cookGroupRecipeId)
-      );
-      if (cookGroupRecipes.length > 0) {
-        cookGroupRecipe.value = cookGroupRecipes[0] as CookGroupRecipe;
-
-        // Check if the user has access to the cook group recipe
-        const cookGroups = (await getData(
-          'cookGroups',
-          getQueryCookGroups(auth.currentUser?.uid || '')
-        )) as CookGroup[];
-        if (
-          cookGroups.length > 0 ||
-          cookGroups.some((group) => group.id === cookGroupRecipe.value.cookGroupId)
-        ) {
-          // Get the recipe
-          const recipes = await getData(
-            'recipes',
-            where('id', '==', cookGroupRecipe.value.recipeId)
-          );
-          if (recipes.length > 0) {
-            recipe.value = recipes[0] as Recipe;
-
-            // Get the recipe last eaten date
-            const lastEatenDate = await getRecipeLastEaten(cookGroupRecipe.value.id as string);
-            lastEaten.value = lastEatenDate
-              ? lastEatenDate.toDate().toLocaleDateString()
-              : undefined;
-          }
+    // Get the recipe if user has access to it
+    useSecureRecipe(route.params.cookGroupRecipeId as string, cookGroupRecipe, recipe).then(
+      async (result) => {
+        if (result) {
+          // Get the recipe last eaten date
+          const lastEatenDate = getRecipeLastEaten(cookGroupRecipe.value as CookGroupRecipe);
+          lastEaten.value = lastEatenDate ? lastEatenDate.toDate().toLocaleDateString() : undefined;
         }
       }
-    } catch (error) {
-      console.error(error);
-    }
+    );
   },
   { immediate: true }
 );
