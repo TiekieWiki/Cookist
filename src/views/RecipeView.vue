@@ -7,7 +7,7 @@
           v-if="recipe.owner === getAuth().currentUser?.uid"
           @click="
             $router.push({
-              path: `/edit-recipe/${recipe.id}`
+              path: `/edit-recipe/${cookGroupRecipeId}`
             })
           "
           class="edit"
@@ -90,6 +90,7 @@ const recipe = ref<Recipe>({
   filterIngredients: []
 });
 const lastEaten = ref<string>();
+const cookGroupRecipeId = ref<string>('');
 
 // Get the recipe data
 watch(
@@ -99,6 +100,15 @@ watch(
       const recipes = await getData('recipes', where('id', '==', route.params.recipeId));
       if (recipes.length > 0) {
         recipe.value = recipes[0] as Recipe;
+      }
+
+      // Get the cook group id
+      const cookGroupRecipes = await getData(
+        'cookGroupRecipes',
+        where('id', '==', route.params.cookGroupRecipeId)
+      );
+      if (cookGroupRecipes.length > 0) {
+        cookGroupRecipeId.value = cookGroupRecipes[0].id;
       }
 
       // Get the recipe last eaten date

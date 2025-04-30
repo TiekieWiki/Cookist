@@ -31,7 +31,7 @@ const routes = [
     }
   },
   {
-    path: '/edit-recipe/:id?',
+    path: '/edit-recipe/:cookGroupRecipeId?',
     name: 'Edit Recipe',
     component: () => import('../views/EditRecipeView.vue'),
     meta: {
