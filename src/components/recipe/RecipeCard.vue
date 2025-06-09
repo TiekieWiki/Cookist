@@ -1,12 +1,12 @@
 <template>
-  <div class="title">
+  <section class="title">
     <h3>{{ capitalizeFirstLetter(recipe.name) }}</h3>
     <div>
       <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
       <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
     </div>
-  </div>
-  <div class="info">
+  </section>
+  <section class="info">
     <p>{{ capitalizeFirstLetter(recipe.category) }}</p>
     |
     <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipe.duration }}</p>
@@ -23,7 +23,7 @@
         {{ getRecipesLastEaten(recipe, currentCookGroupRecipes, selectedCookGroup ?? '') }}
       </p>
     </template>
-  </div>
+  </section>
 </template>
 
 <script lang="ts" setup>

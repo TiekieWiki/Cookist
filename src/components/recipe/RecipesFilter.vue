@@ -1,5 +1,5 @@
 <template>
-  <div class="filters">
+  <section class="filters">
     <check-box-list
       id="category"
       :label="$t('editRecipePage.category')"
@@ -78,7 +78,7 @@
       >
         <input-field
           :name="'ingredient ' + index"
-          :placeholder="$t('editRecipePage.ingredient')"
+          :placeholder="$t('editRecipePage.placeholder.ingredient')"
           :ariaLabel="$t('editRecipePage.ariaLabel.ingredient')"
           type="text"
           v-model:input="filter.ingredients[index].name"
@@ -86,7 +86,7 @@
         />
       </input-list>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">

@@ -1,8 +1,9 @@
 <template>
-  <label :id="id">
+  <label :for="id">
     {{ label }}
     <div>
       <input
+        :id="id"
         :name="name"
         :placeholder="placeholder"
         :aria-label="ariaLabel"
@@ -12,7 +13,7 @@
         @change="showImagePreview"
       />
       <Transition name="fade">
-        <img :src="previewImage" v-if="previewImage" />
+        <img :src="previewImage" :alt="$t('editRecipePage.alt.previewImage')" v-if="previewImage" />
       </Transition>
     </div>
   </label>

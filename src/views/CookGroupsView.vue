@@ -1,9 +1,9 @@
 <template>
   <main class="cookGroups two-columns">
     <article>
-      <div class="header">
+      <section class="header">
         <h2>{{ $t('cookGroupsPage.title') }}</h2>
-      </div>
+      </section>
     </article>
     <article v-if="noCookGroups" class="noCookGroups">
       <h3>{{ $t('cookGroupsPage.noCookGroups') }}</h3>

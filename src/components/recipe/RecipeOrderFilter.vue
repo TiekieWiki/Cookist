@@ -1,11 +1,11 @@
 <template>
-  <div class="orderFilter">
+  <section class="orderFilter">
     <input-field
       id="search"
       name="search"
       :ariaLabel="$t('recipesPage.ariaLabel.search')"
       type="text"
-      :placeholder="$t('recipesPage.searchPlaceholder')"
+      :placeholder="$t('recipesPage.placeholder.search')"
       :required="false"
       :disabled="false"
       :autocomplete="'off'"
@@ -17,7 +17,7 @@
     <select-field
       id="order"
       :ariaLabel="$t('recipesPage.ariaLabel.order')"
-      :placeholder="$t('recipesPage.order')"
+      :placeholder="$t('recipesPage.placeholder.order')"
       :required="false"
       :items="
         Object.values(RecipeOrderCategories).map((category) => ({
@@ -28,7 +28,7 @@
       labelPrefix="recipesPage.orders."
       v-model:selected="order"
     />
-  </div>
+  </section>
   <Transition name="fade">
     <recipes-filter v-if="openFilter" v-model:filter="filter" />
   </Transition>

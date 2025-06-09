@@ -1,6 +1,7 @@
 <template>
-  <label :id="id">
+  <label :for="id">
     <input
+      :id="id"
       :name="name"
       type="checkbox"
       :required="required"

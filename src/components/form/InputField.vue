@@ -1,7 +1,8 @@
 <template>
-  <label :id="id">
+  <label :for="id">
     {{ label }}
     <input
+      :id="id"
       :name="name"
       :placeholder="placeholder"
       :aria-label="ariaLabel"

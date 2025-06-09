@@ -1,7 +1,13 @@
 <template>
-  <label :id="id">
+  <label :for="id">
     {{ label }}
-    <textarea :name="name" :placeholder="placeholder" :aria-label="ariaLabel" v-model="input" />
+    <textarea
+      :id="id"
+      :name="name"
+      :placeholder="placeholder"
+      :aria-label="ariaLabel"
+      v-model="input"
+    />
   </label>
 </template>
 

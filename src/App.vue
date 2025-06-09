@@ -47,10 +47,10 @@
       </transition>
     </nav>
     <div class="banner">
-      <img src="/src/assets/images/Banner.jpg" :alt="$t('navigation.alt.banner')" />
+      <img src="/src/assets/images/Banner.jpg" alt="" />
     </div>
     <transition name="slide-fade">
-      <router-link v-if="menuOpen" to="\" class="brand" tabindex="0">Cookist</router-link>
+      <router-link v-if="menuOpen" to="/" class="brand" tabindex="0">Cookist</router-link>
     </transition>
   </aside>
 </template>

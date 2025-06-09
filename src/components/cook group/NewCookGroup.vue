@@ -1,17 +1,17 @@
 <template>
   <main class="editCookGroup">
     <article>
-      <div class="header">
+      <section class="header">
         <h2>{{ $t('editCookGroupPage.title') }}</h2>
         <h2>
           <font-awesome-icon @click="$emit('closePopUp')" :icon="['fas', 'xmark']" />
         </h2>
-      </div>
+      </section>
       <input-field
         id="name"
         name="name"
         :label="$t('editCookGroupPage.name')"
-        :placeholder="$t('editCookGroupPage.name')"
+        :placeholder="$t('editCookGroupPage.placeholder.name')"
         :ariaLabel="$t('editCookGroupPage.ariaLabel.name')"
         type="text"
         :required="true"
@@ -25,7 +25,7 @@
       >
         <input-field
           :name="'invitee email ' + index"
-          :placeholder="$t('editCookGroupPage.inviteeEmails')"
+          :placeholder="$t('editCookGroupPage.placeholder.inviteeEmails')"
           :ariaLabel="$t('editCookGroupPage.ariaLabel.inviteeEmails')"
           type="text"
           v-model:input="cookGroup.invitees[index]"
@@ -33,14 +33,14 @@
         />
       </input-list>
       <error-message v-model:message="errorMessage" />
-      <div class="footer">
+      <section class="footer">
         <button @click="closePopUp" type="button">
           {{ $t('editCookGroupPage.cancel') }}
         </button>
         <button @click.prevent="saveCookGroup" type="submit">
           {{ $t('editCookGroupPage.save') }}
         </button>
-      </div>
+      </section>
     </article>
   </main>
 </template>

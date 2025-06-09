@@ -1,7 +1,7 @@
 <template>
   <main class="recipe two-columns">
     <article>
-      <div class="header">
+      <section class="header">
         <h2>{{ capitalizeFirstLetter(recipe.name) }}</h2>
         <font-awesome-icon
           v-if="recipe.owner === getAuth().currentUser?.uid"
@@ -13,8 +13,8 @@
           class="edit"
           :icon="['fas', 'pen']"
         />
-      </div>
-      <div class="info">
+      </section>
+      <section class="info">
         <p>{{ capitalizeFirstLetter(recipe.category) }}</p>
         |
         <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipe.duration }}</p>
@@ -36,7 +36,7 @@
           <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
           <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
         </div>
-      </div>
+      </section>
       <p v-if="recipe.notes">{{ recipe.notes }}</p>
     </article>
     <article>

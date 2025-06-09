@@ -14,7 +14,6 @@ export function useSetRecipeImage(recipe: Ref<Recipe>): void {
       const img = document.querySelector('.banner')?.querySelector('img');
       if (img) {
         img.src = url;
-        img.alt = recipe.value.name;
       }
     });
   });
@@ -24,7 +23,6 @@ export function useSetRecipeImage(recipe: Ref<Recipe>): void {
     const img = document.querySelector('.banner')?.querySelector('img');
     if (img) {
       img.src = '/src/assets/images/Banner.jpg';
-      img.alt = i18n.global.t('alt.banner');
     }
   });
 }

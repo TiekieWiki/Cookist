@@ -4,7 +4,7 @@
       id="name"
       name="name"
       :label="$t('editRecipePage.name')"
-      :placeholder="$t('editRecipePage.name')"
+      :placeholder="$t('editRecipePage.placeholder.name')"
       :ariaLabel="$t('editRecipePage.ariaLabel.name')"
       type="text"
       :required="true"
@@ -14,7 +14,7 @@
       id="category"
       :label="$t('editRecipePage.category')"
       :ariaLabel="$t('editRecipePage.ariaLabel.category')"
-      :placeholder="$t('editRecipePage.category')"
+      :placeholder="$t('editRecipePage.placeholder.category')"
       :required="true"
       :items="
         Object.values(RecipeCategories).map((category) => ({
@@ -29,7 +29,7 @@
       id="duration"
       name="duration"
       :label="$t('editRecipePage.duration')"
-      :placeholder="$t('editRecipePage.duration')"
+      :placeholder="$t('editRecipePage.placeholder.duration')"
       :ariaLabel="$t('editRecipePage.ariaLabel.duration')"
       type="number"
       :required="true"
@@ -40,7 +40,7 @@
       id="portions"
       name="portions"
       :label="$t('editRecipePage.portions')"
-      :placeholder="$t('editRecipePage.portions')"
+      :placeholder="$t('editRecipePage.placeholder.portions')"
       :ariaLabel="$t('editRecipePage.ariaLabel.portions')"
       type="number"
       :required="true"
@@ -51,7 +51,7 @@
       id="rating"
       name="rating"
       :label="$t('editRecipePage.rating')"
-      :placeholder="$t('editRecipePage.rating')"
+      :placeholder="$t('editRecipePage.placeholder.rating')"
       :ariaLabel="$t('editRecipePage.ariaLabel.rating')"
       type="number"
       :required="true"
@@ -67,7 +67,7 @@
     >
       <input-field
         :name="'amount ' + index"
-        :placeholder="$t('editRecipePage.amount')"
+        :placeholder="$t('editRecipePage.placeholder.amount')"
         :ariaLabel="$t('editRecipePage.ariaLabel.amount')"
         :step="0.01"
         type="number"
@@ -75,7 +75,7 @@
       />
       <select-field
         :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
-        :placeholder="$t('editRecipePage.unit')"
+        :placeholder="$t('editRecipePage.placeholder.unit')"
         :items="
           Object.values(RecipeUnits).map((unit) => ({
             value: unit.toLowerCase(),
@@ -87,7 +87,7 @@
       />
       <input-field
         :name="'ingredient ' + index"
-        :placeholder="$t('editRecipePage.ingredient')"
+        :placeholder="$t('editRecipePage.placeholder.ingredient')"
         :ariaLabel="$t('editRecipePage.ariaLabel.ingredient')"
         type="text"
         v-model:input="recipe.ingredients[index].name"
@@ -102,7 +102,7 @@
     >
       <input-field
         :name="'instruction ' + index"
-        :placeholder="$t('editRecipePage.instruction')"
+        :placeholder="$t('editRecipePage.placeholder.instruction')"
         :ariaLabel="$t('editRecipePage.ariaLabel.instruction')"
         type="text"
         v-model:input="recipe.instructions[index]"
@@ -113,7 +113,7 @@
       id="notes"
       name="notes"
       :label="$t('editRecipePage.notes')"
-      :placeholder="$t('editRecipePage.notes')"
+      :placeholder="$t('editRecipePage.placeholder.notes')"
       :ariaLabel="$t('editRecipePage.ariaLabel.notes')"
       v-model:input="recipe.notes"
     />
@@ -122,7 +122,7 @@
     id="image"
     name="image"
     :label="$t('editRecipePage.image')"
-    :placeholder="$t('editRecipePage.image')"
+    :placeholder="$t('editRecipePage.placeholder.image')"
     :ariaLabel="$t('editRecipePage.ariaLabel.image')"
     :oldImage="recipe.image"
     @image="(i: File | null) => (image = i)"

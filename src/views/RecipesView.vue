@@ -1,12 +1,12 @@
 <template>
   <main class="recipes two-columns">
     <article>
-      <div class="header">
+      <section class="header">
         <h2>{{ $t('recipesPage.title') }}</h2>
         <select-field
           id="cookGroup"
           :ariaLabel="$t('recipesPage.ariaLabel.cookGroups')"
-          :placeholder="$t('recipesPage.cookGroups')"
+          :placeholder="$t('recipesPage.placeholder.cookGroups')"
           :required="false"
           :items="
             cookGroups.map((group) => ({
@@ -16,7 +16,7 @@
           "
           v-model:selected="selectedCookGroup"
         />
-      </div>
+      </section>
       <recipe-order-filter v-model:filter="filter" v-model:order="order" />
     </article>
     <article v-if="noRecipes" class="noRecipes">

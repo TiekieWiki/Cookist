@@ -1,14 +1,14 @@
 <template>
   <label :id="id"
     >{{ label }}
-    <div class="list">
-      <div v-for="(item, index) in items" :key="index">
+    <ul class="list">
+      <li v-for="(item, index) in items" :key="index">
         <slot :index="index"></slot>
         <button @click="deleteRow(items!, index)" class="delete" type="button">
           <font-awesome-icon :icon="['fas', 'trash-can']" />
         </button>
-      </div>
-    </div>
+      </li>
+    </ul>
   </label>
 </template>
 

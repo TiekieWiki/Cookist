@@ -1,9 +1,4 @@
 {
-  "navigation": {
-    "alt": {
-      "banner": "Website banner"
-    }
-  },
   "homePage": {
     "title": "Home"
   },
@@ -15,6 +10,16 @@
     "register": "Register",
     "googleLogin": "Log in with Google",
     "googleRegister": "Register with Google",
+    "placeholder": {
+      "email": "john.doe@gmail.com",
+      "password": "********"
+    },
+    "ariaLabel": {
+      "emailLogin": "Email for logging in",
+      "passwordLogin": "Password for logging in",
+      "emailRegister": "Email for registering",
+      "passwordRegister": "Password for registering"
+    },
     "errors": {
       "invalidEmail": "Invalid email",
       "wrongPassword": "Invalid password",
@@ -22,12 +27,6 @@
       "invalidPassword": "The password must be at least 6 characters long",
       "userNotFound": "No account with that email was found",
       "default": "Email or password was incorrect"
-    },
-    "ariaLabel": {
-      "emailLoging": "Email for logging in",
-      "passwordLogin": "Password for logging in",
-      "emailRegister": "Email for registering",
-      "passwordRegister": "Password for registering"
     }
   },
   "profilePage": {
@@ -49,7 +48,6 @@
   "recipesPage": {
     "title": "Recipes",
     "cookGroups": "Cook groups",
-    "searchPlaceholder": "Search recipes",
     "filter": "Filter",
     "order": "Order",
     "orders": {
@@ -69,6 +67,11 @@
     "lastEatenMin": "Minimum last eaten",
     "lastEatenMax": "Maximum last eaten",
     "noRecipes": "No recipes found",
+    "placeholder": {
+      "search": "Search recipes",
+      "order": "Last eaten (old-new)",
+      "cookGroups": "Cook group"
+    },
     "ariaLabel": {
       "cookGroups": "Cook groups of the user",
       "search": "Search",
@@ -129,16 +132,18 @@
     "instruction": "Instruction",
     "notes": "Notes",
     "save": "Save",
-    "errors": {
-      "name": "Name is required",
-      "category": "Category is required",
-      "duration": "Duration is required",
-      "portions": "Portions is required",
-      "rating": "Rating is required",
-      "ingredients": "Ingredients is required",
-      "instructions": "Instructions is required",
-      "save": "Something went wrong. Please try again.",
-      "unsavedChanges": "You have unsaved changes. Are you sure you want to leave?"
+    "placeholder": {
+      "name": "Pasta Carbonara",
+      "category": "Dinner",
+      "duration": "30",
+      "portions": "4",
+      "rating": "5",
+      "amount": "2",
+      "unit": "pc",
+      "ingredient": "Spaghetti",
+      "instruction": "Boil the spaghetti",
+      "notes": "This is a family recipe",
+      "image": "Image"
     },
     "ariaLabel": {
       "name": "Name of the recipe",
@@ -154,6 +159,20 @@
       "instructions": "Instructions of the recipe",
       "instruction": "Instruction of the recipe",
       "notes": "Notes about the recipe"
+    },
+    "alt": {
+      "previewImage": "Preview of the recipe image"
+    },
+    "errors": {
+      "name": "Name is required",
+      "category": "Category is required",
+      "duration": "Duration is required",
+      "portions": "Portions is required",
+      "rating": "Rating is required",
+      "ingredients": "Ingredients is required",
+      "instructions": "Instructions is required",
+      "save": "Something went wrong. Please try again.",
+      "unsavedChanges": "You have unsaved changes. Are you sure you want to leave?"
     }
   },
   "cookGroupsPage": {
@@ -171,6 +190,10 @@
     "inviteeEmails": "Invitee emails",
     "cancel": "Cancel",
     "save": "Save",
+    "placeholder": {
+      "name": "Family",
+      "inviteeEmails": "john.doe@gmail.com"
+    },
     "ariaLabel": {
       "name": "Name of the cook group",
       "inviteeEmails": "Emails of the invitees of the cook group"

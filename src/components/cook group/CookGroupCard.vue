@@ -1,5 +1,5 @@
 <template>
-  <div class="title">
+  <section class="title">
     <h3>
       {{
         cookGroup.name
@@ -13,8 +13,8 @@
       class="edit"
       :icon="['fas', 'pen']"
     />
-  </div>
-  <div class="info">
+  </section>
+  <section class="info">
     <p>{{ 1 }} {{ true ? $t('cookGroupsPage.recipes') : $t('cookGroupsPage.recipe') }}</p>
     <p>
       {{ cookGroup.members.length }}
@@ -22,7 +22,7 @@
         cookGroup.members.length > 1 ? $t('cookGroupsPage.members') : $t('cookGroupsPage.member')
       }}
     </p>
-  </div>
+  </section>
 </template>
 
 <script lang="ts" setup>

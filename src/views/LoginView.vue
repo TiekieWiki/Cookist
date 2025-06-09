@@ -5,7 +5,7 @@
       <form>
         <input-field
           name="emailLogin"
-          :placeholder="$t('loginPage.email')"
+          :placeholder="$t('loginPage.placeholder.email')"
           :ariaLabel="$t('loginPage.ariaLabel.emailLogin')"
           type="text"
           autocomplete="email"
@@ -13,7 +13,7 @@
         />
         <input-field
           name="passwordLogin"
-          :placeholder="$t('loginPage.password')"
+          :placeholder="$t('loginPage.placeholder.password')"
           :ariaLabel="$t('loginPage.ariaLabel.passwordLogin')"
           type="password"
           autocomplete="current-password"
