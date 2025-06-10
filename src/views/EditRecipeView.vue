@@ -5,6 +5,7 @@
       <form>
         <new-recipe
           v-model:recipe="recipe"
+          v-model:cook-groups="cookGroups"
           v-model:cook-group-recipe="cookGroupRecipe"
           v-model:image="image"
           v-model:error-message="errorMessage"
@@ -21,14 +22,21 @@
 import NewRecipe from '@/components/recipe/NewRecipe.vue';
 import { useSecureRecipe } from '@/composables/useSecurity';
 import i18n from '@/i18n/index';
-import { addData, updateData } from '@/utils/db';
+import { getQueryCookGroups } from '@/utils/cook group/queryCookGroups';
+import { sortCookGroups } from '@/utils/cook group/sort';
+import { addData, deleteData, getData, updateData } from '@/utils/db';
 import { deleteImage, uploadImage } from '@/utils/manageImage';
 import { validateRecipe } from '@/utils/recipe/validateRecipe';
 import { capitalizeFirstLetter } from '@/utils/text';
-import { emptyCookGroupRecipe, type CookGroupRecipe } from '@/utils/types/cookgroup';
+import {
+  emptyCookGroupRecipe,
+  type CookGroup,
+  type CookGroupRecipe
+} from '@/utils/types/cookgroup';
+import type { Checkbox } from '@/utils/types/form';
 import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
 import { getAuth } from 'firebase/auth';
-import { Timestamp, where } from 'firebase/firestore';
+import { and, Timestamp, where } from 'firebase/firestore';
 import { ref, watch } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
 
@@ -38,6 +46,8 @@ const route = useRoute();
 // Recipe and cook group recipe
 const oldRecipe = ref<Recipe>(emptyRecipe());
 const recipe = ref<Recipe>(emptyRecipe());
+const oldCookGroups = ref<Checkbox[]>([]);
+const cookGroups = ref<Checkbox[]>([]);
 const oldImage = ref<string>('');
 const cookGroupRecipe = ref<CookGroupRecipe>(emptyCookGroupRecipe());
 
@@ -45,11 +55,31 @@ const cookGroupRecipe = ref<CookGroupRecipe>(emptyCookGroupRecipe());
 watch(
   () => [route.params.cookGroupRecipeId],
   async () => {
+    // Get the cook groups
+    let userCookGroups = (await getData(
+      'cookGroups',
+      getQueryCookGroups(auth.currentUser?.uid || '')
+    )) as CookGroup[];
+    userCookGroups = sortCookGroups(userCookGroups);
+
+    // For each cook group, create a checkbox
+    cookGroups.value = userCookGroups.map((cookGroup) => ({
+      id: cookGroup.id,
+      name: cookGroup.name,
+      label: cookGroup.personal
+        ? i18n.global.t('cookGroupsPage.personalCookGroup')
+        : capitalizeFirstLetter(cookGroup.name),
+      required: false,
+      disabled: cookGroup.personal,
+      autocomplete: 'off',
+      checked: cookGroup.personal
+    })) as Checkbox[];
+
     // Check if the recipe needs to be edited or added
     if (!route.params.cookGroupRecipeId) return;
 
     // Get the recipe if user has access to it
-    useSecureRecipe(route.params.cookGroupRecipeId as string, cookGroupRecipe, recipe).then(
+    await useSecureRecipe(route.params.cookGroupRecipeId as string, cookGroupRecipe, recipe).then(
       async (result) => {
         if (result) {
           // Prepare the recipe for editing
@@ -59,6 +89,38 @@ watch(
         }
       }
     );
+
+    // For each cook group, get cook group recipe that matches the recipe id
+    try {
+      const cookGroupRecipes = (await getData('cookGroupRecipes', {
+        filters: and(
+          ...[
+            where('recipeId', '==', recipe.value.id),
+            where(
+              'cookGroupId',
+              'in',
+              cookGroups.value.map((group) => group.id)
+            )
+          ]
+        ),
+        constraints: []
+      })) as CookGroupRecipe[];
+
+      // If the cook group recipe exists, turn on the checkbox
+      if (cookGroupRecipes.length > 0) {
+        cookGroupRecipes.forEach((cookGroupRecipe) => {
+          const index = cookGroups.value.findIndex(
+            (group) => group.id === cookGroupRecipe.cookGroupId
+          );
+          if (index !== -1) {
+            cookGroups.value[index].checked = true;
+          }
+        });
+      }
+      oldCookGroups.value = JSON.parse(JSON.stringify(cookGroups.value));
+    } catch (error) {
+      console.error(error);
+    }
   },
   { immediate: true }
 );
@@ -122,11 +184,6 @@ async function saveRecipe(): Promise<void> {
         }
       } else {
         await updateData('recipes', where('id', '==', recipe.value.id), recipe.value);
-        await updateData(
-          'cookGroupRecipes',
-          where('recipeId', '==', recipe.value.id),
-          cookGroupRecipe.value
-        );
 
         // Save image
         if (image.value && image.value.name !== oldImage.value) {
@@ -135,9 +192,38 @@ async function saveRecipe(): Promise<void> {
         }
       }
 
+      // Update non-personal cook groups
+      cookGroups.value.forEach(async (cookGroup) => {
+        if (cookGroup.name !== '') {
+          const oldCookGroup = oldCookGroups.value.find((group) => group.id === cookGroup.id);
+          if (cookGroup.checked && !oldCookGroup?.checked) {
+            // Add cook group recipe
+            await addData('cookGroupRecipes', {
+              id: crypto.randomUUID(),
+              recipeId: recipe.value.id,
+              cookGroupId: cookGroup.id,
+              lastEaten: new Timestamp(0, 0)
+            });
+          } else if (!cookGroup.checked && oldCookGroup?.checked) {
+            // Remove cook group recipe
+            await deleteData('cookGroupRecipes', {
+              filters: and(
+                ...[
+                  where('recipeId', '==', recipe.value.id),
+                  where('cookGroupId', '==', cookGroup.id)
+                ]
+              ),
+              constraints: []
+            });
+          }
+        }
+      });
+
       // Reset the form
       recipe.value = emptyRecipe();
       oldRecipe.value = emptyRecipe();
+      cookGroups.value = [];
+      oldCookGroups.value = [];
       cookGroupRecipe.value = emptyCookGroupRecipe();
       image.value = null;
       oldImage.value = '';

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section>
     <input-field
       id="name"
       name="name"
@@ -117,16 +117,23 @@
       :ariaLabel="$t('editRecipePage.ariaLabel.notes')"
       v-model:input="recipe.notes"
     />
-  </div>
-  <upload-image
-    id="image"
-    name="image"
-    :label="$t('editRecipePage.image')"
-    :placeholder="$t('editRecipePage.placeholder.image')"
-    :ariaLabel="$t('editRecipePage.ariaLabel.image')"
-    :oldImage="recipe.image"
-    @image="(i: File | null) => (image = i)"
-  />
+  </section>
+  <section>
+    <check-box-list
+      id="cookGroups"
+      :label="$t('editRecipePage.cookGroups')"
+      v-model:items="cookGroups"
+    />
+    <upload-image
+      id="image"
+      name="image"
+      :label="$t('editRecipePage.image')"
+      :placeholder="$t('editRecipePage.placeholder.image')"
+      :ariaLabel="$t('editRecipePage.ariaLabel.image')"
+      :oldImage="recipe.image"
+      @image="(i: File | null) => (image = i)"
+    />
+  </section>
   <error-message v-model:message="errorMessage" />
 </template>
 
@@ -139,8 +146,11 @@ import SelectField from '@/components/form/SelectField.vue';
 import TextArea from '@/components/form/TextArea.vue';
 import UploadImage from '@/components/form/UploadImage.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
+import type { Checkbox } from '@/utils/types/form';
+import CheckBoxList from '../form/CheckBoxList.vue';
 
 const recipe = defineModel<Recipe>('recipe', { required: true });
+const cookGroups = defineModel<Checkbox[]>('cookGroups', { required: true });
 const errorMessage = defineModel<string>('errorMessage', { required: true });
 const image = defineModel<File | null>('image', { required: true });
 </script>

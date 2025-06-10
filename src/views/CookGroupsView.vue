@@ -39,6 +39,7 @@ import { getData } from '@/utils/db';
 import { getQueryCookGroups } from '@/utils/cook group/queryCookGroups';
 import { getAuth } from 'firebase/auth';
 import CookGroupCard from '@/components/cook group/CookGroupCard.vue';
+import { sortCookGroups } from '@/utils/cook group/sortCookGroups';
 
 const auth = getAuth();
 
@@ -61,13 +62,7 @@ async function getCookGroups(): Promise<void> {
       'cookGroups',
       getQueryCookGroups(auth.currentUser?.uid || '')
     )) as CookGroup[];
-
-    // Order the cook groups by personal first, then by name
-    cookGroups.value.sort((a, b) => {
-      if (a.personal && !b.personal) return -1;
-      if (!a.personal && b.personal) return 1;
-      return a.name.localeCompare(b.name);
-    });
+    cookGroups.value = sortCookGroups(cookGroups.value);
 
     noCookGroups.value = false;
   } catch (error) {

@@ -87,8 +87,20 @@ export async function updateData(
  * @param tableQuery Firestore query constraint
  * @returns {Promise<void>} A promise that resolves when the data is deleted
  */
-export async function deleteData(table: string, tableQuery: QueryConstraint): Promise<void> {
-  const querySnapshot = await getDocs(query(collection(db, table), tableQuery));
+export async function deleteData(
+  table: string,
+  tableQuery:
+    | QueryConstraint
+    | { filters: QueryCompositeFilterConstraint; constraints: QueryNonFilterConstraint[] }
+): Promise<void> {
+  let querySnapshot;
+  if (tableQuery instanceof QueryConstraint) {
+    querySnapshot = await getDocs(query(collection(db, table), tableQuery));
+  } else {
+    querySnapshot = await getDocs(
+      query(collection(db, table), tableQuery.filters, ...tableQuery.constraints)
+    );
+  }
 
   if (!querySnapshot.empty) {
     querySnapshot.forEach(async (doc) => {
