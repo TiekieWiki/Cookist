@@ -39,6 +39,7 @@ import { getAuth } from 'firebase/auth';
 import { and, Timestamp, where } from 'firebase/firestore';
 import { ref, watch } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
+import router from '@/router';
 
 const auth = getAuth();
 const route = useRoute();
@@ -228,6 +229,9 @@ async function saveRecipe(): Promise<void> {
       image.value = null;
       oldImage.value = '';
       errorMessage.value = '';
+      router.push({
+        path: `/recipe/${route.params.cookGroupRecipeId}`
+      });
     } catch (error) {
       console.error(error);
       errorMessage.value = i18n.global.t('editRecipePage.errors.save');
