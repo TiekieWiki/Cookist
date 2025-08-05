@@ -1,12 +1,12 @@
 <template>
   <section class="title">
     <h3>{{ capitalizeFirstLetter(recipe.name) }}</h3>
-    <div>
+    <div v-if="currentCookGroupRecipes">
       <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
       <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
     </div>
   </section>
-  <section class="info">
+  <section v-if="currentCookGroupRecipes" class="info">
     <p>{{ capitalizeFirstLetter(recipe.category) }}</p>
     |
     <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipe.duration }}</p>
@@ -34,7 +34,7 @@ import { capitalizeFirstLetter } from '@/utils/text';
 
 defineProps<{
   recipe: Recipe;
-  currentCookGroupRecipes: CookGroupRecipe[];
-  selectedCookGroup: string | undefined;
+  currentCookGroupRecipes?: CookGroupRecipe[];
+  selectedCookGroup?: string | undefined;
 }>();
 </script>

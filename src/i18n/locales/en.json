@@ -11,7 +11,7 @@
     "googleLogin": "Log in with Google",
     "googleRegister": "Register with Google",
     "placeholder": {
-      "email": "john.doe@gmail.com",
+      "email": "john.doe{'@'}gmail.com",
       "password": "********"
     },
     "ariaLabel": {
@@ -190,17 +190,18 @@
     "name": "Name",
     "inviteeEmails": "Invitee emails",
     "cookGroupRecipes": "Cook group recipes",
-    "searchRecipes": "Search recipes",
+    "searchRecipes": "Search recipes to add",
     "cancel": "Cancel",
     "save": "Save",
     "placeholder": {
       "name": "Family",
-      "inviteeEmails": "john.doe@gmail.com",
+      "inviteeEmails": "john.doe{'@'}gmail.com",
       "searchRecipes": "Lasagna"
     },
     "ariaLabel": {
       "name": "Name of the cook group",
       "inviteeEmails": "Emails of the invitees of the cook group",
+      "cookGroupRecipe": "Recipe added to the cook group",
       "searchRecipes": "Search for recipes to add to the cook group"
     },
     "errors": {

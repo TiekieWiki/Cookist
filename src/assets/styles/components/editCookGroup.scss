@@ -15,6 +15,16 @@
       @include list;
     }
 
+    .searchRecipe {
+      @include zoom-on-hover($scale-small);
+      @include outline-on-focus;
+      position: relative;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      @include background-image-card;
+    }
+
     .footer {
       display: flex;
       justify-content: end;

@@ -11,7 +11,7 @@
     "googleLogin": "Log in met Google",
     "googleRegister": "Registreer met Google",
     "placeholder": {
-      "email": "john.doe@gmail.com",
+      "email": "john.doe{'@'}gmail.com",
       "password": "********"
     },
     "ariaLabel": {
@@ -190,17 +190,19 @@
     "name": "Naam",
     "inviteeEmails": "E-mailadressen van de genodigden",
     "cookGroupRecipes": "Kookgroep recepten",
+    "searchRecipes": "Zoek recepten om toe te voegen",
     "cancel": "Annuleren",
     "save": "Opslaan",
     "placeholder": {
       "name": "Familie",
-      "inviteeEmails": "john.doe@gmail.com",
-      "cookGroupRecipe": "Lasagne"
+      "inviteeEmails": "john.doe{'@'}gmail.com",
+      "searchRecipes": "Lasagne"
     },
     "ariaLabel": {
       "name": "Naam van de kookgroep",
       "inviteeEmails": "E-mailadressen van de genodigden",
-      "cookGroupRecipe": "Zoek naar recepten om toe te voegen aan de kookgroep"
+      "cookGroupRecipe": "Recept dat toegevoegd is aan de kookgroep",
+      "searchRecipes": "Zoek naar recepten om toe te voegen aan de kookgroep"
     },
     "errors": {
       "name": "Naam is verplicht",

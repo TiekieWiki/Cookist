@@ -35,21 +35,40 @@
       </input-list>
       <error-message v-model:message="errorMessage" />
       <input-list
+        v-if="recipes.length > 0"
         id="cookGroupRecipes"
         :label="$t('editCookGroupPage.cookGroupRecipes')"
-        v-model:items="cookGroupRecipes"
+        v-model:items="recipes"
         v-slot="{ index }"
       >
         <input-field
           :name="'cookGroupRecipe ' + index"
-          :placeholder="$t('editCookGroupPage.placeholder.cookGroupRecipe')"
           :ariaLabel="$t('editCookGroupPage.ariaLabel.cookGroupRecipe')"
           type="text"
           :disabled="true"
-          v-model:input="cookGroupRecipes[index].name"
-          @input="addInputRow(cookGroupRecipes, index, '')"
+          v-model:input="recipes[index].name"
+          @input="addInputRow(recipes, index, '')"
         />
       </input-list>
+      <input-field
+        id="searchRecipes"
+        name="searchRecipes"
+        :label="$t('editCookGroupPage.searchRecipes')"
+        :placeholder="$t('editCookGroupPage.placeholder.searchRecipes')"
+        :ariaLabel="$t('editCookGroupPage.ariaLabel.searchRecipes')"
+        type="text"
+        v-model:input="searchRecipeQuery"
+      />
+      <article
+        v-for="recipe in filteredRecipes"
+        :key="recipe.id"
+        class="card searchRecipe"
+        :id="recipe.id"
+        @click="recipes.push({ ...recipe, name: capitalizeFirstLetter(recipe.name) })"
+        tabindex="0"
+      >
+        <recipe-card :recipe="recipe" />
+      </article>
       <section class="footer">
         <button @click="closePopUp" type="button">
           {{ $t('editCookGroupPage.cancel') }}
@@ -63,10 +82,11 @@
 </template>
 
 <script lang="ts" setup>
-import { capitalize, onMounted, ref } from 'vue';
+import { capitalize, onMounted, ref, watch } from 'vue';
 import InputField from '../form/InputField.vue';
 import InputList from '../form/InputList.vue';
 import ErrorMessage from '../form/ErrorMessage.vue';
+import RecipeCard from '@/components/recipe/RecipeCard.vue';
 import { addInputRow } from '@/utils/recipe/list';
 import { validateCookGroup } from '@/utils/cook group/validateCookGroup';
 import { emptyCookGroup, type CookGroup, type CookGroupRecipe } from '@/utils/types/cookgroup';
@@ -76,6 +96,8 @@ import { getAuth } from 'firebase/auth';
 import { where } from 'firebase/firestore';
 import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
 import { capitalizeFirstLetter } from '@/utils/text';
+import { getSearchRecipes } from '@/utils/recipe/searchRecipe';
+import { setImage } from '@/utils/manageImage';
 
 const props = defineProps<{
   cookGroup?: CookGroup;
@@ -86,7 +108,7 @@ const auth = getAuth();
 
 // Cook group
 const cookGroup = ref<CookGroup>(emptyCookGroup());
-const cookGroupRecipes = ref<Recipe[]>([]);
+const recipes = ref<Recipe[]>([]);
 const errorMessage = ref<string>('');
 
 // Add cook group to edit if it exists
@@ -96,7 +118,6 @@ onMounted(() => {
     cookGroup.value.name = cookGroup.value.name
       ? capitalize(cookGroup.value.name)
       : i18n.global.t('cookGroupsPage.personalCookGroup');
-    console.log('Cook group to edit:', cookGroup.value.name);
     cookGroup.value.invitees.push('');
 
     // Get cook group recipes if they exist
@@ -116,11 +137,10 @@ onMounted(() => {
           )
         )
           .then((recipeNames) => {
-            cookGroupRecipes.value = recipeNames;
-            cookGroupRecipes.value.forEach((recipe) => {
+            recipes.value = recipeNames;
+            recipes.value.forEach((recipe) => {
               recipe.name = capitalizeFirstLetter(recipe.name);
             });
-            cookGroupRecipes.value.push(emptyRecipe());
           })
           .catch((error) => {
             console.error('Error getting cook group recipes:', error);
@@ -128,6 +148,32 @@ onMounted(() => {
       })
       .catch((error) => {
         console.error('Error getting cook group recipes from database:', error);
+      });
+  }
+});
+
+// Search query for recipes
+const searchRecipeQuery = ref<string>('');
+const filteredRecipes = ref<Recipe[]>([]);
+
+// Watch for changes in the search query
+watch(searchRecipeQuery, (newQuery) => {
+  if (newQuery.length > 2) {
+    // Fetch recipes that the user has access to and match the search query
+    getSearchRecipes(newQuery, auth.currentUser?.uid || '')
+      .then((searchedRecipes) => {
+        // Filter out recipes that are already in the cook group
+        filteredRecipes.value = (searchedRecipes as Recipe[]).filter(
+          (recipe: Recipe) => !recipes.value.some((groupRecipe) => groupRecipe.id === recipe.id)
+        );
+
+        // Set image for each recipe
+        filteredRecipes.value.forEach((recipe_1) => {
+          setImage(recipe_1.id, recipe_1.image);
+        });
+      })
+      .catch((error) => {
+        console.error('Error getting recipes for search query:', error);
       });
   }
 });
