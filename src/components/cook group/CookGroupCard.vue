@@ -19,7 +19,7 @@
     <p>
       {{ cookGroup.members.length }}
       {{
-        cookGroup.members.length > 1 ? $t('cookGroupsPage.members') : $t('cookGroupsPage.member')
+        cookGroup.members.length == 1 ? $t('cookGroupsPage.member') : $t('cookGroupsPage.members')
       }}
     </p>
   </section>

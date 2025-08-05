@@ -14,6 +14,7 @@
         :placeholder="$t('editCookGroupPage.placeholder.name')"
         :ariaLabel="$t('editCookGroupPage.ariaLabel.name')"
         type="text"
+        :disabled="cookGroup.personal"
         :required="true"
         v-model:input="cookGroup.name"
       />
@@ -33,6 +34,22 @@
         />
       </input-list>
       <error-message v-model:message="errorMessage" />
+      <input-list
+        id="cookGroupRecipes"
+        :label="$t('editCookGroupPage.cookGroupRecipes')"
+        v-model:items="cookGroupRecipes"
+        v-slot="{ index }"
+      >
+        <input-field
+          :name="'cookGroupRecipe ' + index"
+          :placeholder="$t('editCookGroupPage.placeholder.cookGroupRecipe')"
+          :ariaLabel="$t('editCookGroupPage.ariaLabel.cookGroupRecipe')"
+          type="text"
+          :disabled="true"
+          v-model:input="cookGroupRecipes[index].name"
+          @input="addInputRow(cookGroupRecipes, index, '')"
+        />
+      </input-list>
       <section class="footer">
         <button @click="closePopUp" type="button">
           {{ $t('editCookGroupPage.cancel') }}
@@ -52,11 +69,13 @@ import InputList from '../form/InputList.vue';
 import ErrorMessage from '../form/ErrorMessage.vue';
 import { addInputRow } from '@/utils/recipe/list';
 import { validateCookGroup } from '@/utils/cook group/validateCookGroup';
-import { emptyCookGroup, type CookGroup } from '@/utils/types/cookgroup';
-import { addData, updateData } from '@/utils/db';
+import { emptyCookGroup, type CookGroup, type CookGroupRecipe } from '@/utils/types/cookgroup';
+import { addData, getData, updateData } from '@/utils/db';
 import i18n from '@/i18n/index';
 import { getAuth } from 'firebase/auth';
 import { where } from 'firebase/firestore';
+import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
+import { capitalizeFirstLetter } from '@/utils/text';
 
 const props = defineProps<{
   cookGroup?: CookGroup;
@@ -67,14 +86,49 @@ const auth = getAuth();
 
 // Cook group
 const cookGroup = ref<CookGroup>(emptyCookGroup());
+const cookGroupRecipes = ref<Recipe[]>([]);
 const errorMessage = ref<string>('');
 
 // Add cook group to edit if it exists
 onMounted(() => {
   if (props.cookGroup) {
     cookGroup.value = JSON.parse(JSON.stringify(props.cookGroup));
-    cookGroup.value.name = capitalize(cookGroup.value.name);
+    cookGroup.value.name = cookGroup.value.name
+      ? capitalize(cookGroup.value.name)
+      : i18n.global.t('cookGroupsPage.personalCookGroup');
+    console.log('Cook group to edit:', cookGroup.value.name);
     cookGroup.value.invitees.push('');
+
+    // Get cook group recipes if they exist
+    getData('cookGroupRecipes', where('cookGroupId', '==', cookGroup.value.id))
+      .then((cookGroupRecipe) => {
+        // Get the recipe names
+        Promise.all(
+          (cookGroupRecipe as CookGroupRecipe[]).map((recipe) =>
+            getData('recipes', where('id', '==', recipe.recipeId))
+              .then((recipeData) => {
+                return (recipeData as Recipe[])[0] || emptyRecipe();
+              })
+              .catch((error) => {
+                console.error('Error getting recipe name for cook group recipe:', error);
+                return emptyRecipe();
+              })
+          )
+        )
+          .then((recipeNames) => {
+            cookGroupRecipes.value = recipeNames;
+            cookGroupRecipes.value.forEach((recipe) => {
+              recipe.name = capitalizeFirstLetter(recipe.name);
+            });
+            cookGroupRecipes.value.push(emptyRecipe());
+          })
+          .catch((error) => {
+            console.error('Error getting cook group recipes:', error);
+          });
+      })
+      .catch((error) => {
+        console.error('Error getting cook group recipes from database:', error);
+      });
   }
 });
 
