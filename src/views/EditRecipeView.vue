@@ -80,7 +80,7 @@ watch(
     if (!route.params.cookGroupRecipeId) return;
 
     // Get the recipe if user has access to it
-    await useSecureRecipe(route.params.cookGroupRecipeId as string, cookGroupRecipe, recipe).then(
+    useSecureRecipe(route.params.cookGroupRecipeId as string, cookGroupRecipe, recipe).then(
       async (result) => {
         if (result) {
           // Prepare the recipe for editing
@@ -92,36 +92,36 @@ watch(
     );
 
     // For each cook group, get cook group recipe that matches the recipe id
-    try {
-      const cookGroupRecipes = (await getData('cookGroupRecipes', {
-        filters: and(
-          ...[
-            where('recipeId', '==', recipe.value.id),
-            where(
-              'cookGroupId',
-              'in',
-              cookGroups.value.map((group) => group.id)
-            )
-          ]
-        ),
-        constraints: []
-      })) as CookGroupRecipe[];
-
-      // If the cook group recipe exists, turn on the checkbox
-      if (cookGroupRecipes.length > 0) {
-        cookGroupRecipes.forEach((cookGroupRecipe) => {
-          const index = cookGroups.value.findIndex(
-            (group) => group.id === cookGroupRecipe.cookGroupId
-          );
-          if (index !== -1) {
-            cookGroups.value[index].checked = true;
-          }
-        });
-      }
-      oldCookGroups.value = JSON.parse(JSON.stringify(cookGroups.value));
-    } catch (error) {
-      console.error(error);
-    }
+    getData('cookGroupRecipes', {
+      filters: and(
+        ...[
+          where('recipeId', '==', recipe.value.id),
+          where(
+            'cookGroupId',
+            'in',
+            cookGroups.value.map((group) => group.id)
+          )
+        ]
+      ),
+      constraints: []
+    })
+      .then((cookGroupRecipes) => {
+        // If the cook group recipe exists, turn on the checkbox
+        if (cookGroupRecipes.length > 0) {
+          cookGroupRecipes.forEach((cookGroupRecipe) => {
+            const index = cookGroups.value.findIndex(
+              (group) => group.id === cookGroupRecipe.cookGroupId
+            );
+            if (index !== -1) {
+              cookGroups.value[index].checked = true;
+            }
+          });
+        }
+        oldCookGroups.value = JSON.parse(JSON.stringify(cookGroups.value));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   },
   { immediate: true }
 );
@@ -173,33 +173,40 @@ async function saveRecipe(): Promise<void> {
     }
 
     // Save the recipe
-    try {
-      // Check if the user is editing an existing recipe
-      if (oldRecipe.value == emptyRecipe()) {
-        await addData('recipes', recipe.value);
-        await addData('cookGroupRecipes', cookGroupRecipe.value);
+    let savePromise: Promise<void>;
 
-        // Save image
-        if (image.value) {
-          uploadImage(image.value);
+    if (oldRecipe.value === emptyRecipe()) {
+      // Adding a new recipe
+      savePromise = addData('recipes', recipe.value)
+        .then(() => addData('cookGroupRecipes', cookGroupRecipe.value))
+        .then(() => {
+          if (image.value) {
+            uploadImage(image.value);
+          }
+        });
+    } else {
+      // Updating an existing recipe
+      savePromise = updateData('recipes', where('id', '==', recipe.value.id), recipe.value).then(
+        () => {
+          if (image.value && image.value.name !== oldImage.value) {
+            uploadImage(image.value);
+            deleteImage(oldImage.value);
+          }
         }
-      } else {
-        await updateData('recipes', where('id', '==', recipe.value.id), recipe.value);
+      );
+    }
 
-        // Save image
-        if (image.value && image.value.name !== oldImage.value) {
-          uploadImage(image.value);
-          deleteImage(oldImage.value);
-        }
-      }
+    return savePromise
+      .then(() => {
+        // Handle updates to non-personal cook groups
+        const updatePromises = cookGroups.value.map((cookGroup) => {
+          if (cookGroup.name === '') return Promise.resolve();
 
-      // Update non-personal cook groups
-      cookGroups.value.forEach(async (cookGroup) => {
-        if (cookGroup.name !== '') {
           const oldCookGroup = oldCookGroups.value.find((group) => group.id === cookGroup.id);
+
           if (cookGroup.checked && !oldCookGroup?.checked) {
             // Add cook group recipe
-            await addData('cookGroupRecipes', {
+            return addData('cookGroupRecipes', {
               id: crypto.randomUUID(),
               recipeId: recipe.value.id,
               cookGroupId: cookGroup.id,
@@ -207,35 +214,39 @@ async function saveRecipe(): Promise<void> {
             });
           } else if (!cookGroup.checked && oldCookGroup?.checked) {
             // Remove cook group recipe
-            await deleteData('cookGroupRecipes', {
+            return deleteData('cookGroupRecipes', {
               filters: and(
-                ...[
-                  where('recipeId', '==', recipe.value.id),
-                  where('cookGroupId', '==', cookGroup.id)
-                ]
+                where('recipeId', '==', recipe.value.id),
+                where('cookGroupId', '==', cookGroup.id)
               ),
               constraints: []
             });
           }
-        }
-      });
 
-      // Reset the form
-      recipe.value = emptyRecipe();
-      oldRecipe.value = emptyRecipe();
-      cookGroups.value = [];
-      oldCookGroups.value = [];
-      cookGroupRecipe.value = emptyCookGroupRecipe();
-      image.value = null;
-      oldImage.value = '';
-      errorMessage.value = '';
-      router.push({
-        path: `/recipe/${route.params.cookGroupRecipeId}`
+          return Promise.resolve();
+        });
+
+        return Promise.all(updatePromises);
+      })
+      .then(() => {
+        // Reset the form
+        recipe.value = emptyRecipe();
+        oldRecipe.value = emptyRecipe();
+        cookGroups.value = [];
+        oldCookGroups.value = [];
+        cookGroupRecipe.value = emptyCookGroupRecipe();
+        image.value = null;
+        oldImage.value = '';
+        errorMessage.value = '';
+
+        router.push({
+          path: `/recipe/${route.params.cookGroupRecipeId}`
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        errorMessage.value = i18n.global.t('editRecipePage.errors.save');
       });
-    } catch (error) {
-      console.error(error);
-      errorMessage.value = i18n.global.t('editRecipePage.errors.save');
-    }
   }
 }
 

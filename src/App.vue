@@ -76,16 +76,16 @@ const { t, locale } = useI18n();
 // Set user language
 watch(isLoggedIn, async () => {
   if (isLoggedIn.value) {
-    try {
-      const users = await getData('users', where('id', '==', getAuth().currentUser?.uid));
-      if (users.length > 0) {
-        user.value = users[0] as User;
-        useSetUserLanguage(user.value?.language);
-      }
-    } catch (error: any) {
-      console.error(error);
-      alert(error.message);
-    }
+    await getData('users', where('id', '==', getAuth().currentUser?.uid))
+      .then((users) => {
+        if (users.length > 0) {
+          user.value = users[0] as User;
+          useSetUserLanguage(user.value?.language);
+        }
+      })
+      .catch((error: any) => {
+        console.error(error);
+      });
   } else {
     useSetSystemLanguage();
   }

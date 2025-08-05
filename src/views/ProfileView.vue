@@ -58,15 +58,15 @@ const selectedLanguage = ref<string>();
 
 // Get user from database and set dropdowns to user settings
 onMounted(async () => {
-  try {
-    const users = await getData('users', where('id', '==', auth.currentUser?.uid));
-    if (users.length > 0) {
-      selectedLanguage.value = users[0].language;
-    }
-  } catch (error: any) {
-    console.error(error);
-    alert(error.message);
-  }
+  getData('users', where('id', '==', auth.currentUser?.uid))
+    .then((users) => {
+      if (users.length > 0) {
+        selectedLanguage.value = users[0].language;
+      }
+    })
+    .catch((error: any) => {
+      console.error(error);
+    });
 });
 
 // Watch for changes in selected language and update i18n
@@ -85,12 +85,11 @@ function saveSettings(): void {
     language: selectedLanguage.value
   };
 
-  try {
-    updateData('users', where('id', '==', auth.currentUser?.uid), user);
-    useSuccessTransition(successMessage, 'profilePage.saveSuccess');
-  } catch (error: any) {
+  Promise.all([
+    updateData('users', where('id', '==', auth.currentUser?.uid), user),
+    useSuccessTransition(successMessage, 'profilePage.saveSuccess')
+  ]).catch((error: any) => {
     console.error(error);
-    alert(error.message);
-  }
+  });
 }
 </script>

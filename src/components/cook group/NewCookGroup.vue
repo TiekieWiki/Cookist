@@ -95,25 +95,27 @@ async function saveCookGroup(): Promise<void> {
     cookGroup.value.invitees = [...new Set(invitees.map((invitee) => invitee.toLowerCase()))];
 
     // Save the cook group to the database
-    try {
-      // Check if the user is editing an existing cook group
-      if (props.cookGroup) {
-        await updateData('cookGroups', where('id', '==', cookGroup.value.id), cookGroup.value);
-      } else {
-        await addData('cookGroups', cookGroup.value);
-      }
-
-      // Reset the form
-      cookGroup.value = emptyCookGroup();
-      errorMessage.value = '';
-
-      // Emit the event to close the pop-up
-      emit('refreshCookGroups');
-      emit('closePopUp');
-    } catch (error) {
-      console.error(error);
-      errorMessage.value = i18n.global.t('editCookGroupPage.errors.save');
+    let promise;
+    if (props.cookGroup) {
+      promise = updateData('cookGroups', where('id', '==', cookGroup.value.id), cookGroup.value);
+    } else {
+      promise = addData('cookGroups', cookGroup.value);
     }
+
+    promise
+      .then(() => {
+        // Reset the form
+        cookGroup.value = emptyCookGroup();
+        errorMessage.value = '';
+
+        // Emit the event to close the pop-up
+        emit('refreshCookGroups');
+        emit('closePopUp');
+      })
+      .catch((error) => {
+        console.error(error);
+        errorMessage.value = i18n.global.t('editCookGroupPage.errors.save');
+      });
   }
 }
 

@@ -20,31 +20,36 @@ export const useSecureRecipe = async (
 ): Promise<boolean> => {
   const auth = getAuth();
 
-  try {
-    // Get the cook group recipe
-    const cookGroupRecipes = await getData(
-      'cookGroupRecipes',
-      where('id', '==', cookGroupRecipeId)
-    );
-    if (cookGroupRecipes.length > 0) {
-      cookGroupRecipe.value = cookGroupRecipes[0] as CookGroupRecipe;
-
-      // Check if the user has access to the cook group recipe
-      const cookGroups = (await getData(
-        'cookGroups',
-        getQueryCookGroups(auth.currentUser?.uid || '')
-      )) as CookGroup[];
-      if (cookGroups.some((group) => group.id === cookGroupRecipe.value.cookGroupId)) {
-        // Get the recipe that needs to be edited
-        const recipes = await getData('recipes', where('id', '==', cookGroupRecipe.value.recipeId));
-        recipe.value = recipes[0] as Recipe;
-        return true;
+  return getData('cookGroupRecipes', where('id', '==', cookGroupRecipeId))
+    .then((cookGroupRecipes) => {
+      if (cookGroupRecipes.length === 0) {
+        throw new Error('No cook group recipes found');
       }
+
+      cookGroupRecipe.value = cookGroupRecipes[0] as CookGroupRecipe;
+      return getData('cookGroups', getQueryCookGroups(auth.currentUser?.uid || ''));
+    })
+    .then((cookGroups) => {
+      const hasAccess = (cookGroups as CookGroup[]).some(
+        (group) => group.id === cookGroupRecipe.value.cookGroupId
+      );
+
+      if (!hasAccess) {
+        throw new Error('User does not have access to the cook group');
+      }
+
+      return getData('recipes', where('id', '==', cookGroupRecipe.value.recipeId));
+    })
+    .then((recipes) => {
+      if (recipes.length === 0) {
+        throw new Error('Recipe not found');
+      }
+
+      recipe.value = recipes[0] as Recipe;
+      return true;
+    })
+    .catch((error) => {
+      console.error(error);
       return false;
-    }
-    return false;
-  } catch (error) {
-    console.error(error);
-    return false;
-  }
+    });
 };

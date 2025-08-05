@@ -81,24 +81,24 @@ const selectedCookGroup = ref<string | undefined>();
 
 // Get cook groups
 onMounted(async () => {
-  try {
-    cookGroups.value = (await getData(
-      'cookGroups',
-      getQueryCookGroups(auth.currentUser?.uid || '')
-    )) as CookGroup[];
-    if (cookGroups.value.length > 0) {
-      // Get the personal cook group
-      const personalCookGroup = cookGroups.value.find((group) => group.personal == true);
-      if (personalCookGroup) {
-        personalCookGroup.name = i18n.global.t('cookGroupsPage.personalCookGroup');
-        selectedCookGroup.value = personalCookGroup?.id;
+  getData('cookGroups', getQueryCookGroups(auth.currentUser?.uid || ''))
+    .then((data) => {
+      cookGroups.value = data as CookGroup[];
+
+      if (cookGroups.value.length > 0) {
+        // Get the personal cook group
+        const personalCookGroup = cookGroups.value.find((group) => group.personal == true);
+        if (personalCookGroup) {
+          personalCookGroup.name = i18n.global.t('cookGroupsPage.personalCookGroup');
+          selectedCookGroup.value = personalCookGroup?.id;
+        }
+      } else {
+        selectedCookGroup.value = undefined;
       }
-    } else {
-      selectedCookGroup.value = undefined;
-    }
-  } catch (error) {
-    console.error(error);
-  }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 // Recipes
@@ -129,30 +129,26 @@ const filter = ref<Filter>({
 watch(
   [selectedCookGroup, order, filter],
   async () => {
-    try {
-      const { cookGroupRecipes, recipeLastEatenOrder, recipeFilter } = await getQueryRecipes(
-        order.value,
-        filter.value,
-        selectedCookGroup.value || ''
-      );
-      currentCookGroupRecipes.value = cookGroupRecipes;
-      recipes.value = (await getData('recipes', recipeFilter)) as Recipe[];
+    getQueryRecipes(order.value, filter.value, selectedCookGroup.value || '')
+      .then(async ({ cookGroupRecipes, recipeLastEatenOrder, recipeFilter }) => {
+        currentCookGroupRecipes.value = cookGroupRecipes;
 
-      // Order the recipes on last eaten if selected
-      if (recipeLastEatenOrder.length > 0) {
-        recipes.value = recipeLastEatenOrder
-          .map((recipeId: string) => recipes.value.find((recipe) => recipe.id === recipeId))
-          .filter(Boolean) as Recipe[];
-      }
-
-      recipes.value.forEach((recipe) => {
-        setImage(recipe.id, recipe.image);
+        recipes.value = (await getData('recipes', recipeFilter)) as Recipe[];
+        // Order the recipes by last eaten if provided
+        if (recipeLastEatenOrder.length > 0) {
+          recipes.value = recipeLastEatenOrder
+            .map((recipeId: string) => recipes.value.find((recipe) => recipe.id === recipeId))
+            .filter(Boolean) as Recipe[];
+        }
+        recipes.value.forEach((recipe_1) => {
+          setImage(recipe_1.id, recipe_1.image);
+        });
+        noRecipes.value = false;
+      })
+      .catch((error) => {
+        noRecipes.value = true;
+        console.error(error);
       });
-      noRecipes.value = false;
-    } catch (error) {
-      noRecipes.value = true;
-      console.error(error);
-    }
   },
   { immediate: true, deep: true }
 );

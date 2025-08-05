@@ -39,7 +39,7 @@ import { getData } from '@/utils/db';
 import { getQueryCookGroups } from '@/utils/cook group/queryCookGroups';
 import { getAuth } from 'firebase/auth';
 import CookGroupCard from '@/components/cook group/CookGroupCard.vue';
-import { sortCookGroups } from '@/utils/cook group/sortCookGroups';
+import { sortCookGroups } from '@/utils/cook group/sort';
 
 const auth = getAuth();
 
@@ -57,18 +57,15 @@ onMounted(async () => {
  * @returns {Promise<void>} A promise that resolves when the cook groups are fetched
  */
 async function getCookGroups(): Promise<void> {
-  try {
-    cookGroups.value = (await getData(
-      'cookGroups',
-      getQueryCookGroups(auth.currentUser?.uid || '')
-    )) as CookGroup[];
-    cookGroups.value = sortCookGroups(cookGroups.value);
-
-    noCookGroups.value = false;
-  } catch (error) {
-    console.error(error);
-    noCookGroups.value = true;
-  }
+  getData('cookGroups', getQueryCookGroups(auth.currentUser?.uid || ''))
+    .then((data) => {
+      cookGroups.value = sortCookGroups(data as CookGroup[]);
+      noCookGroups.value = false;
+    })
+    .catch((error) => {
+      console.error(error);
+      noCookGroups.value = true;
+    });
 }
 
 // Edit cook group

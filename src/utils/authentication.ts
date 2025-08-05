@@ -15,50 +15,55 @@ export async function signInWithGoogle(): Promise<void> {
   const provider = new GoogleAuthProvider();
   const result = await signInWithPopup(getAuth(), provider);
 
-  try {
-    // Check if user is registered
-    const data = await getData('users', where('id', '==', result.user.uid));
-    if (data.length > 0) {
-      // Redirect to recipes page
-      router.push('/recipes');
-    }
-  } catch (error) {
-    if (error instanceof DatabaseError) {
-      // Register user
-      const user: User = {
-        id: getAuth().currentUser?.uid,
-        language: navigator.language.includes('nl')
+  getData('users', where('id', '==', result.user.uid))
+    .then((data) => {
+      if (data.length > 0) {
+        // User exists, redirect to recipes
+        router.push('/recipes');
+        return;
+      }
+    })
+    .catch((error) => {
+      if (error instanceof DatabaseError) {
+        const uid = getAuth().currentUser?.uid || '';
+        const language = navigator.language.includes('nl')
           ? 'nl'
           : navigator.language.includes('en')
             ? 'en'
-            : 'en'
-      };
-      addData('users', user).catch((error: any) => {
-        alert(error.message);
-      });
+            : 'en';
 
-      // Create user's personal cook group
-      const cookGroup: CookGroup = {
-        id: getAuth().currentUser?.uid || '',
-        name: '',
-        owner: getAuth().currentUser?.uid || '',
-        personal: true,
-        invitees: [],
-        members: [getAuth().currentUser?.uid || '']
-      };
-      addData('cookGroups', cookGroup)
-        .then(() => {
-          // Redirect to recipes page
-          router.push('/recipes');
-        })
-        .catch((error: any) => {
+        const user: User = {
+          id: uid,
+          language: language
+        };
+
+        // Add user
+        addData('users', user).catch((error: any) => {
           alert(error.message);
         });
-    } else if (error instanceof Error) {
-      console.error(error);
-      alert(error.message);
-    }
-  }
+
+        // Create user's personal cook group
+        const cookGroup: CookGroup = {
+          id: uid,
+          name: '',
+          owner: uid,
+          personal: true,
+          invitees: [],
+          members: [uid]
+        };
+
+        addData('cookGroups', cookGroup)
+          .then(() => {
+            router.push('/recipes');
+          })
+          .catch((error: any) => {
+            alert(error.message);
+          });
+      } else if (error instanceof Error) {
+        console.error(error);
+        alert(error.message);
+      }
+    });
 }
 
 /** Sign user out and redirect to home page */
