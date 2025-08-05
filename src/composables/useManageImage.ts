@@ -17,7 +17,7 @@ export function useSetRecipeImage(recipe: Ref<Recipe>): void {
         }
       })
       .catch((error) => {
-        console.error(error);
+        console.error('Error setting recipe image:', error);
       });
   });
 

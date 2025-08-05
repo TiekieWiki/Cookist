@@ -64,7 +64,7 @@ watch(
           previewImage.value = url;
         })
         .catch((error) => {
-          console.error(error);
+          console.error('Error getting preview image:', error);
           previewImage.value = '';
         });
     }

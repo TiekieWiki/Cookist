@@ -8,7 +8,7 @@ export function uploadImage(file: File): void {
   const storage = getStorage();
   const storageRef = ref(storage, file.name);
   uploadBytes(storageRef, file).catch((error) => {
-    console.error(error);
+    console.error('Error uploading image:', error);
   });
 }
 
@@ -32,7 +32,7 @@ export function deleteImage(name: string): void {
   const storage = getStorage();
   const storageRef = ref(storage, name);
   deleteObject(storageRef).catch((error) => {
-    console.error(error);
+    console.error('Error deleting image:', error);
   });
 }
 
@@ -50,6 +50,6 @@ export function setImage(id: string, image: string) {
       }
     })
     .catch((error) => {
-      console.error(error);
+      console.error('Error setting recipe image:', error);
     });
 }

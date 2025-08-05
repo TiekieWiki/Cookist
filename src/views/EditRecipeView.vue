@@ -120,7 +120,7 @@ watch(
         oldCookGroups.value = JSON.parse(JSON.stringify(cookGroups.value));
       })
       .catch((error) => {
-        console.error(error);
+        console.error('Error setting cook groups:', error);
       });
   },
   { immediate: true }
@@ -244,7 +244,7 @@ async function saveRecipe(): Promise<void> {
         });
       })
       .catch((error) => {
-        console.error(error);
+        console.error('Error saving recipe:', error);
         errorMessage.value = i18n.global.t('editRecipePage.errors.save');
       });
   }

@@ -97,7 +97,7 @@ onMounted(async () => {
       }
     })
     .catch((error) => {
-      console.error(error);
+      console.error('Error getting cook groups from database:', error);
     });
 });
 
@@ -147,7 +147,7 @@ watch(
       })
       .catch((error) => {
         noRecipes.value = true;
-        console.error(error);
+        console.error('Error getting recipes based on filter:', error);
       });
   },
   { immediate: true, deep: true }

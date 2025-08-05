@@ -38,7 +38,7 @@ export function useRegister(): {
         router.push('/recipes');
       })
       .catch((error) => {
-        console.error(error);
+        console.error('Error registering user:', error);
         switch ((error as any).code) {
           case 'auth/invalid-email':
             errorMessageRegister.value = 'loginPage.errors.invalidEmail';
@@ -83,7 +83,7 @@ export function useLogin(): {
         router.push('/recipes');
       })
       .catch((error) => {
-        console.error(error);
+        console.error('Error logging in user:', error);
         switch ((error as any).code) {
           case 'auth/invalid-email':
             errorMessageLogin.value = 'loginPage.errors.invalidEmail';

@@ -65,7 +65,7 @@ onMounted(async () => {
       }
     })
     .catch((error: any) => {
-      console.error(error);
+      console.error('Error getting user from database:', error);
     });
 });
 
@@ -89,7 +89,7 @@ function saveSettings(): void {
     updateData('users', where('id', '==', auth.currentUser?.uid), user),
     useSuccessTransition(successMessage, 'profilePage.saveSuccess')
   ]).catch((error: any) => {
-    console.error(error);
+    console.error('Error saving settings:', error);
   });
 }
 </script>

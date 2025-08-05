@@ -22,34 +22,29 @@ export const useSecureRecipe = async (
 
   return getData('cookGroupRecipes', where('id', '==', cookGroupRecipeId))
     .then((cookGroupRecipes) => {
-      if (cookGroupRecipes.length === 0) {
-        throw new Error('No cook group recipes found');
+      if (cookGroupRecipes.length > 0) {
+        cookGroupRecipe.value = cookGroupRecipes[0] as CookGroupRecipe;
+        return getData('cookGroups', getQueryCookGroups(auth.currentUser?.uid || ''));
       }
-
-      cookGroupRecipe.value = cookGroupRecipes[0] as CookGroupRecipe;
-      return getData('cookGroups', getQueryCookGroups(auth.currentUser?.uid || ''));
     })
     .then((cookGroups) => {
       const hasAccess = (cookGroups as CookGroup[]).some(
         (group) => group.id === cookGroupRecipe.value.cookGroupId
       );
 
-      if (!hasAccess) {
-        throw new Error('User does not have access to the cook group');
+      if (hasAccess) {
+        return getData('recipes', where('id', '==', cookGroupRecipe.value.recipeId));
       }
-
-      return getData('recipes', where('id', '==', cookGroupRecipe.value.recipeId));
     })
     .then((recipes) => {
-      if (recipes.length === 0) {
-        throw new Error('Recipe not found');
+      if (recipes && recipes.length > 0) {
+        recipe.value = recipes[0] as Recipe;
+        return true;
       }
-
-      recipe.value = recipes[0] as Recipe;
-      return true;
+      return false;
     })
     .catch((error) => {
-      console.error(error);
+      console.error('Error getting data:', error);
       return false;
     });
 };

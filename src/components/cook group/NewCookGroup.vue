@@ -113,7 +113,7 @@ async function saveCookGroup(): Promise<void> {
         emit('closePopUp');
       })
       .catch((error) => {
-        console.error(error);
+        console.error('Error saving cook group to database:', error);
         errorMessage.value = i18n.global.t('editCookGroupPage.errors.save');
       });
   }

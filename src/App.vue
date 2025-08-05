@@ -84,7 +84,7 @@ watch(isLoggedIn, async () => {
         }
       })
       .catch((error: any) => {
-        console.error(error);
+        console.error('Error setting user language:', error);
       });
   } else {
     useSetSystemLanguage();

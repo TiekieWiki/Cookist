@@ -63,7 +63,7 @@ async function getCookGroups(): Promise<void> {
       noCookGroups.value = false;
     })
     .catch((error) => {
-      console.error(error);
+      console.error('Error getting cook groups from database:', error);
       noCookGroups.value = true;
     });
 }

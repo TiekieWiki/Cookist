@@ -39,7 +39,7 @@ export async function signInWithGoogle(): Promise<void> {
 
         // Add user
         addData('users', user).catch((error: any) => {
-          console.error(error);
+          console.error('Error adding user to database:', error);
         });
 
         // Create user's personal cook group
@@ -57,10 +57,10 @@ export async function signInWithGoogle(): Promise<void> {
             router.push('/recipes');
           })
           .catch((error: any) => {
-            console.error(error);
+            console.error('Error adding cook group to database:', error);
           });
       } else if (error instanceof Error) {
-        console.error(error);
+        console.error('Error signing in user:', error);
       }
     });
 }
@@ -73,6 +73,6 @@ export function handleSignOut() {
       router.push('/');
     })
     .catch((error) => {
-      console.error(error);
+      console.error('Error signing out user:', error);
     });
 }
