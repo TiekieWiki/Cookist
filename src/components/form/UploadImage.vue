@@ -59,9 +59,14 @@ watch(
   () => props.oldImage,
   (newImage) => {
     if (newImage) {
-      getImage(newImage).then((url) => {
-        previewImage.value = url;
-      });
+      getImage(newImage)
+        .then((url) => {
+          previewImage.value = url;
+        })
+        .catch((error) => {
+          console.error(error);
+          previewImage.value = '';
+        });
     }
   },
   { immediate: true }

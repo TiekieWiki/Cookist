@@ -1,4 +1,3 @@
-import i18n from '@/i18n';
 import { getImage } from '@/utils/manageImage';
 import type { Recipe } from '@/utils/types/recipe';
 import { onMounted, onUnmounted, type Ref } from 'vue';
@@ -10,12 +9,16 @@ import { onMounted, onUnmounted, type Ref } from 'vue';
 export function useSetRecipeImage(recipe: Ref<Recipe>): void {
   // Set the recipe image
   onMounted(() => {
-    getImage(recipe.value.image).then((url) => {
-      const img = document.querySelector('.banner')?.querySelector('img');
-      if (img) {
-        img.src = url;
-      }
-    });
+    getImage(recipe.value.image)
+      .then((url) => {
+        const img = document.querySelector('.banner')?.querySelector('img');
+        if (img) {
+          img.src = url;
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   });
 
   // Remove the image when the component is unmounted

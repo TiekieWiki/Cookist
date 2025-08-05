@@ -39,7 +39,7 @@ export async function signInWithGoogle(): Promise<void> {
 
         // Add user
         addData('users', user).catch((error: any) => {
-          alert(error.message);
+          console.error(error);
         });
 
         // Create user's personal cook group
@@ -57,11 +57,10 @@ export async function signInWithGoogle(): Promise<void> {
             router.push('/recipes');
           })
           .catch((error: any) => {
-            alert(error.message);
+            console.error(error);
           });
       } else if (error instanceof Error) {
         console.error(error);
-        alert(error.message);
       }
     });
 }
@@ -69,7 +68,11 @@ export async function signInWithGoogle(): Promise<void> {
 /** Sign user out and redirect to home page */
 export function handleSignOut() {
   const auth: Auth = getAuth();
-  signOut(auth).then(() => {
-    router.push('/');
-  });
+  signOut(auth)
+    .then(() => {
+      router.push('/');
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }

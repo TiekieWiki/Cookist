@@ -1,7 +1,6 @@
-import { Timestamp, where } from 'firebase/firestore';
+import { Timestamp } from 'firebase/firestore';
 import type { CookGroupRecipe } from '../types/cookgroup';
 import type { Recipe } from '../types/recipe';
-import { getData } from '../db';
 
 /**
  * Get the last eaten date of the recipe

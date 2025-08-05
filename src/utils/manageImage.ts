@@ -8,7 +8,7 @@ export function uploadImage(file: File): void {
   const storage = getStorage();
   const storageRef = ref(storage, file.name);
   uploadBytes(storageRef, file).catch((error) => {
-    alert(error);
+    console.error(error);
   });
 }
 
@@ -32,7 +32,7 @@ export function deleteImage(name: string): void {
   const storage = getStorage();
   const storageRef = ref(storage, name);
   deleteObject(storageRef).catch((error) => {
-    alert(error);
+    console.error(error);
   });
 }
 
@@ -42,10 +42,14 @@ export function deleteImage(name: string): void {
  * @param image Image name
  */
 export function setImage(id: string, image: string) {
-  getImage(image).then((url) => {
-    const article = document.getElementById(id);
-    if (article) {
-      article.style.backgroundImage = `url(${url})`;
-    }
-  });
+  getImage(image)
+    .then((url) => {
+      const article = document.getElementById(id);
+      if (article) {
+        article.style.backgroundImage = `url(${url})`;
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
