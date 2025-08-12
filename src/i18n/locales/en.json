@@ -87,7 +87,11 @@
   "recipePage": {
     "title": "Recipe",
     "ingredients": "Ingredients",
-    "instructions": "Instructions"
+    "instructions": "Instructions",
+    "deleteRecipe": "Delete recipe",
+    "confirmDelete": "Are you sure you want to delete this recipe?",
+    "cancel": "Cancel",
+    "delete": "Delete"
   },
   "editRecipePage": {
     "title": "Edit recipe",

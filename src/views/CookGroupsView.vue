@@ -23,12 +23,13 @@
       </button>
     </article>
   </main>
-  <new-cook-group
-    v-if="editCookGroupOpen"
-    :cook-group="editableCookGroup"
-    @close-pop-up="closePopUp()"
-    @refresh-cook-groups="getCookGroups()"
-  />
+  <teleport to="body" v-if="editCookGroupOpen">
+    <new-cook-group
+      :cook-group="editableCookGroup"
+      @close-pop-up="closePopUp()"
+      @refresh-cook-groups="getCookGroups()"
+    />
+  </teleport>
 </template>
 
 <script lang="ts" setup>

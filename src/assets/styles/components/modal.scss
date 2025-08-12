@@ -1,0 +1,39 @@
+.modal {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+
+    article {
+        min-width: 50vw;
+        margin: auto;
+
+        .list {
+            @include list;
+        }
+
+        .searchRecipe {
+            @include zoom-on-hover($scale-small);
+            @include outline-on-focus;
+            position: relative;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            @include background-image-card;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+
+            button {
+                width: fit-content;
+
+                &:not(:first-child) {
+                    margin-left: $gap-small;
+                }
+            }
+        }
+    }
+}

@@ -3,16 +3,22 @@
     <article>
       <section class="header">
         <h2>{{ capitalizeFirstLetter(recipe.name) }}</h2>
-        <font-awesome-icon
-          v-if="recipe.owner === getAuth().currentUser?.uid"
-          @click="
-            $router.push({
-              path: `/edit-recipe/${cookGroupRecipe.id}`
-            })
-          "
-          class="edit"
-          :icon="['fas', 'pen']"
-        />
+        <div v-if="recipe.owner === getAuth().currentUser?.uid" class="actions">
+          <font-awesome-icon
+            @click="
+              $router.push({
+                path: `/edit-recipe/${cookGroupRecipe.id}`
+              })
+            "
+            class="edit"
+            :icon="['fas', 'pen']"
+          />
+          <font-awesome-icon
+            @click="deleteRecipeOpen = true"
+            class="delete"
+            :icon="['fas', 'trash-can']"
+          />
+        </div>
       </section>
       <section class="info">
         <p>{{ capitalizeFirstLetter(recipe.category) }}</p>
@@ -59,21 +65,46 @@
       </div>
     </article>
   </main>
+  <teleport to="body" v-if="deleteRecipeOpen">
+    <main class="modal">
+      <article>
+        <section class="header">
+          <h2>{{ $t('recipePage.deleteRecipe') }}</h2>
+          <h2>
+            <font-awesome-icon @click="deleteRecipeOpen = false" :icon="['fas', 'xmark']" />
+          </h2>
+        </section>
+        <section class="content">
+          <p>{{ $t('recipePage.confirmDelete') }}</p>
+        </section>
+        <section class="footer">
+          <button @click="deleteRecipeOpen = false" type="button">
+            {{ $t('recipePage.cancel') }}
+          </button>
+          <button @click.prevent="deleteRecipe()" type="submit">
+            {{ $t('recipePage.delete') }}
+          </button>
+        </section>
+      </article>
+    </main>
+  </teleport>
 </template>
 
 <script setup lang="ts">
 import type { Recipe } from '@/utils/types/recipe';
 import { getAuth } from 'firebase/auth';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { capitalizeFirstLetter } from '@/utils/text';
 import { getRecipeLastEaten } from '@/utils/recipe/lastEaten';
 import { useSetRecipeImage } from '@/composables/useManageImage';
 import { ref, watch } from 'vue';
 import { emptyCookGroupRecipe, type CookGroupRecipe } from '@/utils/types/cookgroup';
 import { useSecureRecipe } from '@/composables/useSecurity';
+import { deleteData } from '@/utils/db';
+import { where } from 'firebase/firestore';
 
-const auth = getAuth();
 const route = useRoute();
+const router = useRouter();
 
 // Recipe
 const recipe = ref<Recipe>({
@@ -113,4 +144,26 @@ watch(
 
 // Set the image
 useSetRecipeImage(recipe);
+
+// Delete recipe
+const deleteRecipeOpen = ref<boolean>(false);
+
+/*
+ * Delete the recipe
+ */
+async function deleteRecipe(): Promise<void> {
+  // Delete the recipe
+  deleteData('recipes', where('id', '==', recipe.value.id))
+    .then(() => {
+      // Delete the cook group recipes
+      return deleteData('cookGroupRecipes', where('recipeId', '==', recipe.value.id));
+    })
+    .then(() => {
+      // Redirect to recipes page
+      router.push({ path: '/recipes' });
+    })
+    .catch((error) => {
+      console.error('Error deleting recipe:', error);
+    });
+}
 </script>

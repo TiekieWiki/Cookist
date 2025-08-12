@@ -1,5 +1,5 @@
 <template>
-  <main class="editCookGroup">
+  <main class="modal">
     <article>
       <section class="header">
         <h2>{{ $t('editCookGroupPage.title') }}</h2>

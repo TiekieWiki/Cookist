@@ -156,16 +156,10 @@ async function saveRecipe(): Promise<void> {
     recipe.value.filterIngredients = recipe.value.ingredients.map((ingredient) => ingredient.name);
 
     // Clean or update the recipe
-    if (oldRecipe.value == emptyRecipe()) {
+    if (JSON.stringify(oldRecipe.value) == JSON.stringify(emptyRecipe())) {
       recipe.value.id = crypto.randomUUID();
       recipe.value.owner = auth.currentUser?.uid || '';
       recipe.value.image = image.value ? image.value.name : '';
-
-      // Clean up the cook group recipe
-      cookGroupRecipe.value.id = crypto.randomUUID();
-      cookGroupRecipe.value.recipeId = recipe.value.id;
-      cookGroupRecipe.value.cookGroupId = auth.currentUser?.uid || '';
-      cookGroupRecipe.value.lastEaten = new Timestamp(0, 0);
     } else {
       if (image.value && image.value.name !== oldImage.value) {
         recipe.value.image = image.value.name;
@@ -174,16 +168,15 @@ async function saveRecipe(): Promise<void> {
 
     // Save the recipe
     let savePromise: Promise<void>;
+    let cookGroupRecipeId = '';
 
-    if (oldRecipe.value === emptyRecipe()) {
+    if (JSON.stringify(oldRecipe.value) == JSON.stringify(emptyRecipe())) {
       // Adding a new recipe
-      savePromise = addData('recipes', recipe.value)
-        .then(() => addData('cookGroupRecipes', cookGroupRecipe.value))
-        .then(() => {
-          if (image.value) {
-            uploadImage(image.value);
-          }
-        });
+      savePromise = addData('recipes', recipe.value).then(() => {
+        if (image.value) {
+          uploadImage(image.value);
+        }
+      });
     } else {
       // Updating an existing recipe
       savePromise = updateData('recipes', where('id', '==', recipe.value.id), recipe.value).then(
@@ -206,8 +199,9 @@ async function saveRecipe(): Promise<void> {
 
           if (cookGroup.checked && !oldCookGroup?.checked) {
             // Add cook group recipe
+            cookGroupRecipeId = crypto.randomUUID();
             return addData('cookGroupRecipes', {
-              id: crypto.randomUUID(),
+              id: cookGroupRecipeId,
               recipeId: recipe.value.id,
               cookGroupId: cookGroup.id,
               lastEaten: new Timestamp(0, 0)
@@ -240,7 +234,7 @@ async function saveRecipe(): Promise<void> {
         errorMessage.value = '';
 
         router.push({
-          path: `/recipe/${route.params.cookGroupRecipeId}`
+          path: `/recipe/${route.params.cookGroupRecipeId || cookGroupRecipeId}`
         });
       })
       .catch((error) => {

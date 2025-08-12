@@ -87,7 +87,11 @@
   "recipePage": {
     "title": "Recept",
     "ingredients": "Ingrediënten",
-    "instructions": "Instructies"
+    "instructions": "Instructies",
+    "deleteRecipe": "Verwijder recept",
+    "confirmDelete": "Weet je zeker dat je dit recept wilt verwijderen?",
+    "cancel": "Annuleren",
+    "delete": "Verwijderen"
   },
   "editRecipePage": {
     "title": "Recept bewerken",
