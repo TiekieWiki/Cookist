@@ -4,7 +4,7 @@
     <ul class="list">
       <li v-for="(item, index) in items" :key="index">
         <slot :index="index"></slot>
-        <button @click="deleteRow(items!, index)" class="delete" type="button">
+        <button @click="deleteRow(items!, index, empty)" class="delete" type="button">
           <font-awesome-icon :icon="['fas', 'trash-can']" />
         </button>
       </li>
@@ -18,6 +18,7 @@ import { deleteRow } from '@/utils/recipe/list';
 defineProps<{
   id?: string;
   label?: string;
+  empty?: boolean;
 }>();
 
 const items = defineModel<Object[]>('items');

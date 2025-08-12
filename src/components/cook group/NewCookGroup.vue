@@ -38,6 +38,7 @@
         v-if="recipes.length > 0"
         id="cookGroupRecipes"
         :label="$t('editCookGroupPage.cookGroupRecipes')"
+        :empty="true"
         v-model:items="recipes"
         v-slot="{ index }"
       >
@@ -64,7 +65,7 @@
         :key="recipe.id"
         class="card searchRecipe"
         :id="recipe.id"
-        @click="recipes.push({ ...recipe, name: capitalizeFirstLetter(recipe.name) })"
+        @click="addRecipe(recipe)"
         tabindex="0"
       >
         <recipe-card :recipe="recipe" />
@@ -90,10 +91,10 @@ import RecipeCard from '@/components/recipe/RecipeCard.vue';
 import { addInputRow } from '@/utils/recipe/list';
 import { validateCookGroup } from '@/utils/cook group/validateCookGroup';
 import { emptyCookGroup, type CookGroup, type CookGroupRecipe } from '@/utils/types/cookgroup';
-import { addData, getData, updateData } from '@/utils/db';
+import { addData, deleteData, getData, updateData } from '@/utils/db';
 import i18n from '@/i18n/index';
 import { getAuth } from 'firebase/auth';
-import { where } from 'firebase/firestore';
+import { and, Timestamp, where } from 'firebase/firestore';
 import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
 import { capitalizeFirstLetter } from '@/utils/text';
 import { getSearchRecipes } from '@/utils/recipe/searchRecipe';
@@ -109,6 +110,7 @@ const auth = getAuth();
 // Cook group
 const cookGroup = ref<CookGroup>(emptyCookGroup());
 const recipes = ref<Recipe[]>([]);
+const oldRecipes = ref<Recipe[]>([]);
 const errorMessage = ref<string>('');
 
 // Add cook group to edit if it exists
@@ -138,6 +140,7 @@ onMounted(() => {
         )
           .then((recipeNames) => {
             recipes.value = recipeNames;
+            oldRecipes.value = JSON.parse(JSON.stringify(recipes.value));
             recipes.value.forEach((recipe) => {
               recipe.name = capitalizeFirstLetter(recipe.name);
             });
@@ -179,6 +182,21 @@ watch(searchRecipeQuery, (newQuery) => {
 });
 
 /**
+ * Add a recipe to the cook group
+ * @param {Recipe} recipe - The recipe to add
+ */
+function addRecipe(recipe: Recipe): void {
+  // Check if the recipe is already in the cook group
+  if (!recipes.value.some((groupRecipe) => groupRecipe.id === recipe.id)) {
+    recipes.value.push({ ...recipe, name: capitalizeFirstLetter(recipe.name) });
+    searchRecipeQuery.value = '';
+    filteredRecipes.value = filteredRecipes.value.filter(
+      (filteredRecipe) => filteredRecipe.id !== recipe.id
+    );
+  }
+}
+
+/**
  * Save the new cook group
  * @returns {Promise<void>} A promise that resolves when the cook group is saved
  */
@@ -202,7 +220,46 @@ async function saveCookGroup(): Promise<void> {
       promise = addData('cookGroups', cookGroup.value);
     }
 
+    // Save the cook group recipes to the database
+    let cookGroupRecipePromises: Promise<void>[] = [];
+
+    // Add recipe to the cook group if it doesn't already exist
+    const newRecipes = recipes.value.filter(
+      (recipe) => !oldRecipes.value.some((oldRecipe) => oldRecipe.id === recipe.id)
+    );
+
+    if (newRecipes.length > 0) {
+      cookGroupRecipePromises = newRecipes.map((recipe) => {
+        const cookGroupRecipe: CookGroupRecipe = {
+          id: crypto.randomUUID(),
+          recipeId: recipe.id,
+          cookGroupId: cookGroup.value.id,
+          lastEaten: new Timestamp(0, 0)
+        };
+        return addData('cookGroupRecipes', cookGroupRecipe);
+      });
+    }
+
+    // Remove recipes that are not in the new cook group
+    const removedRecipes = oldRecipes.value.filter(
+      (recipe) => !recipes.value.some((newRecipe) => newRecipe.id === recipe.id)
+    );
+
+    if (removedRecipes.length > 0) {
+      const removePromises = removedRecipes.map((recipe) =>
+        deleteData('cookGroupRecipes', {
+          filters: and(
+            where('recipeId', '==', recipe.id),
+            where('cookGroupId', '==', cookGroup.value.id)
+          ),
+          constraints: []
+        })
+      );
+      cookGroupRecipePromises.push(...removePromises);
+    }
+
     promise
+      .then(() => Promise.all(cookGroupRecipePromises))
       .then(() => {
         // Reset the form
         cookGroup.value = emptyCookGroup();
