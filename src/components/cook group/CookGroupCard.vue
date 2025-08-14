@@ -63,6 +63,7 @@ onMounted(() => {
       }
     })
     .catch((error) => {
+      setImage(props.cookGroup.id, '');
       console.error('Error getting cook group recipes from database:', error);
     });
 });
