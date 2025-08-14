@@ -97,6 +97,17 @@ button {
   color: $color-text-secondary;
   cursor: pointer;
 
+  &:disabled {
+    background-image: $color-accent-disabled;
+    cursor: auto;
+  }
+
+  &.icon {
+    display: flex;
+    gap: $gap-small;
+    justify-content: center;
+  }
+
   &.delete {
     background-image: $color-accent-error;
   }

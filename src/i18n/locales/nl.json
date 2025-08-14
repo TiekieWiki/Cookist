@@ -88,6 +88,7 @@
     "title": "Recept",
     "ingredients": "Ingrediënten",
     "instructions": "Instructies",
+    "eatenToday": "Vandaag gegeten",
     "deleteRecipe": "Verwijder recept",
     "confirmDelete": "Weet je zeker dat je dit recept wilt verwijderen?",
     "cancel": "Annuleren",

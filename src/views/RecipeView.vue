@@ -63,6 +63,10 @@
           {{ capitalizeFirstLetter(instruction) }}
         </label>
       </div>
+      <button @click="updateLastEaten" :disabled="lastEatenToday" class="icon" type="button">
+        <font-awesome-icon v-if="lastEatenToday" :icon="['fas', 'check']" />
+        <font-awesome-icon v-else :icon="['fas', 'calendar']" />{{ $t('recipePage.eatenToday') }}
+      </button>
     </article>
   </main>
   <teleport to="body" v-if="deleteRecipeOpen">
@@ -100,8 +104,8 @@ import { useSetRecipeImage } from '@/composables/useManageImage';
 import { ref, watch } from 'vue';
 import { emptyCookGroupRecipe, type CookGroupRecipe } from '@/utils/types/cookgroup';
 import { useSecureRecipe } from '@/composables/useSecurity';
-import { deleteData } from '@/utils/db';
-import { where } from 'firebase/firestore';
+import { deleteData, updateData } from '@/utils/db';
+import { Timestamp, where } from 'firebase/firestore';
 
 const route = useRoute();
 const router = useRouter();
@@ -122,6 +126,7 @@ const recipe = ref<Recipe>({
   filterIngredients: []
 });
 const lastEaten = ref<string>();
+const lastEatenToday = ref<boolean>(false);
 const cookGroupRecipe = ref<CookGroupRecipe>(emptyCookGroupRecipe());
 
 // Get the recipe from the database
@@ -135,6 +140,9 @@ watch(
           // Get the recipe last eaten date
           const lastEatenDate = getRecipeLastEaten(cookGroupRecipe.value as CookGroupRecipe);
           lastEaten.value = lastEatenDate ? lastEatenDate.toDate().toLocaleDateString() : undefined;
+          lastEatenToday.value = lastEatenDate
+            ? lastEatenDate.toDate().toLocaleDateString() === new Date().toLocaleDateString()
+            : false;
         }
       }
     );
@@ -164,6 +172,25 @@ async function deleteRecipe(): Promise<void> {
     })
     .catch((error) => {
       console.error('Error deleting recipe:', error);
+    });
+}
+
+/**
+ * Update the last eaten date for the recipe
+ * @returns {Promise<void>} - A promise that resolves when the last eaten date is updated
+ */
+async function updateLastEaten(): Promise<void> {
+  cookGroupRecipe.value.lastEaten = Timestamp.fromMillis(Date.now());
+  updateData('cookGroupRecipes', where('id', '==', cookGroupRecipe.value.id), cookGroupRecipe.value)
+    .then(() => {
+      // Update the last eaten date
+      lastEaten.value = cookGroupRecipe.value.lastEaten
+        ? cookGroupRecipe.value.lastEaten.toDate().toLocaleDateString()
+        : undefined;
+      lastEatenToday.value = true;
+    })
+    .catch((error) => {
+      console.error('Error updating last eaten date:', error);
     });
 }
 </script>

@@ -7,6 +7,7 @@ $color-success: #20a957;
 $color-error: #be1b16;
 $color-accent-error: linear-gradient(to top right, $color-error, rgba($color-error, 0.7));
 $color-disabled: #68696a;
+$color-accent-disabled: linear-gradient(to top right, $color-disabled, rgba($color-disabled, 0.7));
 $color-text-primary: black;
 $color-text-secondary: white;
 
