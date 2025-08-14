@@ -40,6 +40,10 @@
     },
     "save": "Save",
     "saveSuccess": "Settings saved successfully",
+    "deleteAccount": "Delete account",
+    "confirmDelete": "Are you sure you want to delete your account? This cannot be undone.",
+    "cancel": "Cancel",
+    "delete": "Delete",
     "ariaLabel": {
       "userEmail": "User email",
       "language": "Language"

@@ -233,14 +233,9 @@ async function saveRecipe(): Promise<void> {
         oldImage.value = '';
         errorMessage.value = '';
 
-        router
-          .push({
-            path: `/recipe/${route.params.cookGroupRecipeId || cookGroupRecipeId}`
-          })
-          .then(() => {
-            // Reload the page to reflect changes
-            window.location.reload();
-          });
+        router.push({
+          path: `/recipe/${route.params.cookGroupRecipeId || cookGroupRecipeId}`
+        });
       })
       .catch((error) => {
         console.error('Error saving recipe:', error);

@@ -40,6 +40,10 @@
     },
     "save": "Opslaan",
     "saveSuccess": "Instellingen opgeslagen",
+    "deleteAccount": "Account verwijderen",
+    "confirmDelete": "Weet je zeker dat je je account wilt verwijderen? Dit kan niet ongedaan worden gemaakt.",
+    "cancel": "Annuleren",
+    "delete": "Verwijderen",
     "ariaLabel": {
       "userEmail": "Gebruiker e-mail",
       "language": "Taal"
