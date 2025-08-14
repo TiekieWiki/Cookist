@@ -1,26 +1,37 @@
-article {
-    &.noCards {
-      @include empty-card;
-    }
+.noCards {
+  @include empty-card;
+}
 
-    &.card {
-      position: relative;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
+.card {
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 
-      &:not(:has(.edit, .delete)) {
-        @include zoom-on-hover($scale-small);
-        @include outline-on-focus;
-      }
+  .title {
+    display: flex;
+    justify-content: space-between;
+    z-index: 2;
+    color: $color-text-primary;
+  }
 
-      &:not(.newCard) {
-        @include background-image-card;
-      }
+  .info {
+    display: flex;
+    gap: $gap-small;
+    z-index: 2;
+    color: $color-text-primary;
+  }
 
-      &.newCard {
-        justify-content: center;
-      }
-    }
+  &:not(:has(.edit, .delete)) {
+    @include zoom-on-hover($scale-small);
+    @include outline-on-focus;
+  }
 
+  &:not(.newCard) {
+    @include background-image-card;
+  }
+
+  &.newCard {
+    justify-content: center;
+  }
 }
