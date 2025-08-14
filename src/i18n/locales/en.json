@@ -92,6 +92,7 @@
   "recipePage": {
     "title": "Recipe",
     "ingredients": "Ingredients",
+    "persons": "persons | person | persons",
     "instructions": "Instructions",
     "eatenToday": "Eaten today",
     "deleteRecipe": "Delete recipe",

@@ -92,6 +92,7 @@
   "recipePage": {
     "title": "Recept",
     "ingredients": "Ingrediënten",
+    "persons": "personen",
     "instructions": "Instructies",
     "eatenToday": "Vandaag gegeten",
     "deleteRecipe": "Verwijder recept",

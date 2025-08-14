@@ -46,11 +46,27 @@
       <p v-if="recipe.notes">{{ recipe.notes }}</p>
     </article>
     <article>
-      <h3>{{ $t('recipePage.ingredients') }}</h3>
+      <section class="title">
+        <h3>{{ $t('recipePage.ingredients') }}</h3>
+        <div class="portionCalculator">
+          <font-awesome-icon
+            @click="portionCount = Math.max(portionCount - 1, 1)"
+            class="edit"
+            :icon="['fas', 'minus']"
+          />
+          <p>{{ portionCount }} {{ $t('recipePage.persons', portionCount) }}</p>
+          <font-awesome-icon @click="portionCount++" class="edit" :icon="['fas', 'plus']" />
+        </div>
+      </section>
       <div class="label-group">
         <label v-for="ingredient in recipe.ingredients" :key="ingredient.name">
           <input :name="ingredient.name" type="checkbox" />
-          {{ ingredient.amount }} {{ $t(`editRecipePage.units.${ingredient.unit}`) }}
+          {{
+            recipe.portions
+              ? (ingredient.amount / recipe.portions) * portionCount
+              : ingredient.amount * portionCount
+          }}
+          {{ $t(`editRecipePage.units.${ingredient.unit}`) }}
           {{ ingredient.name }}
         </label>
       </div>
@@ -128,6 +144,7 @@ const recipe = ref<Recipe>({
 const lastEaten = ref<string>();
 const lastEatenToday = ref<boolean>(false);
 const cookGroupRecipe = ref<CookGroupRecipe>(emptyCookGroupRecipe());
+const portionCount = ref<number>(1);
 
 // Get the recipe from the database
 watch(
@@ -143,6 +160,8 @@ watch(
           lastEatenToday.value = lastEatenDate
             ? lastEatenDate.toDate().toLocaleDateString() === new Date().toLocaleDateString()
             : false;
+
+          portionCount.value = recipe.value.portions || 1;
         }
       })
       .catch((error) => {
