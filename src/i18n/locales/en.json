@@ -7,8 +7,6 @@
   },
   "loginPage": {
     "title": "Login",
-    "email": "Email",
-    "password": "Password",
     "login": "Log in",
     "register": "Register",
     "googleLogin": "Log in with Google",

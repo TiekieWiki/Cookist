@@ -33,7 +33,7 @@
       <form>
         <input-field
           name="emailRegister"
-          :placeholder="$t('loginPage.email')"
+          :placeholder="$t('loginPage.placeholder.email')"
           :ariaLabel="$t('loginPage.ariaLabel.emailRegister')"
           type="email"
           autocomplete="email"
@@ -41,7 +41,7 @@
         />
         <input-field
           name="passwordRegister"
-          :placeholder="$t('loginPage.password')"
+          :placeholder="$t('loginPage.placeholder.password')"
           :ariaLabel="$t('loginPage.ariaLabel.passwordRegister')"
           type="password"
           autocomplete="new-password"

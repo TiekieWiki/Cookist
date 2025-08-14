@@ -7,8 +7,6 @@
   },
   "loginPage": {
     "title": "Log in",
-    "email": "Email",
-    "password": "Wachtwoord",
     "login": "Log in",
     "register": "Registreer",
     "googleLogin": "Log in met Google",
