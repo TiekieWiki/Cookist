@@ -233,9 +233,14 @@ async function saveRecipe(): Promise<void> {
         oldImage.value = '';
         errorMessage.value = '';
 
-        router.push({
-          path: `/recipe/${route.params.cookGroupRecipeId || cookGroupRecipeId}`
-        });
+        router
+          .push({
+            path: `/recipe/${route.params.cookGroupRecipeId || cookGroupRecipeId}`
+          })
+          .then(() => {
+            // Reload the page to reflect changes
+            window.location.reload();
+          });
       })
       .catch((error) => {
         console.error('Error saving recipe:', error);
@@ -247,8 +252,9 @@ async function saveRecipe(): Promise<void> {
 // Prevent leaving the page if there are unsaved changes
 onBeforeRouteLeave(() => {
   if (
-    (oldRecipe.value !== emptyRecipe() && recipe.value !== oldRecipe.value) ||
-    recipe.value !== emptyRecipe()
+    (JSON.stringify(oldRecipe.value) !== JSON.stringify(emptyRecipe()) &&
+      recipe.value !== oldRecipe.value) ||
+    JSON.stringify(recipe.value) !== JSON.stringify(emptyRecipe())
   ) {
     const answer = window.confirm(i18n.global.t('editRecipePage.errors.unsavedChanges'));
     if (!answer) return false;
