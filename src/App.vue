@@ -47,6 +47,7 @@
       </transition>
     </nav>
     <div class="banner">
+      <!-- Photo by Andy Chilton on Unsplash -->
       <img src="/src/assets/images/Banner.jpg" alt="" />
     </div>
     <transition name="slide-fade">

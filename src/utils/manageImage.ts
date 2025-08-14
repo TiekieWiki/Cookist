@@ -49,7 +49,16 @@ export function setImage(id: string, image: string) {
         article.style.backgroundImage = `url(${url})`;
       }
     })
-    .catch((error) => {
-      console.error('Error setting recipe image:', error);
+    .catch(() => {
+      try {
+        // Set default image if the image is not found
+        // Photo by NordWood Themes on Unsplash
+        const article = document.getElementById(id);
+        if (article) {
+          article.style.backgroundImage = 'url(/src/assets/images/DefaultRecipe.jpg)';
+        }
+      } catch (error) {
+        console.error('Error setting default image:', error);
+      }
     });
 }

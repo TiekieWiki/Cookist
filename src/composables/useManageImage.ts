@@ -16,8 +16,17 @@ export function useSetRecipeImage(recipe: Ref<Recipe>): void {
           img.src = url;
         }
       })
-      .catch((error) => {
-        console.error('Error setting recipe image:', error);
+      .catch(() => {
+        try {
+          // Set default image if the image is not found
+          // Photo by NordWood Themes on Unsplash
+          const img = document.querySelector('.banner')?.querySelector('img');
+          if (img) {
+            img.src = '/src/assets/images/DefaultRecipe.jpg';
+          }
+        } catch (error) {
+          console.error('Error setting default image:', error);
+        }
       });
   });
 
@@ -25,6 +34,7 @@ export function useSetRecipeImage(recipe: Ref<Recipe>): void {
   onUnmounted(() => {
     const img = document.querySelector('.banner')?.querySelector('img');
     if (img) {
+      // Photo by Andy Chilton on Unsplash
       img.src = '/src/assets/images/Banner.jpg';
     }
   });
