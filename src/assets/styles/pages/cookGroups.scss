@@ -4,4 +4,20 @@
 .cookGroups {
   @include fill-out-cards;
   position: relative;
+
+  .invites {
+    .list {
+      @include list;
+
+      p {
+        align-content: center;
+        width: 100%;
+      }
+
+      .actions {
+        display: flex;
+        gap: $gap-small;
+      }
+    }
+  }
 }

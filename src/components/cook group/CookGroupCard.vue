@@ -21,9 +21,11 @@
     </p>
     |
     <p>
-      {{ cookGroup.members.length }}
+      {{ cookGroup.members.length + 1 }}
       {{
-        cookGroup.members.length == 1 ? $t('cookGroupsPage.member') : $t('cookGroupsPage.members')
+        cookGroup.members.length + 1 == 1
+          ? $t('cookGroupsPage.member')
+          : $t('cookGroupsPage.members')
       }}
     </p>
   </section>

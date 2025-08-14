@@ -182,6 +182,7 @@
   },
   "cookGroupsPage": {
     "title": "Kookgroepen",
+    "invites": "Kookgroep uitnodigingen",
     "noCookGroups": "Geen kookgroepen gevonden",
     "personalCookGroup": "Persoonlijke kookgroep",
     "member": "deelnemer",

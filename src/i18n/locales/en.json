@@ -182,6 +182,7 @@
   },
   "cookGroupsPage": {
     "title": "Cook groups",
+    "invites": "Cook group invites",
     "noCookGroups": "No cook groups found",
     "personalCookGroup": "Personal cook group",
     "member": "member",
