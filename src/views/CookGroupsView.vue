@@ -5,7 +5,7 @@
         <h2>{{ $t('cookGroupsPage.title') }}</h2>
       </section>
     </article>
-    <article v-if="noCookGroups" class="noCookGroups">
+    <article v-if="noCookGroups" class="noCards">
       <h3>{{ $t('cookGroupsPage.noCookGroups') }}</h3>
     </article>
     <template v-else>
@@ -17,7 +17,7 @@
         />
       </article>
     </template>
-    <article class="card newCookGroup">
+    <article class="card newCard">
       <button @click="editCookGroupOpen = !editCookGroupOpen" type="button">
         <font-awesome-icon :icon="['fas', 'plus']" />
       </button>

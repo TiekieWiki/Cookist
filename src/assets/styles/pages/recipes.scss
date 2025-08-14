@@ -45,26 +45,5 @@
         grid-template-columns: 1fr;
       }
     }
-
-    &.noRecipes {
-      @include empty-card;
-    }
-
-    &.card {
-      @include zoom-on-hover($scale-small);
-      @include outline-on-focus;
-      position: relative;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-
-      &:not(.newRecipe) {
-        @include background-image-card;
-      }
-
-      &.newRecipe {
-        justify-content: center;
-      }
-    }
   }
 }

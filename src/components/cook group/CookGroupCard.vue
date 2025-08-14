@@ -19,6 +19,7 @@
       {{ cookGroupRecipesCount }}
       {{ cookGroupRecipesCount == 1 ? $t('cookGroupsPage.recipe') : $t('cookGroupsPage.recipes') }}
     </p>
+    |
     <p>
       {{ cookGroup.members.length }}
       {{
@@ -35,6 +36,7 @@ import { getAuth } from 'firebase/auth';
 import { onMounted, ref } from 'vue';
 import { getData } from '@/utils/db';
 import { where } from 'firebase/firestore';
+import { setImage } from '@/utils/manageImage';
 
 const props = defineProps<{
   cookGroup: CookGroup;
@@ -50,8 +52,13 @@ const cookGroupRecipesCount = ref<number>();
 onMounted(() => {
   // Get cook group recipes if they exist
   getData('cookGroupRecipes', where('cookGroupId', '==', props.cookGroup.id))
-    .then((data) => {
-      cookGroupRecipesCount.value = data.length;
+    .then((cookGroupRecipes) => {
+      cookGroupRecipesCount.value = cookGroupRecipes.length;
+
+      // Set the cook group to image of containing recipes
+      if (cookGroupRecipes.length > 0) {
+        setImage(cookGroupRecipes[0].cookGroupId, cookGroupRecipes[0].image);
+      }
     })
     .catch((error) => {
       console.error('Error getting cook group recipes from database:', error);

@@ -6,18 +6,7 @@
         justify-content: flex-end;
         gap: $gap-small;
         z-index: 2;
-
-        .edit {
-          color: $color-primary;
-          cursor: pointer;
-        }
-
-        .delete {
-          color: $color-error;
-          cursor: pointer;
-        }
       }
-      
     }
 
     .info {

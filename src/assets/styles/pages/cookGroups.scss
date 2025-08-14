@@ -4,28 +4,4 @@
 .cookGroups {
   @include fill-out-cards;
   position: relative;
-
-  article {
-    &.noCookGroups {
-      @include empty-card;
-    }
-
-    &.card {
-      .title {
-        .edit {
-          color: $color-primary;
-          cursor: pointer;
-        }
-      }
-
-      .info {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-      }
-
-      &.newCookGroup {
-        justify-content: center;
-      }
-    }
-  }
 }

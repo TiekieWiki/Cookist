@@ -1,0 +1,26 @@
+article {
+    &.noCards {
+      @include empty-card;
+    }
+
+    &.card {
+      position: relative;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+
+      &:not(:has(.edit, .delete)) {
+        @include zoom-on-hover($scale-small);
+        @include outline-on-focus;
+      }
+
+      &:not(.newCard) {
+        @include background-image-card;
+      }
+
+      &.newCard {
+        justify-content: center;
+      }
+    }
+
+}

@@ -19,7 +19,7 @@
       </section>
       <recipe-order-filter v-model:filter="filter" v-model:order="order" />
     </article>
-    <article v-if="noRecipes" class="noRecipes">
+    <article v-if="noRecipes" class="noCards">
       <h3>{{ $t('recipesPage.noRecipes') }}</h3>
     </article>
     <article
@@ -41,7 +41,7 @@
         :selected-cook-group="selectedCookGroup"
       />
     </article>
-    <article class="card newRecipe">
+    <article class="card newCard">
       <button
         @click="
           $router.push({
