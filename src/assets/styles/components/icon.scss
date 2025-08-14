@@ -7,3 +7,9 @@
     color: $color-error;
     cursor: pointer;
 }
+
+button {
+    &.edit, &.delete {
+        color: $color-text-secondary;
+    }
+}
