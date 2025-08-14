@@ -116,12 +116,10 @@ const successMessage = ref<string>('');
  * Save the user settings to the database
  */
 function saveSettings(): void {
-  const user = {
-    language: selectedLanguage.value
-  };
-
   Promise.all([
-    updateData('users', where('id', '==', auth.currentUser?.uid), user),
+    updateData('users', where('id', '==', auth.currentUser?.uid), {
+      language: selectedLanguage.value
+    }),
     useSuccessTransition(successMessage, 'profilePage.saveSuccess')
   ]).catch((error: any) => {
     console.error('Error saving settings:', error);

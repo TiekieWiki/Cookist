@@ -134,8 +134,8 @@ watch(
   [route.params.cookGroupRecipeId],
   async () => {
     // Get the recipe if user has access to it
-    useSecureRecipe(route.params.cookGroupRecipeId as string, cookGroupRecipe, recipe).then(
-      async (result) => {
+    useSecureRecipe(route.params.cookGroupRecipeId as string, cookGroupRecipe, recipe)
+      .then(async (result) => {
         if (result) {
           // Get the recipe last eaten date
           const lastEatenDate = getRecipeLastEaten(cookGroupRecipe.value as CookGroupRecipe);
@@ -144,8 +144,10 @@ watch(
             ? lastEatenDate.toDate().toLocaleDateString() === new Date().toLocaleDateString()
             : false;
         }
-      }
-    );
+      })
+      .catch((error) => {
+        console.error('Error getting recipe:', error);
+      });
   },
   { immediate: true }
 );

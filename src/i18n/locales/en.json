@@ -1,6 +1,9 @@
 {
   "homePage": {
-    "title": "Home"
+    "title": "Home",
+    "banner1": "All your favourite recipes in one place",
+    "banner2": "Never forget a recipe with the last eaten function",
+    "banner3": "Share your recipes with your own created cook groups"
   },
   "loginPage": {
     "title": "Login",

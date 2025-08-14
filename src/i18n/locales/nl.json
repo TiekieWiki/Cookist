@@ -1,6 +1,9 @@
 {
   "homePage": {
-    "title": "Home"
+    "title": "Home",
+    "banner1": "Al je favoriete recepten op één plek",
+    "banner2": "Vergeet nooit een recept met de laatst gegeten functie",
+    "banner3": "Deel je recepten met je eigen gemaakte kookgroepen"
   },
   "loginPage": {
     "title": "Log in",
