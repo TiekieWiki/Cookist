@@ -72,7 +72,16 @@
       </div>
     </article>
     <article>
-      <h3>{{ $t('recipePage.instructions') }}</h3>
+      <section class="title">
+        <h3>{{ $t('recipePage.instructions') }}</h3>
+        <div class="actions">
+          {{ $t('recipePage.keepOnScreen') }}
+          <label @click="keepScreenOn = !keepScreenOn" class="toggle">
+            <input type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </section>
       <div class="label-group">
         <label v-for="instruction in recipe.instructions" :key="instruction">
           <input :name="instruction" type="checkbox" />
@@ -163,6 +172,7 @@ import { deleteData, updateData } from '@/utils/db';
 import { Timestamp, where } from 'firebase/firestore';
 import InputField from '@/components/form/InputField.vue';
 import { useTimer } from '@/composables/useTimer';
+import { useKeepScreenOn } from '@/composables/useKeepScreenOn';
 
 const route = useRoute();
 const router = useRouter();
@@ -214,6 +224,9 @@ watch(
 
 // Set the image
 useSetRecipeImage(recipe);
+
+// Keep screen on
+const { keepScreenOn } = useKeepScreenOn();
 
 // Initialize timer
 const { timer, startTimer, pauseTimer } = useTimer();

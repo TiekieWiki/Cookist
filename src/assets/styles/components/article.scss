@@ -36,12 +36,25 @@ main {
       align-items: center;
       color: $color-text-primary;
       z-index: 2;
+
+      .actions {
+        display: flex;
+        gap: $gap-small;
+        align-items: flex-end;
+        z-index: 2;
+      }
     }
 
     .title {
-       display: flex;
+      display: flex;
       justify-content: space-between;
       align-items: center;     
+
+      .actions {
+        display: flex;
+        gap: $gap-small;
+        align-items: center;
+      }
     }
   }
 }

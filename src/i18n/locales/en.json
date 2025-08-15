@@ -94,6 +94,7 @@
     "ingredients": "Ingredients",
     "portions": "portions | portion | portions",
     "instructions": "Instructions",
+    "keepOnScreen": "Keep screen on",
     "eatenToday": "Eaten today",
     "deleteRecipe": "Delete recipe",
     "confirmDelete": "Are you sure you want to delete this recipe?",

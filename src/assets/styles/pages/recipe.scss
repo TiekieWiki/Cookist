@@ -1,14 +1,5 @@
 .recipe {
   article {
-    .header {
-      .actions {
-        display: flex;
-        justify-content: flex-end;
-        gap: $gap-small;
-        z-index: 2;
-      }
-    }
-
     .info {
       display: flex;
       justify-content: space-around;
@@ -21,9 +12,6 @@
       display: flex;
       align-items: center;
       gap: $gap-small;
-
-      button {
-      }
     }
   }
 }

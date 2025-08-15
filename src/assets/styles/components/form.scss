@@ -170,6 +170,59 @@ input::file-selector-button {
   }
 }
 
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: $gap-xlarge * 2 - $gap-xxsmall * 2;
+  height: $gap-xlarge;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .slider {
+      background-color: $color-primary;
+
+      &::before {
+        -webkit-transform: translateX($gap-xlarge - $gap-xxsmall * 4);
+        -ms-transform: translateX($gap-xlarge - $gap-xxsmall * 4);
+        transform: translateX($gap-xlarge - $gap-xxsmall * 4);
+      }
+    }
+
+    &:focus + .slider {
+      box-shadow: 0 0 1px $color-primary;
+    }
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $color-disabled;
+    border-radius: $gap-xlarge;
+    -webkit-transition: .4s;
+    transition: .4s;
+
+    &::before {
+      position: absolute;
+      content: "";
+      height: $gap-xlarge - $gap-xxsmall * 4;
+      width: $gap-xlarge - $gap-xxsmall * 4;
+      left: $gap-xxsmall * 2;
+      bottom: $gap-xxsmall * 2;
+      background-color: $color-text-secondary;
+      border-radius: 50%;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+  }
+}
+
 .error {
   padding: $gap-xxsmall $gap-small;
   border-radius: $border-radius-medium;
