@@ -17,16 +17,12 @@
   <section class="info">
     <p>
       {{ cookGroupRecipesCount }}
-      {{ cookGroupRecipesCount == 1 ? $t('cookGroupsPage.recipe') : $t('cookGroupsPage.recipes') }}
+      {{ $t('cookGroupsPage.recipes', cookGroupRecipesCount ?? 0) }}
     </p>
     |
     <p>
       {{ cookGroup.members.length + 1 }}
-      {{
-        cookGroup.members.length + 1 == 1
-          ? $t('cookGroupsPage.member')
-          : $t('cookGroupsPage.members')
-      }}
+      {{ $t('cookGroupsPage.members', cookGroup.members.length + 1) }}
     </p>
   </section>
 </template>

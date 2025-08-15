@@ -54,7 +54,7 @@
             class="edit"
             :icon="['fas', 'minus']"
           />
-          <p>{{ portionCount }} {{ $t('recipePage.persons', portionCount) }}</p>
+          <p>{{ portionCount }} {{ $t('recipePage.portions', portionCount) }}</p>
           <font-awesome-icon @click="portionCount++" class="edit" :icon="['fas', 'plus']" />
         </div>
       </section>

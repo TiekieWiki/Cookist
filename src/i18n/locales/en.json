@@ -92,7 +92,7 @@
   "recipePage": {
     "title": "Recipe",
     "ingredients": "Ingredients",
-    "persons": "persons | person | persons",
+    "portions": "portions | portion | portions",
     "instructions": "Instructions",
     "eatenToday": "Eaten today",
     "deleteRecipe": "Delete recipe",
@@ -192,10 +192,8 @@
     "invites": "Cook group invites",
     "noCookGroups": "No cook groups found",
     "personalCookGroup": "Personal cook group",
-    "member": "member",
-    "members": "members",
-    "recipe": "recipe",
-    "recipes": "recipes"
+    "members": "members | member | members",
+    "recipes": "recipes | recipe | recipes"
   },
   "editCookGroupPage": {
     "title": "Edit cook group",
