@@ -79,6 +79,45 @@
           {{ capitalizeFirstLetter(instruction) }}
         </label>
       </div>
+      <div :class="['timer', timer.isFinished ? 'finished' : '']">
+        <font-awesome-icon class="edit" :icon="['fas', 'stopwatch']" />
+        <font-awesome-icon
+          @click="timer.minutes = Math.max(timer.minutes - 1, 0)"
+          class="edit"
+          :icon="['fas', 'minus']"
+        />
+        <input-field
+          name="hours"
+          :placeholder="$t('recipePage.placeholder.hours')"
+          :ariaLabel="$t('recipePage.ariaLabel.hours')"
+          :step="1"
+          type="number"
+          v-model:input="timer.hours"
+        />
+        :
+        <input-field
+          name="minutes"
+          :placeholder="$t('recipePage.placeholder.minutes')"
+          :ariaLabel="$t('recipePage.ariaLabel.minutes')"
+          :step="1"
+          type="number"
+          v-model:input="timer.minutes"
+        />
+        :
+        <input-field
+          name="seconds"
+          :placeholder="$t('recipePage.placeholder.seconds')"
+          :ariaLabel="$t('recipePage.ariaLabel.seconds')"
+          :step="1"
+          type="number"
+          v-model:input="timer.seconds"
+        />
+        <font-awesome-icon @click="timer.minutes++" class="edit" :icon="['fas', 'plus']" />
+        <button @click="timer.isRunning = !timer.isRunning" class="icon" type="button">
+          <font-awesome-icon v-if="timer.isRunning" :icon="['fas', 'pause']" />
+          <font-awesome-icon v-else :icon="['fas', 'play']" />
+        </button>
+      </div>
       <button @click="updateLastEaten" :disabled="lastEatenToday" class="icon" type="button">
         <font-awesome-icon v-if="lastEatenToday" :icon="['fas', 'check']" />
         <font-awesome-icon v-else :icon="['fas', 'calendar']" />{{ $t('recipePage.eatenToday') }}
@@ -122,6 +161,8 @@ import { emptyCookGroupRecipe, type CookGroupRecipe } from '@/utils/types/cookgr
 import { useSecureRecipe } from '@/composables/useSecurity';
 import { deleteData, updateData } from '@/utils/db';
 import { Timestamp, where } from 'firebase/firestore';
+import InputField from '@/components/form/InputField.vue';
+import { useTimer } from '@/composables/useTimer';
 
 const route = useRoute();
 const router = useRouter();
@@ -173,6 +214,20 @@ watch(
 
 // Set the image
 useSetRecipeImage(recipe);
+
+// Initialize timer
+const { timer, startTimer, pauseTimer } = useTimer();
+
+watch(
+  () => timer.value.isRunning,
+  (isRunning) => {
+    if (isRunning) {
+      startTimer();
+    } else {
+      pauseTimer();
+    }
+  }
+);
 
 // Delete recipe
 const deleteRecipeOpen = ref<boolean>(false);

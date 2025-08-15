@@ -1,0 +1,16 @@
+@import '../mixins/animations';
+
+.timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $gap-small;
+
+    .edit:first-child {
+        font-size: 2rem;
+    }
+
+    &.finished {
+        @include animation-shake;
+    }
+}
