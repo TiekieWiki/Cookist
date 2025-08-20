@@ -29,8 +29,11 @@ export enum RecipeCategories {
   Other = 'other'
 }
 
-export enum RecipeUnits {
-  Piece = 'pc',
+export enum RecipeUnitsPiece {
+  Piece = 'pc'
+}
+
+export enum RecipeUnitsVolume {
   Milliliters = 'ml',
   Deciliters = 'dl',
   Liters = 'l',
@@ -40,13 +43,18 @@ export enum RecipeUnits {
   Cup = 'cup',
   Pint = 'pt',
   Quart = 'qt',
-  Gallon = 'gal',
+  Gallon = 'gal'
+}
+
+export enum RecipeUnitsWeight {
   Milligram = 'mg',
   Gram = 'g',
   Kilogram = 'kg',
   Ounce = 'oz',
   Pound = 'lb'
 }
+
+export const RecipeUnits = { ...RecipeUnitsPiece, ...RecipeUnitsVolume, ...RecipeUnitsWeight };
 
 export function emptyRecipe(): Recipe {
   return {

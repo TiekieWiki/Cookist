@@ -59,14 +59,22 @@
         </div>
       </section>
       <div class="label-group">
-        <label v-for="ingredient in recipe.ingredients" :key="ingredient.name">
+        <label v-for="(ingredient, index) in recipe.ingredients" :key="ingredient.name">
           <input :name="ingredient.name" type="checkbox" />
-          {{
-            recipe.portions
-              ? (ingredient.amount / recipe.portions) * portionCount
-              : ingredient.amount * portionCount
-          }}
-          {{ $t(`editRecipePage.units.${ingredient.unit}`) }}
+          {{ ingredient.amount }}
+          <select-field
+            :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
+            :placeholder="$t('editRecipePage.placeholder.unit')"
+            :items="
+              Object.values(getPossibleUnits(ingredient.unit)).map((unit) => ({
+                value: unit.toLowerCase(),
+                label: unit.toLowerCase()
+              }))
+            "
+            labelPrefix="editRecipePage.units."
+            v-model:selected="ingredient.unit"
+            @change="updateIngredientUnit()"
+          />
           {{ ingredient.name }}
         </label>
       </div>
@@ -171,8 +179,11 @@ import { useSecureRecipe } from '@/composables/useSecurity';
 import { deleteData, updateData } from '@/utils/db';
 import { Timestamp, where } from 'firebase/firestore';
 import InputField from '@/components/form/InputField.vue';
+import SelectField from '@/components/form/SelectField.vue';
 import { useTimer } from '@/composables/useTimer';
 import { useKeepScreenOn } from '@/composables/useKeepScreenOn';
+import { getPossibleUnits } from '@/utils/recipe/ingredientUnits';
+import { useIngredientUnit } from '@/composables/useIngredient';
 
 const route = useRoute();
 const router = useRouter();
@@ -192,6 +203,7 @@ const recipe = ref<Recipe>({
   notes: '',
   filterIngredients: []
 });
+const initialIngredients = ref<{ amount: number; unit: string; name: string }[]>([]);
 const lastEaten = ref<string>();
 const lastEatenToday = ref<boolean>(false);
 const cookGroupRecipe = ref<CookGroupRecipe>(emptyCookGroupRecipe());
@@ -212,6 +224,7 @@ watch(
             ? lastEatenDate.toDate().toLocaleDateString() === new Date().toLocaleDateString()
             : false;
 
+          initialIngredients.value = recipe.value.ingredients;
           portionCount.value = recipe.value.portions || 1;
         }
       })
@@ -224,6 +237,32 @@ watch(
 
 // Set the image
 useSetRecipeImage(recipe);
+
+// Update ingredient amount and unit
+watch(
+  () => portionCount.value,
+  () => {
+    recipe.value.ingredients = useIngredientUnit(
+      initialIngredients.value,
+      recipe.value.ingredients,
+      recipe.value.portions,
+      portionCount
+    );
+  }
+);
+
+/**
+ * Update the ingredient unit
+ * @param ingredient The ingredient to update
+ */
+function updateIngredientUnit(): void {
+  recipe.value.ingredients = useIngredientUnit(
+    initialIngredients.value,
+    recipe.value.ingredients,
+    recipe.value.portions,
+    portionCount
+  );
+}
 
 // Keep screen on
 const { keepScreenOn } = useKeepScreenOn();
