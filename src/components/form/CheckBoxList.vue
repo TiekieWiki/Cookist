@@ -1,6 +1,6 @@
 <template>
   <label :id="id">
-    {{ label }}
+    {{ required ? label + ' *' : label }}
     <div class="label-group">
       <check-box
         v-for="(item, index) in items"
@@ -24,6 +24,7 @@ import CheckBox from './CheckBox.vue';
 defineProps<{
   id?: string;
   label?: string;
+  required?: boolean;
 }>();
 
 const items = defineModel<Checkbox[]>('items');

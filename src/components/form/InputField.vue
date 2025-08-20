@@ -1,6 +1,6 @@
 <template>
   <label :for="id">
-    {{ label }}
+    {{ required ? label + ' *' : label }}
     <input
       :id="id"
       :name="name"

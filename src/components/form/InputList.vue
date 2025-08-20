@@ -1,6 +1,7 @@
 <template>
-  <label :id="id"
-    >{{ label }}
+  <label :id="id">
+    {{ required ? label + ' *' : label }}
+
     <ul class="list">
       <li v-for="(item, index) in items" :key="index">
         <slot :index="index"></slot>
@@ -18,6 +19,7 @@ import { deleteRow } from '@/utils/recipe/list';
 defineProps<{
   id?: string;
   label?: string;
+  required?: boolean;
   empty?: boolean;
 }>();
 

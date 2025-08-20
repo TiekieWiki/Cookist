@@ -1,11 +1,13 @@
 <template>
   <label :for="id">
-    {{ label }}
+    {{ required ? label + ' *' : label }}
     <textarea
       :id="id"
       :name="name"
       :placeholder="placeholder"
       :aria-label="ariaLabel"
+      :required="required"
+      :disabled="disabled"
       v-model="input"
     />
   </label>
@@ -18,6 +20,8 @@ defineProps<{
   label?: string;
   placeholder: string;
   ariaLabel: string;
+  required?: boolean;
+  disabled?: boolean;
 }>();
 
 const input = defineModel<string>('input');

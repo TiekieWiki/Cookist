@@ -1,6 +1,6 @@
 <template>
   <label :for="id">
-    {{ label }}
+    {{ required ? label + ' *' : label }}
     <div>
       <input
         :id="id"
@@ -29,6 +29,7 @@ const props = defineProps<{
   label?: string;
   placeholder?: string;
   ariaLabel: string;
+  required?: boolean;
   disabled?: boolean;
   oldImage?: string;
 }>();

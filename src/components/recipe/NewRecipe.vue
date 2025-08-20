@@ -62,6 +62,7 @@
     <input-list
       id="ingredients"
       :label="$t('editRecipePage.ingredients')"
+      :required="true"
       v-model:items="recipe.ingredients"
       v-slot="{ index }"
     >
@@ -97,6 +98,7 @@
     <input-list
       id="instructions"
       :label="$t('editRecipePage.instructions')"
+      :required="true"
       v-model:items="recipe.instructions"
       v-slot="{ index }"
     >

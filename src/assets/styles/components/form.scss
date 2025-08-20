@@ -35,6 +35,12 @@ textarea {
   @include form-element;
 
   border-radius: $border-radius-medium;
+
+  &:disabled {
+    background-color: $color-disabled;
+    cursor: auto;
+  }
+
 }
 
 input[type='date'] {
@@ -62,6 +68,11 @@ input[type='file'] {
     height: calc($size-icon-small / 3 * 2);
     background-color: $color-primary;
     clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  }
+
+  &:has(select:disabled) {
+    background-color: $color-disabled;
+    cursor: auto;
   }
 
   select {
@@ -113,19 +124,33 @@ button {
   }
 }
 
-input::file-selector-button {
-  @include form-element;
+input {
+  &::file-selector-button {
+    @include form-element;
 
-  display: grid;
-  grid-template-columns: auto $size-icon-small;
-  justify-self: start;
-  align-self: center;
-  margin-bottom: $gap-small;
-  background-image: $color-accent-primary;
-  border: none;
-  border-radius: $border-radius-medium;
-  color: $color-text-secondary;
-  cursor: pointer;
+    display: grid;
+    grid-template-columns: auto $size-icon-small;
+    justify-self: start;
+    align-self: center;
+    margin-bottom: $gap-small;
+    background-image: $color-accent-primary;
+    border: none;
+    border-radius: $border-radius-medium;
+    color: $color-text-secondary;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    &::file-selector-button {
+      background-image: $color-accent-disabled;
+      cursor: auto;
+    }
+  }
+}
+
+input:disabled::file-selector-button {
+  background-image: $color-accent-disabled;
+  cursor: auto;
 }
 
 .label-group {
@@ -161,6 +186,11 @@ input::file-selector-button {
 
       &:checked::before {
         transform: scale(1);
+      }
+
+      &:disabled {
+        background-color: $color-disabled;
+        cursor: auto;
       }
     }
 

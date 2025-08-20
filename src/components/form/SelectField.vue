@@ -1,6 +1,6 @@
 <template>
   <label :id="id">
-    {{ label }}
+    {{ required ? label + ' *' : label }}
     <div class="select" :required="required">
       <select v-model="selected" :aria-label="ariaLabel" :disabled="disabled">
         <option v-if="placeholder" value="" disabled>{{ placeholder }}</option>
@@ -16,10 +16,10 @@
 defineProps<{
   id?: string;
   label?: string;
-  ariaLabel: string;
-  disabled?: boolean;
   placeholder?: string;
+  ariaLabel: string;
   required?: boolean;
+  disabled?: boolean;
   items: { value: string; label: string }[];
   labelPrefix?: string;
 }>();

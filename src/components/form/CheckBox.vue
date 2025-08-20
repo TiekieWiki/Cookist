@@ -9,7 +9,7 @@
       :autocomplete="autocomplete"
       v-model="input"
     />
-    {{ label }}
+    {{ required ? label + ' *' : label }}
   </label>
 </template>
 
