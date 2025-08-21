@@ -93,6 +93,7 @@
     "title": "Recept",
     "ingredients": "Ingrediënten",
     "portions": "porties | portie | porties",
+    "addToGroceryList": "Toevoegen aan boodschappenlijst",
     "instructions": "Instructies",
     "keepOnScreen": "Scherm aanhouden",
     "eatenToday": "Vandaag gegeten",
@@ -221,6 +222,10 @@
       "invitees": "Ten minste één e-mailadres is verplicht",
       "invalidEmail": "Ongeldig e-mailadres"
     }
+  },
+  "groceryListPage": {
+    "title": "Boodschappenlijst",
+    "noItems": "Geen items in de boodschappenlijst"
   },
   "notFoundPage": {
     "title": "Pagina niet gevonden",

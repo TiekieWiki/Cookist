@@ -49,6 +49,15 @@ const routes = [
     }
   },
   {
+    path: '/grocery-list',
+    name: 'Grocery List',
+    component: () => import('../views/GroceryListView.vue'),
+    meta: {
+      requiresAuth: true,
+      title: 'groceryListPage.title'
+    }
+  },
+  {
     path: '/profile',
     name: 'Profile',
     component: () => import('../views/ProfileView.vue'),

@@ -93,6 +93,7 @@
     "title": "Recipe",
     "ingredients": "Ingredients",
     "portions": "portions | portion | portions",
+    "addToGroceryList": "Add to grocery list",
     "instructions": "Instructions",
     "keepOnScreen": "Keep screen on",
     "eatenToday": "Eaten today",
@@ -221,6 +222,10 @@
       "invitees": "At least one invitee is required",
       "invalidEmail": "Invalid email address"
     }
+  },
+  "groceryListPage": {
+    "title": "Grocery list",
+    "noItems": "No items in the grocery list"
   },
   "notFoundPage": {
     "title": "Page not found",

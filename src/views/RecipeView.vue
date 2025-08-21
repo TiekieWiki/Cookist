@@ -78,6 +78,10 @@
           {{ ingredient.name }}
         </label>
       </div>
+      <button @click="addToGroceryList(recipe.ingredients)" class="icon" type="button">
+        <font-awesome-icon :icon="['fas', 'plus']" />
+        {{ $t('recipePage.addToGroceryList') }}
+      </button>
     </article>
     <article>
       <section class="title">
@@ -184,6 +188,7 @@ import { useTimer } from '@/composables/useTimer';
 import { useKeepScreenOn } from '@/composables/useKeepScreenOn';
 import { getPossibleUnits } from '@/utils/recipe/ingredientUnits';
 import { useIngredientUnit } from '@/composables/useIngredient';
+import { addToGroceryList } from '@/utils/grocery list/editGroceryList';
 
 const route = useRoute();
 const router = useRouter();
