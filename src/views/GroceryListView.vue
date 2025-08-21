@@ -33,7 +33,43 @@
         </label>
       </div>
     </article>
-    <article class="card newCard"></article>
+    <article class="card newCard">
+      <section class="info">
+        <input-field
+          name="newIngredientAmount"
+          :placeholder="$t('editRecipePage.placeholder.amount')"
+          :ariaLabel="$t('editRecipePage.ariaLabel.amount')"
+          :step="0.01"
+          type="number"
+          v-model:input="newIngredient.amount"
+        />
+        <select-field
+          :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
+          :placeholder="$t('editRecipePage.placeholder.unit')"
+          :items="
+            Object.values(RecipeUnits).map((unit) => ({
+              value: unit.toLowerCase(),
+              label: unit.toLowerCase()
+            }))
+          "
+          labelPrefix="editRecipePage.units."
+          v-model:selected="newIngredient.unit"
+        />
+        <input-field
+          name="newIngredientName"
+          :placeholder="$t('editRecipePage.placeholder.ingredient')"
+          :ariaLabel="$t('editRecipePage.ariaLabel.ingredient')"
+          type="text"
+          v-model:input="newIngredient.name"
+        />
+
+        <button @click="addIngredient()" class="icon" type="button">
+          <font-awesome-icon :icon="['fas', 'plus']" />
+          {{ $t('recipePage.addToGroceryList') }}
+        </button>
+      </section>
+      <error-message v-model:message="errorMessage" />
+    </article>
   </main>
 </template>
 
@@ -46,6 +82,9 @@ import { onMounted, ref } from 'vue';
 import { getPossibleUnits } from '@/utils/recipe/ingredientUnits';
 import { useIngredientUnit } from '@/composables/useIngredient';
 import SelectField from '@/components/form/SelectField.vue';
+import InputField from '@/components/form/InputField.vue';
+import ErrorMessage from '@/components/form/ErrorMessage.vue';
+import { type Ingredient, RecipeUnits } from '@/utils/types/recipe';
 
 const initialGroceryList = ref<GroceryList>({
   id: '',
@@ -55,6 +94,12 @@ const groceryList = ref<GroceryList>({
   id: '',
   ingredients: []
 });
+const newIngredient = ref<Ingredient>({
+  amount: 0,
+  unit: '',
+  name: ''
+});
+const errorMessage = ref<string>('');
 
 // Get the grocery list
 onMounted(async () => {
@@ -83,6 +128,38 @@ function updateIngredientUnit(): void {
     undefined,
     undefined
   );
+
+  // Update the grocery list in the database
+  updateData(
+    'groceryLists',
+    where('id', '==', getAuth().currentUser?.uid),
+    groceryList.value
+  ).catch((error) => {
+    console.error('Error updating grocery list:', error);
+  });
+}
+
+/**
+ * Add a new ingredient to the grocery list
+ */
+function addIngredient(): void {
+  if (
+    newIngredient.value.name.trim() === '' ||
+    newIngredient.value.unit === '' ||
+    newIngredient.value.amount <= 0
+  ) {
+    errorMessage.value = 'groceryListPage.errors.invalidIngredient';
+    return;
+  }
+
+  // Add the new ingredient to the grocery list
+  groceryList.value.ingredients.push({
+    ...newIngredient.value,
+    name: newIngredient.value.name.toLowerCase()
+  });
+
+  // Reset the new ingredient input
+  newIngredient.value = { amount: 0, unit: '', name: '' };
 
   // Update the grocery list in the database
   updateData(

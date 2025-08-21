@@ -226,7 +226,10 @@
   "groceryListPage": {
     "title": "Grocery list",
     "noItems": "No items in the grocery list",
-    "ingredients": "Ingredients"
+    "ingredients": "Ingredients",
+    "errors": {
+      "invalidIngredient": "Invalid ingredient. Make sure all fields are filled and the amount is greater than 0."
+    }
   },
   "notFoundPage": {
     "title": "Page not found",

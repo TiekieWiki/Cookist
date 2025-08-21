@@ -8,5 +8,10 @@
         width: auto;
       }
     }
+
+    .info {
+        display: flex;
+        gap: $gap-small;
+    }
   }
 }
