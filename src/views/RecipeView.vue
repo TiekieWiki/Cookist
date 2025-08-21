@@ -258,7 +258,6 @@ watch(
 
 /**
  * Update the ingredient unit
- * @param ingredient The ingredient to update
  */
 function updateIngredientUnit(): void {
   recipe.value.ingredients = useIngredientUnit(

@@ -16,7 +16,7 @@ export function useIngredientUnit(
   initialIngredients: Ingredient[],
   currentIngredients: Ingredient[],
   recipePortions: number | undefined,
-  portionCount: Ref<number>
+  portionCount: Ref<number> | undefined
 ): Ingredient[] {
   let updatedIngredients = JSON.parse(JSON.stringify(initialIngredients));
 
@@ -43,7 +43,8 @@ export function useIngredientUnit(
   });
 
   // Convert the ingredient amount based on the recipe's portion count
-  if (!recipePortions || recipePortions <= 0) return updatedIngredients;
+  if (!recipePortions || recipePortions <= 0 || portionCount == undefined)
+    return updatedIngredients;
 
   return updatedIngredients.map((ingredient: Ingredient) => {
     const newAmount = (ingredient.amount / recipePortions) * portionCount.value;

@@ -1,0 +1,12 @@
+.groceryList {
+  article {
+    .label-group {
+      label {
+        display: flex;
+        align-items: center;
+        gap: $gap-small;
+        width: auto;
+      }
+    }
+  }
+}

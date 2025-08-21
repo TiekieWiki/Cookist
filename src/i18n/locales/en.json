@@ -225,7 +225,8 @@
   },
   "groceryListPage": {
     "title": "Grocery list",
-    "noItems": "No items in the grocery list"
+    "noItems": "No items in the grocery list",
+    "ingredients": "Ingredients"
   },
   "notFoundPage": {
     "title": "Page not found",

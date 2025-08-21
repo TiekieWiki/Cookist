@@ -225,7 +225,8 @@
   },
   "groceryListPage": {
     "title": "Boodschappenlijst",
-    "noItems": "Geen items in de boodschappenlijst"
+    "noItems": "Geen items in de boodschappenlijst",
+    "ingredients": "Ingrediënten"
   },
   "notFoundPage": {
     "title": "Pagina niet gevonden",
