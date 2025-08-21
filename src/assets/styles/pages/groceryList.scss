@@ -6,6 +6,11 @@
         align-items: center;
         gap: $gap-small;
         width: auto;
+       
+        button {
+            align-self: center;
+            width: auto;
+        }
       }
     }
 

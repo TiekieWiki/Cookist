@@ -13,7 +13,7 @@
         <h3>{{ $t('groceryListPage.ingredients') }}</h3>
       </section>
       <div class="label-group">
-        <label v-for="ingredient in groceryList.ingredients" :key="ingredient.name">
+        <label v-for="(ingredient, index) in groceryList.ingredients" :key="ingredient.name">
           <input :name="ingredient.name" type="checkbox" />
           {{ ingredient.amount }}
           <select-field
@@ -30,6 +30,9 @@
             @change="updateIngredientUnit()"
           />
           {{ ingredient.name }}
+          <button class="icon delete" type="button" @click="deleteIngredient(index)">
+            <font-awesome-icon :icon="['fas', 'trash']" />
+          </button>
         </label>
       </div>
     </article>
@@ -160,6 +163,23 @@ function addIngredient(): void {
 
   // Reset the new ingredient input
   newIngredient.value = { amount: 0, unit: '', name: '' };
+
+  // Update the grocery list in the database
+  updateData(
+    'groceryLists',
+    where('id', '==', getAuth().currentUser?.uid),
+    groceryList.value
+  ).catch((error) => {
+    console.error('Error updating grocery list:', error);
+  });
+}
+
+/**
+ * Delete an ingredient from the grocery list
+ * @param index The index of the ingredient to delete
+ */
+function deleteIngredient(index: number): void {
+  groceryList.value.ingredients.splice(index, 1);
 
   // Update the grocery list in the database
   updateData(
