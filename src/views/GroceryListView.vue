@@ -11,6 +11,13 @@
     <article v-else>
       <section class="title">
         <h3>{{ $t('groceryListPage.ingredients') }}</h3>
+        <div class="actions">
+          <font-awesome-icon
+            @click="emptyGroceryListOpen = true"
+            class="delete"
+            :icon="['fas', 'trash-can']"
+          />
+        </div>
       </section>
       <div class="label-group">
         <label v-for="(ingredient, index) in groceryList.ingredients" :key="ingredient.name">
@@ -74,6 +81,29 @@
       <error-message v-model:message="errorMessage" />
     </article>
   </main>
+  <teleport to="body" v-if="emptyGroceryListOpen">
+    <main class="modal">
+      <article>
+        <section class="header">
+          <h2>{{ $t('groceryListPage.emptyGroceryList') }}</h2>
+          <h2>
+            <font-awesome-icon @click="emptyGroceryListOpen = false" :icon="['fas', 'xmark']" />
+          </h2>
+        </section>
+        <section class="content">
+          <p>{{ $t('groceryListPage.confirmEmpty') }}</p>
+        </section>
+        <section class="footer">
+          <button @click="emptyGroceryListOpen = false" type="button">
+            {{ $t('groceryListPage.cancel') }}
+          </button>
+          <button @click.prevent="emptyGroceryList()" type="submit">
+            {{ $t('groceryListPage.empty') }}
+          </button>
+        </section>
+      </article>
+    </main>
+  </teleport>
 </template>
 
 <script setup lang="ts">
@@ -180,6 +210,26 @@ function addIngredient(): void {
  */
 function deleteIngredient(index: number): void {
   groceryList.value.ingredients.splice(index, 1);
+
+  // Update the grocery list in the database
+  updateData(
+    'groceryLists',
+    where('id', '==', getAuth().currentUser?.uid),
+    groceryList.value
+  ).catch((error) => {
+    console.error('Error updating grocery list:', error);
+  });
+}
+
+// Empty the grocery list
+const emptyGroceryListOpen = ref<boolean>(false);
+
+/**
+ * Empty the grocery list
+ */
+function emptyGroceryList(): void {
+  groceryList.value.ingredients = [];
+  emptyGroceryListOpen.value = false;
 
   // Update the grocery list in the database
   updateData(

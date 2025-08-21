@@ -227,6 +227,10 @@
     "title": "Grocery list",
     "noItems": "No items in the grocery list",
     "ingredients": "Ingredients",
+    "emptyGroceryList": "Empty grocery list",
+    "confirmEmpty": "Are you sure you want to empty the grocery list? This cannot be undone.",
+    "cancel": "Cancel",
+    "empty": "Empty",
     "errors": {
       "invalidIngredient": "Invalid ingredient. Make sure all fields are filled and the amount is greater than 0."
     }

@@ -227,6 +227,10 @@
     "title": "Boodschappenlijst",
     "noItems": "Geen items in de boodschappenlijst",
     "ingredients": "Ingrediënten",
+    "emptyGroceryList": "Boodschappenlijst legen",
+    "confirmEmpty": "Weet je zeker dat je de boodschappenlijst wilt legen? Dit kan niet ongedaan worden gemaakt.",
+    "cancel": "Annuleren",
+    "empty": "Legen",
     "errors": {
       "invalidIngredient": "Ongeldig ingrediënt. Zorg ervoor dat alle velden zijn ingevuld en de hoeveelheid groter is dan 0."
     }

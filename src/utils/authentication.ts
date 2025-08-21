@@ -42,6 +42,14 @@ export async function signInWithGoogle(): Promise<void> {
           console.error('Error adding user to database:', error);
         });
 
+        // Add grocery list
+        addData('groceryLists', {
+          id: uid,
+          ingredients: []
+        }).catch((error: any) => {
+          console.error('Error adding grocery list to database:', error);
+        });
+
         // Create user's personal cook group
         const cookGroup: CookGroup = {
           id: uid,
