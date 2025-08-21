@@ -21,7 +21,7 @@
       </section>
       <div class="label-group">
         <label v-for="(ingredient, index) in groceryList.ingredients" :key="ingredient.name">
-          <input :name="ingredient.name" type="checkbox" />
+          <input :name="ingredient.name" type="checkbox" @input="deleteIngredient(index)" />
           {{ ingredient.amount }}
           <select-field
             :ariaLabel="$t('editRecipePage.ariaLabel.unit')"

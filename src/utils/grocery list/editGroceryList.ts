@@ -2,6 +2,7 @@ import { getAuth } from 'firebase/auth';
 import { updateData } from '../db';
 import type { Ingredient } from '../types/recipe';
 import { where } from 'firebase/firestore';
+import router from '@/router';
 
 /**
  * Add ingredients to the grocery list in the database
@@ -14,4 +15,7 @@ export function addToGroceryList(ingredients: Ingredient[]): void {
   }).catch((error: any) => {
     console.error('Error adding ingredients to database:', error);
   });
+
+  // Route to the grocery list page
+  router.push('/grocery-list');
 }
