@@ -44,29 +44,14 @@
       </form>
     </article>
   </main>
-  <teleport to="body" v-if="deleteAccountOpen">
-    <main class="modal">
-      <article>
-        <section class="header">
-          <h2>{{ $t('profilePage.deleteAccount') }}</h2>
-          <h2>
-            <font-awesome-icon @click="deleteAccountOpen = false" :icon="['fas', 'xmark']" />
-          </h2>
-        </section>
-        <section class="content">
-          <p>{{ $t('profilePage.confirmDelete') }}</p>
-        </section>
-        <section class="footer">
-          <button @click="deleteAccountOpen = false" type="button">
-            {{ $t('profilePage.cancel') }}
-          </button>
-          <button @click.prevent="deleteAccount()" type="submit">
-            {{ $t('profilePage.delete') }}
-          </button>
-        </section>
-      </article>
-    </main>
-  </teleport>
+  <confirm-pop-up
+    :title="$t('profilePage.deleteAccount')"
+    :section="$t('profilePage.confirmDelete')"
+    :cancel="'profilePage.cancel'"
+    :confirm="'profilePage.delete'"
+    v-model:openPopUp="deleteAccountOpen"
+    @confirm="deleteAccount()"
+  />
 </template>
 
 <script setup lang="ts">
@@ -79,6 +64,7 @@ import { ref, onMounted, watch } from 'vue';
 import { handleSignOut } from '@/utils/global/authentication';
 import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
+import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
 import { useRouter } from 'vue-router';
 
 const auth = getAuth();

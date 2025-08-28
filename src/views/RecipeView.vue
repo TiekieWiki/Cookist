@@ -145,29 +145,14 @@
       </button>
     </article>
   </main>
-  <teleport to="body" v-if="deleteRecipeOpen">
-    <main class="modal">
-      <article>
-        <section class="header">
-          <h2>{{ $t('recipePage.deleteRecipe') }}</h2>
-          <h2>
-            <font-awesome-icon @click="deleteRecipeOpen = false" :icon="['fas', 'xmark']" />
-          </h2>
-        </section>
-        <section class="content">
-          <p>{{ $t('recipePage.confirmDelete') }}</p>
-        </section>
-        <section class="footer">
-          <button @click="deleteRecipeOpen = false" type="button">
-            {{ $t('recipePage.cancel') }}
-          </button>
-          <button @click.prevent="deleteRecipe()" type="submit">
-            {{ $t('recipePage.delete') }}
-          </button>
-        </section>
-      </article>
-    </main>
-  </teleport>
+  <confirm-pop-up
+    v-model:open-pop-up="deleteRecipeOpen"
+    :title="$t('recipePage.deleteRecipe')"
+    :section="$t('recipePage.confirmDelete')"
+    :cancel="$t('recipePage.cancel')"
+    :confirm="$t('recipePage.delete')"
+    @confirm="deleteRecipe()"
+  />
 </template>
 
 <script setup lang="ts">
@@ -184,6 +169,7 @@ import { deleteData, updateData } from '@/utils/global/db';
 import { Timestamp, where } from 'firebase/firestore';
 import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
+import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
 import { useTimer } from '@/composables/useTimer';
 import { useKeepScreenOn } from '@/composables/useKeepScreenOn';
 import { getPossibleUnits } from '@/utils/recipe/updateIngredientUnit';

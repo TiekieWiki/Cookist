@@ -81,29 +81,14 @@
       <error-message v-model:message="errorMessage" />
     </article>
   </main>
-  <teleport to="body" v-if="emptyGroceryListOpen">
-    <main class="modal">
-      <article>
-        <section class="header">
-          <h2>{{ $t('groceryListPage.emptyGroceryList') }}</h2>
-          <h2>
-            <font-awesome-icon @click="emptyGroceryListOpen = false" :icon="['fas', 'xmark']" />
-          </h2>
-        </section>
-        <section class="content">
-          <p>{{ $t('groceryListPage.confirmEmpty') }}</p>
-        </section>
-        <section class="footer">
-          <button @click="emptyGroceryListOpen = false" type="button">
-            {{ $t('groceryListPage.cancel') }}
-          </button>
-          <button @click.prevent="emptyGroceryList()" type="submit">
-            {{ $t('groceryListPage.empty') }}
-          </button>
-        </section>
-      </article>
-    </main>
-  </teleport>
+  <confirm-pop-up
+    :title="$t('groceryListPage.emptyGroceryList')"
+    :section="$t('groceryListPage.confirmEmpty')"
+    :cancel="'groceryListPage.cancel'"
+    :confirm="'groceryListPage.empty'"
+    v-model:open-pop-up="emptyGroceryListOpen"
+    @confirm="emptyGroceryList()"
+  />
 </template>
 
 <script setup lang="ts">
@@ -117,6 +102,7 @@ import { updateIngredientUnit } from '@/utils/recipe/updateIngredientUnit';
 import SelectField from '@/components/form/SelectField.vue';
 import InputField from '@/components/form/InputField.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
+import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
 import { type Ingredient, RecipeUnits } from '@/utils/types/recipe';
 
 const initialGroceryList = ref<GroceryList>({
