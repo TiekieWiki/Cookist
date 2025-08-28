@@ -1,6 +1,6 @@
 import i18n from '@/i18n';
 import { queryCookGroups } from '@/utils/cook group/getCookGroups';
-import { sortCookGroups } from '@/utils/cook group/sort';
+import { sortCookGroups } from '@/utils/cook group/sortCookGroup';
 import { addData, deleteData, getData, updateData } from '@/utils/global/db';
 import { capitalizeFirstLetter } from '@/utils/global/text';
 import {
@@ -35,9 +35,9 @@ export function useEditRecipe(): {
 
   const oldRecipe = ref<Recipe>(emptyRecipe());
   const recipe = ref<Recipe>(emptyRecipe());
-  const oldCookGroups = ref<Checkbox[]>([]);
+  let oldCookGroups: Checkbox[] = [];
   const cookGroups = ref<Checkbox[]>([]);
-  const oldImage = ref<string>('');
+  let oldImage: string = '';
   const cookGroupRecipe = ref<CookGroupRecipe>(emptyCookGroupRecipe());
   const image = ref<File | null>(null);
   const errorMessage = ref<string>('');
@@ -76,7 +76,7 @@ export function useEditRecipe(): {
             // Prepare the recipe for editing
             oldRecipe.value = recipe.value;
             recipe.value.name = capitalizeFirstLetter(recipe.value.name);
-            oldImage.value = recipe.value.image;
+            oldImage = recipe.value.image;
           }
         }
       );
@@ -107,7 +107,7 @@ export function useEditRecipe(): {
               }
             });
           }
-          oldCookGroups.value = JSON.parse(JSON.stringify(cookGroups.value));
+          oldCookGroups = JSON.parse(JSON.stringify(cookGroups.value));
         })
         .catch((error) => {
           console.error('Error setting cook groups:', error);
@@ -149,7 +149,7 @@ export function useEditRecipe(): {
         recipe.value.owner = getAuth().currentUser?.uid || '';
         recipe.value.image = image.value ? image.value.name : '';
       } else {
-        if (image.value && image.value.name !== oldImage.value) {
+        if (image.value && image.value.name !== oldImage) {
           recipe.value.image = image.value.name;
         }
       }
@@ -169,9 +169,9 @@ export function useEditRecipe(): {
         // Updating an existing recipe
         savePromise = updateData('recipes', where('id', '==', recipe.value.id), recipe.value).then(
           () => {
-            if (image.value && image.value.name !== oldImage.value) {
+            if (image.value && image.value.name !== oldImage) {
               uploadImage(image.value);
-              deleteImage(oldImage.value);
+              deleteImage(oldImage);
             }
           }
         );
@@ -183,7 +183,7 @@ export function useEditRecipe(): {
           const updatePromises = cookGroups.value.map((cookGroup) => {
             if (cookGroup.name === '') return Promise.resolve();
 
-            const oldCookGroup = oldCookGroups.value.find((group) => group.id === cookGroup.id);
+            const oldCookGroup = oldCookGroups.find((group) => group.id === cookGroup.id);
 
             if (cookGroup.checked && !oldCookGroup?.checked) {
               // Add cook group recipe
@@ -215,10 +215,10 @@ export function useEditRecipe(): {
           recipe.value = emptyRecipe();
           oldRecipe.value = emptyRecipe();
           cookGroups.value = [];
-          oldCookGroups.value = [];
+          oldCookGroups = [];
           cookGroupRecipe.value = emptyCookGroupRecipe();
           image.value = null;
-          oldImage.value = '';
+          oldImage = '';
           errorMessage.value = '';
 
           router.push({

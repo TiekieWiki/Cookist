@@ -87,7 +87,7 @@ import InputField from '../form/InputField.vue';
 import InputList from '../form/InputList.vue';
 import ErrorMessage from '../form/ErrorMessage.vue';
 import RecipeCard from '@/components/recipe/RecipeCard.vue';
-import { addInputRow } from '@/utils/recipe/list';
+import { addInputRow } from '@/utils/global/list';
 import { useNewCookGroup } from '@/composables/useNewCookGroup';
 
 const {

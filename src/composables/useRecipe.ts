@@ -15,7 +15,7 @@ import { Timestamp, where } from 'firebase/firestore';
 export function useRecipe(): {
   recipe: Ref<Recipe>;
   cookGroupRecipe: Ref<CookGroupRecipe>;
-  initialIngredients: Ref<{ amount: number; unit: string; name: string }[]>;
+  initialIngredients: { amount: number; unit: string; name: string }[];
   lastEaten: Ref<string | undefined>;
   lastEatenToday: Ref<boolean>;
   portionCount: Ref<number>;
@@ -38,7 +38,7 @@ export function useRecipe(): {
     filterIngredients: []
   });
   const cookGroupRecipe = ref<CookGroupRecipe>(emptyCookGroupRecipe());
-  const initialIngredients = ref<{ amount: number; unit: string; name: string }[]>([]);
+  let initialIngredients: { amount: number; unit: string; name: string }[] = [];
   const lastEaten = ref<string>();
   const lastEatenToday = ref<boolean>(false);
   const portionCount = ref<number>(1);
@@ -60,7 +60,7 @@ export function useRecipe(): {
               ? lastEatenDate.toDate().toLocaleDateString() === new Date().toLocaleDateString()
               : false;
 
-            initialIngredients.value = recipe.value.ingredients;
+            initialIngredients = recipe.value.ingredients;
             portionCount.value = recipe.value.portions || 1;
           }
         })
@@ -76,7 +76,7 @@ export function useRecipe(): {
     () => portionCount.value,
     () => {
       recipe.value.ingredients = updateIngredientUnit(
-        initialIngredients.value,
+        initialIngredients,
         recipe.value.ingredients,
         recipe.value.portions,
         portionCount.value

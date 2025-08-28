@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { deleteRow } from '@/utils/recipe/list';
+import { deleteRow } from '@/utils/global/list';
 
 defineProps<{
   id?: string;

@@ -141,7 +141,7 @@
 
 <script setup lang="ts">
 import { RecipeCategories, RecipeUnits, type Recipe } from '@/utils/types/recipe';
-import { addInputRow } from '@/utils/recipe/list';
+import { addInputRow } from '@/utils/global/list';
 import InputField from '@/components/form/InputField.vue';
 import InputList from '@/components/form/InputList.vue';
 import SelectField from '@/components/form/SelectField.vue';

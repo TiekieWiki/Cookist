@@ -93,7 +93,7 @@
 import CheckBoxList from '@/components/form/CheckBoxList.vue';
 import InputField from '@/components/form/InputField.vue';
 import InputList from '@/components/form/InputList.vue';
-import { addInputRow } from '@/utils/recipe/list';
+import { addInputRow } from '@/utils/global/list';
 import type { Filter } from '@/utils/types/orderFilter';
 
 const filter = defineModel<Filter>('filter', { required: true });

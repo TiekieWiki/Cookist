@@ -7,7 +7,7 @@ import {
   or
 } from 'firebase/firestore';
 import { getData } from '../global/db';
-import { sortCookGroups } from './sort';
+import { sortCookGroups } from './sortCookGroup';
 import type { CookGroup } from '../types/cookgroup';
 
 /**

@@ -20,10 +20,10 @@ export function useGroceryList(): {
   emptyGroceryList: () => void;
   changeIngredientUnit: () => void;
 } {
-  const initialGroceryList = ref<GroceryList>({
+  let initialGroceryList: GroceryList = {
     id: '',
     ingredients: []
-  });
+  };
   const groceryList = ref<GroceryList>({
     id: '',
     ingredients: []
@@ -40,10 +40,10 @@ export function useGroceryList(): {
     await getData('groceryLists', where('id', '==', getAuth().currentUser?.uid))
       .then((list) => {
         if (list.length > 0) {
-          initialGroceryList.value = list[0] as GroceryList;
+          initialGroceryList = list[0] as GroceryList;
           groceryList.value = {
-            ...initialGroceryList.value,
-            ingredients: JSON.parse(JSON.stringify(initialGroceryList.value.ingredients))
+            ...initialGroceryList,
+            ingredients: JSON.parse(JSON.stringify(initialGroceryList.ingredients))
           };
         }
       })
@@ -57,7 +57,7 @@ export function useGroceryList(): {
    */
   function changeIngredientUnit(): void {
     groceryList.value.ingredients = updateIngredientUnit(
-      initialGroceryList.value.ingredients,
+      initialGroceryList.ingredients,
       groceryList.value.ingredients,
       undefined,
       undefined

@@ -189,7 +189,7 @@ useSetRecipeImage(recipe);
  */
 function changeIngredientUnit(): void {
   recipe.value.ingredients = updateIngredientUnit(
-    initialIngredients.value,
+    initialIngredients,
     recipe.value.ingredients,
     recipe.value.portions,
     portionCount.value

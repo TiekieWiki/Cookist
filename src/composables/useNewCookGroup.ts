@@ -31,7 +31,7 @@ export function useNewCookGroup(): {
 
   const cookGroup = ref<CookGroup>(emptyCookGroup());
   const recipes = ref<Recipe[]>([]);
-  const oldRecipes = ref<Recipe[]>([]);
+  let oldRecipes: Recipe[] = [];
   const errorMessage = ref<string>('');
   const searchRecipeQuery = ref<string>('');
   const filteredRecipes = ref<Recipe[]>([]);
@@ -63,7 +63,7 @@ export function useNewCookGroup(): {
           )
             .then((recipeNames) => {
               recipes.value = recipeNames;
-              oldRecipes.value = JSON.parse(JSON.stringify(recipes.value));
+              oldRecipes = JSON.parse(JSON.stringify(recipes.value));
               recipes.value.forEach((recipe) => {
                 recipe.name = capitalizeFirstLetter(recipe.name);
               });
@@ -144,7 +144,7 @@ export function useNewCookGroup(): {
 
       // Add recipe to the cook group if it doesn't already exist
       const newRecipes = recipes.value.filter(
-        (recipe) => !oldRecipes.value.some((oldRecipe) => oldRecipe.id === recipe.id)
+        (recipe) => !oldRecipes.some((oldRecipe) => oldRecipe.id === recipe.id)
       );
 
       if (newRecipes.length > 0) {
@@ -160,7 +160,7 @@ export function useNewCookGroup(): {
       }
 
       // Remove recipes that are not in the new cook group
-      const removedRecipes = oldRecipes.value.filter(
+      const removedRecipes = oldRecipes.filter(
         (recipe) => !recipes.value.some((newRecipe) => newRecipe.id === recipe.id)
       );
 
