@@ -19,6 +19,10 @@ import router from '@/router';
 import { uploadImage, deleteImage } from '@/utils/global/manageImage';
 import { validateRecipe } from '@/utils/recipe/validateRecipe';
 
+/**
+ * Composable for editing a recipe
+ * @returns {Object} An object containing the recipe, cook groups, cook group recipe, image, error message, and a function to save the recipe
+ */
 export function useEditRecipe(): {
   recipe: Ref<Recipe>;
   cookGroups: Ref<Checkbox[]>;
