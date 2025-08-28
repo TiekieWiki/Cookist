@@ -18,13 +18,11 @@ export const useSecureRecipe = async (
   cookGroupRecipe: Ref<CookGroupRecipe>,
   recipe: Ref<Recipe>
 ): Promise<boolean> => {
-  const auth = getAuth();
-
   return getData('cookGroupRecipes', where('id', '==', cookGroupRecipeId))
     .then((cookGroupRecipes) => {
       if (cookGroupRecipes.length > 0) {
         cookGroupRecipe.value = cookGroupRecipes[0] as CookGroupRecipe;
-        return getData('cookGroups', queryCookGroups(auth.currentUser?.uid || ''));
+        return getData('cookGroups', queryCookGroups(getAuth().currentUser?.uid || ''));
       }
     })
     .then((cookGroups) => {

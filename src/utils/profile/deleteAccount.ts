@@ -7,26 +7,29 @@ import { useRouter } from 'vue-router';
  * Delete the account
  */
 export async function deleteAccount(): Promise<void> {
-  const auth = getAuth();
   const router = useRouter();
 
   // Delete the user from the database
-  deleteData('users', where('id', '==', auth.currentUser?.uid))
+  deleteData('users', where('id', '==', getAuth().currentUser?.uid))
     .catch((err) => {
       console.error('Error deleting user record:', err);
     })
     .then(async () => {
       // Delete the user's recipes
-      return deleteData('recipes', where('owner', '==', auth.currentUser?.uid)).catch((error) => {
-        console.error('Error deleting recipes:', error);
-      });
+      return deleteData('recipes', where('owner', '==', getAuth().currentUser?.uid)).catch(
+        (error) => {
+          console.error('Error deleting recipes:', error);
+        }
+      );
     })
     .then(async () => {
       // Get the user's cook groups
-      return getData('cookGroups', where('owner', '==', auth.currentUser?.uid)).catch((err) => {
-        console.error('Error getting cook groups:', err);
-        return [];
-      });
+      return getData('cookGroups', where('owner', '==', getAuth().currentUser?.uid)).catch(
+        (err) => {
+          console.error('Error getting cook groups:', err);
+          return [];
+        }
+      );
     })
     .then((cookGroups) => {
       // Delete the user's cook group recipes
@@ -38,13 +41,15 @@ export async function deleteAccount(): Promise<void> {
     })
     .then(async () => {
       // Delete the user's cook groups
-      return deleteData('cookGroups', where('owner', '==', auth.currentUser?.uid)).catch((err) => {
-        console.error('Error deleting cook groups:', err);
-      });
+      return deleteData('cookGroups', where('owner', '==', getAuth().currentUser?.uid)).catch(
+        (err) => {
+          console.error('Error deleting cook groups:', err);
+        }
+      );
     })
     .then(async () => {
       // Delete the user auth account
-      return deleteUser(auth.currentUser as any).catch((err) => {
+      return deleteUser(getAuth().currentUser as any).catch((err) => {
         console.error('Error deleting auth user:', err);
       });
     })

@@ -15,9 +15,8 @@ import type { CookGroup } from '../types/cookgroup';
  * @returns {Promise<{cookGroups: CookGroup[]}>} An object containing the cook groups
  */
 export async function getCookGroups(): Promise<{ cookGroups: CookGroup[] }> {
-  const auth = getAuth();
   let cookGroups: CookGroup[] = [];
-  await getData('cookGroups', queryCookGroups(auth.currentUser?.uid || ''))
+  await getData('cookGroups', queryCookGroups(getAuth().currentUser?.uid || ''))
     .then((data) => {
       cookGroups = sortCookGroups(data as CookGroup[]);
       console.log('Fetched cook groups:', cookGroups);

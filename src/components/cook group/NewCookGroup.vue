@@ -105,8 +105,6 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{ closePopUp: []; refreshCookGroups: [] }>();
 
-const auth = getAuth();
-
 // Cook group
 const cookGroup = ref<CookGroup>(emptyCookGroup());
 const recipes = ref<Recipe[]>([]);
@@ -163,7 +161,7 @@ const filteredRecipes = ref<Recipe[]>([]);
 watch(searchRecipeQuery, (newQuery) => {
   if (newQuery.length > 2) {
     // Fetch recipes that the user has access to and match the search query
-    getSearchRecipes(newQuery, auth.currentUser?.uid || '')
+    getSearchRecipes(newQuery, getAuth().currentUser?.uid || '')
       .then((searchedRecipes) => {
         // Filter out recipes that are already in the cook group
         filteredRecipes.value = (searchedRecipes as Recipe[]).filter(
@@ -206,7 +204,7 @@ async function saveCookGroup(): Promise<void> {
   if (errorMessage.value === '') {
     if (!props.cookGroup) {
       cookGroup.value.id = crypto.randomUUID();
-      cookGroup.value.owner = auth.currentUser?.uid || '';
+      cookGroup.value.owner = getAuth().currentUser?.uid || '';
       cookGroup.value.personal = false;
     }
     cookGroup.value.name = cookGroup.value.name.toLowerCase();

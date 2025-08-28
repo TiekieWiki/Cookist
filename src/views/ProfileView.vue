@@ -32,7 +32,7 @@
       <form>
         <input-field
           name="profileEmail"
-          :placeholder="auth.currentUser?.email ?? ''"
+          :placeholder="getAuth().currentUser?.email ?? ''"
           :ariaLabel="$t('profilePage.ariaLabel.userEmail')"
           type="email"
           :disabled="true"
@@ -67,8 +67,6 @@ import SelectField from '@/components/form/SelectField.vue';
 import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
 import { deleteAccount } from '@/utils/profile/deleteAccount';
 
-const auth = getAuth();
-
 // Set language dropdown to user language
 const languages = [
   { value: 'en', label: 'en' },
@@ -78,7 +76,7 @@ const selectedLanguage = ref<string>();
 
 // Get user from database and set dropdowns to user settings
 onMounted(async () => {
-  getData('users', where('id', '==', auth.currentUser?.uid))
+  getData('users', where('id', '==', getAuth().currentUser?.uid))
     .then((users) => {
       if (users.length > 0) {
         selectedLanguage.value = users[0].language;
@@ -102,7 +100,7 @@ const successMessage = ref<string>('');
  */
 function saveSettings(): void {
   Promise.all([
-    updateData('users', where('id', '==', auth.currentUser?.uid), {
+    updateData('users', where('id', '==', getAuth().currentUser?.uid), {
       language: selectedLanguage.value
     }),
     useSuccessTransition(successMessage, 'profilePage.saveSuccess')

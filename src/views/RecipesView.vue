@@ -72,8 +72,6 @@ import { queryCookGroups } from '@/utils/cook group/getCookGroups';
 import RecipeCard from '@/components/recipe/RecipeCard.vue';
 import RecipeOrderFilter from '@/components/recipe/RecipeOrderFilter.vue';
 
-const auth = getAuth();
-
 // Cook groups
 const cookGroups = ref<CookGroup[]>([]);
 const currentCookGroupRecipes = ref<CookGroupRecipe[]>([]);
@@ -81,7 +79,7 @@ const selectedCookGroup = ref<string | undefined>();
 
 // Get cook groups
 onMounted(async () => {
-  getData('cookGroups', queryCookGroups(auth.currentUser?.uid || ''))
+  getData('cookGroups', queryCookGroups(getAuth().currentUser?.uid || ''))
     .then((data) => {
       cookGroups.value = data as CookGroup[];
 

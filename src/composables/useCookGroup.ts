@@ -10,7 +10,6 @@ import { onMounted, ref } from 'vue';
  * @returns {object} An object containing cook groups, invites, and functions to accept/decline invites
  */
 export function useCookGroup() {
-  const auth = getAuth();
   const cookGroups = ref<CookGroup[]>([]);
   const cookGroupInvites = ref<CookGroup[]>([]);
 
@@ -19,7 +18,10 @@ export function useCookGroup() {
     cookGroups.value = (await getCookGroups()).cookGroups;
 
     // Get cook group invites
-    await getData('cookGroups', where('invitees', 'array-contains', auth.currentUser?.email || ''))
+    await getData(
+      'cookGroups',
+      where('invitees', 'array-contains', getAuth().currentUser?.email || '')
+    )
       .then((invitees) => {
         if (invitees.length > 0) {
           cookGroupInvites.value = invitees as CookGroup[];
@@ -38,8 +40,8 @@ export function useCookGroup() {
   async function acceptInvite(cookGroupId: string): Promise<void> {
     const invite = cookGroupInvites.value.find((invite) => invite.id === cookGroupId);
     if (invite) {
-      invite.members = [...invite.members, auth.currentUser?.uid || ''];
-      invite.invitees = invite.invitees.filter((email) => email !== auth.currentUser?.email);
+      invite.members = [...invite.members, getAuth().currentUser?.uid || ''];
+      invite.invitees = invite.invitees.filter((email) => email !== getAuth().currentUser?.email);
       updateData('cookGroups', where('id', '==', cookGroupId), invite)
         .then(async () => {
           // Refresh cook groups and invites
@@ -62,7 +64,7 @@ export function useCookGroup() {
   async function declineInvite(cookGroupId: string): Promise<void> {
     const invite = cookGroupInvites.value.find((invite) => invite.id === cookGroupId);
     if (invite) {
-      invite.invitees = invite.invitees.filter((email) => email !== auth.currentUser?.email);
+      invite.invitees = invite.invitees.filter((email) => email !== getAuth().currentUser?.email);
       updateData('cookGroups', where('id', '==', cookGroupId), invite)
         .then(async () => {
           // Refresh cook groups and invites

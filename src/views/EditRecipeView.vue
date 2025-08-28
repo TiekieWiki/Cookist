@@ -41,7 +41,6 @@ import { ref, watch } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
 import router from '@/router';
 
-const auth = getAuth();
 const route = useRoute();
 
 // Recipe and cook group recipe
@@ -59,7 +58,7 @@ watch(
     // Get the cook groups
     let userCookGroups = (await getData(
       'cookGroups',
-      queryCookGroups(auth.currentUser?.uid || '')
+      queryCookGroups(getAuth().currentUser?.uid || '')
     )) as CookGroup[];
     userCookGroups = sortCookGroups(userCookGroups);
 
@@ -158,7 +157,7 @@ async function saveRecipe(): Promise<void> {
     // Clean or update the recipe
     if (JSON.stringify(oldRecipe.value) == JSON.stringify(emptyRecipe())) {
       recipe.value.id = crypto.randomUUID();
-      recipe.value.owner = auth.currentUser?.uid || '';
+      recipe.value.owner = getAuth().currentUser?.uid || '';
       recipe.value.image = image.value ? image.value.name : '';
     } else {
       if (image.value && image.value.name !== oldImage.value) {
