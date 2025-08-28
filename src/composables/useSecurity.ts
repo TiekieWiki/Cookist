@@ -1,4 +1,4 @@
-import { getQueryCookGroups } from '@/utils/cook group/queryCookGroups';
+import { queryCookGroups } from '@/utils/cook group/getCookGroups';
 import { getData } from '@/utils/global/db';
 import type { CookGroup, CookGroupRecipe } from '@/utils/types/cookgroup';
 import type { Recipe } from '@/utils/types/recipe';
@@ -24,7 +24,7 @@ export const useSecureRecipe = async (
     .then((cookGroupRecipes) => {
       if (cookGroupRecipes.length > 0) {
         cookGroupRecipe.value = cookGroupRecipes[0] as CookGroupRecipe;
-        return getData('cookGroups', getQueryCookGroups(auth.currentUser?.uid || ''));
+        return getData('cookGroups', queryCookGroups(auth.currentUser?.uid || ''));
       }
     })
     .then((cookGroups) => {

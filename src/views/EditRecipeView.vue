@@ -22,7 +22,7 @@
 import NewRecipe from '@/components/recipe/NewRecipe.vue';
 import { useSecureRecipe } from '@/composables/useSecurity';
 import i18n from '@/i18n/index';
-import { getQueryCookGroups } from '@/utils/cook group/queryCookGroups';
+import { queryCookGroups } from '@/utils/cook group/getCookGroups';
 import { sortCookGroups } from '@/utils/cook group/sort';
 import { addData, deleteData, getData, updateData } from '@/utils/global/db';
 import { deleteImage, uploadImage } from '@/utils/global/manageImage';
@@ -59,7 +59,7 @@ watch(
     // Get the cook groups
     let userCookGroups = (await getData(
       'cookGroups',
-      getQueryCookGroups(auth.currentUser?.uid || '')
+      queryCookGroups(auth.currentUser?.uid || '')
     )) as CookGroup[];
     userCookGroups = sortCookGroups(userCookGroups);
 

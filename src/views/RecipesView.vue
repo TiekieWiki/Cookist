@@ -68,7 +68,7 @@ import { getQueryRecipes } from '@/utils/recipe/queryRecipes';
 import i18n from '@/i18n/index';
 import type { CookGroup, CookGroupRecipe } from '@/utils/types/cookgroup';
 import { getAuth } from 'firebase/auth';
-import { getQueryCookGroups } from '@/utils/cook group/queryCookGroups';
+import { queryCookGroups } from '@/utils/cook group/getCookGroups';
 import RecipeCard from '@/components/recipe/RecipeCard.vue';
 import RecipeOrderFilter from '@/components/recipe/RecipeOrderFilter.vue';
 
@@ -81,7 +81,7 @@ const selectedCookGroup = ref<string | undefined>();
 
 // Get cook groups
 onMounted(async () => {
-  getData('cookGroups', getQueryCookGroups(auth.currentUser?.uid || ''))
+  getData('cookGroups', queryCookGroups(auth.currentUser?.uid || ''))
     .then((data) => {
       cookGroups.value = data as CookGroup[];
 
