@@ -5,7 +5,7 @@
         <h2>{{ $t('groceryListPage.title') }}</h2>
       </section>
     </article>
-    <article v-if="groceryList?.ingredients.length === 0" class="noCards">
+    <article v-if="groceryList?.ingredients.length <= 0" class="noCards">
       <h3>{{ $t('groceryListPage.noItems') }}</h3>
     </article>
     <article v-else>
@@ -92,18 +92,12 @@
 </template>
 
 <script setup lang="ts">
-import { getData, updateData } from '@/utils/global/db';
-import type { GroceryList } from '@/utils/types/groceryList';
-import { getAuth } from 'firebase/auth';
-import { where } from 'firebase/firestore';
-import { onMounted, ref } from 'vue';
 import { getPossibleUnits } from '@/utils/recipe/updateIngredientUnit';
-import { updateIngredientUnit } from '@/utils/recipe/updateIngredientUnit';
 import SelectField from '@/components/form/SelectField.vue';
 import InputField from '@/components/form/InputField.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
-import { type Ingredient, RecipeUnits } from '@/utils/types/recipe';
+import { RecipeUnits } from '@/utils/types/recipe';
 import { useGroceryList } from '@/composables/useGroceryList';
 
 const {

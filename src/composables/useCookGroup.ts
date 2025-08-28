@@ -3,13 +3,18 @@ import { getData, updateData } from '@/utils/global/db';
 import type { CookGroup } from '@/utils/types/cookgroup';
 import { getAuth } from 'firebase/auth';
 import { where } from 'firebase/firestore';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, type Ref } from 'vue';
 
 /**
  * Composable for managing cook groups and invites
  * @returns {object} An object containing cook groups, invites, and functions to accept/decline invites
  */
-export function useCookGroup() {
+export function useCookGroup(): {
+  cookGroups: Ref<CookGroup[]>;
+  cookGroupInvites: Ref<CookGroup[]>;
+  acceptInvite: (cookGroupId: string) => Promise<void>;
+  declineInvite: (cookGroupId: string) => Promise<void>;
+} {
   const cookGroups = ref<CookGroup[]>([]);
   const cookGroupInvites = ref<CookGroup[]>([]);
 

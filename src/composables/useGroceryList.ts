@@ -1,15 +1,25 @@
 import { getData, updateData } from '@/utils/global/db';
 import { getAuth } from 'firebase/auth';
 import { where } from 'firebase/firestore';
-import { onMounted, ref } from 'vue';
-import type { GroceryList, Ingredient } from '@/utils/types/groceryList';
+import { onMounted, ref, type Ref } from 'vue';
+import type { GroceryList } from '@/utils/types/groceryList';
+import type { Ingredient } from '@/utils/types/recipe';
 import { updateIngredientUnit } from '@/utils/recipe/updateIngredientUnit';
 
 /**
  * Composable for managing the grocery list
- * @returns Grocery list state and methods
+ * @returns {Object} - An object containing the grocery list and methods to manipulate it
  */
-export function useGroceryList() {
+export function useGroceryList(): {
+  groceryList: Ref<GroceryList>;
+  newIngredient: Ref<Ingredient>;
+  errorMessage: Ref<string>;
+  emptyGroceryListOpen: Ref<boolean>;
+  addIngredient: () => void;
+  deleteIngredient: (index: number) => void;
+  emptyGroceryList: () => void;
+  changeIngredientUnit: () => void;
+} {
   const initialGroceryList = ref<GroceryList>({
     id: '',
     ingredients: []
