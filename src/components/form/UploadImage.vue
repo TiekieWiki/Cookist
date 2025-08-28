@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { getImage } from '@/utils/manageImage';
+import { getImage } from '@/utils/global/manageImage';
 import { ref, watch } from 'vue';
 
 const props = defineProps<{

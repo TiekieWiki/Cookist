@@ -1,5 +1,5 @@
 import { and, where } from 'firebase/firestore';
-import { getData } from '../db';
+import { getData } from '../global/db';
 import type { Recipe } from '../types/recipe';
 
 /**

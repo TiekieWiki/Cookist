@@ -30,7 +30,7 @@
 import type { Recipe } from '@/utils/types/recipe';
 import { getRecipesLastEaten } from '@/utils/recipe/lastEaten';
 import type { CookGroupRecipe } from '@/utils/types/cookgroup';
-import { capitalizeFirstLetter } from '@/utils/text';
+import { capitalizeFirstLetter } from '@/utils/global/text';
 
 defineProps<{
   recipe: Recipe;

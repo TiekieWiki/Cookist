@@ -72,11 +72,11 @@
 <script setup lang="ts">
 import { useSuccessTransition } from '@/composables/useSuccess';
 import i18n from '@/i18n/index';
-import { deleteData, getData, updateData } from '@/utils/db';
+import { deleteData, getData, updateData } from '../utils/global/db';
 import { deleteUser, getAuth } from 'firebase/auth';
 import { where } from 'firebase/firestore';
 import { ref, onMounted, watch } from 'vue';
-import { handleSignOut } from '@/utils/authentication';
+import { handleSignOut } from '@/utils/global/authentication';
 import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
 import { useRouter } from 'vue-router';

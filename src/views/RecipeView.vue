@@ -73,7 +73,7 @@
             "
             labelPrefix="editRecipePage.units."
             v-model:selected="ingredient.unit"
-            @change="updateIngredientUnit()"
+            @change="changeIngredientUnit()"
           />
           {{ ingredient.name }}
         </label>
@@ -174,20 +174,20 @@
 import type { Recipe } from '@/utils/types/recipe';
 import { getAuth } from 'firebase/auth';
 import { useRoute, useRouter } from 'vue-router';
-import { capitalizeFirstLetter } from '@/utils/text';
+import { capitalizeFirstLetter } from '@/utils/global/text';
 import { getRecipeLastEaten } from '@/utils/recipe/lastEaten';
 import { useSetRecipeImage } from '@/composables/useManageImage';
 import { ref, watch } from 'vue';
 import { emptyCookGroupRecipe, type CookGroupRecipe } from '@/utils/types/cookgroup';
 import { useSecureRecipe } from '@/composables/useSecurity';
-import { deleteData, updateData } from '@/utils/db';
+import { deleteData, updateData } from '@/utils/global/db';
 import { Timestamp, where } from 'firebase/firestore';
 import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
 import { useTimer } from '@/composables/useTimer';
 import { useKeepScreenOn } from '@/composables/useKeepScreenOn';
-import { getPossibleUnits } from '@/utils/recipe/ingredientUnits';
-import { useIngredientUnit } from '@/composables/useIngredient';
+import { getPossibleUnits } from '@/utils/recipe/updateIngredientUnit';
+import { updateIngredientUnit } from '@/utils/recipe/updateIngredientUnit';
 import { addToGroceryList } from '@/utils/grocery list/editGroceryList';
 
 const route = useRoute();
@@ -247,11 +247,11 @@ useSetRecipeImage(recipe);
 watch(
   () => portionCount.value,
   () => {
-    recipe.value.ingredients = useIngredientUnit(
+    recipe.value.ingredients = updateIngredientUnit(
       initialIngredients.value,
       recipe.value.ingredients,
       recipe.value.portions,
-      portionCount
+      portionCount.value
     );
   }
 );
@@ -259,12 +259,12 @@ watch(
 /**
  * Update the ingredient unit
  */
-function updateIngredientUnit(): void {
-  recipe.value.ingredients = useIngredientUnit(
+function changeIngredientUnit(): void {
+  recipe.value.ingredients = updateIngredientUnit(
     initialIngredients.value,
     recipe.value.ingredients,
     recipe.value.portions,
-    portionCount
+    portionCount.value
   );
 }
 

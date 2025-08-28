@@ -1,4 +1,4 @@
-import { getImage } from '@/utils/manageImage';
+import { getImage } from '@/utils/global/manageImage';
 import type { Recipe } from '@/utils/types/recipe';
 import { onMounted, onUnmounted, type Ref } from 'vue';
 

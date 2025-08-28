@@ -11,8 +11,8 @@ import {
   QueryCompositeFilterConstraint,
   type QueryNonFilterConstraint
 } from 'firebase/firestore';
-import { DatabaseError } from '../utils/types/errors';
-import db from './firebaseInit';
+import { DatabaseError } from '../types/errors';
+import db from '../global/firebaseInit';
 
 /**
  * Add data to a Firestore collection

@@ -1,10 +1,10 @@
 import router from '@/router';
 import { type Auth, GoogleAuthProvider, signInWithPopup, getAuth, signOut } from 'firebase/auth';
-import { addData, getData } from './db';
+import { addData, getData } from '../global/db';
 import { where } from 'firebase/firestore';
-import type { User } from './types/user';
-import { DatabaseError } from './types/errors';
-import type { CookGroup } from './types/cookgroup';
+import type { User } from '../types/user';
+import { DatabaseError } from '../types/errors';
+import type { CookGroup } from '../types/cookgroup';
 
 /**
  * Sign in user with Google and register if not already registered

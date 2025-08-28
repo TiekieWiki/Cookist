@@ -29,12 +29,12 @@
 
 <script lang="ts" setup>
 import type { CookGroup } from '@/utils/types/cookgroup';
-import { capitalizeFirstLetter } from '@/utils/text';
+import { capitalizeFirstLetter } from '@/utils/global/text';
 import { getAuth } from 'firebase/auth';
 import { onMounted, ref } from 'vue';
-import { getData } from '@/utils/db';
+import { getData } from '@/utils/global/db';
 import { where } from 'firebase/firestore';
-import { setImage } from '@/utils/manageImage';
+import { setImage } from '@/utils/global/manageImage';
 
 const props = defineProps<{
   cookGroup: CookGroup;

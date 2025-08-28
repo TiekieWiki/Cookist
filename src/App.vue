@@ -26,17 +26,17 @@
         <router-link v-if="menuOpen" to="/" tabindex="0">{{ $t('homePage.title') }}</router-link>
       </transition>
       <transition name="slide-fade">
-        <router-link v-if="menuOpen" to="/recipes" tabindex="0">{{
+        <router-link v-if="menuOpen && isLoggedIn" to="/recipes" tabindex="0">{{
           $t('recipesPage.title')
         }}</router-link>
       </transition>
       <transition name="slide-fade">
-        <router-link v-if="menuOpen" to="/cookgroups" tabindex="0">{{
+        <router-link v-if="menuOpen && isLoggedIn" to="/cookgroups" tabindex="0">{{
           $t('cookGroupsPage.title')
         }}</router-link>
       </transition>
       <transition name="slide-fade">
-        <router-link v-if="menuOpen" to="/grocery-list" tabindex="0">{{
+        <router-link v-if="menuOpen && isLoggedIn" to="/grocery-list" tabindex="0">{{
           $t('groceryListPage.title')
         }}</router-link>
       </transition>
@@ -65,11 +65,11 @@
 import { RouterView, useRoute } from 'vue-router';
 import { useIsLoggedIn } from './composables/useAuthentication';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
-import { getData } from './utils/db';
+import { getData } from './utils/global/db';
 import { where } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import type { User } from './utils/types/user';
-import { useSetSystemLanguage, useSetUserLanguage } from './composables/useI18n';
+import { setSystemLanguage, setUserLanguage } from './utils/global/setLanguage';
 import { useI18n } from 'vue-i18n';
 import { lazyLoadLocaleMessages } from './i18n';
 
@@ -86,14 +86,14 @@ watch(isLoggedIn, async () => {
       .then((users) => {
         if (users.length > 0) {
           user.value = users[0] as User;
-          useSetUserLanguage(user.value?.language);
+          setUserLanguage(user.value?.language);
         }
       })
       .catch((error: any) => {
         console.error('Error setting user language:', error);
       });
   } else {
-    useSetSystemLanguage();
+    setSystemLanguage();
   }
 });
 

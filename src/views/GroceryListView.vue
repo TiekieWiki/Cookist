@@ -34,7 +34,7 @@
             "
             labelPrefix="editRecipePage.units."
             v-model:selected="ingredient.unit"
-            @change="updateIngredientUnit()"
+            @change="changeIngredientUnit()"
           />
           {{ ingredient.name }}
           <button class="icon delete" type="button" @click="deleteIngredient(index)">
@@ -107,13 +107,13 @@
 </template>
 
 <script setup lang="ts">
-import { getData, updateData } from '@/utils/db';
+import { getData, updateData } from '@/utils/global/db';
 import type { GroceryList } from '@/utils/types/groceryList';
 import { getAuth } from 'firebase/auth';
 import { where } from 'firebase/firestore';
 import { onMounted, ref } from 'vue';
-import { getPossibleUnits } from '@/utils/recipe/ingredientUnits';
-import { useIngredientUnit } from '@/composables/useIngredient';
+import { getPossibleUnits } from '@/utils/recipe/updateIngredientUnit';
+import { updateIngredientUnit } from '@/utils/recipe/updateIngredientUnit';
 import SelectField from '@/components/form/SelectField.vue';
 import InputField from '@/components/form/InputField.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
@@ -154,8 +154,8 @@ onMounted(async () => {
 /**
  * Update the ingredient unit
  */
-function updateIngredientUnit(): void {
-  groceryList.value.ingredients = useIngredientUnit(
+function changeIngredientUnit(): void {
+  groceryList.value.ingredients = updateIngredientUnit(
     initialGroceryList.value.ingredients,
     groceryList.value.ingredients,
     undefined,

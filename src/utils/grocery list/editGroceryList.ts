@@ -1,5 +1,5 @@
 import { getAuth } from 'firebase/auth';
-import { updateData } from '../db';
+import { updateData } from '../global/db';
 import type { Ingredient } from '../types/recipe';
 import { where } from 'firebase/firestore';
 import router from '@/router';

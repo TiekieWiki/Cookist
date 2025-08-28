@@ -61,7 +61,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { signInWithGoogle } from '@/utils/authentication';
+import { signInWithGoogle } from '@/utils/global/authentication';
 import { useLogin, useRegister } from '@/composables/useAuthentication';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import InputField from '@/components/form/InputField.vue';

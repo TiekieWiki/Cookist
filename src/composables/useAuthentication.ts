@@ -7,7 +7,7 @@ import {
 } from 'firebase/auth';
 import router from '@/router';
 import type { User } from '@/utils/types/user';
-import { addData } from '@/utils/db';
+import { addData } from '@/utils/global/db';
 import type { CookGroup } from '@/utils/types/cookgroup';
 
 /**

@@ -24,10 +24,10 @@ import { useSecureRecipe } from '@/composables/useSecurity';
 import i18n from '@/i18n/index';
 import { getQueryCookGroups } from '@/utils/cook group/queryCookGroups';
 import { sortCookGroups } from '@/utils/cook group/sort';
-import { addData, deleteData, getData, updateData } from '@/utils/db';
-import { deleteImage, uploadImage } from '@/utils/manageImage';
+import { addData, deleteData, getData, updateData } from '@/utils/global/db';
+import { deleteImage, uploadImage } from '@/utils/global/manageImage';
 import { validateRecipe } from '@/utils/recipe/validateRecipe';
-import { capitalizeFirstLetter } from '@/utils/text';
+import { capitalizeFirstLetter } from '@/utils/global/text';
 import {
   emptyCookGroupRecipe,
   type CookGroup,

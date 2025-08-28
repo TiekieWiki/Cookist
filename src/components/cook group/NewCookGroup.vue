@@ -91,14 +91,14 @@ import RecipeCard from '@/components/recipe/RecipeCard.vue';
 import { addInputRow } from '@/utils/recipe/list';
 import { validateCookGroup } from '@/utils/cook group/validateCookGroup';
 import { emptyCookGroup, type CookGroup, type CookGroupRecipe } from '@/utils/types/cookgroup';
-import { addData, deleteData, getData, updateData } from '@/utils/db';
+import { addData, deleteData, getData, updateData } from '@/utils/global/db';
 import i18n from '@/i18n/index';
 import { getAuth } from 'firebase/auth';
 import { and, Timestamp, where } from 'firebase/firestore';
 import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
-import { capitalizeFirstLetter } from '@/utils/text';
+import { capitalizeFirstLetter } from '@/utils/global/text';
 import { getSearchRecipes } from '@/utils/recipe/searchRecipe';
-import { setImage } from '@/utils/manageImage';
+import { setImage } from '@/utils/global/manageImage';
 
 const props = defineProps<{
   cookGroup?: CookGroup;

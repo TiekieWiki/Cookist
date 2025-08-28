@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore';
 import { RecipeOrderCategories, type Filter } from '../types/orderFilter';
 import type { CookGroupRecipe } from '../types/cookgroup';
-import { getData } from '../db';
+import { getData } from '../global/db';
 
 /**
  * Get the query constraint for the recipes

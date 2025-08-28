@@ -57,11 +57,11 @@
 </template>
 
 <script setup lang="ts">
-import { getData } from '@/utils/db';
-import { setImage } from '@/utils/manageImage';
+import { getData } from '@/utils/global/db';
+import { setImage } from '@/utils/global/manageImage';
 import { RecipeCategories, type Recipe } from '@/utils/types/recipe';
 import { onMounted, ref, watch } from 'vue';
-import { capitalizeFirstLetter } from '@/utils/text';
+import { capitalizeFirstLetter } from '@/utils/global/text';
 import SelectField from '@/components/form/SelectField.vue';
 import { type Filter } from '@/utils/types/orderFilter';
 import { getQueryRecipes } from '@/utils/recipe/queryRecipes';

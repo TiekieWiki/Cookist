@@ -52,13 +52,13 @@
 import { onMounted, ref } from 'vue';
 import NewCookGroup from '@/components/cook group/NewCookGroup.vue';
 import type { CookGroup } from '@/utils/types/cookgroup';
-import { getData, updateData } from '@/utils/db';
+import { getData, updateData } from '@/utils/global/db';
 import { getQueryCookGroups } from '@/utils/cook group/queryCookGroups';
 import { getAuth } from 'firebase/auth';
 import CookGroupCard from '@/components/cook group/CookGroupCard.vue';
 import { sortCookGroups } from '@/utils/cook group/sort';
 import { where } from 'firebase/firestore';
-import { capitalizeFirstLetter } from '@/utils/text';
+import { capitalizeFirstLetter } from '@/utils/global/text';
 
 const auth = getAuth();
 
