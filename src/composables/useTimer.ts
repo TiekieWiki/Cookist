@@ -7,8 +7,6 @@ import { ref, watch, type Ref } from 'vue';
  */
 export function useTimer(): {
   timer: Ref<Timer>;
-  startTimer: () => void;
-  pauseTimer: () => void;
 } {
   const timer = ref<Timer>({
     hours: 0,
@@ -58,12 +56,14 @@ export function useTimer(): {
             }
           }
         }, 1000);
+        startTimer();
       } else if (interval) {
         clearInterval(interval);
         interval = null;
+        pauseTimer();
       }
     }
   );
 
-  return { timer, startTimer, pauseTimer };
+  return { timer };
 }

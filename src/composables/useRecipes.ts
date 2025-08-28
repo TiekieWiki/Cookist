@@ -9,6 +9,10 @@ import { RecipeCategories, type Recipe } from '@/utils/types/recipe';
 import { getAuth } from 'firebase/auth';
 import { onMounted, ref, watch, type Ref } from 'vue';
 
+/**
+ * Composable for managing recipes and cook groups.
+ * @returns An object containing reactive references for cook groups, recipes, selected cook group, order, and filter.
+ */
 export function useRecipes(): {
   cookGroups: Ref<CookGroup[]>;
   currentCookGroupRecipes: Ref<CookGroupRecipe[]>;

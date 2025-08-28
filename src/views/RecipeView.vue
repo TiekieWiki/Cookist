@@ -151,22 +151,15 @@
     :section="$t('recipePage.confirmDelete')"
     :cancel="$t('recipePage.cancel')"
     :confirm="$t('recipePage.delete')"
-    @confirm="deleteRecipe()"
+    @confirm="deleteRecipe(recipe.id)"
   />
 </template>
 
 <script setup lang="ts">
-import type { Recipe } from '@/utils/types/recipe';
 import { getAuth } from 'firebase/auth';
-import { useRoute, useRouter } from 'vue-router';
 import { capitalizeFirstLetter } from '@/utils/global/text';
-import { getRecipeLastEaten } from '@/utils/recipe/lastEaten';
 import { useSetRecipeImage } from '@/composables/useManageImage';
-import { ref, watch } from 'vue';
-import { emptyCookGroupRecipe, type CookGroupRecipe } from '@/utils/types/cookgroup';
-import { useSecureRecipe } from '@/composables/useSecurity';
-import { deleteData, updateData } from '@/utils/global/db';
-import { Timestamp, where } from 'firebase/firestore';
+import { ref } from 'vue';
 import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
 import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
@@ -175,72 +168,21 @@ import { useKeepScreenOn } from '@/composables/useKeepScreenOn';
 import { getPossibleUnits } from '@/utils/recipe/updateIngredientUnit';
 import { updateIngredientUnit } from '@/utils/recipe/updateIngredientUnit';
 import { addToGroceryList } from '@/utils/grocery list/editGroceryList';
+import { useRecipe } from '@/composables/useRecipe';
+import { deleteRecipe } from '@/utils/recipe/deleteRecipe';
 
-const route = useRoute();
-const router = useRouter();
-
-// Recipe
-const recipe = ref<Recipe>({
-  id: '',
-  owner: '',
-  name: '',
-  category: '',
-  duration: undefined,
-  portions: undefined,
-  rating: undefined,
-  image: '',
-  ingredients: [{ amount: 0, unit: '', name: '' }],
-  instructions: [''],
-  notes: '',
-  filterIngredients: []
-});
-const initialIngredients = ref<{ amount: number; unit: string; name: string }[]>([]);
-const lastEaten = ref<string>();
-const lastEatenToday = ref<boolean>(false);
-const cookGroupRecipe = ref<CookGroupRecipe>(emptyCookGroupRecipe());
-const portionCount = ref<number>(1);
-
-// Get the recipe from the database
-watch(
-  [route.params.cookGroupRecipeId],
-  async () => {
-    // Get the recipe if user has access to it
-    useSecureRecipe(route.params.cookGroupRecipeId as string, cookGroupRecipe, recipe)
-      .then(async (result) => {
-        if (result) {
-          // Get the recipe last eaten date
-          const lastEatenDate = getRecipeLastEaten(cookGroupRecipe.value as CookGroupRecipe);
-          lastEaten.value = lastEatenDate ? lastEatenDate.toDate().toLocaleDateString() : undefined;
-          lastEatenToday.value = lastEatenDate
-            ? lastEatenDate.toDate().toLocaleDateString() === new Date().toLocaleDateString()
-            : false;
-
-          initialIngredients.value = recipe.value.ingredients;
-          portionCount.value = recipe.value.portions || 1;
-        }
-      })
-      .catch((error) => {
-        console.error('Error getting recipe:', error);
-      });
-  },
-  { immediate: true }
-);
+const {
+  recipe,
+  cookGroupRecipe,
+  initialIngredients,
+  lastEaten,
+  lastEatenToday,
+  portionCount,
+  updateLastEaten
+} = useRecipe();
 
 // Set the image
 useSetRecipeImage(recipe);
-
-// Update ingredient amount and unit
-watch(
-  () => portionCount.value,
-  () => {
-    recipe.value.ingredients = updateIngredientUnit(
-      initialIngredients.value,
-      recipe.value.ingredients,
-      recipe.value.portions,
-      portionCount.value
-    );
-  }
-);
 
 /**
  * Update the ingredient unit
@@ -258,57 +200,8 @@ function changeIngredientUnit(): void {
 const { keepScreenOn } = useKeepScreenOn();
 
 // Initialize timer
-const { timer, startTimer, pauseTimer } = useTimer();
-
-watch(
-  () => timer.value.isRunning,
-  (isRunning) => {
-    if (isRunning) {
-      startTimer();
-    } else {
-      pauseTimer();
-    }
-  }
-);
+const { timer } = useTimer();
 
 // Delete recipe
 const deleteRecipeOpen = ref<boolean>(false);
-
-/*
- * Delete the recipe
- */
-async function deleteRecipe(): Promise<void> {
-  // Delete the recipe
-  deleteData('recipes', where('id', '==', recipe.value.id))
-    .then(() => {
-      // Delete the cook group recipes
-      return deleteData('cookGroupRecipes', where('recipeId', '==', recipe.value.id));
-    })
-    .then(() => {
-      // Redirect to recipes page
-      router.push({ path: '/recipes' });
-    })
-    .catch((error) => {
-      console.error('Error deleting recipe:', error);
-    });
-}
-
-/**
- * Update the last eaten date for the recipe
- * @returns {Promise<void>} - A promise that resolves when the last eaten date is updated
- */
-async function updateLastEaten(): Promise<void> {
-  cookGroupRecipe.value.lastEaten = Timestamp.fromMillis(Date.now());
-  updateData('cookGroupRecipes', where('id', '==', cookGroupRecipe.value.id), cookGroupRecipe.value)
-    .then(() => {
-      // Update the last eaten date
-      lastEaten.value = cookGroupRecipe.value.lastEaten
-        ? cookGroupRecipe.value.lastEaten.toDate().toLocaleDateString()
-        : undefined;
-      lastEatenToday.value = true;
-    })
-    .catch((error) => {
-      console.error('Error updating last eaten date:', error);
-    });
-}
 </script>
