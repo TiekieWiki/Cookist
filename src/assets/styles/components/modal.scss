@@ -13,7 +13,7 @@
         }
 
         .searchRecipe {
-            @include zoom-on-hover($scale-small);
+            @include zoom-on-hover(var(--scale-small));
             @include outline-on-focus;
             position: relative;
             background-repeat: no-repeat;
@@ -31,7 +31,7 @@
                 width: fit-content;
 
                 &:not(:first-child) {
-                    margin-left: $gap-small;
+                    margin-left: var(--gap-small);
                 }
             }
         }

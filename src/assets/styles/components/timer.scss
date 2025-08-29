@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: $gap-small;
+    gap: var(--gap-small);
 
     .edit:first-child {
         font-size: 2rem;

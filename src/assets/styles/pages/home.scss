@@ -1,7 +1,7 @@
 .home {
     article {
         .brand {
-            @include zoom-on-hover($scale-medium);
+            @include zoom-on-hover(var(--scale-medium));
             @include text-on-focus(var(--color-primary));
 
             font-style: italic;

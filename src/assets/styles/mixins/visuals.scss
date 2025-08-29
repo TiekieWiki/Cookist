@@ -8,7 +8,7 @@
     height: 100%;
     display: block;
     position: absolute;
-    border-radius: $border-radius-medium;
+    border-radius: var(--border-radius-medium);
     background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
   }
 
@@ -28,11 +28,11 @@
 
 @mixin list() {
   display: grid;
-  gap: $gap-small;
+  gap: var(--gap-small);
 
   & > li {
     display: flex;
-    gap: $gap-small;
+    gap: var(--gap-small);
 
     button {
       width: auto;
@@ -40,7 +40,7 @@
   }
 }
 
-@mixin fill-out-cards() {
+@mixin fill-out-cards-single-header() {
   & > *:nth-child(2n - 1):nth-last-of-type(1) {
     grid-column: span 1;
   }
@@ -49,3 +49,14 @@
     grid-column: span 2;
   }
 }
+
+@mixin fill-out-cards-double-header() {
+  & > *:nth-child(2n - 1):nth-last-of-type(1) {
+    grid-column: span 2;
+  }
+
+  & > *:nth-child(2n):nth-last-of-type(1) {
+    grid-column: span 1;
+  }
+}
+

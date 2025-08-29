@@ -2,7 +2,7 @@
 @import '../mixins/visuals.scss';
 
 .cookGroups {
-  @include fill-out-cards;
+  @include fill-out-cards-double-header;
   position: relative;
 
   .invites {
@@ -16,7 +16,7 @@
 
       .actions {
         display: flex;
-        gap: $gap-small;
+        gap: var(--gap-small);
       }
     }
   }

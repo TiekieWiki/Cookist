@@ -17,13 +17,13 @@
 
   .info {
     display: flex;
-    gap: $gap-small;
+    gap: var(--gap-small);
     z-index: 2;
     color: var(--color-text-primary);
   }
 
   &:not(:has(.edit, .delete)) {
-    @include zoom-on-hover($scale-small);
+    @include zoom-on-hover(var(--scale-small));
     @include outline-on-focus;
   }
 

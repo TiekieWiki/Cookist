@@ -3,7 +3,7 @@
     .info {
       display: flex;
       justify-content: space-around;
-      gap: $gap-small;
+      gap: var(--gap-small);
       z-index: 2;
       color: var(--color-text-primary);
     }
@@ -11,14 +11,14 @@
     .portionCalculator {
       display: flex;
       align-items: center;
-      gap: $gap-small;
+      gap: var(--gap-small);
     }
 
     .label-group {
       label {
         display: flex;
         align-items: center;
-        gap: $gap-small;
+        gap: var(--gap-small);
         width: auto;
       }
     }

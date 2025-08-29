@@ -2,7 +2,7 @@
 .fade {
   &-enter-active,
   &-leave-active {
-    transition: opacity $speed-medium ease-in-out;
+    transition: opacity var(--speed-medium) ease-in-out;
   }
 
   &-enter-from,
@@ -14,11 +14,11 @@
 // Slide fade transition
 .slide-fade {
   &-enter-active {
-    transition: all $speed-medium ease-in-out $speed-medium;
+    transition: all var(--speed-medium) ease-in-out var(--speed-medium);
   }
 
   &-leave-active {
-    transition: all $speed-medium ease-in-out;
+    transition: all var(--speed-medium) ease-in-out;
   }
 
   &-enter-from,
@@ -32,7 +32,7 @@
 .switch {
   &-enter-active,
   &-leave-active {
-    transition: all $speed-medium ease-in-out;
+    transition: all var(--speed-medium) ease-in-out;
   }
 
   &-enter-from,

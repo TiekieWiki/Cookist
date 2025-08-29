@@ -2,7 +2,7 @@
 @import '../mixins/visuals.scss';
 
 .recipes {
-  @include fill-out-cards;
+  @include fill-out-cards-single-header;
 
   article {
     .header {
@@ -13,11 +13,11 @@
 
     .orderFilter {
       display: flex;
-      gap: $gap-small;
+      gap: var(--gap-small);
 
       button {
         display: flex;
-        gap: $gap-small;
+        gap: var(--gap-small);
         width: auto;
       }
     }
@@ -25,15 +25,15 @@
     .filters {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: $gap-medium;
+      gap: var(--gap-medium);
 
       .rangeFilters {
         display: grid;
-        gap: $gap-medium;
+        gap: var(--gap-medium);
 
         & > div {
           display: flex;
-          gap: $gap-small;
+          gap: var(--gap-small);
         }
       }
 

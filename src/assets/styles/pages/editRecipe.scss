@@ -5,11 +5,11 @@
     form {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: $gap-medium;
+      gap: var(--gap-medium);
 
       > div {
         display: grid;
-        gap: $gap-medium;
+        gap: var(--gap-medium);
       }
 
       .list {
@@ -19,13 +19,13 @@
       #image {
         & > div {
           display: grid;
-          gap: $gap-small;
+          gap: var(--gap-small);
 
           img {
             width: 100%;
-            height: calc(7 * (60px + $gap-medium) + 45px + $gap-medium);
+            height: calc(7 * (60px + var(--gap-medium)) + 45px + var(--gap-medium));
             object-fit: cover;
-            border-radius: $border-radius-medium;
+            border-radius: var(--border-radius)-medium;
           }
         }
       }

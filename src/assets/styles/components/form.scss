@@ -2,13 +2,13 @@
 
 @mixin form-element {
   width: 100%;
-  padding: $gap-small $gap-medium;
+  padding: var(--gap-small) var(--gap-medium);
   color: var(--color-text-primary);
   background-color: transparent;
-  border: $border-medium solid var(--color-primary);
+  border: var(--border-medium) solid var(--color-primary);
 
   &:not(:disabled) {
-    @include zoom-on-hover($scale-small);
+    @include zoom-on-hover(var(--scale-small));
     @include outline-on-focus;
   }
 
@@ -19,7 +19,7 @@
 
 form {
   display: grid;
-  gap: $gap-large;
+  gap: var(--gap-large);
 }
 
 label {
@@ -35,7 +35,7 @@ input[type='date'],
 textarea {
   @include form-element;
 
-  border-radius: $border-radius-medium;
+  border-radius: var(--border-radius-medium);
 
   &:disabled {
     background-color: var(--color-disabled);
@@ -45,7 +45,7 @@ textarea {
 }
 
 input[type='date'] {
-  padding: calc($gap-small - 2px) $gap-medium;
+  padding: calc(var(--gap-small) - 2px) var(--gap-medium);
 }
 
 input[type='file'] {
@@ -58,15 +58,15 @@ input[type='file'] {
   display: grid;
   grid-template-areas: 'select';
   align-items: center;
-  border-radius: $border-radius-medium;
+  border-radius: var(--border-radius-medium);
   cursor: pointer;
 
   &::after {
     content: '';
     grid-area: select;
     justify-self: end;
-    width: $size-icon-small;
-    height: calc($size-icon-small / 3 * 2);
+    width: var(--size-icon-small);
+    height: calc(var(--size-icon-small) / 3 * 2);
     background-color: var(--color-primary);
     clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
   }
@@ -81,7 +81,7 @@ input[type='file'] {
     z-index: 1;
     grid-area: select;
     width: 100%;
-    padding: 0 $size-icon-small 0 0;
+    padding: 0 var(--size-icon-small) 0 0;
     margin: 0;
     color: var(--color-text-primary);
     background-color: transparent;
@@ -108,10 +108,10 @@ button {
   justify-items: center;
   align-items: center;
   align-self: start;
-  padding: calc($gap-small + 3px) $gap-large;
+  padding: calc(var(--gap-small) + 3px) var(--gap-large);
   background-image: var(--color-accent-primary);
   border: none;
-  border-radius: $border-radius-medium;
+  border-radius: var(--border-radius-medium);
   color: var(--color-text-secondary);
   cursor: pointer;
 
@@ -122,7 +122,7 @@ button {
 
   &.icon {
     display: flex;
-    gap: $gap-small;
+    gap: var(--gap-small);
     justify-content: center;
   }
 
@@ -136,13 +136,13 @@ input {
     @include form-element;
 
     display: grid;
-    grid-template-columns: auto $size-icon-small;
+    grid-template-columns: auto var(--size-icon-small);
     justify-self: start;
     align-self: center;
-    margin-bottom: $gap-small;
+    margin-bottom: var(--gap-small);
     background-image: var(--color-accent-primary);
     border: none;
-    border-radius: $border-radius-medium;
+    border-radius: var(--border-radius-medium);
     color: var(--color-text-secondary);
     cursor: pointer;
   }
@@ -163,32 +163,32 @@ input:disabled::file-selector-button {
 .label-group {
   label {
     display: grid;
-    grid-template-columns: $size-icon-small auto;
-    gap: $gap-small;
+    grid-template-columns: var(--size-icon-small) auto;
+    gap: var(--gap-small);
 
     input[type='checkbox'] {
       -webkit-appearance: none;
       appearance: none;
       display: grid;
       place-content: center;
-      width: calc($size-icon-small + 0.2em);
-      height: calc($size-icon-small + 0.2em);
+      width: calc(var(--size-icon-small) + 0.2em);
+      height: calc(var(--size-icon-small) + 0.2em);
       background-color: transparent;
       color: var(--color-primary);
-      border: $border-medium solid var(--color-primary);
-      border-radius: $border-radius-small;
+      border: var(--border-medium) solid var(--color-primary);
+      border-radius: var(--border-radius-small);
       cursor: pointer;
 
-      @include zoom-on-hover($scale-medium);
+      @include zoom-on-hover(var(--scale-medium));
       @include outline-on-focus;
 
       &::before {
         content: '';
-        width: calc($size-icon-small - 0.3em);
-        height: calc($size-icon-small - 0.3em);
+        width: calc(var(--size-icon-small) - 0.3em);
+        height: calc(var(--size-icon-small) - 0.3em);
         transform: scale(0);
-        transition: $speed-medium transform ease-in-out;
-        box-shadow: inset $size-icon-small $size-icon-small var(--color-primary);
+        transition: var(--speed-medium) transform ease-in-out;
+        box-shadow: inset var(--size-icon-small) var(--size-icon-small) var(--color-primary);
       }
 
       &:checked::before {
@@ -202,7 +202,7 @@ input:disabled::file-selector-button {
     }
 
     &:not(:first-child) {
-      margin-top: $gap-small;
+      margin-top: var(--gap-small);
     }
   }
 }
@@ -210,8 +210,8 @@ input:disabled::file-selector-button {
 .toggle {
   position: relative;
   display: inline-block;
-  width: $gap-xlarge * 2 - $gap-xxsmall * 2;
-  height: $gap-xlarge;
+  width: calc(var(--gap-xlarge) * 2 - var(--gap-xxsmall) * 2);
+  height: var(--gap-xlarge);
 
   input {
     opacity: 0;
@@ -222,9 +222,9 @@ input:disabled::file-selector-button {
       background-color: var(--color-primary);
 
       &::before {
-        -webkit-transform: translateX($gap-xlarge - $gap-xxsmall * 4);
-        -ms-transform: translateX($gap-xlarge - $gap-xxsmall * 4);
-        transform: translateX($gap-xlarge - $gap-xxsmall * 4);
+        -webkit-transform: translateX(calc(var(--gap-xlarge) - var(--gap-xxsmall) * 4));
+        -ms-transform: translateX(calc(var(--gap-xlarge) - var(--gap-xxsmall) * 4));
+        transform: translateX(calc(var(--gap-xlarge) - var(--gap-xxsmall) * 4));
       }
     }
 
@@ -241,17 +241,17 @@ input:disabled::file-selector-button {
     right: 0;
     bottom: 0;
     background-color: var(--color-disabled);
-    border-radius: $gap-xlarge;
+    border-radius: var(--gap-xlarge);
     -webkit-transition: .4s;
     transition: .4s;
 
     &::before {
       position: absolute;
       content: "";
-      height: $gap-xlarge - $gap-xxsmall * 4;
-      width: $gap-xlarge - $gap-xxsmall * 4;
-      left: $gap-xxsmall * 2;
-      bottom: $gap-xxsmall * 2;
+      height: calc(var(--gap-xlarge) - var(--gap-xxsmall) * 4);
+      width: calc(var(--gap-xlarge) - var(--gap-xxsmall) * 4);
+      left: calc(var(--gap-xxsmall) * 2);
+      bottom: calc(var(--gap-xxsmall) * 2);
       background-color: var(--color-text-secondary);
       border-radius: 50%;
       -webkit-transition: .4s;
@@ -261,13 +261,13 @@ input:disabled::file-selector-button {
 }
 
 .error {
-  padding: $gap-xxsmall $gap-small;
-  border-radius: $border-radius-medium;
+  padding: var(--gap-xxsmall) var(--gap-small);
+  border-radius: var(--border-radius-medium);
   background-color: var(--color-error);
 }
 
 .success {
-  padding: $gap-xxsmall $gap-small;
-  border-radius: $border-radius-medium;
+  padding: var(--gap-xxsmall) var(--gap-small);
+  border-radius: var(--border-radius-medium);
   background-color: var(--color-success);
 }

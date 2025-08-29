@@ -3,15 +3,20 @@ main {
   position: absolute;
   top: 0;
   left: 0;
-  padding: $gap-xlarge;
+  padding: var(--gap-xlarge);
   display: grid;
-  gap: $gap-large;
+  gap: var(--gap-large);
   z-index: 1;
-  width: calc(100vw - $side-width + 2 * $gap-xlarge);
+  width: calc(100vw - var(--side-width) + 2 * var(--gap-xlarge));
   color: var(--color-text-primary);
 
+  @media screen and (max-width: 900px) {
+    top: var(--gap-xlarge);
+    width: 100vw;
+  }
+
   &.two-columns {
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
 
   &.three-columns {
@@ -21,11 +26,11 @@ main {
   article {
     display: flex;
     flex-direction: column;
-    gap: $gap-large;
-    padding: $gap-large;
+    gap: var(--gap-large);
+    padding: var(--gap-large);
     background-color: var(--color-background-secondary);
-    border-radius: $border-radius-medium;
-    box-shadow: $box-shadow;
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--box-shadow);
 
     &:has(> .header) {
       grid-column: 1 / -1;
@@ -40,7 +45,7 @@ main {
 
       .actions {
         display: flex;
-        gap: $gap-small;
+        gap: var(--gap-small);
         align-items: flex-end;
         z-index: 2;
       }
@@ -53,7 +58,7 @@ main {
 
       .actions {
         display: flex;
-        gap: $gap-small;
+        gap: var(--gap-small);
         align-items: center;
       }
     }

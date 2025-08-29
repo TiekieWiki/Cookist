@@ -4,11 +4,11 @@ aside {
   position: fixed;
   right: 0;
   top: 0;
-  width: $side-width;
-  transition: all $speed-medium ease-in-out;
+  width: var(--side-width);
+  transition: all var(--speed-medium) ease-in-out;
 
   &.menuOpen {
-    width: max(300px, $side-width);
+    width: max(300px, var(--side-width));
     z-index: 2;
   }
 
@@ -17,14 +17,14 @@ aside {
     flex-direction: column;
     justify-content: center;
     align-items: end;
-    gap: $gap-xlarge;
+    gap: var(--gap-xlarge);
     position: absolute;
     width: 100%;
     z-index: 2;
-    padding: $gap-large $gap-xlarge;
+    padding: var(--gap-large) var(--gap-xlarge);
 
     .menu-icon {
-      @include zoom-on-hover($scale-medium);
+      @include zoom-on-hover(var(--scale-medium));
       @include text-on-focus(var(--color-secondary));
 
       color: var(--color-text-secondary);
@@ -32,13 +32,13 @@ aside {
     }
 
     a {
-      @include zoom-on-hover($scale-medium);
+      @include zoom-on-hover(var(--scale-medium));
       @include text-on-focus(var(--color-secondary));
 
       color: var(--color-text-secondary);
 
       &.active {
-        @include zoom-on-hover($scale-medium);
+        @include zoom-on-hover(var(--scale-medium));
         @include text-on-focus(var(--color-secondary));
 
         color: var(--color-primary);
@@ -70,13 +70,13 @@ aside {
   }
 
   .brand {
-    @include zoom-on-hover($scale-medium);
+    @include zoom-on-hover(var(--scale-medium));
     @include text-on-focus(var(--color-primary));
 
     position: absolute;
     z-index: 2;
-    bottom: $gap-large;
-    right: $gap-xlarge;
+    bottom: var(--gap-large);
+    right: var(--gap-xlarge);
     font-style: italic;
     color: var(--color-secondary);
   }
