@@ -60,7 +60,11 @@
         </div>
       </section>
       <div class="label-group">
-        <label v-for="(ingredient, index) in recipe.ingredients" :key="ingredient.name">
+        <label
+          v-for="(ingredient, index) in recipe.ingredients"
+          :key="ingredient.name"
+          class="ingredient"
+        >
           <input :name="ingredient.name" type="checkbox" />
           {{ ingredient.amount }}
           <select-field

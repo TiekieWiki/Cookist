@@ -2,24 +2,33 @@
   article {
     .info {
       display: flex;
-      justify-content: space-around;
-      gap: var(--gap-small);
+      justify-content: space-between;
       z-index: 2;
       color: var(--color-text-primary);
+      flex-wrap: wrap;
     }
 
     .portionCalculator {
       display: flex;
       align-items: center;
-      gap: var(--gap-small);
+      gap: var(--gap-medium);
     }
 
     .label-group {
       label {
-        display: flex;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: var(--gap-medium);
         align-items: center;
-        gap: var(--gap-small);
         width: auto;
+
+        label {
+          grid-template-columns: auto;
+        }
+
+        &.ingredient {
+          grid-template-columns: auto 1fr 2fr 3fr;
+        }
       }
     }
   }

@@ -1,10 +1,7 @@
 @import '../mixins/animations';
 
 .timer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--gap-small);
+    gap: var(--gap-medium);
 
     .edit:first-child {
         font-size: 2rem;

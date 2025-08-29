@@ -12,8 +12,9 @@
     }
 
     .orderFilter {
-      display: flex;
-      gap: var(--gap-small);
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(max(200px, calc((100% - (2 * var(--gap-small))) / 3)), 1fr));
+      gap: var(--gap-medium);
 
       button {
         display: flex;
@@ -33,7 +34,7 @@
 
         & > div {
           display: flex;
-          gap: var(--gap-small);
+          gap: var(--gap-medium);
         }
       }
 
