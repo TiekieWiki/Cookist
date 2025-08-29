@@ -22,25 +22,26 @@
     <article v-if="recipes.length <= 0" class="noCards">
       <h3>{{ $t('recipesPage.noRecipes') }}</h3>
     </article>
-    <article
-      v-else
-      v-for="recipe in recipes"
-      :key="recipe.id"
-      class="card"
-      :id="recipe.id"
-      @click="
-        $router.push({
-          path: `/recipe/${currentCookGroupRecipes.find((group) => group.cookGroupId == selectedCookGroup && group.recipeId == recipe.id)?.id || ''}`
-        })
-      "
-      tabindex="0"
-    >
-      <recipe-card
-        :recipe="recipe"
-        :current-cook-group-recipes="currentCookGroupRecipes"
-        :selected-cook-group="selectedCookGroup"
-      />
-    </article>
+    <transition-group v-else name="move">
+      <article
+        v-for="recipe in recipes"
+        :key="recipe.id"
+        class="card"
+        :id="recipe.id"
+        @click="
+          $router.push({
+            path: `/recipe/${currentCookGroupRecipes.find((group) => group.cookGroupId == selectedCookGroup && group.recipeId == recipe.id)?.id || ''}`
+          })
+        "
+        tabindex="0"
+      >
+        <recipe-card
+          :recipe="recipe"
+          :current-cook-group-recipes="currentCookGroupRecipes"
+          :selected-cook-group="selectedCookGroup"
+        />
+      </article>
+    </transition-group>
     <article class="card newCard">
       <button
         @click="
