@@ -26,15 +26,20 @@ export async function signInWithGoogle(): Promise<void> {
     .catch((error) => {
       if (error instanceof DatabaseError) {
         const uid = getAuth().currentUser?.uid || '';
-        const language = navigator.language.includes('nl')
-          ? 'nl'
-          : navigator.language.includes('en')
-            ? 'en'
-            : 'en';
 
         const user: User = {
           id: uid,
-          language: language
+          language: navigator.language.includes('nl')
+            ? 'nl'
+            : navigator.language.includes('en')
+              ? 'en'
+              : 'en',
+          colorScheme:
+            window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
+                ? 'light'
+                : 'dark'
         };
 
         // Add user

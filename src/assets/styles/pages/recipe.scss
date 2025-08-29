@@ -5,7 +5,7 @@
       justify-content: space-around;
       gap: $gap-small;
       z-index: 2;
-      color: $color-text-primary;
+      color: var(--color-text-primary);
     }
 
     .portionCalculator {

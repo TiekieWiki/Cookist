@@ -4,7 +4,7 @@
   width: 100%;
   padding: $gap-small $gap-medium;
   background-color: transparent;
-  border: $border-medium solid $color-primary;
+  border: $border-medium solid var(--color-primary);
 
   &:not(:disabled) {
     @include zoom-on-hover($scale-small);
@@ -12,7 +12,7 @@
   }
 
   &:user-invalid {
-    border-color: $color-error;
+    border-color: var(--color-error);
   }
 }
 
@@ -37,7 +37,7 @@ textarea {
   border-radius: $border-radius-medium;
 
   &:disabled {
-    background-color: $color-disabled;
+    background-color: var(--color-disabled);
     cursor: auto;
   }
 
@@ -66,12 +66,12 @@ input[type='file'] {
     justify-self: end;
     width: $size-icon-small;
     height: calc($size-icon-small / 3 * 2);
-    background-color: $color-primary;
+    background-color: var(--color-primary);
     clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
   }
 
   &:has(select:disabled) {
-    background-color: $color-disabled;
+    background-color: var(--color-disabled);
     cursor: auto;
   }
 
@@ -82,6 +82,7 @@ input[type='file'] {
     width: 100%;
     padding: 0 $size-icon-small 0 0;
     margin: 0;
+    color: var(--color-text-primary);
     background-color: transparent;
     border: none;
     outline: none;
@@ -102,14 +103,14 @@ button {
   align-items: center;
   align-self: start;
   padding: calc($gap-small + 3px) $gap-large;
-  background-image: $color-accent-primary;
+  background-image: var(--color-accent-primary);
   border: none;
   border-radius: $border-radius-medium;
-  color: $color-text-secondary;
+  color: var(--color-text-secondary);
   cursor: pointer;
 
   &:disabled {
-    background-image: $color-accent-disabled;
+    background-image: var(--color-accent-disabled);
     cursor: auto;
   }
 
@@ -120,7 +121,7 @@ button {
   }
 
   &.delete {
-    background-image: $color-accent-error;
+    background-image: var(--color-accent-error);
   }
 }
 
@@ -133,23 +134,23 @@ input {
     justify-self: start;
     align-self: center;
     margin-bottom: $gap-small;
-    background-image: $color-accent-primary;
+    background-image: var(--color-accent-primary);
     border: none;
     border-radius: $border-radius-medium;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     cursor: pointer;
   }
 
   &:disabled {
     &::file-selector-button {
-      background-image: $color-accent-disabled;
+      background-image: var(--color-accent-disabled);
       cursor: auto;
     }
   }
 }
 
 input:disabled::file-selector-button {
-  background-image: $color-accent-disabled;
+  background-image: var(--color-accent-disabled);
   cursor: auto;
 }
 
@@ -167,8 +168,8 @@ input:disabled::file-selector-button {
       width: calc($size-icon-small + 0.2em);
       height: calc($size-icon-small + 0.2em);
       background-color: transparent;
-      color: $color-primary;
-      border: $border-medium solid $color-primary;
+      color: var(--color-primary);
+      border: $border-medium solid var(--color-primary);
       border-radius: $border-radius-small;
       cursor: pointer;
 
@@ -181,7 +182,7 @@ input:disabled::file-selector-button {
         height: calc($size-icon-small - 0.3em);
         transform: scale(0);
         transition: $speed-medium transform ease-in-out;
-        box-shadow: inset $size-icon-small $size-icon-small $color-primary;
+        box-shadow: inset $size-icon-small $size-icon-small var(--color-primary);
       }
 
       &:checked::before {
@@ -189,7 +190,7 @@ input:disabled::file-selector-button {
       }
 
       &:disabled {
-        background-color: $color-disabled;
+        background-color: var(--color-disabled);
         cursor: auto;
       }
     }
@@ -212,7 +213,7 @@ input:disabled::file-selector-button {
     height: 0;
 
     &:checked + .slider {
-      background-color: $color-primary;
+      background-color: var(--color-primary);
 
       &::before {
         -webkit-transform: translateX($gap-xlarge - $gap-xxsmall * 4);
@@ -222,7 +223,7 @@ input:disabled::file-selector-button {
     }
 
     &:focus + .slider {
-      box-shadow: 0 0 1px $color-primary;
+      box-shadow: 0 0 1px var(--color-primary);
     }
   }
 
@@ -233,7 +234,7 @@ input:disabled::file-selector-button {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: $color-disabled;
+    background-color: var(--color-disabled);
     border-radius: $gap-xlarge;
     -webkit-transition: .4s;
     transition: .4s;
@@ -245,7 +246,7 @@ input:disabled::file-selector-button {
       width: $gap-xlarge - $gap-xxsmall * 4;
       left: $gap-xxsmall * 2;
       bottom: $gap-xxsmall * 2;
-      background-color: $color-text-secondary;
+      background-color: var(--color-text-secondary);
       border-radius: 50%;
       -webkit-transition: .4s;
       transition: .4s;
@@ -256,11 +257,11 @@ input:disabled::file-selector-button {
 .error {
   padding: $gap-xxsmall $gap-small;
   border-radius: $border-radius-medium;
-  background-color: $color-error;
+  background-color: var(--color-error);
 }
 
 .success {
   padding: $gap-xxsmall $gap-small;
   border-radius: $border-radius-medium;
-  background-color: $color-success;
+  background-color: var(--color-success);
 }

@@ -2,10 +2,10 @@
     article {
         .brand {
             @include zoom-on-hover($scale-medium);
-            @include text-on-focus($color-primary);
+            @include text-on-focus(var(--color-primary));
 
             font-style: italic;
-            color: $color-secondary;
+            color: var(--color-secondary);
         }
 
         &.card {

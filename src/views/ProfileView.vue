@@ -10,6 +10,13 @@
           labelPrefix="profilePage.languages."
           v-model:selected="selectedLanguage"
         />
+        <select-field
+          :ariaLabel="$t('profilePage.ariaLabel.colorScheme')"
+          :items="colorSchemes"
+          labelPrefix="profilePage.colorSchemes."
+          v-model:selected="selectedColorScheme"
+        />
+
         <transition name="fade">
           <p v-if="successMessage" class="success">{{ successMessage }}</p>
         </transition>
@@ -66,6 +73,7 @@ import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
 import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
 import { deleteAccount } from '@/utils/profile/deleteAccount';
+import { setColorScheme } from '@/utils/global/setColorScheme';
 
 // Set language dropdown to user language
 const languages = [
@@ -73,6 +81,11 @@ const languages = [
   { value: 'nl', label: 'nl' }
 ];
 const selectedLanguage = ref<string>();
+const colorSchemes = [
+  { value: 'light', label: 'light' },
+  { value: 'dark', label: 'dark' }
+];
+const selectedColorScheme = ref<'light' | 'dark'>();
 
 // Get user from database and set dropdowns to user settings
 onMounted(async () => {
@@ -80,6 +93,7 @@ onMounted(async () => {
     .then((users) => {
       if (users.length > 0) {
         selectedLanguage.value = users[0].language;
+        selectedColorScheme.value = users[0].colorScheme;
       }
     })
     .catch((error: any) => {
@@ -92,6 +106,11 @@ watch(selectedLanguage, (newLanguage) => {
   i18n.global.locale.value = newLanguage;
 });
 
+// Watch for changes in selected color scheme and update color scheme
+watch(selectedColorScheme, () => {
+  setColorScheme(selectedColorScheme.value || 'dark');
+});
+
 // Save settings to database
 const successMessage = ref<string>('');
 
@@ -101,7 +120,8 @@ const successMessage = ref<string>('');
 function saveSettings(): void {
   Promise.all([
     updateData('users', where('id', '==', getAuth().currentUser?.uid), {
-      language: selectedLanguage.value
+      language: selectedLanguage.value,
+      colorScheme: selectedColorScheme.value
     }),
     useSuccessTransition(successMessage, 'profilePage.saveSuccess')
   ]).catch((error: any) => {

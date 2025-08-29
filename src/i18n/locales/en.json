@@ -39,6 +39,10 @@
       "en": "English",
       "nl": "Dutch"
     },
+    "colorSchemes": {
+      "light": "Light",
+      "dark": "Dark"
+    },
     "save": "Save",
     "saveSuccess": "Settings saved successfully",
     "deleteAccount": "Delete account",
@@ -47,7 +51,8 @@
     "delete": "Delete",
     "ariaLabel": {
       "userEmail": "User email",
-      "language": "Language"
+      "language": "Language",
+      "colorScheme": "Color scheme"
     }
   },
   "recipesPage": {

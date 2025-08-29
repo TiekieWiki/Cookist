@@ -72,6 +72,7 @@ import type { User } from './utils/types/user';
 import { setSystemLanguage, setUserLanguage } from './utils/global/setLanguage';
 import { useI18n } from 'vue-i18n';
 import { lazyLoadLocaleMessages } from './i18n';
+import { setColorScheme } from './utils/global/setColorScheme';
 
 const isLoggedIn = useIsLoggedIn();
 const user = ref<User | undefined>(undefined);
@@ -87,6 +88,7 @@ watch(isLoggedIn, async () => {
         if (users.length > 0) {
           user.value = users[0] as User;
           setUserLanguage(user.value?.language);
+          setColorScheme(user.value?.colorScheme);
         }
       })
       .catch((error: any) => {

@@ -19,7 +19,6 @@ export async function getCookGroups(): Promise<{ cookGroups: CookGroup[] }> {
   await getData('cookGroups', queryCookGroups(getAuth().currentUser?.uid || ''))
     .then((data) => {
       cookGroups = sortCookGroups(data as CookGroup[]);
-      console.log('Fetched cook groups:', cookGroups);
     })
     .catch((error) => {
       console.error('Error getting cook groups from database:', error);

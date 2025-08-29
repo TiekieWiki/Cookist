@@ -1,15 +1,15 @@
 .edit {
-    color: $color-primary;
+    color: var(--color-primary);
     cursor: pointer;
 }
 
 .delete {
-    color: $color-error;
+    color: var(--color-error);
     cursor: pointer;
 }
 
 button {
     &.edit, &.delete {
-        color: $color-text-secondary;
+        color: var(--color-text-secondary);
     }
 }

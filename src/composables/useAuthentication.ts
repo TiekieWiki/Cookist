@@ -31,7 +31,13 @@ export function useRegister(): {
             ? 'nl'
             : navigator.language.includes('en')
               ? 'en'
-              : 'en'
+              : 'en',
+          colorScheme:
+            window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
+                ? 'light'
+                : 'dark'
         };
         addData('users', user).catch((error: any) => {
           console.error('Error adding user to database:', error);

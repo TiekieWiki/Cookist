@@ -9,6 +9,7 @@ import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
 import { getAuth } from 'firebase/auth';
 import { where, Timestamp, and } from 'firebase/firestore';
 import { ref, onMounted, capitalize, watch, type Ref } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 
 /**
  * Composable for creating or editing a cook group

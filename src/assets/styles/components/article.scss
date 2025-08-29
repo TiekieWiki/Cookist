@@ -8,6 +8,7 @@ main {
   gap: $gap-large;
   z-index: 1;
   width: calc(100vw - $side-width + 2 * $gap-xlarge);
+  color: var(--color-text-primary);
 
   &.two-columns {
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -22,7 +23,7 @@ main {
     flex-direction: column;
     gap: $gap-large;
     padding: $gap-large;
-    background-color: $color-background;
+    background-color: var(--color-background-secondary);
     border-radius: $border-radius-medium;
     box-shadow: $box-shadow;
 
@@ -34,7 +35,7 @@ main {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: $color-text-primary;
+      color: var(--color-text-primary);
       z-index: 2;
 
       .actions {

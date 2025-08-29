@@ -12,14 +12,14 @@
     display: flex;
     justify-content: space-between;
     z-index: 2;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
   }
 
   .info {
     display: flex;
     gap: $gap-small;
     z-index: 2;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
   }
 
   &:not(:has(.edit, .delete)) {

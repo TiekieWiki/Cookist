@@ -25,23 +25,23 @@ aside {
 
     .menu-icon {
       @include zoom-on-hover($scale-medium);
-      @include text-on-focus($color-secondary);
+      @include text-on-focus(var(--color-secondary));
 
-      color: $color-text-secondary;
+      color: var(--color-text-secondary);
       font-size: 1.2rem;
     }
 
     a {
       @include zoom-on-hover($scale-medium);
-      @include text-on-focus($color-secondary);
+      @include text-on-focus(var(--color-secondary));
 
-      color: $color-text-secondary;
+      color: var(--color-text-secondary);
 
       &.active {
         @include zoom-on-hover($scale-medium);
-        @include text-on-focus($color-secondary);
+        @include text-on-focus(var(--color-secondary));
 
-        color: $color-primary;
+        color: var(--color-primary);
       }
     }
   }
@@ -71,13 +71,13 @@ aside {
 
   .brand {
     @include zoom-on-hover($scale-medium);
-    @include text-on-focus($color-primary);
+    @include text-on-focus(var(--color-primary));
 
     position: absolute;
     z-index: 2;
     bottom: $gap-large;
     right: $gap-xlarge;
     font-style: italic;
-    color: $color-secondary;
+    color: var(--color-secondary);
   }
 }

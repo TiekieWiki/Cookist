@@ -1,15 +1,49 @@
 // Colors
-$color-primary: #199764;
-$color-secondary: #148054;
-$color-accent-primary: linear-gradient(to top right, $color-secondary, $color-primary);
-$color-background: #ebebeb;
-$color-success: #20a957;
-$color-error: #be1b16;
-$color-accent-error: linear-gradient(to top right, $color-error, rgba($color-error, 0.7));
-$color-disabled: #b4b4b4;
-$color-accent-disabled: linear-gradient(to top right, $color-disabled, rgba($color-disabled, 0.7));
-$color-text-primary: black;
-$color-text-secondary: white;
+@mixin light-mode {
+  --color-primary: #199764;
+    --color-secondary: #148054;
+    --color-accent-primary: linear-gradient(to top right, #148054, #199764);
+    --color-background-primary: #ebebeb;
+    --color-background-secondary: #f5f5f5;
+    --color-success: #20a957;
+    --color-error: #be1b16;
+    --color-accent-error: linear-gradient(to top right, #be1b16, rgba(190, 27, 22, 0.7));
+    --color-disabled: #b4b4b4;
+    --color-accent-disabled: linear-gradient(to top right, #b4b4b4, rgba(180, 180, 180, 0.7));
+    --color-text-primary: black;
+    --color-text-secondary: white;
+}
+
+@mixin dark-mode {
+    --color-primary: #199764;
+    --color-secondary: #148054;
+    --color-accent-primary: linear-gradient(to top right, #148054, #199764);
+    --color-background-primary: #0b0b0b;
+    --color-background-secondary: #1b1b1b;
+    --color-success: #20a957;
+    --color-error: #be1b16;
+    --color-accent-error: linear-gradient(to top right, #be1b16, rgba(190, 27, 22, 0.7));
+    --color-disabled: #5a5a5a;
+    --color-accent-disabled: linear-gradient(to top right, #5a5a5a, rgba(90, 90, 90, 0.7));
+    --color-text-primary: white;
+    --color-text-secondary: white;
+}
+
+:root {
+    @include light-mode;
+
+    &.light {
+      @include light-mode;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+        @include dark-mode;
+    }
+
+    &.dark {
+        @include dark-mode;
+    }
+}
 
 // Spacing
 $gap-xxsmall: 2px;

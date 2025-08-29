@@ -1,4 +1,5 @@
 export interface User {
   id: string | undefined;
-  language: string;
+  language: 'nl' | 'en';
+  colorScheme: 'light' | 'dark';
 }
