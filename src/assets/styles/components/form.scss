@@ -91,6 +91,11 @@ input[type='file'] {
     &::-ms-expand {
       display: none;
     }
+
+    option {
+      color: var(--color-text-primary);
+      background-color: var(--color-background-primary);
+    }
   }
 }
 
