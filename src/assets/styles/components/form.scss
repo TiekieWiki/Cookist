@@ -3,6 +3,7 @@
 @mixin form-element {
   width: 100%;
   padding: $gap-small $gap-medium;
+  color: var(--color-text-primary);
   background-color: transparent;
   border: $border-medium solid var(--color-primary);
 
