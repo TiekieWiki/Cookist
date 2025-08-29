@@ -1,26 +1,28 @@
 <template>
-  <main class="cookGroups two-columns">
+  <main :class="['cookGroups', 'two-columns', cookGroupInvites.length > 0 ? 'two-headers' : '']">
     <article>
       <section class="header">
         <h2>{{ $t('cookGroupsPage.title') }}</h2>
       </section>
     </article>
-    <article v-if="cookGroupInvites.length > 0" class="invites noCards">
-      <h3>{{ $t('cookGroupsPage.invites') }}</h3>
-      <ul class="list">
-        <li v-for="invite in cookGroupInvites" :key="invite.id">
-          <p>{{ capitalizeFirstLetter(invite.name) }}</p>
-          <div class="actions">
-            <button @click="acceptInvite(invite.id)" class="edit" type="button">
-              <font-awesome-icon :icon="['fas', 'check']" />
-            </button>
-            <button @click="declineInvite(invite.id)" class="delete" type="button">
-              <font-awesome-icon :icon="['fas', 'trash']" />
-            </button>
-          </div>
-        </li>
-      </ul>
-    </article>
+    <transition name="fade">
+      <article v-if="cookGroupInvites.length > 0" class="invites noCards">
+        <h3>{{ $t('cookGroupsPage.invites') }}</h3>
+        <transition-group name="fade" tag="ul" class="list">
+          <li v-for="invite in cookGroupInvites" :key="invite.id">
+            <p>{{ capitalizeFirstLetter(invite.name) }}</p>
+            <div class="actions">
+              <button @click="acceptInvite(invite.id)" class="edit" type="button">
+                <font-awesome-icon :icon="['fas', 'check']" />
+              </button>
+              <button @click="declineInvite(invite.id)" class="delete" type="button">
+                <font-awesome-icon :icon="['fas', 'trash']" />
+              </button>
+            </div>
+          </li>
+        </transition-group>
+      </article>
+    </transition>
     <article v-if="cookGroups.length <= 0" class="noCards">
       <h3>{{ $t('cookGroupsPage.noCookGroups') }}</h3>
     </article>

@@ -2,8 +2,12 @@
 @import '../mixins/visuals.scss';
 
 .cookGroups {
-  @include fill-out-cards-double-header;
+  @include fill-out-cards-single-header;
   position: relative;
+
+  &.two-headers {
+    @include fill-out-cards-double-header;
+  }
 
   .invites {
     .list {
