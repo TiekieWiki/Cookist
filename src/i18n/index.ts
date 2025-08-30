@@ -18,7 +18,7 @@ export default i18n;
 // Lazy load locale messages
 export async function lazyLoadLocaleMessages(locale: string) {
   if (!i18n.global.availableLocales.includes(locale)) {
-    const messages = await import(`@/i18n/locales/${locale}.json`);
+    const messages = await import(`@/i18n/locales/${locale}.ts`);
     i18n.global.setLocaleMessage(locale, messages.default);
   }
 

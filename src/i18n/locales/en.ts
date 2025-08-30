@@ -1,0 +1,258 @@
+export const en = {
+  homePage: {
+    title: 'Home',
+    banner1: 'All your favourite recipes in one place',
+    banner2: 'Never forget a recipe with the last eaten function',
+    banner3: 'Share your recipes with your own created cook groups'
+  },
+  loginPage: {
+    title: 'Login',
+    login: 'Log in',
+    register: 'Register',
+    googleLogin: 'Log in with Google',
+    googleRegister: 'Register with Google',
+    placeholder: {
+      email: "john.doe{'@'}gmail.com",
+      password: '********'
+    },
+    ariaLabel: {
+      emailLogin: 'Email for logging in',
+      passwordLogin: 'Password for logging in',
+      emailRegister: 'Email for registering',
+      passwordRegister: 'Password for registering'
+    },
+    errors: {
+      invalidEmail: 'Invalid email',
+      wrongPassword: 'Invalid password',
+      emailAlreadyExists: 'An account with the given email already exists',
+      invalidPassword: 'The password must be at least 6 characters long',
+      userNotFound: 'No account with that email was found',
+      default: 'Email or password was incorrect'
+    }
+  },
+  profilePage: {
+    title: 'Profile',
+    account: 'Account',
+    logout: 'Log out',
+    settings: 'Settings',
+    languages: {
+      en: 'English',
+      nl: 'Dutch'
+    },
+    colorSchemes: {
+      light: 'Light',
+      dark: 'Dark'
+    },
+    save: 'Save',
+    saveSuccess: 'Settings saved successfully',
+    deleteAccount: 'Delete account',
+    confirmDelete: 'Are you sure you want to delete your account? This cannot be undone.',
+    cancel: 'Cancel',
+    delete: 'Delete',
+    ariaLabel: {
+      userEmail: 'User email',
+      language: 'Language',
+      colorScheme: 'Color scheme'
+    }
+  },
+  recipesPage: {
+    title: 'Recipes',
+    cookGroups: 'Cook groups',
+    filter: 'Filter',
+    order: 'Order',
+    orders: {
+      lastEatenAsc: 'Last eaten (old-new)',
+      lastEatenDesc: 'Last eaten (new-old)',
+      ratingAsc: 'Rating (1-5)',
+      ratingDesc: 'Rating (5-1)',
+      durationAsc: 'Duration (short-long)',
+      durationDesc: 'Duration (long-short)',
+      nameAsc: 'Name (A-Z)',
+      nameDesc: 'Name (Z-A)'
+    },
+    durationMin: 'Minimum duration',
+    durationMax: 'Maximum duration',
+    ratingMin: 'Minimum rating',
+    ratingMax: 'Maximum rating',
+    lastEatenMin: 'Minimum last eaten',
+    lastEatenMax: 'Maximum last eaten',
+    noRecipes: 'No recipes found',
+    placeholder: {
+      search: 'Search recipes',
+      order: 'Last eaten (old-new)',
+      cookGroups: 'Cook group'
+    },
+    ariaLabel: {
+      cookGroups: 'Cook groups of the user',
+      search: 'Search',
+      order: 'Order recipes by',
+      durationMin: 'Minimum duration of the recipe',
+      durationMax: 'Maximum duration of the recipe',
+      ratingMin: 'Minimum rating of the recipe',
+      ratingMax: 'Maximum rating of the recipe',
+      lastEatenMin: 'Minimum last eaten of the recipe',
+      lastEatenMax: 'Maximum last eaten of the recipe'
+    }
+  },
+  recipePage: {
+    title: 'Recipe',
+    ingredients: 'Ingredients',
+    portions: 'portions | portion | portions',
+    addToGroceryList: 'Add to grocery list',
+    instructions: 'Instructions',
+    keepOnScreen: 'Keep screen on',
+    eatenToday: 'Eaten today',
+    deleteRecipe: 'Delete recipe',
+    confirmDelete: 'Are you sure you want to delete this recipe?',
+    cancel: 'Cancel',
+    delete: 'Delete'
+  },
+  editRecipePage: {
+    title: 'Edit recipe',
+    name: 'Name',
+    category: 'Category',
+    categories: {
+      breakfast: 'Breakfast',
+      lunch: 'Lunch',
+      dinner: 'Dinner',
+      snack: 'Snack',
+      dessert: 'Dessert',
+      drink: 'Drink',
+      other: 'Other'
+    },
+    duration: 'Duration (min)',
+    portions: 'Portions',
+    rating: 'Rating',
+    image: 'Picture',
+    ingredients: 'Ingredients',
+    ingredient: 'Ingredient',
+    amount: 'Amount',
+    unit: 'Unit',
+    units: {
+      pc: 'piece',
+      ml: 'ml',
+      dl: 'dl',
+      l: 'l',
+      tsp: 'tsp',
+      tbsp: 'tbsp',
+      flOz: 'fl oz',
+      cup: 'cup',
+      pt: 'pt',
+      qt: 'qt',
+      gal: 'gal',
+      mg: 'mg',
+      g: 'g',
+      kg: 'kg',
+      oz: 'oz',
+      lb: 'lb'
+    },
+    instructions: 'Instructions',
+    instruction: 'Instruction',
+    notes: 'Notes',
+    cookGroups: 'Cook groups',
+    save: 'Save',
+    placeholder: {
+      name: 'Pasta Carbonara',
+      category: 'Dinner',
+      duration: '30',
+      portions: '4',
+      rating: '5',
+      amount: '2',
+      unit: 'pc',
+      ingredient: 'Spaghetti',
+      instruction: 'Boil the spaghetti',
+      notes: 'This is a family recipe',
+      image: 'Image'
+    },
+    ariaLabel: {
+      name: 'Name of the recipe',
+      category: 'Category of the recipe',
+      duration: 'Duration of the recipe',
+      portions: 'Number of portions of the recipe',
+      rating: 'Rating of the recipe',
+      image: 'Picture of the recipe',
+      ingredients: 'Ingredients of the recipe',
+      ingredient: 'Ingredient of the recipe',
+      amount: 'Amount of the ingredient',
+      unit: 'Unit of the ingredient',
+      instructions: 'Instructions of the recipe',
+      instruction: 'Instruction of the recipe',
+      notes: 'Notes about the recipe'
+    },
+    alt: {
+      previewImage: 'Preview of the recipe image'
+    },
+    errors: {
+      name: 'Name is required',
+      category: 'Category is required',
+      duration: 'Duration is required',
+      portions: 'Portions is required',
+      rating: 'Rating is required',
+      ingredients: 'Ingredients is required',
+      instructions: 'Instructions is required',
+      save: 'Something went wrong. Please try again.',
+      unsavedChanges: 'You have unsaved changes. Are you sure you want to leave?'
+    }
+  },
+  cookGroupsPage: {
+    title: 'Cook groups',
+    invites: 'Cook group invites',
+    noCookGroups: 'No cook groups found',
+    personalCookGroup: 'Personal cook group',
+    members: 'members | member | members',
+    recipes: 'recipes | recipe | recipes'
+  },
+  editCookGroupPage: {
+    title: 'Edit cook group',
+    name: 'Name',
+    inviteeEmails: 'Invitee emails',
+    cookGroupRecipes: 'Cook group recipes',
+    searchRecipes: 'Search recipes to add',
+    cancel: 'Cancel',
+    save: 'Save',
+    placeholder: {
+      name: 'Family',
+      inviteeEmails: "john.doe{'@'}gmail.com",
+      searchRecipes: 'Lasagna'
+    },
+    ariaLabel: {
+      name: 'Name of the cook group',
+      inviteeEmails: 'Emails of the invitees of the cook group',
+      cookGroupRecipe: 'Recipe added to the cook group',
+      searchRecipes: 'Search for recipes to add to the cook group'
+    },
+    errors: {
+      name: 'Name is required',
+      save: 'Something went wrong. Please try again.',
+      invitees: 'At least one invitee is required',
+      invalidEmail: 'Invalid email address'
+    }
+  },
+  groceryListPage: {
+    title: 'Grocery list',
+    noItems: 'No items in the grocery list',
+    ingredients: 'Ingredients',
+    emptyGroceryList: 'Empty grocery list',
+    confirmEmpty: 'Are you sure you want to empty the grocery list? This cannot be undone.',
+    cancel: 'Cancel',
+    empty: 'Empty',
+    errors: {
+      invalidIngredient:
+        'Invalid ingredient. Make sure all fields are filled and the amount is greater than 0.'
+    }
+  },
+  notFoundPage: {
+    title: 'Page not found',
+    description: 'The page you are looking for does not exist.'
+  },
+  database: {
+    errors: {
+      add: 'An error occurred while adding the data',
+      get: 'An error occurred while retrieving the data',
+      update: 'An error occurred while updating the data',
+      delete: 'An error occurred while deleting the data'
+    }
+  }
+};
+
+export type TranslationSchema = typeof en;
