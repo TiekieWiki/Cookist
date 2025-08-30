@@ -38,7 +38,7 @@
           </p>
         </template>
         |
-        <div>
+        <div v-if="recipe.rating">
           <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
           <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
         </div>
@@ -60,11 +60,7 @@
         </div>
       </section>
       <div class="label-group">
-        <label
-          v-for="(ingredient, index) in recipe.ingredients"
-          :key="ingredient.name"
-          class="ingredient"
-        >
+        <label v-for="ingredient in recipe.ingredients" :key="ingredient.name" class="ingredient">
           <input :name="ingredient.name" type="checkbox" />
           {{ ingredient.amount }}
           <select-field
