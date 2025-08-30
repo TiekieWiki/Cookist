@@ -135,7 +135,7 @@ export const en = {
       l: 'l',
       tsp: 'tsp',
       tbsp: 'tbsp',
-      flOz: 'fl oz',
+      floz: 'fl oz',
       cup: 'cup',
       pt: 'pt',
       qt: 'qt',

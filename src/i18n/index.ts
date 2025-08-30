@@ -1,5 +1,5 @@
 import { createI18n } from 'vue-i18n';
-import en from './locales/en.json';
+import { en } from './locales/en.ts';
 import { nextTick } from 'vue';
 
 // Create a new instance of the i18n plugin

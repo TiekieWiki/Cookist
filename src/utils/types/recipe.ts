@@ -39,7 +39,7 @@ export enum RecipeUnitsVolume {
   Liters = 'l',
   Teaspoon = 'tsp',
   Tablespoon = 'tbsp',
-  FluidOunce = 'fl oz',
+  FluidOunce = 'floz',
   Cup = 'cup',
   Pint = 'pt',
   Quart = 'qt',

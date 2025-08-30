@@ -138,7 +138,7 @@ export const nl: TranslationSchema = {
       l: 'l',
       tsp: 'tl',
       tbsp: 'el',
-      flOz: 'fl oz',
+      floz: 'fl oz',
       cup: 'cup',
       pt: 'pt',
       qt: 'qt',
