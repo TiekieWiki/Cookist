@@ -43,6 +43,11 @@ export const en = {
       light: 'Light',
       dark: 'Dark'
     },
+    handedness: {
+      right: 'Right-handed',
+      left: 'Left-handed',
+      ambidextrous: 'Ambidextrous'
+    },
     save: 'Save',
     saveSuccess: 'Settings saved successfully',
     deleteAccount: 'Delete account',
@@ -52,7 +57,8 @@ export const en = {
     ariaLabel: {
       userEmail: 'User email',
       language: 'Language',
-      colorScheme: 'Color scheme'
+      colorScheme: 'Color scheme',
+      handedness: 'Handedness'
     }
   },
   recipesPage: {

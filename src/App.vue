@@ -72,7 +72,7 @@ import type { User } from './utils/types/user';
 import { setSystemLanguage, setUserLanguage } from './utils/global/setLanguage';
 import { useI18n } from 'vue-i18n';
 import { lazyLoadLocaleMessages } from './i18n';
-import { setColorScheme } from './utils/global/setColorScheme';
+import { setColorScheme } from './utils/global/setInterfaceVariables';
 
 const isLoggedIn = useIsLoggedIn();
 const user = ref<User | undefined>(undefined);

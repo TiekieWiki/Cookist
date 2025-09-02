@@ -28,6 +28,16 @@
   }
 }
 
+:root.left {
+  .slide-fade {
+    &-enter-from,
+    &-leave-to {
+      transform: translateX(-20px);
+      opacity: 0;
+    }
+  }
+}
+
 // Switch transition
 .switch {
   &-enter-active,
@@ -39,6 +49,16 @@
   &-leave-to {
     transform: translateX(20px);
     opacity: 0;
+  }
+}
+
+:root.left {
+  .switch {
+    &-enter-from,
+    &-leave-to {
+      transform: translateX(-20px);
+      opacity: 0;
+    }
   }
 }
 

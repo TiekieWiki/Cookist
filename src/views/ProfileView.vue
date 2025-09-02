@@ -16,7 +16,12 @@
           labelPrefix="profilePage.colorSchemes."
           v-model:selected="selectedColorScheme"
         />
-
+        <select-field
+          :ariaLabel="$t('profilePage.ariaLabel.handedness')"
+          :items="handedness"
+          labelPrefix="profilePage.handedness."
+          v-model:selected="selectedHandedness"
+        />
         <transition name="fade">
           <p v-if="successMessage" class="success">{{ successMessage }}</p>
         </transition>
@@ -73,7 +78,7 @@ import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
 import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
 import { deleteAccount } from '@/utils/profile/deleteAccount';
-import { setColorScheme } from '@/utils/global/setColorScheme';
+import { setColorScheme, setHandedness } from '@/utils/global/setInterfaceVariables';
 
 // Set language dropdown to user language
 const languages = [
@@ -86,6 +91,12 @@ const colorSchemes = [
   { value: 'dark', label: 'dark' }
 ];
 const selectedColorScheme = ref<'light' | 'dark'>();
+const handedness = [
+  { value: 'left', label: 'left' },
+  { value: 'right', label: 'right' },
+  { value: 'ambidextrous', label: 'ambidextrous' }
+];
+const selectedHandedness = ref<string>();
 
 // Get user from database and set dropdowns to user settings
 onMounted(async () => {
@@ -94,6 +105,7 @@ onMounted(async () => {
       if (users.length > 0) {
         selectedLanguage.value = users[0].language;
         selectedColorScheme.value = users[0].colorScheme;
+        selectedHandedness.value = users[0].handedness || 'right';
       }
     })
     .catch((error: any) => {
@@ -102,13 +114,18 @@ onMounted(async () => {
 });
 
 // Watch for changes in selected language and update i18n
-watch(selectedLanguage, (newLanguage) => {
-  i18n.global.locale.value = newLanguage;
+watch(selectedLanguage, () => {
+  i18n.global.locale.value = selectedLanguage.value || 'en';
 });
 
 // Watch for changes in selected color scheme and update color scheme
 watch(selectedColorScheme, () => {
   setColorScheme(selectedColorScheme.value || 'dark');
+});
+
+// Watch for changes in selected handedness and update database
+watch(selectedHandedness, () => {
+  setHandedness(selectedHandedness.value || 'right');
 });
 
 // Save settings to database
@@ -121,7 +138,8 @@ function saveSettings(): void {
   Promise.all([
     updateData('users', where('id', '==', getAuth().currentUser?.uid), {
       language: selectedLanguage.value,
-      colorScheme: selectedColorScheme.value
+      colorScheme: selectedColorScheme.value,
+      handedness: selectedHandedness.value
     }),
     useSuccessTransition(successMessage, 'profilePage.saveSuccess')
   ]).catch((error: any) => {

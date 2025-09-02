@@ -45,6 +45,11 @@ export const nl: TranslationSchema = {
       light: 'Licht',
       dark: 'Donker'
     },
+    handedness: {
+      right: 'Rechtshandig',
+      left: 'Linkshandig',
+      ambidextrous: 'Tweehandig'
+    },
     save: 'Opslaan',
     saveSuccess: 'Instellingen opgeslagen',
     deleteAccount: 'Account verwijderen',
@@ -55,7 +60,8 @@ export const nl: TranslationSchema = {
     ariaLabel: {
       userEmail: 'Gebruiker e-mail',
       language: 'Taal',
-      colorScheme: 'Kleurenschema'
+      colorScheme: 'Kleurenschema',
+      handedness: 'Handigheid'
     }
   },
   recipesPage: {

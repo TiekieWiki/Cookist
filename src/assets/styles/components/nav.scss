@@ -81,3 +81,18 @@ aside {
     color: var(--color-secondary);
   }
 }
+
+:root.left {
+  aside {
+    left: 0;
+
+    nav {
+      align-items: start;
+    }
+
+    .brand {
+      right: auto;
+      left: var(--gap-xlarge);
+    }
+  }
+}
