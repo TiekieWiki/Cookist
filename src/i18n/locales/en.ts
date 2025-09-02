@@ -206,7 +206,11 @@ export const en = {
     noCookGroups: 'No cook groups found',
     personalCookGroup: 'Personal cook group',
     members: 'members | member | members',
-    recipes: 'recipes | recipe | recipes'
+    recipes: 'recipes | recipe | recipes',
+    deleteCookGroup: 'Delete cook group',
+    confirmDelete: 'Are you sure you want to delete this cook group? This cannot be undone.',
+    cancel: 'Cancel',
+    delete: 'Delete'
   },
   editCookGroupPage: {
     title: 'Edit cook group',

@@ -68,8 +68,8 @@
             :placeholder="$t('editRecipePage.placeholder.unit')"
             :items="
               Object.values(getPossibleUnits(ingredient.unit)).map((unit) => ({
-                value: unit.toLowerCase(),
-                label: unit.toLowerCase()
+                value: (unit as string).toLowerCase(),
+                label: (unit as string).toLowerCase()
               }))
             "
             labelPrefix="editRecipePage.units."

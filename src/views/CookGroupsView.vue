@@ -32,6 +32,7 @@
           :cook-group="cookGroup"
           v-model:edit-cook-group-open="editCookGroupOpen"
           v-model:editable-cook-group="editableCookGroup"
+          @refresh-cook-groups="getCookGroups()"
         />
       </article>
     </template>

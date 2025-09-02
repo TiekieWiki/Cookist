@@ -1,5 +1,5 @@
 import { getCookGroups } from '@/utils/cook group/getCookGroups';
-import { getData, updateData } from '@/utils/global/db';
+import { deleteData, getData, updateData } from '@/utils/global/db';
 import type { CookGroup } from '@/utils/types/cookgroup';
 import { getAuth } from 'firebase/auth';
 import { where } from 'firebase/firestore';

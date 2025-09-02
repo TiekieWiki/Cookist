@@ -210,7 +210,12 @@ export const nl: TranslationSchema = {
     noCookGroups: 'Geen kookgroepen gevonden',
     personalCookGroup: 'Persoonlijke kookgroep',
     members: 'deelnemers | deelnemer | deelnemers',
-    recipes: 'recepten | recept | recepten'
+    recipes: 'recepten | recept | recepten',
+    deleteCookGroup: 'Kookgroep verwijderen',
+    confirmDelete:
+      'Weet je zeker dat je deze kookgroep wilt verwijderen? Dit kan niet ongedaan worden gemaakt.',
+    cancel: 'Annuleren',
+    delete: 'Verwijderen'
   },
   editCookGroupPage: {
     title: 'Kookgroep toevoegen',

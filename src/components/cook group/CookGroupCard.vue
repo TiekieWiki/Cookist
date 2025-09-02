@@ -7,12 +7,14 @@
           : $t('cookGroupsPage.personalCookGroup')
       }}
     </h3>
-    <font-awesome-icon
-      v-if="cookGroup.owner === getAuth().currentUser?.uid"
-      @click="editCookGroup(cookGroup)"
-      class="edit"
-      :icon="['fas', 'pen']"
-    />
+    <div v-if="cookGroup.owner === getAuth().currentUser?.uid" class="actions">
+      <font-awesome-icon @click="editCookGroup(cookGroup)" class="edit" :icon="['fas', 'pen']" />
+      <font-awesome-icon
+        @click="((deleteCookGroupOpen = true), (editableCookGroup = cookGroup))"
+        class="delete"
+        :icon="['fas', 'trash']"
+      />
+    </div>
   </section>
   <section class="info">
     <p>
@@ -25,6 +27,14 @@
       {{ $t('cookGroupsPage.members', cookGroup.members.length + 1) }}
     </p>
   </section>
+  <confirm-pop-up
+    v-model:open-pop-up="deleteCookGroupOpen"
+    :title="$t('cookGroupsPage.deleteCookGroup')"
+    :section="$t('cookGroupsPage.confirmDelete')"
+    :cancel="$t('cookGroupsPage.cancel')"
+    :confirm="$t('cookGroupsPage.delete')"
+    @confirm="updateCookGroup()"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -35,9 +45,15 @@ import { onMounted, ref } from 'vue';
 import { getData } from '@/utils/global/db';
 import { where } from 'firebase/firestore';
 import { setImage } from '@/utils/global/manageImage';
+import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
+import { deleteCookGroup } from '@/utils/cook group/deleteCookGroup';
 
 const props = defineProps<{
   cookGroup: CookGroup;
+}>();
+
+const emit = defineEmits<{
+  (e: 'refresh-cook-groups'): void;
 }>();
 
 const editCookGroupOpen = defineModel<boolean>('editCookGroupOpen', { required: true });
@@ -70,5 +86,18 @@ onMounted(() => {
 function editCookGroup(cookGroup: CookGroup): void {
   editCookGroupOpen.value = true;
   editableCookGroup.value = cookGroup;
+}
+
+// Delete cook group
+const deleteCookGroupOpen = ref<boolean>(false);
+
+/**
+ * Update cook group (delete)
+ */
+async function updateCookGroup(): Promise<void> {
+  await deleteCookGroup(editableCookGroup.value?.id);
+  deleteCookGroupOpen.value = false;
+  editableCookGroup.value = undefined;
+  emit('refresh-cook-groups');
 }
 </script>
