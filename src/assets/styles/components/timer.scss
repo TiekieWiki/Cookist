@@ -1,13 +1,26 @@
 @import '../mixins/animations';
 
-.timer {
-    gap: var(--gap-medium);
+.header {
+    &.timer {
+        display: grid;
+        grid-template-columns: repeat(9, auto);
+        gap: var(--gap-medium);
 
-    .edit:first-child {
-        font-size: 2rem;
-    }
+        @media screen and (max-width: 900px) {
+            gap: var(--gap-small);
+            grid-template-columns: repeat(8, auto);
 
-    &.finished {
-        @include animation-shake;
+            .icon {
+                grid-column: span 8;
+            }
+        }
+
+        .edit:first-child {
+            font-size: 2rem;
+        }
+
+        &.finished {
+            @include animation-shake;
+        }
     }
 }

@@ -2,7 +2,6 @@
   <main class="two-columns">
     <article>
       <h2>{{ $t('profilePage.settings') }}</h2>
-
       <form>
         <select-field
           :ariaLabel="$t('profilePage.ariaLabel.language')"
