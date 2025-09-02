@@ -1,0 +1,40 @@
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100vw - 2 * var(--gap-medium));
+  height: calc(100vh - 2 * var(--gap-medium));
+
+  .loader-spinner {
+    width: 60px;
+    aspect-ratio: 4;
+    $circle: no-repeat radial-gradient(circle closest-side, var(--color-primary) 90%, var(--color-background-primary) 0);
+    background:
+      $circle 0% 50%,
+      $circle 50% 50%,
+      $circle 100% 50%;
+    background-size: calc(100% / 3) 100%;
+    animation: spinner 1s infinite linear;
+  }
+
+  @keyframes spinner {
+    33% {
+      background-size:
+        calc(100% / 3) 0%,
+        calc(100% / 3) 100%,
+        calc(100% / 3) 100%;
+    }
+    50% {
+      background-size:
+        calc(100% / 3) 100%,
+        calc(100% / 3) 0%,
+        calc(100% / 3) 100%;
+    }
+    66% {
+      background-size:
+        calc(100% / 3) 100%,
+        calc(100% / 3) 100%,
+        calc(100% / 3) 0%;
+    }
+  }
+}

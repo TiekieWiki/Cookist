@@ -1,7 +1,16 @@
 <template>
   <router-view v-slot="{ Component }">
     <transition name="slide-fade">
-      <component :is="Component" />
+      <suspense>
+        <template #default>
+          <component :is="Component" />
+        </template>
+        <template #fallback>
+          <div class="loader">
+            <div class="loader-spinner"></div>
+          </div>
+        </template>
+      </suspense>
     </transition>
   </router-view>
   <aside :class="menuOpen ? 'menuOpen' : 'menuClose'">
