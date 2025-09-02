@@ -95,7 +95,7 @@ const handedness = [
   { value: 'right', label: 'right' },
   { value: 'ambidextrous', label: 'ambidextrous' }
 ];
-const selectedHandedness = ref<string>();
+const selectedHandedness = ref<'left' | 'right' | 'ambidextrous'>('right');
 
 // Get user from database and set dropdowns to user settings
 onMounted(async () => {
