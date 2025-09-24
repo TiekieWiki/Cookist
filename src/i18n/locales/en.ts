@@ -26,6 +26,11 @@ export const en = {
       wrongPassword: 'Invalid password',
       emailAlreadyExists: 'An account with the given email already exists',
       invalidPassword: 'The password must be at least 6 characters long',
+      passwordLowercase: 'The password must contain at least one lowercase letter',
+      passwordUppercase: 'The password must contain at least one uppercase letter',
+      passwordNumber: 'The password must contain at least one number',
+      passwordMinLength: 'The password must be at least 6 characters long',
+      passwordMaxLength: 'The password must be at most 4096 characters long',
       userNotFound: 'No account with that email was found',
       default: 'Email or password was incorrect'
     }
@@ -111,7 +116,8 @@ export const en = {
     deleteRecipe: 'Delete recipe',
     confirmDelete: 'Are you sure you want to delete this recipe?',
     cancel: 'Cancel',
-    delete: 'Delete'
+    delete: 'Delete',
+    recipeNotFound: 'Recipe not found'
   },
   editRecipePage: {
     title: 'Edit recipe',
@@ -157,6 +163,7 @@ export const en = {
     notes: 'Notes',
     cookGroups: 'Cook groups',
     save: 'Save',
+    recipeNotFound: 'Recipe not found',
     placeholder: {
       name: 'Pasta Carbonara',
       category: 'Dinner',

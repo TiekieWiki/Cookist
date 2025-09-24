@@ -28,6 +28,11 @@ export const nl: TranslationSchema = {
       wrongPassword: 'Ongeldig wachtwoord',
       emailAlreadyExists: 'Een account met het gegeven mailadres bestaat al',
       invalidPassword: 'Het wachtwoord moet minimaal 6 karakters lang zijn',
+      passwordLowercase: 'Het wachtwoord moet minimaal één kleine letter bevatten',
+      passwordUppercase: 'Het wachtwoord moet minimaal één hoofdletter bevatten',
+      passwordNumber: 'Het wachtwoord moet minimaal één nummer bevatten',
+      passwordMinLength: 'Het wachtwoord moet minimaal 6 karakters lang zijn',
+      passwordMaxLength: 'Het wachtwoord mag maximaal 4096 karakters lang zijn',
       userNotFound: 'Er was geen account met die email gevonden',
       default: 'Email of wachtwoord was ongeldig'
     }
@@ -114,7 +119,8 @@ export const nl: TranslationSchema = {
     deleteRecipe: 'Verwijder recept',
     confirmDelete: 'Weet je zeker dat je dit recept wilt verwijderen?',
     cancel: 'Annuleren',
-    delete: 'Verwijderen'
+    delete: 'Verwijderen',
+    recipeNotFound: 'Recept niet gevonden'
   },
   editRecipePage: {
     title: 'Recept bewerken',
@@ -160,6 +166,7 @@ export const nl: TranslationSchema = {
     notes: 'Aantekeningen',
     cookGroups: 'Kookgroepen',
     save: 'Opslaan',
+    recipeNotFound: 'Recept niet gevonden',
     placeholder: {
       name: 'Pasta Carbonara',
       category: 'Avondeten',

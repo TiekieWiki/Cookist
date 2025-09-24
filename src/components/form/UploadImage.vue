@@ -36,7 +36,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{ image: [File] }>();
 
-const previewImage = ref('');
+const previewImage = ref<string>('');
 
 /**
  * Show image

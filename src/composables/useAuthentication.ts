@@ -3,12 +3,14 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  validatePassword
 } from 'firebase/auth';
 import router from '@/router';
 import type { User } from '@/utils/types/user';
 import { addData } from '@/utils/global/db';
 import type { CookGroup } from '@/utils/types/cookgroup';
+import { get } from 'http';
 
 /**
  * Register user with email and password
@@ -21,6 +23,33 @@ export function useRegister(): {
   const errorMessageRegister = ref<string>('');
 
   const register = async (email: string, password: string) => {
+    // Check password validity
+    const status = await validatePassword(getAuth(), password);
+    if (!status.isValid) {
+      if (status.containsLowercaseLetter !== true) {
+        errorMessageRegister.value = 'loginPage.errors.passwordLowercase';
+        return;
+      }
+      if (status.containsUppercaseLetter !== true) {
+        errorMessageRegister.value = 'loginPage.errors.passwordUppercase';
+        return;
+      }
+      if (status.containsNumericCharacter !== true) {
+        errorMessageRegister.value = 'loginPage.errors.passwordNumber';
+        return;
+      }
+      if (status.meetsMinPasswordLength !== true) {
+        errorMessageRegister.value = 'loginPage.errors.passwordMinLength';
+        return;
+      }
+      if (status.meetsMaxPasswordLength !== true) {
+        errorMessageRegister.value = 'loginPage.errors.passwordMaxLength';
+        return;
+      }
+      return;
+    }
+
+    // Log in user
     createUserWithEmailAndPassword(getAuth(), email, password)
       .then(() => {
         // Add user to database

@@ -65,10 +65,25 @@ export async function getQueryRecipes(
   let cookGroupRecipes: CookGroupRecipe[] = [];
   if (cookGroup !== '') {
     cookGroupFilter.push(where('cookGroupId', '==', cookGroup));
-    cookGroupRecipes = (await getData('cookGroupRecipes', {
+    getData('cookGroupRecipes', {
       filters: and(...cookGroupFilter),
       constraints: cookGroupConstraints
-    })) as CookGroupRecipe[];
+    })
+      .then((recipes) => {
+        cookGroupRecipes = recipes as CookGroupRecipe[];
+      })
+      .catch((error) => {
+        console.error('Error getting cook group recipes from database:', error);
+      });
+  }
+
+  // Check if there are cook group recipes
+  if (cookGroupRecipes.length === 0 && cookGroup !== '') {
+    return {
+      cookGroupRecipes: [],
+      recipeLastEatenOrder: [],
+      recipeFilter: { filters: and(...filters), constraints: constraints }
+    };
   }
 
   // Create last eaten filter if selected by user

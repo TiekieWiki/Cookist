@@ -79,6 +79,10 @@ export function useRecipes(): {
         .then(async ({ cookGroupRecipes, recipeLastEatenOrder, recipeFilter }) => {
           currentCookGroupRecipes.value = cookGroupRecipes;
 
+          if (cookGroupRecipes.length === 0) {
+            recipes.value = [];
+            return;
+          }
           recipes.value = (await getData('recipes', recipeFilter)) as Recipe[];
           // Order the recipes by last eaten if provided
           if (recipeLastEatenOrder.length > 0) {

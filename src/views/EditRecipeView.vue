@@ -1,5 +1,12 @@
 <template>
-  <main class="editRecipe">
+  <main v-if="$route.params.cookGroupRecipeId && !recipe.name" class="editRecipe">
+    <article>
+      <section class="header">
+        <h2>{{ $t('editRecipePage.recipeNotFound') }}</h2>
+      </section>
+    </article>
+  </main>
+  <main v-else class="editRecipe">
     <article>
       <h2>{{ $t('editRecipePage.title') }}</h2>
       <form>

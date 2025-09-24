@@ -1,5 +1,5 @@
 <template>
-  <main class="recipe two-columns">
+  <main v-if="recipe.name" class="recipe two-columns">
     <article>
       <section class="header">
         <h2>{{ capitalizeFirstLetter(recipe.name) }}</h2>
@@ -105,6 +105,13 @@
         <font-awesome-icon v-if="lastEatenToday" :icon="['fas', 'check']" />
         <font-awesome-icon v-else :icon="['fas', 'calendar']" />{{ $t('recipePage.eatenToday') }}
       </button>
+    </article>
+  </main>
+  <main v-else class="recipe two-columns">
+    <article>
+      <section class="header">
+        <h2>{{ $t('recipePage.recipeNotFound') }}</h2>
+      </section>
     </article>
   </main>
   <confirm-pop-up
