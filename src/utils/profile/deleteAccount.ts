@@ -65,7 +65,7 @@ export async function deleteAccount(): Promise<void> {
     })
     .then(async () => {
       // Delete the user's grocery list
-      return deleteData('groceryList', where('userId', '==', getAuth().currentUser?.uid)).catch(
+      return deleteData('groceryLists', where('userId', '==', getAuth().currentUser?.uid)).catch(
         (err) => {
           console.error('Error deleting grocery list:', err);
         }

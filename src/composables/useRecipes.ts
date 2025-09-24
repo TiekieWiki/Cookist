@@ -79,7 +79,7 @@ export function useRecipes(): {
         .then(async ({ cookGroupRecipes, recipeLastEatenOrder, recipeFilter }) => {
           currentCookGroupRecipes.value = cookGroupRecipes;
 
-          if (cookGroupRecipes.length === 0) {
+          if (currentCookGroupRecipes.value.length === 0) {
             recipes.value = [];
             return;
           }

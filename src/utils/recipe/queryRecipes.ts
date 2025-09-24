@@ -65,7 +65,7 @@ export async function getQueryRecipes(
   let cookGroupRecipes: CookGroupRecipe[] = [];
   if (cookGroup !== '') {
     cookGroupFilter.push(where('cookGroupId', '==', cookGroup));
-    getData('cookGroupRecipes', {
+    await getData('cookGroupRecipes', {
       filters: and(...cookGroupFilter),
       constraints: cookGroupConstraints
     })
@@ -78,7 +78,7 @@ export async function getQueryRecipes(
   }
 
   // Check if there are cook group recipes
-  if (cookGroupRecipes.length === 0 && cookGroup !== '') {
+  if (cookGroupRecipes.length === 0) {
     return {
       cookGroupRecipes: [],
       recipeLastEatenOrder: [],

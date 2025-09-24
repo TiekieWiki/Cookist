@@ -10,6 +10,7 @@
     <div v-if="cookGroup.owner === getAuth().currentUser?.uid" class="actions">
       <font-awesome-icon @click="editCookGroup(cookGroup)" class="edit" :icon="['fas', 'pen']" />
       <font-awesome-icon
+        v-if="!cookGroup.personal"
         @click="((deleteCookGroupOpen = true), (editableCookGroup = cookGroup))"
         class="delete"
         :icon="['fas', 'trash']"

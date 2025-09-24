@@ -114,7 +114,7 @@ onMounted(async () => {
 
 // Watch for changes in selected language and update i18n
 watch(selectedLanguage, () => {
-  i18n.global.locale.value = selectedLanguage.value || 'en';
+  i18n.global.locale.value = (selectedLanguage.value as 'en' | 'nl') || 'en';
 });
 
 // Watch for changes in selected color scheme and update color scheme
