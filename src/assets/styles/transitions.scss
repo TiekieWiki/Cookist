@@ -29,11 +29,13 @@
 }
 
 :root.left {
-  .slide-fade {
-    &-enter-from,
-    &-leave-to {
-      transform: translateX(-20px);
-      opacity: 0;
+  @media only screen and (max-width: 900px) {
+    .slide-fade {
+      &-enter-from,
+      &-leave-to {
+        transform: translateX(-20px);
+        opacity: 0;
+      }
     }
   }
 }
@@ -53,11 +55,13 @@
 }
 
 :root.left {
-  .switch {
-    &-enter-from,
-    &-leave-to {
-      transform: translateX(-20px);
-      opacity: 0;
+  @media only screen and (max-width: 900px) {
+    .switch {
+      &-enter-from,
+      &-leave-to {
+        transform: translateX(-20px);
+        opacity: 0;
+      }
     }
   }
 }
