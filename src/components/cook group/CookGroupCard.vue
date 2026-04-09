@@ -28,7 +28,7 @@
       {{ $t('cookGroupsPage.members', cookGroup.members.length + 1) }}
     </p>
   </section>
-  <confirm-pop-up
+  <ConfirmPopUp
     v-model:open-pop-up="deleteCookGroupOpen"
     :title="$t('cookGroupsPage.deleteCookGroup')"
     :section="$t('cookGroupsPage.confirmDelete')"

@@ -34,7 +34,7 @@
         {{ $t('recipePage.addToGroceryList') }}
       </button>
     </section>
-    <error-message v-model:message="errorMessage" />
+    <ErrorMessage v-model:message="errorMessage" />
   </article>
 </template>
 

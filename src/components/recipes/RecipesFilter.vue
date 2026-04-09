@@ -1,6 +1,6 @@
 <template>
   <section class="filters">
-    <check-box-list
+    <CheckBoxList
       id="category"
       :label="$t('editRecipePage.category')"
       v-model:items="filter.categories"
@@ -70,7 +70,7 @@
       </div>
     </div>
     <div class="ingredients">
-      <input-list
+      <InputList
         id="ingredients"
         :label="$t('editRecipePage.ingredients')"
         v-model:items="filter.ingredients"
@@ -84,7 +84,7 @@
           v-model:input="filter.ingredients[index].name"
           @input="index < 9 ? addInputRow(filter.ingredients, index, { name: '' }) : null"
         />
-      </input-list>
+      </InputList>
     </div>
   </section>
 </template>

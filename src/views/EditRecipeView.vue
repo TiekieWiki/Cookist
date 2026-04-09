@@ -10,7 +10,7 @@
     <article>
       <h2>{{ $t('editRecipePage.title') }}</h2>
       <form>
-        <new-recipe
+        <NewRecipe
           v-model:recipe="recipe"
           v-model:cook-groups="cookGroups"
           v-model:cook-group-recipe="cookGroupRecipe"
@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import NewRecipe from '@/components/recipe/NewRecipe.vue';
+import NewRecipe from '@/components/edit recipe/NewRecipe.vue';
 import { useEditRecipe } from '@/composables/useEditRecipe';
 
 const { recipe, cookGroups, cookGroupRecipe, image, errorMessage, saveRecipe } = useEditRecipe();

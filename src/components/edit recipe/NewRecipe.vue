@@ -59,7 +59,7 @@
       :max="5"
       v-model:input="recipe.rating"
     />
-    <input-list
+    <InputList
       id="ingredients"
       :label="$t('editRecipePage.ingredients')"
       :required="true"
@@ -94,8 +94,8 @@
         v-model:input="recipe.ingredients[index].name"
         @input="addInputRow(recipe.ingredients, index, { amount: 0, unit: '', name: '' })"
       />
-    </input-list>
-    <input-list
+    </InputList>
+    <InputList
       id="instructions"
       :label="$t('editRecipePage.instructions')"
       :required="true"
@@ -110,8 +110,8 @@
         v-model:input="recipe.instructions[index]"
         @input="addInputRow(recipe.instructions, index, '')"
       />
-    </input-list>
-    <text-area
+    </InputList>
+    <TextArea
       id="notes"
       name="notes"
       :label="$t('editRecipePage.notes')"
@@ -121,12 +121,12 @@
     />
   </section>
   <section>
-    <check-box-list
+    <CheckBoxList
       id="cookGroups"
       :label="$t('editRecipePage.cookGroups')"
       v-model:items="cookGroups"
     />
-    <upload-image
+    <UploadImage
       id="image"
       name="image"
       :label="$t('editRecipePage.image')"
@@ -136,7 +136,7 @@
       @image="(i: File | null) => (image = i)"
     />
   </section>
-  <error-message v-model:message="errorMessage" />
+  <ErrorMessage v-model:message="errorMessage" />
 </template>
 
 <script setup lang="ts">

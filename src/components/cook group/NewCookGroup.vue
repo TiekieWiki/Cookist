@@ -17,7 +17,7 @@
         :required="true"
         v-model:input="cookGroup.name"
       />
-      <input-list
+      <InputList
         id="inviteeEmails"
         :label="$t('editCookGroupPage.inviteeEmails')"
         v-model:items="cookGroup.invitees"
@@ -31,9 +31,9 @@
           v-model:input="cookGroup.invitees[index]"
           @input="addInputRow(cookGroup.invitees, index, '')"
         />
-      </input-list>
-      <error-message v-model:message="errorMessage" />
-      <input-list
+      </InputList>
+      <ErrorMessage v-model:message="errorMessage" />
+      <InputList
         v-if="recipes.length > 0"
         id="cookGroupRecipes"
         :label="$t('editCookGroupPage.cookGroupRecipes')"
@@ -49,7 +49,7 @@
           v-model:input="recipes[index].name"
           @input="addInputRow(recipes, index, '')"
         />
-      </input-list>
+      </InputList>
       <InputField
         id="searchRecipes"
         name="searchRecipes"
