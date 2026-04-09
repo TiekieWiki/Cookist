@@ -1,92 +1,11 @@
 <template>
   <main class="two-columns">
-    <article>
-      <h2>{{ $t('loginPage.login') }}</h2>
-      <form>
-        <InputField
-          name="emailLogin"
-          :placeholder="$t('loginPage.placeholder.email')"
-          :ariaLabel="$t('loginPage.ariaLabel.emailLogin')"
-          type="text"
-          autocomplete="email"
-          v-model:input="emailLogin"
-        />
-        <InputField
-          name="passwordLogin"
-          :placeholder="$t('loginPage.placeholder.password')"
-          :ariaLabel="$t('loginPage.ariaLabel.passwordLogin')"
-          type="password"
-          autocomplete="current-password"
-          v-model:input="passwordLogin"
-        />
-        <error-message v-model:message="errorMessageLogin" />
-        <button @click.prevent="handleLogin" type="submit">
-          {{ $t('loginPage.login') }}
-        </button>
-        <button @click.prevent="signInWithGoogle" type="submit">
-          {{ $t('loginPage.googleLogin') }}
-        </button>
-      </form>
-    </article>
-    <article>
-      <h2>{{ $t('loginPage.register') }}</h2>
-      <form>
-        <InputField
-          name="emailRegister"
-          :placeholder="$t('loginPage.placeholder.email')"
-          :ariaLabel="$t('loginPage.ariaLabel.emailRegister')"
-          type="email"
-          autocomplete="email"
-          v-model:input="emailRegister"
-        />
-        <InputField
-          name="passwordRegister"
-          :placeholder="$t('loginPage.placeholder.password')"
-          :ariaLabel="$t('loginPage.ariaLabel.passwordRegister')"
-          type="password"
-          autocomplete="new-password"
-          v-model:input="passwordRegister"
-        />
-        <error-message v-model:message="errorMessageRegister" />
-        <button @click.prevent="handleRegister" type="submit">
-          {{ $t('loginPage.register') }}
-        </button>
-        <button @click.prevent="signInWithGoogle" type="submit">
-          {{ $t('loginPage.googleRegister') }}
-        </button>
-      </form>
-    </article>
+    <LoginCard />
+    <RegisterCard />
   </main>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { signInWithGoogle } from '@/utils/global/authentication';
-import { useLogin, useRegister } from '@/composables/useAuthentication';
-import ErrorMessage from '@/components/form/ErrorMessage.vue';
-import InputField from '@/components/form/InputField.vue';
-
-// Register
-const emailRegister = ref<string>('');
-const passwordRegister = ref<string>('');
-const { errorMessageRegister, register } = useRegister();
-
-/**
- * Handle the register button click
- */
-function handleRegister(): void {
-  register(emailRegister.value, passwordRegister.value);
-}
-
-// Login
-const emailLogin = ref<string>('');
-const passwordLogin = ref<string>('');
-const { errorMessageLogin, login } = useLogin();
-
-/**
- * Handle the login button click
- */
-function handleLogin(): void {
-  login(emailLogin.value, passwordLogin.value);
-}
+import LoginCard from '@/components/login/LoginCard.vue';
+import RegisterCard from '@/components/login/RegisterCard.vue';
 </script>

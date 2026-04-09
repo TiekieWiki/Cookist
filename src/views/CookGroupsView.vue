@@ -28,7 +28,7 @@
     </article>
     <template v-else>
       <article v-for="cookGroup in cookGroups" :key="cookGroup.id" class="card" :id="cookGroup.id">
-        <cook-group-card
+        <CookGroupCard
           :cook-group="cookGroup"
           v-model:edit-cook-group-open="editCookGroupOpen"
           v-model:editable-cook-group="editableCookGroup"
@@ -43,7 +43,7 @@
     </article>
   </main>
   <teleport to="body" v-if="editCookGroupOpen">
-    <new-cook-group
+    <NewCookGroup
       :cook-group="editableCookGroup"
       @close-pop-up="closePopUp()"
       @refresh-cook-groups="getCookGroups()"
