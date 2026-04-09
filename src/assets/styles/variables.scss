@@ -1,9 +1,10 @@
 @mixin light-mode {
-  --color-primary: #199764;
-    --color-secondary: #148054;
-    --color-accent-primary: linear-gradient(to top right, #148054, #199764);
+    --color-primary: #157a6e;
+    --color-secondary: #147b5f;
+    --color-accent: #0ba869;
+    --color-accent-primary: linear-gradient(to top right, #147b5f, #157a6e);
     --color-background-primary: #ebebeb;
-    --color-background-secondary: #f5f5f5;
+    --color-background-secondary: #e1e1e1;
     --color-success: #20a957;
     --color-error: #be1b16;
     --color-accent-error: linear-gradient(to top right, #be1b16, rgba(190, 27, 22, 0.7));
@@ -14,11 +15,12 @@
 }
 
 @mixin dark-mode {
-    --color-primary: #199764;
-    --color-secondary: #148054;
-    --color-accent-primary: linear-gradient(to top right, #148054, #199764);
-    --color-background-primary: #0b0b0b;
-    --color-background-secondary: #1b1b1b;
+    --color-primary: #157a6e;
+    --color-secondary: #147b5f;
+    --color-accent: #0ba869;
+    --color-accent-primary: linear-gradient(to top right, #147b5f, #157a6e);
+    --color-background-primary: #010907;
+    --color-background-secondary: #111312;
     --color-success: #20a957;
     --color-error: #be1b16;
     --color-accent-error: linear-gradient(to top right, #be1b16, rgba(190, 27, 22, 0.7));

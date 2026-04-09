@@ -21,7 +21,7 @@
         </div>
       </section>
       <section class="info">
-        <p>{{ capitalizeFirstLetter(recipe.category) }}</p>
+        <p>{{ capitalizeFirstLetter($t('editRecipePage.categories.' + recipe.category)) }}</p>
         |
         <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipe.duration }}</p>
         |
