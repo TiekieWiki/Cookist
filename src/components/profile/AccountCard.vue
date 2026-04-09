@@ -2,19 +2,19 @@
   <article>
     <h2>{{ $t('profilePage.settings') }}</h2>
     <form>
-      <select-field
+      <SelectField
         :ariaLabel="$t('profilePage.ariaLabel.language')"
         :items="languages"
         labelPrefix="profilePage.languages."
         v-model:selected="selectedLanguage"
       />
-      <select-field
+      <SelectField
         :ariaLabel="$t('profilePage.ariaLabel.colorScheme')"
         :items="colorSchemes"
         labelPrefix="profilePage.colorSchemes."
         v-model:selected="selectedColorScheme"
       />
-      <select-field
+      <SelectField
         :ariaLabel="$t('profilePage.ariaLabel.handedness')"
         :items="handedness"
         labelPrefix="profilePage.handedness."

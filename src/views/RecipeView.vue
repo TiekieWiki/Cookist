@@ -63,7 +63,7 @@
         <label v-for="ingredient in recipe.ingredients" :key="ingredient.name" class="ingredient">
           <input :name="ingredient.name" type="checkbox" />
           {{ ingredient.amount }}
-          <select-field
+          <SelectField
             :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
             :placeholder="$t('editRecipePage.placeholder.unit')"
             :items="

@@ -3,7 +3,7 @@
     <article>
       <section class="header">
         <h2>{{ $t('recipesPage.title') }}</h2>
-        <select-field
+        <SelectField
           id="cookGroup"
           :ariaLabel="$t('recipesPage.ariaLabel.cookGroups')"
           :placeholder="$t('recipesPage.placeholder.cookGroups')"

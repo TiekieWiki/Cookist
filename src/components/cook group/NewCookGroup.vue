@@ -7,7 +7,7 @@
           <font-awesome-icon @click="$emit('closePopUp')" :icon="['fas', 'xmark']" />
         </h2>
       </section>
-      <input-field
+      <InputField
         id="name"
         name="name"
         :label="$t('editCookGroupPage.name')"
@@ -23,7 +23,7 @@
         v-model:items="cookGroup.invitees"
         v-slot="{ index }"
       >
-        <input-field
+        <InputField
           :name="'invitee email ' + index"
           :placeholder="$t('editCookGroupPage.placeholder.inviteeEmails')"
           :ariaLabel="$t('editCookGroupPage.ariaLabel.inviteeEmails')"
@@ -41,7 +41,7 @@
         v-model:items="recipes"
         v-slot="{ index }"
       >
-        <input-field
+        <InputField
           :name="'cookGroupRecipe ' + index"
           :ariaLabel="$t('editCookGroupPage.ariaLabel.cookGroupRecipe')"
           type="text"
@@ -50,7 +50,7 @@
           @input="addInputRow(recipes, index, '')"
         />
       </input-list>
-      <input-field
+      <InputField
         id="searchRecipes"
         name="searchRecipes"
         :label="$t('editCookGroupPage.searchRecipes')"

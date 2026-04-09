@@ -7,7 +7,7 @@
       </div>
     </section>
     <form>
-      <input-field
+      <InputField
         name="profileEmail"
         :placeholder="getAuth().currentUser?.email ?? ''"
         :ariaLabel="$t('profilePage.ariaLabel.userEmail')"

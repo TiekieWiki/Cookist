@@ -7,7 +7,7 @@
     />
     <div class="rangeFilters">
       <div>
-        <input-field
+        <InputField
           id="lastEatenMin"
           name="lastEatenMin"
           :label="$t('recipesPage.lastEatenMin')"
@@ -15,7 +15,7 @@
           type="date"
           v-model:input="filter.lastEatenMin"
         />
-        <input-field
+        <InputField
           id="lastEatenMax"
           name="lastEatenMax"
           :label="$t('recipesPage.lastEatenMax')"
@@ -25,7 +25,7 @@
         />
       </div>
       <div>
-        <input-field
+        <InputField
           id="durationMin"
           name="durationMin"
           :label="$t('recipesPage.durationMin')"
@@ -35,7 +35,7 @@
           :max="10080"
           v-model:input="filter.durationMin"
         />
-        <input-field
+        <InputField
           id="durationMax"
           name="durationMax"
           :label="$t('recipesPage.durationMax')"
@@ -47,7 +47,7 @@
         />
       </div>
       <div>
-        <input-field
+        <InputField
           id="ratingMin"
           name="ratingMin"
           :label="$t('recipesPage.ratingMin')"
@@ -57,7 +57,7 @@
           :max="5"
           v-model:input="filter.ratingMin"
         />
-        <input-field
+        <InputField
           id="ratingMax"
           name="ratingMax"
           :label="$t('recipesPage.ratingMax')"
@@ -76,7 +76,7 @@
         v-model:items="filter.ingredients"
         v-slot="{ index }"
       >
-        <input-field
+        <InputField
           :name="'ingredient ' + index"
           :placeholder="$t('editRecipePage.placeholder.ingredient')"
           :ariaLabel="$t('editRecipePage.ariaLabel.ingredient')"

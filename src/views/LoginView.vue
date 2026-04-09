@@ -3,7 +3,7 @@
     <article>
       <h2>{{ $t('loginPage.login') }}</h2>
       <form>
-        <input-field
+        <InputField
           name="emailLogin"
           :placeholder="$t('loginPage.placeholder.email')"
           :ariaLabel="$t('loginPage.ariaLabel.emailLogin')"
@@ -11,7 +11,7 @@
           autocomplete="email"
           v-model:input="emailLogin"
         />
-        <input-field
+        <InputField
           name="passwordLogin"
           :placeholder="$t('loginPage.placeholder.password')"
           :ariaLabel="$t('loginPage.ariaLabel.passwordLogin')"
@@ -31,7 +31,7 @@
     <article>
       <h2>{{ $t('loginPage.register') }}</h2>
       <form>
-        <input-field
+        <InputField
           name="emailRegister"
           :placeholder="$t('loginPage.placeholder.email')"
           :ariaLabel="$t('loginPage.ariaLabel.emailRegister')"
@@ -39,7 +39,7 @@
           autocomplete="email"
           v-model:input="emailRegister"
         />
-        <input-field
+        <InputField
           name="passwordRegister"
           :placeholder="$t('loginPage.placeholder.password')"
           :ariaLabel="$t('loginPage.ariaLabel.passwordRegister')"

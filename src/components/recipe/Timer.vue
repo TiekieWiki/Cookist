@@ -7,7 +7,7 @@
         class="edit"
         :icon="['fas', 'minus']"
       />
-      <input-field
+      <InputField
         name="hours"
         :placeholder="$t('recipePage.placeholder.hours')"
         :ariaLabel="$t('recipePage.ariaLabel.hours')"
@@ -16,7 +16,7 @@
         v-model:input="timer.hours"
       />
       :
-      <input-field
+      <InputField
         name="minutes"
         :placeholder="$t('recipePage.placeholder.minutes')"
         :ariaLabel="$t('recipePage.ariaLabel.minutes')"
@@ -25,7 +25,7 @@
         v-model:input="timer.minutes"
       />
       :
-      <input-field
+      <InputField
         name="seconds"
         :placeholder="$t('recipePage.placeholder.seconds')"
         :ariaLabel="$t('recipePage.ariaLabel.seconds')"

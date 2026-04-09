@@ -1,6 +1,6 @@
 <template>
   <section class="orderFilter">
-    <input-field
+    <InputField
       id="search"
       name="search"
       :ariaLabel="$t('recipesPage.ariaLabel.search')"
@@ -14,7 +14,7 @@
     <button @click="openFilter = !openFilter" type="button">
       <font-awesome-icon :icon="['fas', 'filter']" />{{ $t('recipesPage.filter') }}
     </button>
-    <select-field
+    <SelectField
       id="order"
       :ariaLabel="$t('recipesPage.ariaLabel.order')"
       :placeholder="$t('recipesPage.placeholder.order')"

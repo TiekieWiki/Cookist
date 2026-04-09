@@ -1,6 +1,6 @@
 <template>
   <section>
-    <input-field
+    <InputField
       id="name"
       name="name"
       :label="$t('editRecipePage.name')"
@@ -10,7 +10,7 @@
       :required="true"
       v-model:input="recipe.name"
     />
-    <select-field
+    <SelectField
       id="category"
       :label="$t('editRecipePage.category')"
       :ariaLabel="$t('editRecipePage.ariaLabel.category')"
@@ -25,7 +25,7 @@
       labelPrefix="editRecipePage.categories."
       v-model:selected="recipe.category"
     />
-    <input-field
+    <InputField
       id="duration"
       name="duration"
       :label="$t('editRecipePage.duration')"
@@ -36,7 +36,7 @@
       :min="1"
       v-model:input="recipe.duration"
     />
-    <input-field
+    <InputField
       id="portions"
       name="portions"
       :label="$t('editRecipePage.portions')"
@@ -47,7 +47,7 @@
       :min="1"
       v-model:input="recipe.portions"
     />
-    <input-field
+    <InputField
       id="rating"
       name="rating"
       :label="$t('editRecipePage.rating')"
@@ -66,7 +66,7 @@
       v-model:items="recipe.ingredients"
       v-slot="{ index }"
     >
-      <input-field
+      <InputField
         :name="'amount ' + index"
         :placeholder="$t('editRecipePage.placeholder.amount')"
         :ariaLabel="$t('editRecipePage.ariaLabel.amount')"
@@ -74,7 +74,7 @@
         type="number"
         v-model:input="recipe.ingredients[index].amount"
       />
-      <select-field
+      <SelectField
         :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
         :placeholder="$t('editRecipePage.placeholder.unit')"
         :items="
@@ -86,7 +86,7 @@
         labelPrefix="editRecipePage.units."
         v-model:selected="recipe.ingredients[index].unit"
       />
-      <input-field
+      <InputField
         :name="'ingredient ' + index"
         :placeholder="$t('editRecipePage.placeholder.ingredient')"
         :ariaLabel="$t('editRecipePage.ariaLabel.ingredient')"
@@ -102,7 +102,7 @@
       v-model:items="recipe.instructions"
       v-slot="{ index }"
     >
-      <input-field
+      <InputField
         :name="'instruction ' + index"
         :placeholder="$t('editRecipePage.placeholder.instruction')"
         :ariaLabel="$t('editRecipePage.ariaLabel.instruction')"
