@@ -1,0 +1,35 @@
+@import '../../mixins/form.scss';
+
+button {
+  @include form-element;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+  align-self: start;
+  padding: calc(var(--gap-small) + 3px) var(--gap-large);
+  background-image: var(--color-accent);
+  border: none;
+  border-radius: var(--border-radius-medium);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+
+  &:disabled {
+    background-image: none;
+    background-color: var(--color-disabled);
+    color: var(--color-text-disabled);
+    cursor: auto;
+  }
+
+  &.icon {
+    display: flex;
+    gap: var(--gap-small);
+    justify-content: center;
+  }
+
+  &.delete {
+    background-image: none;
+    background-color: var(--color-error);
+  }
+}

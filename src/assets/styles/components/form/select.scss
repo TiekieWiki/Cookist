@@ -1,0 +1,49 @@
+@import '../../mixins/form.scss';
+
+.select {
+  @include form-element;
+
+  display: grid;
+  grid-template-areas: 'select';
+  align-items: center;
+  border-radius: var(--border-radius-medium);
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    grid-area: select;
+    justify-self: end;
+    width: var(--size-icon-small);
+    height: calc(var(--size-icon-small) / 3 * 2);
+    background-color: var(--color-primary);
+    clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  }
+
+  &:has(select:disabled) {
+    background-color: var(--color-disabled);
+    cursor: auto;
+  }
+
+  select {
+    appearance: none;
+    z-index: 1;
+    grid-area: select;
+    width: 100%;
+    padding: 0 var(--size-icon-small) 0 0;
+    margin: 0;
+    color: var(--color-text-primary);
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: inherit;
+
+    &::-ms-expand {
+      display: none;
+    }
+
+    option {
+      color: var(--color-text-primary);
+      background-color: var(--color-background-primary);
+    }
+  }
+}
