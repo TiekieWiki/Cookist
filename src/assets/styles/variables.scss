@@ -1,33 +1,29 @@
 @mixin light-mode {
-    --color-primary: #157a6e;
-    --color-secondary: #147b5f;
-    --color-accent: #0ba869;
-    --color-accent-primary: linear-gradient(to top right, #147b5f, #157a6e);
+    --color-primary: #02474d;
+    --color-secondary: #005c65;
+    --color-tertiary: #1a857d;
+    --color-accent: linear-gradient(to top right, var(--color-primary), var(--color-secondary));
     --color-background-primary: #ebebeb;
     --color-background-secondary: #e1e1e1;
-    --color-success: #20a957;
-    --color-error: #be1b16;
-    --color-accent-error: linear-gradient(to top right, #be1b16, rgba(190, 27, 22, 0.7));
-    --color-disabled: #b4b4b4;
-    --color-accent-disabled: linear-gradient(to top right, #b4b4b4, rgba(180, 180, 180, 0.7));
+    --color-error: #922b35;
+    --color-disabled: #ababab;
     --color-text-primary: black;
     --color-text-secondary: white;
+    --color-text-disabled: #555555;
 }
 
 @mixin dark-mode {
-    --color-primary: #157a6e;
-    --color-secondary: #147b5f;
-    --color-accent: #0ba869;
-    --color-accent-primary: linear-gradient(to top right, #147b5f, #157a6e);
+    --color-primary: #02474d;
+    --color-secondary: #005c65;
+    --color-tertiary: #1a857d;
+    --color-accent: linear-gradient(to top right, var(--color-primary), var(--color-secondary));
     --color-background-primary: #010907;
-    --color-background-secondary: #111312;
-    --color-success: #20a957;
-    --color-error: #be1b16;
-    --color-accent-error: linear-gradient(to top right, #be1b16, rgba(190, 27, 22, 0.7));
-    --color-disabled: #5a5a5a;
-    --color-accent-disabled: linear-gradient(to top right, #5a5a5a, rgba(90, 90, 90, 0.7));
+    --color-background-secondary: #181818;
+    --color-error: #922b35;
+    --color-disabled: #272727;
     --color-text-primary: white;
     --color-text-secondary: white;
+    --color-text-disabled: #616161;
 }
 
 :root {

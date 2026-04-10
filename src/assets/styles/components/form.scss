@@ -109,14 +109,16 @@ button {
   align-items: center;
   align-self: start;
   padding: calc(var(--gap-small) + 3px) var(--gap-large);
-  background-image: var(--color-accent-primary);
+  background-image: var(--color-accent);
   border: none;
   border-radius: var(--border-radius-medium);
   color: var(--color-text-secondary);
   cursor: pointer;
 
   &:disabled {
-    background-image: var(--color-accent-disabled);
+    background-image: none;
+    background-color: var(--color-disabled);
+    color: var(--color-text-disabled);
     cursor: auto;
   }
 
@@ -127,7 +129,8 @@ button {
   }
 
   &.delete {
-    background-image: var(--color-accent-error);
+    background-image: none;
+    background-color: var(--color-error);
   }
 }
 
@@ -140,7 +143,7 @@ input {
     justify-self: start;
     align-self: center;
     margin-bottom: var(--gap-small);
-    background-image: var(--color-accent-primary);
+    background-image: var(--color-accent);
     border: none;
     border-radius: var(--border-radius-medium);
     color: var(--color-text-secondary);
@@ -149,14 +152,16 @@ input {
 
   &:disabled {
     &::file-selector-button {
-      background-image: var(--color-accent-disabled);
+      background-image: none;
+      background-color: (--color-disabled);
       cursor: auto;
     }
   }
 }
 
 input:disabled::file-selector-button {
-  background-image: var(--color-accent-disabled);
+  background-image: none;
+  background-color: var(--color-disabled);
   cursor: auto;
 }
 
@@ -269,5 +274,5 @@ input:disabled::file-selector-button {
 .success {
   padding: var(--gap-xxsmall) var(--gap-small);
   border-radius: var(--border-radius-medium);
-  background-color: var(--color-success);
+  background-color: var(--color-tertiary);
 }
