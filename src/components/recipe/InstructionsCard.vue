@@ -7,12 +7,7 @@
         <Toggle @click="keepScreenOn = !keepScreenOn" />
       </div>
     </section>
-    <div class="label-group">
-      <label v-for="instruction in recipe.instructions" :key="instruction">
-        <input :name="instruction" type="checkbox" />
-        {{ capitalizeFirstLetter(instruction) }}
-      </label>
-    </div>
+    <CheckBoxList v-model:items="instructions" />
     <Button @click="updateLastEaten" :disabled="lastEatenToday" :type="ButtonType.BUTTON">
       <font-awesome-icon v-if="lastEatenToday" :icon="['fas', 'check']" />
       <font-awesome-icon v-else :icon="['fas', 'calendar']" />
@@ -26,10 +21,22 @@ import { useKeepScreenOn } from '@/composables/useKeepScreenOn';
 import { useRecipe } from '@/composables/useRecipe';
 import { capitalizeFirstLetter } from '@/utils/global/text';
 import Button from '../form/Button.vue';
-import { ButtonType, ColorVariant } from '@/utils/types/enums';
+import { ButtonType } from '@/utils/types/enums';
 import Toggle from '../form/Toggle.vue';
+import CheckBoxList from '../form/CheckBoxList.vue';
+import { computed } from 'vue';
+import { Checkbox } from '@/utils/types/form';
 
 const { recipe, lastEatenToday, updateLastEaten } = useRecipe();
+
+const instructions = computed(() => {
+  return recipe.value.instructions.map((instruction) => {
+    return {
+      name: instruction,
+      label: capitalizeFirstLetter(instruction)
+    } as Checkbox;
+  });
+});
 
 // Keep screen on
 const { keepScreenOn } = useKeepScreenOn();
