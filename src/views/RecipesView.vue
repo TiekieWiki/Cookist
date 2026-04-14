@@ -3,25 +3,23 @@
     <RecipeOrderFilterCard />
     <RecipesCard />
     <article class="card newCard">
-      <button
+      <Button
         @click="
           $router.push({
             path: '/edit-recipe'
           })
         "
-        type="button"
+        :type="ButtonType.BUTTON"
       >
         <font-awesome-icon :icon="['fas', 'plus']" />
-      </button>
+      </Button>
     </article>
   </main>
 </template>
 
 <script setup lang="ts">
 import RecipeOrderFilterCard from '@/components/recipes/RecipeOrderFilterCard.vue';
-import { useRecipes } from '@/composables/useRecipes';
 import RecipesCard from '@/components/recipes/RecipesCard.vue';
-
-const { cookGroups, currentCookGroupRecipes, selectedCookGroup, recipes, order, filter } =
-  useRecipes();
+import Button from '@/components/form/Button.vue';
+import { ButtonType } from '@/utils/types/enums';
 </script>

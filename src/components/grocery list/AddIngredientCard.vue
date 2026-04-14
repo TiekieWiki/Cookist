@@ -29,10 +29,10 @@
         v-model:input="newIngredient.name"
       />
 
-      <button @click="addIngredient()" class="icon" type="button">
+      <Button @click="addIngredient()" :type="ButtonType.BUTTON">
         <font-awesome-icon :icon="['fas', 'plus']" />
         {{ $t('recipePage.addToGroceryList') }}
-      </button>
+      </Button>
     </section>
     <ErrorMessage v-model:message="errorMessage" />
   </article>
@@ -44,6 +44,8 @@ import InputField from '@/components/form/InputField.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import { RecipeUnits } from '@/utils/types/recipe';
 import { useGroceryList } from '@/composables/useGroceryList';
+import Button from '../form/Button.vue';
+import { ButtonType, ColorVariant } from '@/utils/types/enums';
 
 const { newIngredient, errorMessage, addIngredient } = useGroceryList();
 </script>

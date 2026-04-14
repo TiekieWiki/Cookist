@@ -3,13 +3,17 @@
     <section class="title">
       <h3>{{ $t('recipePage.ingredients') }}</h3>
       <div class="portionCalculator">
-        <font-awesome-icon
+        <Button
           @click="portionCount = Math.max(portionCount - 1, 1)"
-          class="edit"
-          :icon="['fas', 'minus']"
-        />
+          :type="ButtonType.BUTTON"
+          :iconOnly="true"
+        >
+          <font-awesome-icon :icon="['fas', 'minus']" />
+        </Button>
         <p>{{ portionCount }} {{ $t('recipePage.portions', portionCount) }}</p>
-        <font-awesome-icon @click="portionCount++" class="edit" :icon="['fas', 'plus']" />
+        <Button @click="portionCount++" :type="ButtonType.BUTTON" :iconOnly="true">
+          <font-awesome-icon :icon="['fas', 'plus']" />
+        </Button>
       </div>
     </section>
     <div class="label-group">
@@ -32,10 +36,10 @@
         {{ ingredient.name }}
       </label>
     </div>
-    <button @click="addToGroceryList(recipe.ingredients)" class="icon" type="button">
+    <Button @click="addToGroceryList(recipe.ingredients)" :type="ButtonType.SUBMIT">
       <font-awesome-icon :icon="['fas', 'plus']" />
       {{ $t('recipePage.addToGroceryList') }}
-    </button>
+    </Button>
   </article>
 </template>
 
@@ -44,6 +48,8 @@ import SelectField from '@/components/form/SelectField.vue';
 import { getPossibleUnits, updateIngredientUnit } from '@/utils/recipe/updateIngredientUnit';
 import { addToGroceryList } from '@/utils/grocery list/editGroceryList';
 import { useRecipe } from '@/composables/useRecipe';
+import Button from '../form/Button.vue';
+import { ButtonType } from '@/utils/types/enums';
 
 const { recipe, initialIngredients, portionCount } = useRecipe();
 

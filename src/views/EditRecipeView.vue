@@ -17,9 +17,9 @@
           v-model:image="image"
           v-model:error-message="errorMessage"
         />
-        <button @click.prevent="saveRecipe" id="save" type="submit">
+        <Button @click.prevent="saveRecipe" id="save" :type="ButtonType.SUBMIT">
           {{ $t('editRecipePage.save') }}
-        </button>
+        </Button>
       </form>
     </article>
   </main>
@@ -27,7 +27,9 @@
 
 <script setup lang="ts">
 import NewRecipe from '@/components/edit recipe/NewRecipe.vue';
+import Button from '@/components/form/Button.vue';
 import { useEditRecipe } from '@/composables/useEditRecipe';
+import { ButtonType } from '@/utils/types/enums';
 
 const { recipe, cookGroups, cookGroupRecipe, image, errorMessage, saveRecipe } = useEditRecipe();
 </script>

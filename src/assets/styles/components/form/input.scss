@@ -14,12 +14,12 @@ textarea {
   @include form-element;
 
   border-radius: var(--border-radius-medium);
+  background-color: transparent;
 
   &:disabled {
     background-color: var(--color-disabled);
     cursor: auto;
   }
-
 }
 
 input[type='date'] {
@@ -31,6 +31,22 @@ input[type='file'] {
 }
 
 input {
+    &.primary {
+        border-color: var(--color-primary);
+    }
+
+    &.secondary {
+        border-color: var(--color-secondary);
+    }
+
+    &.tertiary {
+        border-color: var(--color-tertiary);
+    }
+
+    &.warning {
+        border-color: var(--color-error);
+    }
+
   &::file-selector-button {
     @include form-element;
 

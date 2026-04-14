@@ -6,11 +6,9 @@
     <section class="title">
       <h3>{{ $t('groceryListPage.ingredients') }}</h3>
       <div class="actions">
-        <font-awesome-icon
-          @click="emptyGroceryListOpen = true"
-          class="delete"
-          :icon="['fas', 'trash-can']"
-        />
+        <Button :type="ButtonType.BUTTON" :iconOnly="true" :variant="ColorVariant.WARNING">
+          <font-awesome-icon @click="emptyGroceryListOpen = true" :icon="['fas', 'trash-can']" />
+        </Button>
       </div>
     </section>
     <transition-group name="fade" tag="div" class="label-group">
@@ -31,9 +29,9 @@
           @change="changeIngredientUnit()"
         />
         {{ ingredient.name }}
-        <button class="icon delete" type="button" @click="deleteIngredient(index)">
+        <Button :type="ButtonType.BUTTON" @click="deleteIngredient(index)">
           <font-awesome-icon :icon="['fas', 'trash']" />
-        </button>
+        </Button>
       </label>
     </transition-group>
   </article>
@@ -43,6 +41,8 @@
 import { useGroceryList } from '@/composables/useGroceryList';
 import { getPossibleUnits } from '@/utils/recipe/updateIngredientUnit';
 import SelectField from '@/components/form/SelectField.vue';
+import Button from '../form/Button.vue';
+import { ButtonType, ColorVariant } from '@/utils/types/enums';
 
 const { groceryList, emptyGroceryListOpen, deleteIngredient, changeIngredientUnit } =
   useGroceryList();

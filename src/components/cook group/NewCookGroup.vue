@@ -3,9 +3,14 @@
     <article>
       <section class="header">
         <h2>{{ $t('editCookGroupPage.title') }}</h2>
-        <h2>
-          <font-awesome-icon @click="$emit('closePopUp')" :icon="['fas', 'xmark']" />
-        </h2>
+        <Button
+          @click="$emit('closePopUp')"
+          :type="ButtonType.BUTTON"
+          :iconOnly="true"
+          :variant="ColorVariant.NEUTRAL"
+        >
+          <font-awesome-icon :icon="['fas', 'xmark']" />
+        </Button>
       </section>
       <InputField
         id="name"
@@ -70,12 +75,12 @@
         <recipe-card :recipe="recipe" />
       </article>
       <section class="footer">
-        <button @click="closePopUp" type="button">
+        <Button @click="closePopUp" :type="ButtonType.BUTTON">
           {{ $t('editCookGroupPage.cancel') }}
-        </button>
-        <button @click.prevent="saveCookGroup" type="submit">
+        </Button>
+        <Button @click.prevent="saveCookGroup" :type="ButtonType.SUBMIT">
           {{ $t('editCookGroupPage.save') }}
-        </button>
+        </Button>
       </section>
     </article>
   </main>
@@ -87,7 +92,6 @@ import InputList from '../form/InputList.vue';
 import ErrorMessage from '../form/ErrorMessage.vue';
 import RecipeCard from '@/components/recipe/RecipeCard.vue';
 import { addInputRow } from '@/utils/global/list';
-import { useNewCookGroup } from '@/composables/useNewCookGroup';
 import i18n from '@/i18n';
 import { validateCookGroup } from '@/utils/cook group/validateCookGroup';
 import { getData, updateData, addData, deleteData } from '@/utils/global/db';
@@ -99,17 +103,8 @@ import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
 import { getAuth } from 'firebase/auth';
 import { where, Timestamp, and } from 'firebase/firestore';
 import { ref, onMounted, capitalize, watch } from 'vue';
-
-// const {
-//   cookGroup,
-//   recipes,
-//   errorMessage,
-//   searchRecipeQuery,
-//   filteredRecipes,
-//   addRecipe,
-//   saveCookGroup,
-//   closePopUp
-// } = useNewCookGroup();
+import Button from '../form/Button.vue';
+import { ButtonType, ColorVariant } from '@/utils/types/enums';
 
 const props = defineProps<{
   cookGroup?: CookGroup;

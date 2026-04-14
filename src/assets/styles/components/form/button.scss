@@ -1,35 +1,102 @@
 @import '../../mixins/form.scss';
 
 button {
-  @include form-element;
+    @include form-element;
 
-  display: grid;
-  grid-template-columns: 1fr;
-  justify-items: center;
-  align-items: center;
-  align-self: start;
-  padding: calc(var(--gap-small) + 3px) var(--gap-large);
-  background-image: var(--color-accent);
-  border: none;
-  border-radius: var(--border-radius-medium);
-  color: var(--color-text-secondary);
-  cursor: pointer;
-
-  &:disabled {
-    background-image: none;
-    background-color: var(--color-disabled);
-    color: var(--color-text-disabled);
-    cursor: auto;
-  }
-
-  &.icon {
     display: flex;
     gap: var(--gap-small);
     justify-content: center;
-  }
+    align-items: center;
+    padding: calc(var(--gap-small) + 3px) var(--gap-large);
+    border-radius: var(--border-radius-medium);
+    color: var(--color-text-secondary);
+    cursor: pointer;
 
-  &.delete {
-    background-image: none;
-    background-color: var(--color-error);
-  }
+    &.large {
+        font-size: 1.2rem;
+    }
+
+    &.filled {
+        border: none;
+
+        &.primary {
+            background-color: var(--color-primary);
+        }
+
+        &.secondary {
+            background-color: var(--color-secondary);
+        }
+
+        &.tertiary {
+            background-color: var(--color-tertiary);
+        }
+
+        &.accent {
+            background-image: var(--color-accent);
+        }
+
+        &.warning {
+            background-color: var(--color-error);
+        }
+
+        &.neutral {
+            background-color: transparent;
+        }
+    }
+
+    &.outline {
+        background-color: transparent;
+
+        &.primary {
+            border-color: var(--color-primary);
+        }
+
+        &.secondary {
+            border-color: var(--color-secondary);
+        }
+
+        &.tertiary {
+            border-color: var(--color-tertiary);
+        }
+
+        &.warning {
+            border-color: var(--color-error);
+        } 
+
+        &.neutral {
+            border-color: transparent;
+        }
+    }
+
+        &.iconOnly {
+        border: none;
+        background-color: transparent !important;
+
+        &.primary {
+            color: var(--color-primary);
+        }
+
+        &.secondary {
+            color: var(--color-secondary);
+        }
+
+        &.tertiary {
+            color: var(--color-tertiary);
+        }
+
+        &.warning {
+            color: var(--color-error);
+        }
+
+        &.neutral {
+            color: var(--color-text-primary);
+        }
+    }
+
+    &:disabled {
+        background-image: none !important;
+        background-color: var(--color-disabled) !important;
+        color: var(--color-text-disabled) !important;
+        cursor: auto !important;
+    }
 }

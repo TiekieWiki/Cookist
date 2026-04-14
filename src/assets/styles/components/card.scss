@@ -28,11 +28,6 @@
     color: var(--color-text-primary);
   }
 
-  &:not(:has(.edit, .delete)) {
-    @include zoom-on-hover(var(--scale-small));
-    @include outline-on-focus;
-  }
-
   &:not(.newCard) {
     @include background-image-card;
   }

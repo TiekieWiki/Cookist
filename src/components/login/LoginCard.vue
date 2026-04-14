@@ -7,7 +7,7 @@
         :placeholder="$t('loginPage.placeholder.email')"
         :ariaLabel="$t('loginPage.ariaLabel.emailLogin')"
         type="text"
-        autocomplete="email"
+        :autocomplete="AutoCompleteVariant.EMAIL"
         v-model:input="emailLogin"
       />
       <InputField
@@ -15,16 +15,16 @@
         :placeholder="$t('loginPage.placeholder.password')"
         :ariaLabel="$t('loginPage.ariaLabel.passwordLogin')"
         type="password"
-        autocomplete="current-password"
+        :autocomplete="AutoCompleteVariant.CURRENT_PASSWORD"
         v-model:input="passwordLogin"
       />
       <ErrorMessage v-model:message="errorMessageLogin" />
-      <button @click.prevent="handleLogin" type="submit">
+      <Button @click.prevent="handleLogin" :type="ButtonType.SUBMIT">
         {{ $t('loginPage.login') }}
-      </button>
-      <button @click.prevent="signInWithGoogle" type="submit">
+      </Button>
+      <Button @click.prevent="signInWithGoogle" :type="ButtonType.SUBMIT">
         {{ $t('loginPage.googleLogin') }}
-      </button>
+      </Button>
     </form>
   </article>
 </template>
@@ -35,6 +35,8 @@ import { ref } from 'vue';
 import { signInWithGoogle } from '@/utils/global/authentication';
 import ErrorMessage from '../form/ErrorMessage.vue';
 import InputField from '../form/InputField.vue';
+import { AutoCompleteVariant, ButtonType } from '@/utils/types/enums';
+import Button from '../form/Button.vue';
 
 // Login
 const emailLogin = ref<string>('');

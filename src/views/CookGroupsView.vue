@@ -12,12 +12,12 @@
           <li v-for="invite in cookGroupInvites" :key="invite.id">
             <p>{{ capitalizeFirstLetter(invite.name) }}</p>
             <div class="actions">
-              <button @click="acceptInvite(invite.id)" class="edit" type="button">
+              <Button @click="acceptInvite(invite.id)" class="edit" :type="ButtonType.BUTTON">
                 <font-awesome-icon :icon="['fas', 'check']" />
-              </button>
-              <button @click="declineInvite(invite.id)" class="delete" type="button">
+              </Button>
+              <Button @click="declineInvite(invite.id)" :type="ButtonType.SUBMIT">
                 <font-awesome-icon :icon="['fas', 'trash']" />
-              </button>
+              </Button>
             </div>
           </li>
         </transition-group>
@@ -37,9 +37,9 @@
       </article>
     </template>
     <article class="card newCard">
-      <button @click="editCookGroupOpen = !editCookGroupOpen" type="button">
+      <Button @click="editCookGroupOpen = !editCookGroupOpen" :type="ButtonType.BUTTON">
         <font-awesome-icon :icon="['fas', 'plus']" />
-      </button>
+      </Button>
     </article>
   </main>
   <teleport to="body" v-if="editCookGroupOpen">
@@ -59,6 +59,8 @@ import { getCookGroups } from '@/utils/cook group/getCookGroups';
 import CookGroupCard from '@/components/cook group/CookGroupCard.vue';
 import { capitalizeFirstLetter } from '@/utils/global/text';
 import { useCookGroup } from '@/composables/useCookGroup';
+import Button from '@/components/form/Button.vue';
+import { ButtonType } from '@/utils/types/enums';
 
 // Cook groups
 const { cookGroups, cookGroupInvites, acceptInvite, declineInvite } = useCookGroup();

@@ -4,20 +4,25 @@
       <article>
         <section class="header">
           <h2>{{ $t(title) }}</h2>
-          <h2>
-            <font-awesome-icon @click="openPopUp = false" :icon="['fas', 'xmark']" />
-          </h2>
+          <Button
+            @click="openPopUp = false"
+            :type="ButtonType.BUTTON"
+            :iconOnly="true"
+            :variant="ColorVariant.NEUTRAL"
+          >
+            <font-awesome-icon :icon="['fas', 'xmark']" />
+          </Button>
         </section>
         <section class="content">
           <p>{{ $t(section) }}</p>
         </section>
         <section class="footer">
-          <button @click="openPopUp = false" type="button">
+          <Button @click="openPopUp = false" :type="ButtonType.BUTTON">
             {{ $t(cancel) }}
-          </button>
-          <button @click.prevent="emit('confirm', true)" class="delete" type="submit">
+          </Button>
+          <Button @click.prevent="emit('confirm', true)" :type="ButtonType.SUBMIT">
             {{ $t(confirm) }}
-          </button>
+          </Button>
         </section>
       </article>
     </main>
@@ -25,6 +30,9 @@
 </template>
 
 <script setup lang="ts">
+import { ButtonType, ColorVariant } from '@/utils/types/enums';
+import Button from './Button.vue';
+
 defineProps<{
   title: string;
   section: string;

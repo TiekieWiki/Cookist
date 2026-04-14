@@ -23,14 +23,6 @@ aside {
     z-index: 2;
     padding: var(--gap-large) var(--gap-xlarge);
 
-    .menu-icon {
-      @include zoom-on-hover(var(--scale-medium));
-      @include text-on-focus(var(--color-secondary));
-
-      color: var(--color-text-secondary);
-      font-size: 1.2rem;
-    }
-
     a {
       @include zoom-on-hover(var(--scale-medium));
       @include text-on-focus(var(--color-secondary));

@@ -1,7 +1,7 @@
 <template>
   <main class="two-columns">
-    <AccountCard />
-    <SettingsCard v-model:deleteOpen="deleteAccountOpen" />
+    <SettingsCard />
+    <AccountCard v-model:deleteOpen="deleteAccountOpen" />
   </main>
   <ConfirmPopUp
     :title="$t('profilePage.deleteAccount')"

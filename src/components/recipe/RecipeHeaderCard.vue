@@ -12,7 +12,7 @@
           class="edit"
           :icon="['fas', 'pen']"
         />
-        <font-awesome-icon @click="deleteOpen = true" class="delete" :icon="['fas', 'trash-can']" />
+        <font-awesome-icon @click="deleteOpen = true" :icon="['fas', 'trash-can']" />
       </div>
     </section>
     <section class="info">

@@ -8,13 +8,18 @@
       }}
     </h3>
     <div v-if="cookGroup.owner === getAuth().currentUser?.uid" class="actions">
-      <font-awesome-icon @click="editCookGroup(cookGroup)" class="edit" :icon="['fas', 'pen']" />
-      <font-awesome-icon
+      <Button @click="editCookGroup(cookGroup)" :type="ButtonType.BUTTON" :icon-only="true">
+        <font-awesome-icon :icon="['fas', 'pen']" />
+      </Button>
+      <Button
         v-if="!cookGroup.personal"
         @click="((deleteCookGroupOpen = true), (editableCookGroup = cookGroup))"
-        class="delete"
-        :icon="['fas', 'trash']"
-      />
+        :type="ButtonType.BUTTON"
+        :icon-only="true"
+        :variant="ColorVariant.WARNING"
+      >
+        <font-awesome-icon :icon="['fas', 'trash']" />
+      </Button>
     </div>
   </section>
   <section class="info">
@@ -48,6 +53,8 @@ import { where } from 'firebase/firestore';
 import { setImage } from '@/utils/global/manageImage';
 import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
 import { deleteCookGroup } from '@/utils/cook group/deleteCookGroup';
+import Button from '../form/Button.vue';
+import { ButtonType, ColorVariant } from '@/utils/types/enums';
 
 const props = defineProps<{
   cookGroup: CookGroup;

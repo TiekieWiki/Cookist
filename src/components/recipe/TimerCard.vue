@@ -34,10 +34,10 @@
         v-model:input="timer.seconds"
       />
       <font-awesome-icon @click="timer.minutes++" class="edit" :icon="['fas', 'plus']" />
-      <button @click="timer.isRunning = !timer.isRunning" class="icon" type="button">
+      <Button @click="timer.isRunning = !timer.isRunning" :type="ButtonType.BUTTON">
         <font-awesome-icon v-if="timer.isRunning" :icon="['fas', 'pause']" />
         <font-awesome-icon v-else :icon="['fas', 'play']" />
-      </button>
+      </Button>
     </section>
   </article>
 </template>
@@ -45,6 +45,8 @@
 <script lang="ts" setup>
 import { useTimer } from '@/composables/useTimer';
 import InputField from '@/components/form/InputField.vue';
+import Button from '../form/Button.vue';
+import { ButtonType } from '@/utils/types/enums';
 
 // Initialize timer
 const { timer } = useTimer();

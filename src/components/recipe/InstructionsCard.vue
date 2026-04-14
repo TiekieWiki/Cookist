@@ -16,10 +16,11 @@
         {{ capitalizeFirstLetter(instruction) }}
       </label>
     </div>
-    <button @click="updateLastEaten" :disabled="lastEatenToday" class="icon" type="button">
+    <Button @click="updateLastEaten" :disabled="lastEatenToday" :type="ButtonType.BUTTON">
       <font-awesome-icon v-if="lastEatenToday" :icon="['fas', 'check']" />
-      <font-awesome-icon v-else :icon="['fas', 'calendar']" />{{ $t('recipePage.eatenToday') }}
-    </button>
+      <font-awesome-icon v-else :icon="['fas', 'calendar']" />
+      {{ $t('recipePage.eatenToday') }}
+    </Button>
   </article>
 </template>
 
@@ -27,6 +28,8 @@
 import { useKeepScreenOn } from '@/composables/useKeepScreenOn';
 import { useRecipe } from '@/composables/useRecipe';
 import { capitalizeFirstLetter } from '@/utils/global/text';
+import Button from '../form/Button.vue';
+import { ButtonType } from '@/utils/types/enums';
 
 const { recipe, lastEatenToday, updateLastEaten } = useRecipe();
 

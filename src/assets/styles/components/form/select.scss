@@ -15,9 +15,40 @@
     justify-self: end;
     width: var(--size-icon-small);
     height: calc(var(--size-icon-small) / 3 * 2);
-    background-color: var(--color-primary);
     clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
   }
+
+    &.primary {
+        border-color: var(--color-primary);
+
+        &::after {
+             background-color: var(--color-primary);
+        }
+    }
+
+    &.secondary {
+        border-color: var(--color-secondary);
+
+        &::after {
+             background-color: var(--color-secondary);
+        }
+    }
+
+    &.tertiary {
+        border-color: var(--color-tertiary);
+
+        &::after {
+             background-color: var(--color-tertiary);
+        }
+    }
+
+    &.warning {
+        border-color: var(--color-error);
+
+        &::after {
+             background-color: var(--color-error);
+        }
+    }
 
   &:has(select:disabled) {
     background-color: var(--color-disabled);

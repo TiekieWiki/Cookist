@@ -7,7 +7,7 @@
         :placeholder="$t('loginPage.placeholder.email')"
         :ariaLabel="$t('loginPage.ariaLabel.emailRegister')"
         type="email"
-        autocomplete="email"
+        :autocomplete="AutoCompleteVariant.EMAIL"
         v-model:input="emailRegister"
       />
       <InputField
@@ -15,16 +15,16 @@
         :placeholder="$t('loginPage.placeholder.password')"
         :ariaLabel="$t('loginPage.ariaLabel.passwordRegister')"
         type="password"
-        autocomplete="new-password"
+        :autocomplete="AutoCompleteVariant.NEW_PASSWORD"
         v-model:input="passwordRegister"
       />
       <ErrorMessage v-model:message="errorMessageRegister" />
-      <button @click.prevent="handleRegister" type="submit">
+      <Button @click.prevent="handleRegister" :type="ButtonType.SUBMIT">
         {{ $t('loginPage.register') }}
-      </button>
-      <button @click.prevent="signInWithGoogle" type="submit">
+      </Button>
+      <Button @click.prevent="signInWithGoogle" :type="ButtonType.SUBMIT">
         {{ $t('loginPage.googleRegister') }}
-      </button>
+      </Button>
     </form>
   </article>
 </template>
@@ -35,6 +35,8 @@ import { signInWithGoogle } from '@/utils/global/authentication';
 import { useRegister } from '@/composables/useAuthentication';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import InputField from '@/components/form/InputField.vue';
+import { AutoCompleteVariant, ButtonType } from '@/utils/types/enums';
+import Button from '../form/Button.vue';
 
 // Register
 const emailRegister = ref<string>('');

@@ -16,48 +16,80 @@
   <aside :class="menuOpen ? 'menuOpen' : 'menuClose'">
     <nav>
       <transition name="switch" mode="out-in" appear>
-        <font-awesome-icon
+        <Button
           v-if="!menuOpen"
           @click="menuOpen = true"
-          class="menu-icon"
-          :icon="['fas', 'bars']"
-          tabindex="0"
-        />
-        <font-awesome-icon
+          :type="ButtonType.BUTTON"
+          :icon-only="true"
+          :variant="ColorVariant.NEUTRAL"
+          :size="ButtonSize.LARGE"
+        >
+          <font-awesome-icon :icon="['fas', 'bars']" tabindex="0" />
+        </Button>
+        <Button
           v-else
           @click="menuOpen = false"
-          class="menu-icon"
-          :icon="['fas', 'xmark']"
-          tabindex="0"
-        />
+          :type="ButtonType.BUTTON"
+          :icon-only="true"
+          :variant="ColorVariant.NEUTRAL"
+          :size="ButtonSize.LARGE"
+        >
+          <font-awesome-icon :icon="['fas', 'xmark']" tabindex="0" />
+        </Button>
       </transition>
       <transition name="slide-fade">
-        <router-link v-if="menuOpen" to="/" tabindex="0">{{ $t('homePage.title') }}</router-link>
+        <Button v-if="menuOpen" :type="ButtonType.BUTTON" :variant="ColorVariant.NEUTRAL">
+          <router-link to="/" tabindex="0">{{ $t('homePage.title') }}</router-link>
+        </Button>
       </transition>
       <transition name="slide-fade">
-        <router-link v-if="menuOpen && isLoggedIn" to="/recipes" tabindex="0">{{
-          $t('recipesPage.title')
-        }}</router-link>
+        <Button
+          v-if="menuOpen && isLoggedIn"
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.NEUTRAL"
+        >
+          <router-link to="/recipes" tabindex="0">{{ $t('recipesPage.title') }}</router-link>
+        </Button>
       </transition>
       <transition name="slide-fade">
-        <router-link v-if="menuOpen && isLoggedIn" to="/cookgroups" tabindex="0">{{
-          $t('cookGroupsPage.title')
-        }}</router-link>
+        <Button
+          v-if="menuOpen && isLoggedIn"
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.NEUTRAL"
+        >
+          <router-link to="/cookgroups" tabindex="0">{{ $t('cookGroupsPage.title') }}</router-link>
+        </Button>
       </transition>
       <transition name="slide-fade">
-        <router-link v-if="menuOpen && isLoggedIn" to="/grocery-list" tabindex="0">{{
-          $t('groceryListPage.title')
-        }}</router-link>
+        <Button
+          v-if="menuOpen && isLoggedIn"
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.NEUTRAL"
+        >
+          <router-link to="/grocery-list" tabindex="0">{{
+            $t('groceryListPage.title')
+          }}</router-link>
+        </Button>
       </transition>
       <transition name="slide-fade">
-        <router-link to="/login" v-if="menuOpen && !isLoggedIn" tabindex="0">{{
-          $t('loginPage.title')
-        }}</router-link>
+        <Button
+          v-if="menuOpen && !isLoggedIn"
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.NEUTRAL"
+        >
+          <router-link to="/login" tabindex="0">{{ $t('loginPage.title') }}</router-link>
+        </Button>
       </transition>
       <transition name="slide-fade">
-        <router-link to="/profile" v-if="menuOpen && isLoggedIn" tabindex="0">
-          {{ $t('profilePage.title') }}
-        </router-link>
+        <Button
+          v-if="menuOpen && isLoggedIn"
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.NEUTRAL"
+        >
+          <router-link to="/profile" tabindex="0">
+            {{ $t('profilePage.title') }}
+          </router-link>
+        </Button>
       </transition>
     </nav>
     <div class="banner">
@@ -82,6 +114,8 @@ import { setSystemLanguage, setUserLanguage } from './utils/global/setLanguage';
 import { useI18n } from 'vue-i18n';
 import { lazyLoadLocaleMessages } from './i18n';
 import { setColorScheme, setHandedness } from './utils/global/setInterfaceVariables';
+import Button from './components/form/Button.vue';
+import { ButtonSize, ButtonType, ColorVariant } from './utils/types/enums';
 
 const isLoggedIn = useIsLoggedIn();
 const user = ref<User | undefined>(undefined);

@@ -25,12 +25,13 @@
         :placeholder="$t('recipesPage.placeholder.search')"
         :required="false"
         :disabled="false"
-        :autocomplete="'off'"
+        :autocomplete="AutoCompleteVariant.OFF"
         v-model:input="filter.name"
       />
-      <button @click="openFilter = !openFilter" type="button">
-        <font-awesome-icon :icon="['fas', 'filter']" />{{ $t('recipesPage.filter') }}
-      </button>
+      <Button @click="openFilter = !openFilter" :type="ButtonType.BUTTON">
+        <font-awesome-icon :icon="['fas', 'filter']" />
+        {{ $t('recipesPage.filter') }}
+      </Button>
       <SelectField
         id="order"
         :ariaLabel="$t('recipesPage.ariaLabel.order')"
@@ -60,6 +61,8 @@ import { useRecipes } from '@/composables/useRecipes';
 import { RecipeOrderCategories } from '@/utils/types/orderFilter';
 import { ref } from 'vue';
 import { capitalizeFirstLetter } from '@/utils/global/text';
+import { AutoCompleteVariant, ButtonType } from '@/utils/types/enums';
+import Button from '../form/Button.vue';
 
 const { cookGroups, selectedCookGroup, order, filter } = useRecipes();
 

@@ -1,9 +1,8 @@
 @mixin form-element {
-  width: 100%;
   padding: var(--gap-small) var(--gap-medium);
   color: var(--color-text-primary);
-  background-color: transparent;
-  border: var(--border-medium) solid var(--color-primary);
+  border-style: solid;
+  border-width: var(--border-medium);
 
   &:not(:disabled) {
     @include zoom-on-hover(var(--scale-small));

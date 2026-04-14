@@ -5,9 +5,9 @@
     <ul class="list">
       <li v-for="(item, index) in items" :key="index">
         <slot :index="index"></slot>
-        <button @click="deleteRow(items!, index, empty)" class="delete" type="button">
+        <Button @click="deleteRow(items!, index, empty)" :type="ButtonType.BUTTON">
           <font-awesome-icon :icon="['fas', 'trash-can']" />
-        </button>
+        </Button>
       </li>
     </ul>
   </label>
@@ -15,6 +15,8 @@
 
 <script setup lang="ts">
 import { deleteRow } from '@/utils/global/list';
+import Button from './Button.vue';
+import { ButtonType } from '@/utils/types/enums';
 
 defineProps<{
   id?: string;

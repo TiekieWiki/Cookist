@@ -2,6 +2,7 @@
   <label :for="id">
     {{ required ? label + ' *' : label }}
     <input
+      :class="variant"
       :id="id"
       :name="name"
       :placeholder="placeholder"
@@ -19,20 +20,31 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  id?: string;
-  name: string;
-  label?: string;
-  placeholder?: string;
-  ariaLabel: string;
-  type: string;
-  required?: boolean;
-  disabled?: boolean;
-  autocomplete?: string;
-  min?: number;
-  max?: number;
-  step?: number;
-}>();
+import { AutoCompleteVariant, ColorVariant } from '@/utils/types/enums';
+
+withDefaults(
+  defineProps<{
+    id?: string;
+    name: string;
+    variant?: ColorVariant;
+    label?: string;
+    placeholder?: string;
+    ariaLabel: string;
+    type: string;
+    required?: boolean;
+    disabled?: boolean;
+    autocomplete?: AutoCompleteVariant;
+    min?: number;
+    max?: number;
+    step?: number;
+  }>(),
+  {
+    variant: ColorVariant.PRIMARY,
+    required: false,
+    disabled: false,
+    autocomplete: AutoCompleteVariant.OFF
+  }
+);
 
 const input = defineModel<string | number | undefined>('input');
 </script>
