@@ -4,10 +4,7 @@
       <h3>{{ $t('recipePage.instructions') }}</h3>
       <div class="actions">
         {{ $t('recipePage.keepOnScreen') }}
-        <label @click="keepScreenOn = !keepScreenOn" class="toggle">
-          <input type="checkbox" />
-          <span class="slider"></span>
-        </label>
+        <Toggle @click="keepScreenOn = !keepScreenOn" />
       </div>
     </section>
     <div class="label-group">
@@ -29,7 +26,8 @@ import { useKeepScreenOn } from '@/composables/useKeepScreenOn';
 import { useRecipe } from '@/composables/useRecipe';
 import { capitalizeFirstLetter } from '@/utils/global/text';
 import Button from '../form/Button.vue';
-import { ButtonType } from '@/utils/types/enums';
+import { ButtonType, ColorVariant } from '@/utils/types/enums';
+import Toggle from '../form/Toggle.vue';
 
 const { recipe, lastEatenToday, updateLastEaten } = useRecipe();
 
