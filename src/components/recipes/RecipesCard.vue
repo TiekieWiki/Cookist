@@ -2,7 +2,7 @@
   <article v-if="recipes.length <= 0" class="noCards">
     <h3>{{ $t('recipesPage.noRecipes') }}</h3>
   </article>
-  <transition-group v-else name="move">
+  <TransitionGroup v-else name="move">
     <article
       v-for="recipe in recipes"
       :key="recipe.id"
@@ -21,7 +21,7 @@
         :selected-cook-group="selectedCookGroup"
       />
     </article>
-  </transition-group>
+  </TransitionGroup>
 </template>
 
 <script setup lang="ts">

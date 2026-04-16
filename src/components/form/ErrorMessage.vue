@@ -1,9 +1,9 @@
 <template>
-  <transition name="fade">
+  <Transition name="fade">
     <p v-if="message" class="error">
       {{ $t(message) }}
     </p>
-  </transition>
+  </Transition>
 </template>
 
 <script setup lang="ts">

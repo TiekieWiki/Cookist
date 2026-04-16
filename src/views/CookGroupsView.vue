@@ -5,10 +5,10 @@
         <h2>{{ $t('cookGroupsPage.title') }}</h2>
       </section>
     </article>
-    <transition name="fade">
+    <Transition name="fade">
       <article v-if="cookGroupInvites.length > 0" class="invites noCards">
         <h3>{{ $t('cookGroupsPage.invites') }}</h3>
-        <transition-group name="fade" tag="ul" class="list">
+        <TransitionGroup name="fade" tag="ul" class="list">
           <li v-for="invite in cookGroupInvites" :key="invite.id">
             <p>{{ capitalizeFirstLetter(invite.name) }}</p>
             <div class="actions">
@@ -20,9 +20,9 @@
               </Button>
             </div>
           </li>
-        </transition-group>
+        </TransitionGroup>
       </article>
-    </transition>
+    </Transition>
     <article v-if="cookGroups.length <= 0" class="noCards">
       <h3>{{ $t('cookGroupsPage.noCookGroups') }}</h3>
     </article>
@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, TransitionGroup } from 'vue';
 import NewCookGroup from '@/components/cook group/NewCookGroup.vue';
 import type { CookGroup } from '@/utils/types/cookgroup';
 import { getCookGroups } from '@/utils/cook group/getCookGroups';

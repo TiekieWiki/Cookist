@@ -11,7 +11,7 @@
         </Button>
       </div>
     </section>
-    <transition-group name="fade" tag="div" class="checkbox-list">
+    <TransitionGroup name="fade" tag="div" class="checkbox-list">
       <label v-for="(ingredient, index) in groceryList.ingredients" :key="ingredient.name">
         <input :name="ingredient.name" type="checkbox" @input="deleteIngredient(index)" />
         {{ ingredient.amount }}
@@ -33,7 +33,7 @@
           <font-awesome-icon :icon="['fas', 'trash']" />
         </Button>
       </label>
-    </transition-group>
+    </TransitionGroup>
   </article>
 </template>
 

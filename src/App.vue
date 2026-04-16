@@ -1,6 +1,6 @@
 <template>
   <router-view v-slot="{ Component }">
-    <transition name="slide-fade">
+    <Transition name="slide-fade">
       <suspense>
         <template #default>
           <component :is="Component" />
@@ -11,11 +11,11 @@
           </div>
         </template>
       </suspense>
-    </transition>
+    </Transition>
   </router-view>
   <aside :class="menuOpen ? 'menuOpen' : 'menuClose'">
     <nav>
-      <transition name="switch" mode="out-in" appear>
+      <Transition name="switch" mode="out-in" appear>
         <Button
           v-if="!menuOpen"
           @click="menuOpen = true"
@@ -36,13 +36,13 @@
         >
           <font-awesome-icon :icon="['fas', 'xmark']" tabindex="0" />
         </Button>
-      </transition>
-      <transition name="slide-fade">
+      </Transition>
+      <Transition name="slide-fade">
         <Button v-if="menuOpen" :type="ButtonType.BUTTON" :variant="ColorVariant.NEUTRAL">
           <router-link to="/" tabindex="0">{{ $t('homePage.title') }}</router-link>
         </Button>
-      </transition>
-      <transition name="slide-fade">
+      </Transition>
+      <Transition name="slide-fade">
         <Button
           v-if="menuOpen && isLoggedIn"
           :type="ButtonType.BUTTON"
@@ -50,8 +50,8 @@
         >
           <router-link to="/recipes" tabindex="0">{{ $t('recipesPage.title') }}</router-link>
         </Button>
-      </transition>
-      <transition name="slide-fade">
+      </Transition>
+      <Transition name="slide-fade">
         <Button
           v-if="menuOpen && isLoggedIn"
           :type="ButtonType.BUTTON"
@@ -59,8 +59,8 @@
         >
           <router-link to="/cookgroups" tabindex="0">{{ $t('cookGroupsPage.title') }}</router-link>
         </Button>
-      </transition>
-      <transition name="slide-fade">
+      </Transition>
+      <Transition name="slide-fade">
         <Button
           v-if="menuOpen && isLoggedIn"
           :type="ButtonType.BUTTON"
@@ -70,8 +70,8 @@
             $t('groceryListPage.title')
           }}</router-link>
         </Button>
-      </transition>
-      <transition name="slide-fade">
+      </Transition>
+      <Transition name="slide-fade">
         <Button
           v-if="menuOpen && !isLoggedIn"
           :type="ButtonType.BUTTON"
@@ -79,8 +79,8 @@
         >
           <router-link to="/login" tabindex="0">{{ $t('loginPage.title') }}</router-link>
         </Button>
-      </transition>
-      <transition name="slide-fade">
+      </Transition>
+      <Transition name="slide-fade">
         <Button
           v-if="menuOpen && isLoggedIn"
           :type="ButtonType.BUTTON"
@@ -90,15 +90,15 @@
             {{ $t('profilePage.title') }}
           </router-link>
         </Button>
-      </transition>
+      </Transition>
     </nav>
     <div class="banner">
       <!-- Photo by Andy Chilton on Unsplash -->
       <img src="/src/assets/images/Banner.jpg" alt="" />
     </div>
-    <transition name="slide-fade">
+    <Transition name="slide-fade">
       <router-link v-if="menuOpen" to="/" class="brand" tabindex="0">Cookist</router-link>
-    </transition>
+    </Transition>
   </aside>
 </template>
 

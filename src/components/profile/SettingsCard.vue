@@ -20,9 +20,9 @@
         labelPrefix="profilePage.handedness."
         v-model:selected="selectedHandedness"
       />
-      <transition name="fade">
+      <Transition name="fade">
         <p v-if="successMessage" class="success">{{ successMessage }}</p>
-      </transition>
+      </Transition>
       <Button @click="saveSettings" :type="ButtonType.BUTTON">
         {{ $t('profilePage.save') }}
       </Button>

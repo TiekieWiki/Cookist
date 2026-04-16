@@ -72,7 +72,7 @@
         @click="addRecipe(recipe)"
         tabindex="0"
       >
-        <recipe-card :recipe="recipe" />
+        <RecipeCard :recipe="recipe" />
       </article>
       <section class="footer">
         <Button @click="closePopUp" :type="ButtonType.BUTTON">
