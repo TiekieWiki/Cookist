@@ -8,7 +8,7 @@ import {
   type CookGroup,
   type CookGroupRecipe
 } from '@/utils/types/cookgroup';
-import type { Checkbox } from '@/utils/types/form';
+import type { CheckBoxProps } from '@/utils/types/form';
 import { getAuth } from 'firebase/auth';
 import { ref, watch, type Ref } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
@@ -25,7 +25,7 @@ import { validateRecipe } from '@/utils/recipe/validateRecipe';
  */
 export function useEditRecipe(): {
   recipe: Ref<Recipe>;
-  cookGroups: Ref<Checkbox[]>;
+  cookGroups: Ref<CheckBoxProps[]>;
   cookGroupRecipe: Ref<CookGroupRecipe>;
   image: Ref<File | null>;
   errorMessage: Ref<string>;
@@ -35,8 +35,8 @@ export function useEditRecipe(): {
 
   const oldRecipe = ref<Recipe>(emptyRecipe());
   const recipe = ref<Recipe>(emptyRecipe());
-  let oldCookGroups: Checkbox[] = [];
-  const cookGroups = ref<Checkbox[]>([]);
+  let oldCookGroups: CheckBoxProps[] = [];
+  const cookGroups = ref<CheckBoxProps[]>([]);
   let oldImage: string = '';
   const cookGroupRecipe = ref<CookGroupRecipe>(emptyCookGroupRecipe());
   const image = ref<File | null>(null);
@@ -64,7 +64,7 @@ export function useEditRecipe(): {
         disabled: cookGroup.personal,
         autocomplete: 'off',
         checked: cookGroup.personal
-      })) as Checkbox[];
+      })) as CheckBoxProps[];
 
       // Check if the recipe needs to be edited or added
       if (!route.params.cookGroupRecipeId) return;

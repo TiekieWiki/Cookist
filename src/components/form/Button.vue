@@ -15,23 +15,14 @@
 </template>
 
 <script setup lang="ts">
-import { ButtonSize, ButtonType, ColorVariant } from '@/utils/types/enums';
+import { ButtonSize, ColorVariant } from '@/utils/types/enums';
+import { ButtonProps } from '@/utils/types/form';
 
-withDefaults(
-  defineProps<{
-    variant?: ColorVariant;
-    type: ButtonType;
-    filled?: boolean;
-    size?: ButtonSize;
-    iconOnly?: boolean;
-    disabled?: boolean;
-  }>(),
-  {
-    variant: ColorVariant.PRIMARY,
-    filled: true,
-    size: ButtonSize.MEDIUM,
-    required: false,
-    disabled: false
-  }
-);
+withDefaults(defineProps<ButtonProps>(), {
+  variant: ColorVariant.PRIMARY,
+  filled: true,
+  size: ButtonSize.MEDIUM,
+  required: false,
+  disabled: false
+});
 </script>

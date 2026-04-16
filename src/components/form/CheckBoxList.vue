@@ -18,14 +18,10 @@
 </template>
 
 <script setup lang="ts">
-import type { Checkbox } from '@/utils/types/form';
+import type { CheckBoxListProps, CheckBoxProps } from '@/utils/types/form';
 import CheckBox from './CheckBox.vue';
 
-defineProps<{
-  id?: string;
-  label?: string;
-  required?: boolean;
-}>();
+defineProps<CheckBoxListProps>();
 
-const items = defineModel<Checkbox[]>('items');
+const items = defineModel<CheckBoxProps[]>('items');
 </script>

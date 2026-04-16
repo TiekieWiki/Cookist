@@ -21,18 +21,10 @@
 
 <script setup lang="ts">
 import { getImage } from '@/utils/global/manageImage';
+import { UploadImageProps } from '@/utils/types/form';
 import { ref, watch } from 'vue';
 
-const props = defineProps<{
-  id?: string;
-  name: string;
-  label?: string;
-  placeholder?: string;
-  ariaLabel: string;
-  required?: boolean;
-  disabled?: boolean;
-  oldImage?: string;
-}>();
+const props = defineProps<UploadImageProps>();
 
 const emit = defineEmits<{ image: [File] }>();
 

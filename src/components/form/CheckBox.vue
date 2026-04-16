@@ -14,14 +14,9 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  id?: string;
-  name: string;
-  label: string;
-  required?: boolean;
-  disabled?: boolean;
-  autocomplete?: string;
-}>();
+import { CheckBoxProps } from '@/utils/types/form';
+
+defineProps<CheckBoxProps>();
 
 const input = defineModel<boolean>('input');
 </script>

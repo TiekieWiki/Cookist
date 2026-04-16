@@ -14,25 +14,13 @@
 
 <script setup lang="ts">
 import { ColorVariant } from '@/utils/types/enums';
+import { SelectFieldProps } from '@/utils/types/form';
 
-withDefaults(
-  defineProps<{
-    id?: string;
-    variant?: ColorVariant;
-    label?: string;
-    placeholder?: string;
-    ariaLabel: string;
-    required?: boolean;
-    disabled?: boolean;
-    items: { value: string; label: string }[];
-    labelPrefix?: string;
-  }>(),
-  {
-    variant: ColorVariant.PRIMARY,
-    required: false,
-    disabled: false
-  }
-);
+withDefaults(defineProps<SelectFieldProps>(), {
+  variant: ColorVariant.PRIMARY,
+  required: false,
+  disabled: false
+});
 
 const selected = defineModel<string>('selected');
 </script>

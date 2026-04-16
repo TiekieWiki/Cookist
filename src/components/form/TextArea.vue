@@ -14,15 +14,9 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  id?: string;
-  name: string;
-  label?: string;
-  placeholder: string;
-  ariaLabel: string;
-  required?: boolean;
-  disabled?: boolean;
-}>();
+import { TextAreaProps } from '@/utils/types/form';
+
+defineProps<TextAreaProps>();
 
 const input = defineModel<string>('input');
 </script>

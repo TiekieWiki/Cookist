@@ -21,30 +21,14 @@
 
 <script setup lang="ts">
 import { AutoCompleteVariant, ColorVariant } from '@/utils/types/enums';
+import { InputFieldProps } from '@/utils/types/form';
 
-withDefaults(
-  defineProps<{
-    id?: string;
-    name: string;
-    variant?: ColorVariant;
-    label?: string;
-    placeholder?: string;
-    ariaLabel: string;
-    type: string;
-    required?: boolean;
-    disabled?: boolean;
-    autocomplete?: AutoCompleteVariant;
-    min?: number;
-    max?: number;
-    step?: number;
-  }>(),
-  {
-    variant: ColorVariant.PRIMARY,
-    required: false,
-    disabled: false,
-    autocomplete: AutoCompleteVariant.OFF
-  }
-);
+withDefaults(defineProps<InputFieldProps>(), {
+  variant: ColorVariant.PRIMARY,
+  required: false,
+  disabled: false,
+  autocomplete: AutoCompleteVariant.OFF
+});
 
 const input = defineModel<string | number | undefined>('input');
 </script>

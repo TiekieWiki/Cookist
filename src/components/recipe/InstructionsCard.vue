@@ -25,7 +25,7 @@ import { ButtonType } from '@/utils/types/enums';
 import Toggle from '../form/Toggle.vue';
 import CheckBoxList from '../form/CheckBoxList.vue';
 import { computed } from 'vue';
-import { Checkbox } from '@/utils/types/form';
+import { CheckBoxProps } from '@/utils/types/form';
 
 const { recipe, lastEatenToday, updateLastEaten } = useRecipe();
 
@@ -34,7 +34,7 @@ const instructions = computed(() => {
     return {
       name: instruction,
       label: capitalizeFirstLetter(instruction)
-    } as Checkbox;
+    } as CheckBoxProps;
   });
 });
 

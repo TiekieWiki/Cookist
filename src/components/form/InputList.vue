@@ -17,13 +17,9 @@
 import { deleteRow } from '@/utils/global/list';
 import Button from './Button.vue';
 import { ButtonType } from '@/utils/types/enums';
+import { InputListProps } from '@/utils/types/form';
 
-defineProps<{
-  id?: string;
-  label?: string;
-  required?: boolean;
-  empty?: boolean;
-}>();
+defineProps<InputListProps>();
 
 const items = defineModel<Object[]>('items');
 </script>

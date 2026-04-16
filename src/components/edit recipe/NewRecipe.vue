@@ -148,11 +148,11 @@ import SelectField from '@/components/form/SelectField.vue';
 import TextArea from '@/components/form/TextArea.vue';
 import UploadImage from '@/components/form/UploadImage.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
-import type { Checkbox } from '@/utils/types/form';
+import type { CheckBoxProps } from '@/utils/types/form';
 import CheckBoxList from '../form/CheckBoxList.vue';
 
 const recipe = defineModel<Recipe>('recipe', { required: true });
-const cookGroups = defineModel<Checkbox[]>('cookGroups', { required: true });
+const cookGroups = defineModel<CheckBoxProps[]>('cookGroups', { required: true });
 const errorMessage = defineModel<string>('errorMessage', { required: true });
 const image = defineModel<File | null>('image', { required: true });
 </script>

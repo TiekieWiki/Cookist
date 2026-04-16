@@ -32,13 +32,9 @@
 <script setup lang="ts">
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import Button from './Button.vue';
+import { ConfirmPopUpProps } from '@/utils/types/form';
 
-defineProps<{
-  title: string;
-  section: string;
-  cancel: string;
-  confirm: string;
-}>();
+defineProps<ConfirmPopUpProps>();
 
 const emit = defineEmits<{ confirm: [boolean] }>();
 const openPopUp = defineModel<boolean>('openPopUp');
