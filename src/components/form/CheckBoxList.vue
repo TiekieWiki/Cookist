@@ -1,8 +1,8 @@
 <template>
   <label :id="id">
     {{ required ? label + ' *' : label }}
-    <div class="label-group">
-      <check-box
+    <div class="checkbox-list">
+      <CheckBox
         v-for="(item, index) in items"
         :key="index"
         :id="item.id"

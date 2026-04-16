@@ -1,9 +1,9 @@
 export interface Checkbox {
-  id: string;
+  id?: string;
   name: string;
   label: string;
-  required: boolean;
-  disabled: boolean;
-  autocomplete: string;
-  checked: boolean;
+  required?: boolean;
+  disabled?: boolean;
+  autocomplete?: string;
+  checked?: boolean;
 }

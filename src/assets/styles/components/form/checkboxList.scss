@@ -1,6 +1,6 @@
 @import '../../mixins/interactions.scss';
 
-.label-group {
+.checkbox-list {
   display: flex;
   flex-direction: column;
   gap: var(--gap-small);
@@ -18,13 +18,29 @@
       width: calc(var(--size-icon-small) + 0.2em);
       height: calc(var(--size-icon-small) + 0.2em);
       background-color: transparent;
-      color: var(--color-primary);
-      border: var(--border-medium) solid var(--color-primary);
+      border-style: solid;
+      border-width: var(--border-medium);
       border-radius: var(--border-radius-small);
       cursor: pointer;
 
       @include zoom-on-hover(var(--scale-medium));
       @include outline-on-focus;
+
+        &.primary {
+            border-color: var(--color-primary);
+        }
+
+        &.secondary {
+            border-color: var(--color-secondary);
+        }
+
+        &.tertiary {
+            border-color: var(--color-tertiary);
+        }
+
+        &.warning {
+            border-color: var(--color-error);
+        }
 
       &::before {
         content: '';
