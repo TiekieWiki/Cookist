@@ -1,6 +1,7 @@
 <template>
   <label :for="id">
     <input
+      :class="variant"
       :id="id"
       :name="name"
       type="checkbox"
@@ -14,9 +15,12 @@
 </template>
 
 <script setup lang="ts">
+import { ColorVariant } from '@/utils/types/enums';
 import { CheckBoxProps } from '@/utils/types/form';
 
-defineProps<CheckBoxProps>();
+withDefaults(defineProps<CheckBoxProps>(), {
+  variant: ColorVariant.PRIMARY
+});
 
 const input = defineModel<boolean>('input');
 </script>

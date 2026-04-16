@@ -1,0 +1,65 @@
+@import '../../mixins/form.scss';
+
+input[type='file'] {
+  width: 100%;
+}
+
+input {
+    &.primary {
+        &::file-selector-button {
+            background-color: var(--color-primary);
+        }
+    }
+
+    &.secondary {
+        &::file-selector-button {
+            background-color: var(--color-secondary);
+        }
+    }
+
+    &.tertiary {
+        &::file-selector-button {
+            background-color: var(--color-tertiary);
+        }
+    }
+
+    &.accent {
+        &::file-selector-button {
+            background-image: var(--color-accent);
+        }
+    }
+
+    &.warning {
+        &::file-selector-button {
+            background-color: var(--color-error);
+        }
+    }
+
+  &::file-selector-button {
+    @include form-element;
+
+    display: grid;
+    grid-template-columns: auto var(--size-icon-small);
+    justify-self: start;
+    align-self: center;
+    margin-bottom: var(--gap-small);
+    border: none;
+    border-radius: var(--border-radius-medium);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+  }
+
+  &:disabled {
+    &::file-selector-button {
+      background-image: none;
+      background-color: (--color-disabled);
+      cursor: auto;
+    }
+  }
+}
+
+input:disabled::file-selector-button {
+  background-image: none;
+  background-color: var(--color-disabled);
+  cursor: auto;
+}

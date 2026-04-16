@@ -3,6 +3,7 @@
     {{ required ? label + ' *' : label }}
     <div>
       <input
+        :class="variant"
         :id="id"
         :name="name"
         :placeholder="placeholder"
@@ -21,10 +22,13 @@
 
 <script setup lang="ts">
 import { getImage } from '@/utils/global/manageImage';
+import { ColorVariant } from '@/utils/types/enums';
 import { UploadImageProps } from '@/utils/types/form';
 import { ref, watch } from 'vue';
 
-const props = defineProps<UploadImageProps>();
+const props = withDefaults(defineProps<UploadImageProps>(), {
+  variant: ColorVariant.PRIMARY
+});
 
 const emit = defineEmits<{ image: [File] }>();
 

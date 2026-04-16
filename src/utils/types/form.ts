@@ -11,6 +11,7 @@ export interface ButtonProps {
 
 export interface CheckBoxProps {
   id?: string;
+  variant?: ColorVariant;
   name: string;
   label: string;
   required?: boolean;
@@ -69,6 +70,7 @@ export interface SelectFieldProps {
 
 export interface TextAreaProps {
   id?: string;
+  variant?: ColorVariant;
   name: string;
   label?: string;
   placeholder: string;
@@ -83,6 +85,7 @@ export interface ToggleProps {
 
 export interface UploadImageProps {
   id?: string;
+  variant?: ColorVariant;
   name: string;
   label?: string;
   placeholder?: string;

@@ -1,0 +1,27 @@
+textarea {
+  @include form-element;
+
+  border-radius: var(--border-radius-medium);
+  background-color: transparent;
+
+  &.primary {
+        border-color: var(--color-primary);
+    }
+
+    &.secondary {
+        border-color: var(--color-secondary);
+    }
+
+    &.tertiary {
+        border-color: var(--color-tertiary);
+    }
+
+    &.warning {
+        border-color: var(--color-error);
+    }
+
+  &:disabled {
+    background-color: var(--color-disabled);
+    cursor: auto;
+  }
+}
