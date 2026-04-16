@@ -1,4 +1,5 @@
 @import '../../mixins/form.scss';
+@import '../../mixins/colors.scss';
 
 .select {
   @include form-element;
@@ -18,33 +19,27 @@
     clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
   }
 
-    &.primary {
-        border-color: var(--color-primary);
+  @include border-colors;
 
+    &.primary {
         &::after {
              background-color: var(--color-primary);
         }
     }
 
     &.secondary {
-        border-color: var(--color-secondary);
-
         &::after {
              background-color: var(--color-secondary);
         }
     }
 
     &.tertiary {
-        border-color: var(--color-tertiary);
-
         &::after {
              background-color: var(--color-tertiary);
         }
     }
 
     &.warning {
-        border-color: var(--color-error);
-
         &::after {
              background-color: var(--color-error);
         }

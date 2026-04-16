@@ -1,4 +1,5 @@
 @import '../../mixins/form.scss';
+@import '../../mixins/colors.scss';
 
 button {
     @include form-element;
@@ -13,84 +14,26 @@ button {
     cursor: pointer;
 
     &.large {
-        font-size: 1.2rem;
+        font-size: var(--size-icon-medium);
     }
 
     &.filled {
         border: none;
 
-        &.primary {
-            background-color: var(--color-primary);
-        }
-
-        &.secondary {
-            background-color: var(--color-secondary);
-        }
-
-        &.tertiary {
-            background-color: var(--color-tertiary);
-        }
-
-        &.accent {
-            background-image: var(--color-accent);
-        }
-
-        &.warning {
-            background-color: var(--color-error);
-        }
-
-        &.neutral {
-            background-color: transparent;
-        }
+        @include background-colors;
     }
 
     &.outline {
         background-color: transparent;
 
-        &.primary {
-            border-color: var(--color-primary);
-        }
-
-        &.secondary {
-            border-color: var(--color-secondary);
-        }
-
-        &.tertiary {
-            border-color: var(--color-tertiary);
-        }
-
-        &.warning {
-            border-color: var(--color-error);
-        } 
-
-        &.neutral {
-            border-color: transparent;
-        }
+        @include border-colors;
     }
 
-        &.iconOnly {
+    &.iconOnly {
         border: none;
         background-color: transparent !important;
 
-        &.primary {
-            color: var(--color-primary);
-        }
-
-        &.secondary {
-            color: var(--color-secondary);
-        }
-
-        &.tertiary {
-            color: var(--color-tertiary);
-        }
-
-        &.warning {
-            color: var(--color-error);
-        }
-
-        &.neutral {
-            color: var(--color-text-primary);
-        }
+        @include text-colors;
     }
 
     &:disabled {

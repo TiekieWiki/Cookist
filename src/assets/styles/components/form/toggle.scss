@@ -1,3 +1,5 @@
+@import '../../mixins/colors.scss';
+
 .toggle {
   position: relative;
   display: inline-block;
@@ -11,26 +13,7 @@
     
 
     &:checked + .slider {
-        &.primary {
-            background-color: var(--color-primary);
-        }
-
-        &.secondary {
-            background-color: var(--color-secondary);
-        }
-
-        &.tertiary {
-            background-color: var(--color-tertiary);
-        }
-
-        &.accent {
-            background-image: var(--color-accent);
-        }
-
-        &.warning {
-            background-color: var(--color-error);
-        }
-
+      @include background-colors;
         &::before {
             -webkit-transform: translateX(calc(var(--gap-xlarge) - var(--gap-xxsmall) * 4));
             -ms-transform: translateX(calc(var(--gap-xlarge) - var(--gap-xxsmall) * 4));

@@ -1,24 +1,12 @@
+@import '../../mixins/form.scss';
+@import '../../mixins/colors.scss';
+
 textarea {
   @include form-element;
+  @include border-colors;
 
   border-radius: var(--border-radius-medium);
   background-color: transparent;
-
-  &.primary {
-        border-color: var(--color-primary);
-    }
-
-    &.secondary {
-        border-color: var(--color-secondary);
-    }
-
-    &.tertiary {
-        border-color: var(--color-tertiary);
-    }
-
-    &.warning {
-        border-color: var(--color-error);
-    }
 
   &:disabled {
     background-color: var(--color-disabled);
