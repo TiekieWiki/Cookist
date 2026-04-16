@@ -12,7 +12,7 @@
           <li v-for="invite in cookGroupInvites" :key="invite.id">
             <p>{{ capitalizeFirstLetter(invite.name) }}</p>
             <div class="actions">
-              <Button @click="acceptInvite(invite.id)" class="edit" :type="ButtonType.BUTTON">
+              <Button @click="acceptInvite(invite.id)" :type="ButtonType.BUTTON">
                 <font-awesome-icon :icon="['fas', 'check']" />
               </Button>
               <Button @click="declineInvite(invite.id)" :type="ButtonType.SUBMIT">

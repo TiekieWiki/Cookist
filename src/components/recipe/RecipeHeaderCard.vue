@@ -3,16 +3,19 @@
     <section class="header">
       <h2>{{ capitalizeFirstLetter(recipe.name) }}</h2>
       <div v-if="recipe.owner === getAuth().currentUser?.uid" class="actions">
-        <font-awesome-icon
-          @click="
-            $router.push({
-              path: `/edit-recipe/${cookGroupRecipe.id}`
-            })
-          "
-          class="edit"
-          :icon="['fas', 'pen']"
-        />
-        <font-awesome-icon @click="deleteOpen = true" :icon="['fas', 'trash-can']" />
+        <Button :type="ButtonType.BUTTON">
+          <font-awesome-icon
+            @click="
+              $router.push({
+                path: `/edit-recipe/${cookGroupRecipe.id}`
+              })
+            "
+            :icon="['fas', 'pen']"
+          />
+        </Button>
+        <Button :type="ButtonType.BUTTON">
+          <font-awesome-icon @click="deleteOpen = true" :icon="['fas', 'trash-can']" />
+        </Button>
       </div>
     </section>
     <section class="info">
@@ -46,6 +49,8 @@
 import { useRecipe } from '@/composables/useRecipe';
 import { getAuth } from 'firebase/auth';
 import { capitalizeFirstLetter } from '@/utils/global/text';
+import Button from '../form/Button.vue';
+import { ButtonType } from '@/utils/types/enums';
 
 const deleteOpen = defineModel<boolean>('deleteOpen', { required: true });
 

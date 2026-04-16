@@ -1,12 +1,13 @@
 <template>
   <article>
     <section class="header" :class="['timer', timer.isFinished ? 'finished' : '']">
-      <font-awesome-icon class="edit" :icon="['fas', 'stopwatch']" />
-      <font-awesome-icon
-        @click="timer.minutes = Math.max(timer.minutes - 1, 0)"
-        class="edit"
-        :icon="['fas', 'minus']"
-      />
+      <font-awesome-icon :icon="['fas', 'stopwatch']" />
+      <Button :type="ButtonType.BUTTON">
+        <font-awesome-icon
+          @click="timer.minutes = Math.max(timer.minutes - 1, 0)"
+          :icon="['fas', 'minus']"
+        />
+      </Button>
       <InputField
         name="hours"
         :placeholder="$t('recipePage.placeholder.hours')"
@@ -33,7 +34,9 @@
         type="number"
         v-model:input="timer.seconds"
       />
-      <font-awesome-icon @click="timer.minutes++" class="edit" :icon="['fas', 'plus']" />
+      <Button :type="ButtonType.BUTTON">
+        <font-awesome-icon @click="timer.minutes++" :icon="['fas', 'plus']"
+      /></Button>
       <Button @click="timer.isRunning = !timer.isRunning" :type="ButtonType.BUTTON">
         <font-awesome-icon v-if="timer.isRunning" :icon="['fas', 'pause']" />
         <font-awesome-icon v-else :icon="['fas', 'play']" />
