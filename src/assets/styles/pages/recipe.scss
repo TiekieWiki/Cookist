@@ -13,27 +13,5 @@
       align-items: center;
       gap: var(--gap-medium);
     }
-
-    .checkbox-list {
-      label {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: var(--gap-medium);
-        align-items: center;
-        width: auto;
-
-        label {
-          grid-template-columns: auto;
-        }
-
-        &.ingredient {
-          grid-template-columns: auto 1fr 2fr 3fr;
-
-          @media screen and (max-width: 900px) {
-            grid-template-columns: auto 1fr 2fr 2fr;
-          }
-        }
-      }
-    }
   }
 }

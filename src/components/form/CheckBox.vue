@@ -1,5 +1,5 @@
 <template>
-  <label :for="id">
+  <label :for="id" class="checkbox">
     <input
       :class="variant"
       :id="id"

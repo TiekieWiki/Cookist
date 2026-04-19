@@ -1,4 +1,5 @@
 import { AutoCompleteVariant, ButtonSize, ButtonType, ColorVariant } from './enums';
+import { GroceryList } from './groceryList';
 
 export interface ButtonProps {
   variant?: ColorVariant;
@@ -18,6 +19,7 @@ export interface CheckBoxProps {
   disabled?: boolean;
   autocomplete?: string;
   checked?: boolean;
+  slot?: string;
 }
 
 export interface CheckBoxListProps {

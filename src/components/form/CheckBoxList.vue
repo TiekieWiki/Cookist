@@ -2,17 +2,20 @@
   <label :id="id">
     {{ required ? label + ' *' : label }}
     <div class="checkbox-list">
-      <CheckBox
-        v-for="(item, index) in items"
-        :key="index"
-        :id="item.id"
-        :name="item.name"
-        :label="item.label"
-        :required="item.required"
-        :disabled="item.disabled"
-        :autocomplete="item.autocomplete"
-        v-model:input="item.checked"
-      />
+      <div v-for="(item, index) in items" :key="index" class="checkbox-list-item">
+        <CheckBox
+          :id="item.id"
+          :variant="item.variant"
+          :name="item.name"
+          :label="item.label"
+          :required="item.required"
+          :disabled="item.disabled"
+          :autocomplete="item.autocomplete"
+          v-model:input="item.checked"
+        />
+
+        <slot name="item" :item="item" :index="index" />
+      </div>
     </div>
   </label>
 </template>

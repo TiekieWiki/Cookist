@@ -16,25 +16,24 @@
         </Button>
       </div>
     </section>
-    <div class="checkbox-list">
-      <label v-for="ingredient in recipe.ingredients" :key="ingredient.name" class="ingredient">
-        <CheckBox :name="ingredient.name" :label="ingredient.amount" />
+    <CheckBoxList :items="ingredients">
+      <template #item="{ item, index }">
         <SelectField
           :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
           :placeholder="$t('editRecipePage.placeholder.unit')"
           :items="
-            Object.values(getPossibleUnits(ingredient.unit)).map((unit) => ({
+            Object.values(getPossibleUnits(item.slot)).map((unit) => ({
               value: (unit as string).toLowerCase(),
               label: (unit as string).toLowerCase()
             }))
           "
           labelPrefix="editRecipePage.units."
-          v-model:selected="ingredient.unit"
+          v-model:selected="item.slot"
           @change="changeIngredientUnit()"
         />
-        {{ ingredient.name }}
-      </label>
-    </div>
+        {{ item.name }}
+      </template>
+    </CheckBoxList>
     <Button @click="addToGroceryList(recipe.ingredients)" :type="ButtonType.SUBMIT">
       <font-awesome-icon :icon="['fas', 'plus']" />
       {{ $t('recipePage.addToGroceryList') }}
@@ -49,9 +48,22 @@ import { addToGroceryList } from '@/utils/grocery list/editGroceryList';
 import { useRecipe } from '@/composables/useRecipe';
 import Button from '../form/Button.vue';
 import { ButtonType } from '@/utils/types/enums';
-import CheckBox from '../form/CheckBox.vue';
+import CheckBoxList from '../form/CheckBoxList.vue';
+import { computed } from 'vue';
+import { capitalizeFirstLetter } from '@/utils/global/text';
+import { CheckBoxProps } from '@/utils/types/form';
 
 const { recipe, initialIngredients, portionCount } = useRecipe();
+
+const ingredients = computed(() => {
+  return recipe.value.ingredients.map((ingredient) => {
+    return {
+      name: ingredient.name,
+      label: capitalizeFirstLetter(ingredient.name),
+      slot: ingredient.unit
+    } as CheckBoxProps;
+  });
+});
 
 /**
  * Update the ingredient unit

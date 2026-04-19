@@ -1,24 +1,5 @@
 .groceryList {
   article {
-    .checkbox-list {
-      label {
-        display: grid;
-        grid-template-columns: auto 1fr 2fr 5fr auto;
-        align-items: center;
-        gap: var(--gap-medium);
-        width: auto;
-
-        label {
-          grid-template-columns: auto;
-        }
-       
-        button {
-            align-self: center;
-            width: auto;
-        }
-      }
-    }
-
     .info {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

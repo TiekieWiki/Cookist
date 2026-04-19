@@ -1,73 +1,11 @@
-@import '../../mixins/interactions.scss';
-@import '../../mixins/colors.scss';
-
 .checkbox-list {
   display: flex;
   flex-direction: column;
   gap: var(--gap-small);
 
-  label {
-    display: grid;
-    grid-template-columns: var(--size-icon-small) auto;
+  .checkbox-list-item {
+    display: flex;
     gap: var(--gap-small);
-
-    input[type='checkbox'] {
-      -webkit-appearance: none;
-      appearance: none;
-      display: grid;
-      place-content: center;
-      width: calc(var(--size-icon-small) + 0.2em);
-      height: calc(var(--size-icon-small) + 0.2em);
-      background-color: transparent;
-      border-style: solid;
-      border-width: var(--border-medium);
-      border-radius: var(--border-radius-small);
-      cursor: pointer;
-
-      @include zoom-on-hover(var(--scale-medium));
-      @include outline-on-focus;
-      @include border-colors;
-
-        &.primary {
-            &::before {
-              box-shadow: inset var(--size-icon-small) var(--size-icon-small) var(--color-primary);
-            }
-        }
-
-        &.secondary {
-            &::before {
-              box-shadow: inset var(--size-icon-small) var(--size-icon-small) var(--color-secondary);
-            }
-        }
-
-        &.tertiary {
-            &::before {
-              box-shadow: inset var(--size-icon-small) var(--size-icon-small) var(--color-tertiary);
-            }
-        }
-
-        &.warning {
-            &::before {
-              box-shadow: inset var(--size-icon-small) var(--size-icon-small) var(--color-error);
-            }
-        }
-
-      &::before {
-        content: '';
-        width: calc(var(--size-icon-small) - 0.3em);
-        height: calc(var(--size-icon-small) - 0.3em);
-        transform: scale(0);
-        transition: var(--speed-medium) transform ease-in-out;
-      }
-
-      &:checked::before {
-        transform: scale(1);
-      }
-
-      &:disabled {
-        background-color: var(--color-disabled);
-        cursor: auto;
-      }
-    }
+    align-items: center;
   }
 }
