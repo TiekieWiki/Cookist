@@ -13,8 +13,11 @@
     </section>
     <TransitionGroup name="fade" tag="div" class="checkbox-list">
       <label v-for="(ingredient, index) in groceryList.ingredients" :key="ingredient.name">
-        <input :name="ingredient.name" type="checkbox" @input="deleteIngredient(index)" />
-        {{ ingredient.amount }}
+        <CheckBox
+          :name="ingredient.name"
+          :label="ingredient.amount"
+          @input="deleteIngredient(index)"
+        />
         <SelectField
           :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
           :placeholder="$t('editRecipePage.placeholder.unit')"
@@ -43,6 +46,7 @@ import { getPossibleUnits } from '@/utils/recipe/updateIngredientUnit';
 import SelectField from '@/components/form/SelectField.vue';
 import Button from '../form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
+import CheckBox from '../form/CheckBox.vue';
 
 const { groceryList, emptyGroceryListOpen, deleteIngredient, changeIngredientUnit } =
   useGroceryList();

@@ -18,8 +18,7 @@
     </section>
     <div class="checkbox-list">
       <label v-for="ingredient in recipe.ingredients" :key="ingredient.name" class="ingredient">
-        <input :name="ingredient.name" type="checkbox" />
-        {{ ingredient.amount }}
+        <CheckBox :name="ingredient.name" :label="ingredient.amount" />
         <SelectField
           :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
           :placeholder="$t('editRecipePage.placeholder.unit')"
@@ -50,7 +49,7 @@ import { addToGroceryList } from '@/utils/grocery list/editGroceryList';
 import { useRecipe } from '@/composables/useRecipe';
 import Button from '../form/Button.vue';
 import { ButtonType } from '@/utils/types/enums';
-import CheckBoxList from '../form/CheckBoxList.vue';
+import CheckBox from '../form/CheckBox.vue';
 
 const { recipe, initialIngredients, portionCount } = useRecipe();
 

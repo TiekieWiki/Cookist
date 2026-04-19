@@ -13,7 +13,7 @@ export interface CheckBoxProps {
   id?: string;
   variant?: ColorVariant;
   name: string;
-  label: string;
+  label: string | number;
   required?: boolean;
   disabled?: boolean;
   autocomplete?: string;
@@ -22,7 +22,7 @@ export interface CheckBoxProps {
 
 export interface CheckBoxListProps {
   id?: string;
-  label?: string;
+  label?: string | number;
   required?: boolean;
 }
 
@@ -37,7 +37,7 @@ export interface InputFieldProps {
   id?: string;
   name: string;
   variant?: ColorVariant;
-  label?: string;
+  label?: string | number;
   placeholder?: string;
   ariaLabel: string;
   type: string;
@@ -51,7 +51,7 @@ export interface InputFieldProps {
 
 export interface InputListProps {
   id?: string;
-  label?: string;
+  label?: string | number;
   required?: boolean;
   empty?: boolean;
 }
@@ -59,7 +59,7 @@ export interface InputListProps {
 export interface SelectFieldProps {
   id?: string;
   variant?: ColorVariant;
-  label?: string;
+  label?: string | number;
   placeholder?: string;
   ariaLabel: string;
   required?: boolean;
@@ -72,7 +72,7 @@ export interface TextAreaProps {
   id?: string;
   variant?: ColorVariant;
   name: string;
-  label?: string;
+  label?: string | number;
   placeholder: string;
   ariaLabel: string;
   required?: boolean;
@@ -87,7 +87,7 @@ export interface UploadImageProps {
   id?: string;
   variant?: ColorVariant;
   name: string;
-  label?: string;
+  label?: string | number;
   placeholder?: string;
   ariaLabel: string;
   required?: boolean;
