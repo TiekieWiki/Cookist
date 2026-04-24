@@ -1,13 +1,13 @@
 <template>
-  <main v-if="recipe.name" class="recipe two-columns">
+  <main v-if="recipe.name">
     <RecipeHeaderCard v-model:delete-open="deleteRecipeOpen" />
     <TimerCard />
     <IngredientsCard />
     <InstructionsCard />
   </main>
-  <main v-else class="recipe two-columns">
+  <main v-else>
     <article>
-      <section class="header">
+      <section>
         <h2>{{ $t('recipePage.recipeNotFound') }}</h2>
       </section>
     </article>

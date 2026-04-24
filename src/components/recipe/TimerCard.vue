@@ -1,6 +1,6 @@
 <template>
   <article>
-    <section class="header" :class="['timer', timer.isFinished ? 'finished' : '']">
+    <section :class="['timer', timer.isFinished ? 'finished' : '']">
       <font-awesome-icon :icon="['fas', 'stopwatch']" />
       <Button :type="ButtonType.BUTTON">
         <font-awesome-icon

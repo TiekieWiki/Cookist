@@ -1,11 +1,11 @@
 <template>
-  <article v-if="groceryList?.ingredients.length <= 0" class="noCards">
+  <article v-if="groceryList?.ingredients.length <= 0">
     <h3>{{ $t('groceryListPage.noItems') }}</h3>
   </article>
   <article v-else>
-    <section class="title">
+    <section>
       <h3>{{ $t('groceryListPage.ingredients') }}</h3>
-      <div class="actions">
+      <div>
         <Button :type="ButtonType.BUTTON" :iconOnly="true" :variant="ColorVariant.WARNING">
           <font-awesome-icon @click="emptyGroceryListOpen = true" :icon="['fas', 'trash-can']" />
         </Button>

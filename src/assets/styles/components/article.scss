@@ -15,14 +15,6 @@ main {
     width: 100vw;
   }
 
-  &.two-columns {
-    grid-template-columns: repeat(auto-fill, minmax(max(300px, calc((100% - var(--gap-large)) / 2)), 1fr));
-  }
-
-  &.three-columns {
-    grid-template-columns: repeat(auto-fill, minmax(max(200px, calc((100% - (2 * var(--gap-large))) / 3)), 1fr));
-  }
-
   article {
     display: flex;
     flex-direction: column;
@@ -31,36 +23,5 @@ main {
     background-color: var(--color-background-secondary);
     border-radius: var(--border-radius-medium);
     box-shadow: var(--box-shadow);
-
-    &:has(> .header) {
-      grid-column: 1 / -1;
     }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: var(--color-text-primary);
-      z-index: 2;
-
-      .actions {
-        display: flex;
-        gap: var(--gap-small);
-        align-items: flex-end;
-        z-index: 2;
-      }
-    }
-
-    .title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;     
-
-      .actions {
-        display: flex;
-        gap: var(--gap-small);
-        align-items: center;
-      }
-    }
-  }
 }

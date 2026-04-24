@@ -1,38 +1,8 @@
-.noCards {
-  @include empty-card;
-}
+@import '../mixins/visuals.scss';
 
 .card {
   position: relative;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-
-  .title {
-    display: flex;
-    justify-content: space-between;
-    z-index: 2;
-    color: var(--color-text-primary);
-
-    .actions {
-      display: flex;
-      gap: var(--gap-small);
-    }
-  }
-
-  .info {
-    display: flex;
-    gap: var(--gap-small);
-    flex-wrap: wrap;
-    z-index: 2;
-    color: var(--color-text-primary);
-  }
-
-  &:not(.newCard) {
-    @include background-image-card;
-  }
-
-  &.newCard {
-    justify-content: center;
-  }
 }

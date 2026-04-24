@@ -5,14 +5,6 @@
 @import 'text.scss';
 @import 'transitions.scss';
 
-// Pages
-@import 'pages/cookGroups.scss';
-@import 'pages/editRecipe.scss';
-@import 'pages/groceryList.scss';
-@import 'pages/home.scss';
-@import 'pages/recipe.scss';
-@import 'pages/recipes.scss';
-
 // Components
 @import 'components/article.scss';
 @import 'components/card.scss';
@@ -20,4 +12,3 @@
 @import 'components/loader.scss';
 @import 'components/modal.scss';
 @import 'components/nav.scss';
-@import 'components/timer.scss';

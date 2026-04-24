@@ -1,11 +1,11 @@
 <template>
-  <section class="filters">
+  <section>
     <CheckBoxList
       id="category"
       :label="$t('editRecipePage.category')"
       v-model:items="filter.categories"
     />
-    <div class="rangeFilters">
+    <div>
       <div>
         <InputField
           id="lastEatenMin"
@@ -69,7 +69,7 @@
         />
       </div>
     </div>
-    <div class="ingredients">
+    <div>
       <InputList
         id="ingredients"
         :label="$t('editRecipePage.ingredients')"

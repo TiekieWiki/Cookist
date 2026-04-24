@@ -1,5 +1,5 @@
 <template>
-  <article v-if="recipes.length <= 0" class="noCards">
+  <article v-if="recipes.length <= 0">
     <h3>{{ $t('recipesPage.noRecipes') }}</h3>
   </article>
   <TransitionGroup v-else name="move">

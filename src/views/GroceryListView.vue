@@ -1,7 +1,7 @@
 <template>
-  <main class="groceryList">
+  <main>
     <article>
-      <section class="header">
+      <section>
         <h2>{{ $t('groceryListPage.title') }}</h2>
       </section>
     </article>

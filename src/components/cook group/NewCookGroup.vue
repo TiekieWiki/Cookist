@@ -1,7 +1,7 @@
 <template>
   <main class="modal">
     <article>
-      <section class="header">
+      <section>
         <h2>{{ $t('editCookGroupPage.title') }}</h2>
         <Button
           @click="$emit('closePopUp')"
@@ -67,14 +67,14 @@
       <article
         v-for="recipe in filteredRecipes"
         :key="recipe.id"
-        class="card searchRecipe"
+        class="card"
         :id="recipe.id"
         @click="addRecipe(recipe)"
         tabindex="0"
       >
         <RecipeCard :recipe="recipe" />
       </article>
-      <section class="footer">
+      <section>
         <Button @click="closePopUp" :type="ButtonType.BUTTON">
           {{ $t('editCookGroupPage.cancel') }}
         </Button>

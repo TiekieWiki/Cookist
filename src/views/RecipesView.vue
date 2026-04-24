@@ -1,8 +1,8 @@
 <template>
-  <main class="recipes two-columns">
+  <main>
     <RecipeOrderFilterCard />
     <RecipesCard />
-    <article class="card newCard">
+    <article class="card">
       <Button
         @click="
           $router.push({

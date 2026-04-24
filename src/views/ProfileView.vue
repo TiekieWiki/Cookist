@@ -1,5 +1,5 @@
 <template>
-  <main class="two-columns">
+  <main>
     <SettingsCard />
     <AccountCard v-model:deleteOpen="deleteAccountOpen" />
   </main>

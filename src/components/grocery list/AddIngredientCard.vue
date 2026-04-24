@@ -1,6 +1,6 @@
 <template>
-  <article class="card newCard">
-    <section class="info">
+  <article class="card">
+    <section>
       <InputField
         name="newIngredientAmount"
         :placeholder="$t('editRecipePage.placeholder.amount')"

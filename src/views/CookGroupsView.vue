@@ -1,17 +1,17 @@
 <template>
-  <main :class="['cookGroups', 'two-columns', cookGroupInvites.length > 0 ? 'two-headers' : '']">
+  <main>
     <article>
-      <section class="header">
+      <section>
         <h2>{{ $t('cookGroupsPage.title') }}</h2>
       </section>
     </article>
     <Transition name="fade">
-      <article v-if="cookGroupInvites.length > 0" class="invites noCards">
+      <article v-if="cookGroupInvites.length > 0">
         <h3>{{ $t('cookGroupsPage.invites') }}</h3>
-        <TransitionGroup name="fade" tag="ul" class="list">
+        <TransitionGroup name="fade" tag="ul">
           <li v-for="invite in cookGroupInvites" :key="invite.id">
             <p>{{ capitalizeFirstLetter(invite.name) }}</p>
-            <div class="actions">
+            <div>
               <Button @click="acceptInvite(invite.id)" :type="ButtonType.BUTTON">
                 <font-awesome-icon :icon="['fas', 'check']" />
               </Button>
@@ -23,7 +23,7 @@
         </TransitionGroup>
       </article>
     </Transition>
-    <article v-if="cookGroups.length <= 0" class="noCards">
+    <article v-if="cookGroups.length <= 0">
       <h3>{{ $t('cookGroupsPage.noCookGroups') }}</h3>
     </article>
     <template v-else>
@@ -36,7 +36,7 @@
         />
       </article>
     </template>
-    <article class="card newCard">
+    <article class="card">
       <Button @click="editCookGroupOpen = !editCookGroupOpen" :type="ButtonType.BUTTON">
         <font-awesome-icon :icon="['fas', 'plus']" />
       </Button>

@@ -1,6 +1,6 @@
 <template>
   <article>
-    <section class="header">
+    <section>
       <h2>{{ $t('recipesPage.title') }}</h2>
       <SelectField
         id="cookGroup"
@@ -16,7 +16,7 @@
         v-model:selected="selectedCookGroup"
       />
     </section>
-    <section class="orderFilter">
+    <section>
       <InputField
         id="search"
         name="search"

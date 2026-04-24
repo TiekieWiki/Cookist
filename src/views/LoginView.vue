@@ -1,5 +1,5 @@
 <template>
-  <main class="two-columns">
+  <main>
     <LoginCard />
     <RegisterCard />
   </main>

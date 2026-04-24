@@ -1,5 +1,5 @@
 <template>
-  <section class="title">
+  <section>
     <h3>
       {{
         cookGroup.name
@@ -7,7 +7,7 @@
           : $t('cookGroupsPage.personalCookGroup')
       }}
     </h3>
-    <div v-if="cookGroup.owner === getAuth().currentUser?.uid" class="actions">
+    <div v-if="cookGroup.owner === getAuth().currentUser?.uid">
       <Button @click="editCookGroup(cookGroup)" :type="ButtonType.BUTTON" :icon-only="true">
         <font-awesome-icon :icon="['fas', 'pen']" />
       </Button>
@@ -22,7 +22,7 @@
       </Button>
     </div>
   </section>
-  <section class="info">
+  <section>
     <p>
       {{ cookGroupRecipesCount }}
       {{ $t('cookGroupsPage.recipes', cookGroupRecipesCount ?? 0) }}

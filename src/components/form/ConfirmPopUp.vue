@@ -2,7 +2,7 @@
   <teleport to="body" v-if="openPopUp">
     <main class="modal">
       <article>
-        <section class="header">
+        <section>
           <h2>{{ $t(title) }}</h2>
           <Button
             @click="openPopUp = false"
@@ -13,10 +13,10 @@
             <font-awesome-icon :icon="['fas', 'xmark']" />
           </Button>
         </section>
-        <section class="content">
+        <section>
           <p>{{ $t(section) }}</p>
         </section>
-        <section class="footer">
+        <section>
           <Button @click="openPopUp = false" :type="ButtonType.BUTTON">
             {{ $t(cancel) }}
           </Button>

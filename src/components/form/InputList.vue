@@ -2,7 +2,7 @@
   <label :id="id">
     {{ required ? label + ' *' : label }}
 
-    <ul class="list">
+    <ul>
       <li v-for="(item, index) in items" :key="index">
         <slot :index="index"></slot>
         <Button @click="deleteRow(items!, index, empty)" :type="ButtonType.BUTTON">

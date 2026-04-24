@@ -1,8 +1,8 @@
 <template>
   <article>
-    <section class="header">
+    <section>
       <h2>{{ capitalizeFirstLetter(recipe.name) }}</h2>
-      <div v-if="recipe.owner === getAuth().currentUser?.uid" class="actions">
+      <div v-if="recipe.owner === getAuth().currentUser?.uid">
         <Button :type="ButtonType.BUTTON">
           <font-awesome-icon
             @click="
@@ -18,7 +18,7 @@
         </Button>
       </div>
     </section>
-    <section class="info">
+    <section>
       <p>{{ capitalizeFirstLetter($t('editRecipePage.categories.' + recipe.category)) }}</p>
       |
       <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipe.duration }}</p>
