@@ -67,7 +67,6 @@
       <article
         v-for="recipe in filteredRecipes"
         :key="recipe.id"
-        class="card"
         :id="recipe.id"
         @click="addRecipe(recipe)"
         tabindex="0"

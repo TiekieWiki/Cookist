@@ -27,7 +27,7 @@
       <h3>{{ $t('cookGroupsPage.noCookGroups') }}</h3>
     </article>
     <template v-else>
-      <article v-for="cookGroup in cookGroups" :key="cookGroup.id" class="card" :id="cookGroup.id">
+      <article v-for="cookGroup in cookGroups" :key="cookGroup.id" :id="cookGroup.id">
         <CookGroupCard
           :cook-group="cookGroup"
           v-model:edit-cook-group-open="editCookGroupOpen"
@@ -36,7 +36,7 @@
         />
       </article>
     </template>
-    <article class="card">
+    <article>
       <Button @click="editCookGroupOpen = !editCookGroupOpen" :type="ButtonType.BUTTON">
         <font-awesome-icon :icon="['fas', 'plus']" />
       </Button>

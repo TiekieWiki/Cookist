@@ -2,7 +2,7 @@
   <main>
     <RecipeOrderFilterCard />
     <RecipesCard />
-    <article class="card">
+    <article>
       <Button
         @click="
           $router.push({

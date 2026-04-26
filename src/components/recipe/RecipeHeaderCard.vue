@@ -1,9 +1,9 @@
 <template>
-  <article>
-    <section>
+  <article class="card accent">
+    <section class="header">
       <h2>{{ capitalizeFirstLetter(recipe.name) }}</h2>
-      <div v-if="recipe.owner === getAuth().currentUser?.uid">
-        <Button :type="ButtonType.BUTTON">
+      <div v-if="recipe.owner === getAuth().currentUser?.uid" class="actions">
+        <Button :type="ButtonType.BUTTON" :icon-only="true" :variant="ColorVariant.TERTIARY">
           <font-awesome-icon
             @click="
               $router.push({
@@ -13,12 +13,12 @@
             :icon="['fas', 'pen']"
           />
         </Button>
-        <Button :type="ButtonType.BUTTON">
+        <Button :type="ButtonType.BUTTON" :icon-only="true" :variant="ColorVariant.WARNING">
           <font-awesome-icon @click="deleteOpen = true" :icon="['fas', 'trash-can']" />
         </Button>
       </div>
     </section>
-    <section>
+    <section class="actions wrap">
       <p>{{ capitalizeFirstLetter($t('editRecipePage.categories.' + recipe.category)) }}</p>
       |
       <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipe.duration }}</p>
@@ -50,7 +50,7 @@ import { useRecipe } from '@/composables/useRecipe';
 import { getAuth } from 'firebase/auth';
 import { capitalizeFirstLetter } from '@/utils/global/text';
 import Button from '../form/Button.vue';
-import { ButtonType } from '@/utils/types/enums';
+import { ButtonType, ColorVariant } from '@/utils/types/enums';
 
 const deleteOpen = defineModel<boolean>('deleteOpen', { required: true });
 

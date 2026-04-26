@@ -4,7 +4,8 @@
 .checkbox {
     display: grid;
     grid-template-columns: var(--size-icon-small) auto;
-    gap: var(--gap-small);
+    gap: var(--gap-medium);
+    align-items: center;
 
     input[type='checkbox'] {
         -webkit-appearance: none;

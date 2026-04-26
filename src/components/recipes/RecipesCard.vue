@@ -6,7 +6,6 @@
     <article
       v-for="recipe in recipes"
       :key="recipe.id"
-      class="card"
       :id="recipe.id"
       @click="
         $router.push({

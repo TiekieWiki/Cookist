@@ -1,0 +1,63 @@
+.recipe {
+    .row {
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+        gap: var(--gap-large);
+
+        @media screen and (max-width: 900px) {
+            grid-template-columns: 1fr;
+        }
+
+        .column {
+            display: grid;
+            gap: var(--gap-large);
+
+            &.left {
+                grid-template-rows: auto 1fr;
+
+                .checkbox-list-item {
+                    grid-template-columns: 2fr auto 5fr;
+                }
+            }
+
+            &.right {
+                grid-template-rows: 1fr auto;
+
+                .timer {
+                    display: flex;
+                    gap: var(--gap-small);
+                    align-items: center;
+
+                    @media screen and (max-width: 900px) {
+                        display: grid;
+                        grid-template-columns: repeat(11, 1fr);
+                        justify-content: center;
+
+                        :first-child {
+                            grid-column: span 11;
+                            justify-self: center;
+                        }
+
+                        :nth-child(2),
+                        :nth-child(8),
+                        :nth-child(9) {
+                            grid-column: span 11;
+                        }
+
+                        :nth-child(3),
+                        :nth-child(5),
+                        :nth-child(7) {
+                            grid-column: span 3;
+                        }
+
+                        :nth-child(4),
+                        :nth-child(6) {
+                            grid-column: span 1;
+                            justify-self: center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,9 +1,14 @@
 <template>
-  <main v-if="recipe.name">
-    <RecipeHeaderCard v-model:delete-open="deleteRecipeOpen" />
-    <TimerCard />
-    <IngredientsCard />
-    <InstructionsCard />
+  <main v-if="recipe.name" class="recipe">
+    <div class="row">
+      <div class="column left">
+        <RecipeHeaderCard v-model:delete-open="deleteRecipeOpen" /> <IngredientsCard />
+      </div>
+      <div class="column right">
+        <InstructionsCard />
+        <TimerCard />
+      </div>
+    </div>
   </main>
   <main v-else>
     <article>

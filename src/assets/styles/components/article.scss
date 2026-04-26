@@ -1,3 +1,5 @@
+@import '../mixins/colors.scss';
+
 main {
   container-name: main-container;
   position: absolute;
@@ -16,12 +18,10 @@ main {
   }
 
   article {
+    @include background-colors;
+
     display: flex;
     flex-direction: column;
     gap: var(--gap-large);
-    padding: var(--gap-large);
-    background-color: var(--color-background-secondary);
-    border-radius: var(--border-radius-medium);
-    box-shadow: var(--box-shadow);
-    }
+  }
 }

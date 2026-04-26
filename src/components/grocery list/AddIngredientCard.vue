@@ -1,5 +1,5 @@
 <template>
-  <article class="card">
+  <article>
     <section>
       <InputField
         name="newIngredientAmount"

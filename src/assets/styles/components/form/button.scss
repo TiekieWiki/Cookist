@@ -8,6 +8,7 @@ button {
     gap: var(--gap-small);
     justify-content: center;
     align-items: center;
+    height: fit-content;
     padding: calc(var(--gap-small) + 3px) var(--gap-large);
     border-radius: var(--border-radius-medium);
     color: var(--color-text-secondary);
@@ -30,6 +31,7 @@ button {
     }
 
     &.iconOnly {
+        padding: calc(var(--gap-xsmall) + 3px) var(--gap-small);
         border: none;
         background-color: transparent !important;
 

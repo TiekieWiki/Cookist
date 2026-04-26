@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <article class="card">
     <section :class="['timer', timer.isFinished ? 'finished' : '']">
       <font-awesome-icon :icon="['fas', 'stopwatch']" />
       <Button :type="ButtonType.BUTTON">
@@ -16,7 +16,7 @@
         type="number"
         v-model:input="timer.hours"
       />
-      :
+      <p>:</p>
       <InputField
         name="minutes"
         :placeholder="$t('recipePage.placeholder.minutes')"
@@ -25,7 +25,7 @@
         type="number"
         v-model:input="timer.minutes"
       />
-      :
+      <p>:</p>
       <InputField
         name="seconds"
         :placeholder="$t('recipePage.placeholder.seconds')"

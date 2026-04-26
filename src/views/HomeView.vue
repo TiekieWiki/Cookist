@@ -5,19 +5,19 @@
         <router-link to="/" class="brand" tabindex="0">Cookist</router-link>
       </section>
     </article>
-    <article id="home-banner-1" class="card">
+    <article id="home-banner-1">
       <!-- Photo by Joseph Gonzalez on Unsplash -->
       <section>
         <h3>{{ $t('homePage.banner1') }}</h3>
       </section>
     </article>
-    <article id="home-banner-2" class="card">
+    <article id="home-banner-2">
       <!-- Photo by Chad Montano on Unsplash -->
       <section>
         <h3>{{ $t('homePage.banner2') }}</h3>
       </section>
     </article>
-    <article id="home-banner-3" class="card">
+    <article id="home-banner-3">
       <!-- Photo by Chad Montano on Unsplash -->
       <section>
         <h3>{{ $t('homePage.banner3') }}</h3>

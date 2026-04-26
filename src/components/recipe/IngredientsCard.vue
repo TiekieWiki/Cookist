@@ -1,8 +1,8 @@
 <template>
-  <article>
-    <section>
+  <article class="card">
+    <section class="header">
       <h3>{{ $t('recipePage.ingredients') }}</h3>
-      <div>
+      <div class="actions align">
         <Button
           @click="portionCount = Math.max(portionCount - 1, 1)"
           :type="ButtonType.BUTTON"
@@ -58,8 +58,8 @@ const { recipe, initialIngredients, portionCount } = useRecipe();
 const ingredients = computed(() => {
   return recipe.value.ingredients.map((ingredient) => {
     return {
-      name: ingredient.name,
-      label: capitalizeFirstLetter(ingredient.name),
+      name: capitalizeFirstLetter(ingredient.name),
+      label: ingredient.amount.toString(),
       slot: ingredient.unit
     } as CheckBoxProps;
   });
