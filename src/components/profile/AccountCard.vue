@@ -1,13 +1,13 @@
 <template>
-  <article>
-    <section>
+  <section class="card">
+    <div class="header">
       <h2>{{ $t('profilePage.account') }}</h2>
-      <div>
+      <div class="actions">
         <Button :type="ButtonType.BUTTON" :iconOnly="true" :variant="ColorVariant.WARNING">
           <font-awesome-icon @click="deleteOpen = true" :icon="['fas', 'trash-can']" />
         </Button>
       </div>
-    </section>
+    </div>
     <form>
       <InputField
         name="profileEmail"
@@ -22,7 +22,7 @@
         {{ $t('profilePage.logout') }}
       </Button>
     </form>
-  </article>
+  </section>
 </template>
 
 <script setup lang="ts">

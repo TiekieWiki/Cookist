@@ -1,7 +1,9 @@
 <template>
   <main>
-    <SettingsCard />
-    <AccountCard v-model:deleteOpen="deleteAccountOpen" />
+    <article class="row">
+      <SettingsCard />
+      <AccountCard v-model:deleteOpen="deleteAccountOpen" />
+    </article>
   </main>
   <ConfirmPopUp
     :title="$t('profilePage.deleteAccount')"

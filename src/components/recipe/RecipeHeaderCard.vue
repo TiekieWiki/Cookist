@@ -20,22 +20,22 @@
     </div>
     <div class="actions wrap">
       <p>{{ capitalizeFirstLetter($t('editRecipePage.categories.' + recipe.category)) }}</p>
-      |
+      <p>|</p>
       <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipe.duration }}</p>
-      |
+      <p>|</p>
       <p>
         <font-awesome-icon :icon="['fas', 'utensils']" />
 
         {{ recipe.portions }}
       </p>
       <template v-if="lastEaten">
-        |
+        <p>|</p>
         <p>
           <font-awesome-icon :icon="['fas', 'calendar']" />
           {{ lastEaten }}
         </p>
       </template>
-      |
+      <p>|</p>
       <div v-if="recipe.rating">
         <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
         <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
