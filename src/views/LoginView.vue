@@ -1,7 +1,9 @@
 <template>
   <main>
-    <LoginCard />
-    <RegisterCard />
+    <article class="row">
+      <LoginCard />
+      <RegisterCard />
+    </article>
   </main>
 </template>
 

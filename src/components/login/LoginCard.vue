@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <section class="card">
     <h2>{{ $t('loginPage.login') }}</h2>
     <form>
       <InputField
@@ -26,7 +26,7 @@
         {{ $t('loginPage.googleLogin') }}
       </Button>
     </form>
-  </article>
+  </section>
 </template>
 
 <script setup lang="ts">
