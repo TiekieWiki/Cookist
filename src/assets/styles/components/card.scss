@@ -1,37 +1,37 @@
 @import '../mixins/visuals.scss';
 
 .card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-large);
+  padding: var(--gap-large);
+  background-color: var(--color-background-secondary);
+  border-radius: var(--border-radius-medium);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+
+  .header {
     display: flex;
-    flex-direction: column;
-    gap: var(--gap-large);
-    padding: var(--gap-large);
-    background-color: var(--color-background-secondary);
-    border-radius: var(--border-radius-medium);
-    box-shadow: var(--box-shadow);
-    overflow: hidden;
+    justify-content: space-between;
+  }
 
-    .header {
-        display: flex;
-        justify-content: space-between;
-    }
-    
-    .actions {
-        display: flex;
-        gap: var(--gap-small);
-        text-align: end;
+  .actions {
+    display: flex;
+    gap: var(--gap-small);
+    text-align: end;
 
-        &.align {
-            align-items: center;
-        }
-
-        &.wrap {
-          flex-wrap: wrap;
-        }
+    &.align {
+      align-items: center;
     }
 
-    .footer {
-        display: flex;
-        justify-content: flex-end;
-        gap: var(--gap-small);
+    &.wrap {
+      flex-wrap: wrap;
     }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--gap-small);
+  }
 }

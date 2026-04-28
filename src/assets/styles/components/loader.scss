@@ -8,7 +8,12 @@
   .loader-spinner {
     width: 60px;
     aspect-ratio: 4;
-    $circle: no-repeat radial-gradient(circle closest-side, var(--color-primary) 90%, var(--color-background-primary) 0);
+    $circle: no-repeat
+      radial-gradient(
+        circle closest-side,
+        var(--color-primary) 90%,
+        var(--color-background-primary) 0
+      );
     background:
       $circle 0% 50%,
       $circle 50% 50%,

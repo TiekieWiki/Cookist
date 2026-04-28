@@ -21,29 +21,29 @@
 
   @include border-colors;
 
-    &.primary {
-        &::after {
-             background-color: var(--color-primary);
-        }
+  &.primary {
+    &::after {
+      background-color: var(--color-primary);
     }
+  }
 
-    &.secondary {
-        &::after {
-             background-color: var(--color-secondary);
-        }
+  &.secondary {
+    &::after {
+      background-color: var(--color-secondary);
     }
+  }
 
-    &.tertiary {
-        &::after {
-             background-color: var(--color-tertiary);
-        }
+  &.tertiary {
+    &::after {
+      background-color: var(--color-tertiary);
     }
+  }
 
-    &.warning {
-        &::after {
-             background-color: var(--color-error);
-        }
+  &.warning {
+    &::after {
+      background-color: var(--color-error);
     }
+  }
 
   &:has(select:disabled) {
     background-color: var(--color-disabled);

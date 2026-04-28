@@ -5,35 +5,35 @@ input[type='file'] {
 }
 
 input {
-    &.primary {
-        &::file-selector-button {
-            background-color: var(--color-primary);
-        }
+  &.primary {
+    &::file-selector-button {
+      background-color: var(--color-primary);
     }
+  }
 
-    &.secondary {
-        &::file-selector-button {
-            background-color: var(--color-secondary);
-        }
+  &.secondary {
+    &::file-selector-button {
+      background-color: var(--color-secondary);
     }
+  }
 
-    &.tertiary {
-        &::file-selector-button {
-            background-color: var(--color-tertiary);
-        }
+  &.tertiary {
+    &::file-selector-button {
+      background-color: var(--color-tertiary);
     }
+  }
 
-    &.accent {
-        &::file-selector-button {
-            background-image: var(--color-accent);
-        }
+  &.accent {
+    &::file-selector-button {
+      background-image: var(--color-accent);
     }
+  }
 
-    &.warning {
-        &::file-selector-button {
-            background-color: var(--color-error);
-        }
+  &.warning {
+    &::file-selector-button {
+      background-color: var(--color-error);
     }
+  }
 
   &::file-selector-button {
     @include form-element;
