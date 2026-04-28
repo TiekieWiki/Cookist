@@ -23,6 +23,10 @@ aside {
     z-index: 2;
     padding: var(--gap-large) var(--gap-xlarge);
 
+    .iconOnly {
+      margin: 0 10px;
+    }
+
     a {
       @include zoom-on-hover(var(--scale-medium));
       @include text-on-focus(var(--color-secondary));
@@ -75,7 +79,7 @@ aside {
 }
 
 :root.left {
-  @media only screen and (max-width: 900px) {
+  @media only screen and (max-width: 1100px) {
     aside {
       left: 0;
 

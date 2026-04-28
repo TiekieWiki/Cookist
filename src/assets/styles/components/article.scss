@@ -12,8 +12,8 @@ main {
   width: calc(100vw - var(--side-width) + 2 * var(--gap-xlarge));
   color: var(--color-text-primary);
 
-  @media screen and (max-width: 900px) {
-    top: var(--gap-xlarge);
+  @media screen and (max-width: 1100px) {
+    top: calc(2 * var(--gap-large));
     width: 100vw;
   }
 

@@ -31,7 +31,7 @@
           v-model:selected="item.slot"
           @change="changeIngredientUnit()"
         />
-        {{ item.name }}
+        <p>{{ item.name }}</p>
       </template>
     </CheckBoxList>
     <Button @click="addToGroceryList(recipe.ingredients)" :type="ButtonType.SUBMIT">

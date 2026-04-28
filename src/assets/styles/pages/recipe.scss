@@ -4,7 +4,7 @@
         grid-template-columns: 2fr 3fr;
         gap: var(--gap-large);
 
-        @media screen and (max-width: 900px) {
+        @media screen and (max-width: 1100px) {
             grid-template-columns: 1fr;
         }
 
@@ -16,7 +16,8 @@
                 grid-template-rows: auto 1fr;
 
                 .checkbox-list-item {
-                    grid-template-columns: 2fr auto 5fr;
+                    grid-template-columns: 60px auto minmax(0, 1fr);
+                    overflow-wrap: break-word;
                 }
             }
 
@@ -28,7 +29,7 @@
                     gap: var(--gap-small);
                     align-items: center;
 
-                    @media screen and (max-width: 900px) {
+                    @media screen and (max-width: 600px) {
                         display: grid;
                         grid-template-columns: repeat(11, 1fr);
                         justify-content: center;
