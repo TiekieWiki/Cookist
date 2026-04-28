@@ -1,16 +1,17 @@
 <template>
-  <article v-if="groceryList?.ingredients.length <= 0">
+  <section v-if="groceryList?.ingredients.length <= 0" class="card">
+    <h2>{{ $t('groceryListPage.title') }}</h2>
     <h3>{{ $t('groceryListPage.noItems') }}</h3>
-  </article>
-  <article v-else>
-    <section>
-      <h3>{{ $t('groceryListPage.ingredients') }}</h3>
+  </section>
+  <section v-else class="card">
+    <div class="header">
+      <h2>{{ $t('groceryListPage.title') }}</h2>
       <div>
         <Button :type="ButtonType.BUTTON" :iconOnly="true" :variant="ColorVariant.WARNING">
           <font-awesome-icon @click="emptyGroceryListOpen = true" :icon="['fas', 'trash-can']" />
         </Button>
       </div>
-    </section>
+    </div>
     <TransitionGroup name="fade" tag="div">
       <CheckBoxList :items="ingredients">
         <template #item="{ item, index }">
@@ -27,14 +28,14 @@
             v-model:selected="item.slot"
             @change="changeIngredientUnit()"
           />
-          {{ item.name }}
+          <p>{{ item.name }}</p>
           <Button :type="ButtonType.BUTTON" @click="deleteIngredient(index)">
             <font-awesome-icon :icon="['fas', 'trash']" />
           </Button>
         </template>
       </CheckBoxList>
     </TransitionGroup>
-  </article>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -45,7 +46,6 @@ import Button from '../form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import CheckBoxList from '../form/CheckBoxList.vue';
 import { computed } from 'vue';
-import { capitalizeFirstLetter } from '@/utils/global/text';
 import { CheckBoxProps } from '@/utils/types/form';
 
 const { groceryList, emptyGroceryListOpen, deleteIngredient, changeIngredientUnit } =
@@ -55,7 +55,7 @@ const ingredients = computed(() => {
   return groceryList.value.ingredients.map((ingredient) => {
     return {
       name: ingredient.name,
-      label: capitalizeFirstLetter(ingredient.name),
+      label: ingredient.amount.toString(),
       slot: ingredient.unit
     } as CheckBoxProps;
   });

@@ -1,12 +1,9 @@
 <template>
-  <main>
+  <main class="groceryList">
     <article>
-      <section>
-        <h2>{{ $t('groceryListPage.title') }}</h2>
-      </section>
+      <IngredientListCard />
+      <AddIngredientCard />
     </article>
-    <IngredientListCard />
-    <AddIngredientCard />
   </main>
   <ConfirmPopUp
     :title="$t('groceryListPage.emptyGroceryList')"

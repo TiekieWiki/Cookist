@@ -252,8 +252,8 @@ export const nl: TranslationSchema = {
   },
   groceryListPage: {
     title: 'Boodschappenlijst',
+    addItem: 'Toevoegen',
     noItems: 'Geen items in de boodschappenlijst',
-    ingredients: 'Ingrediënten',
     emptyGroceryList: 'Boodschappenlijst legen',
     confirmEmpty:
       'Weet je zeker dat je de boodschappenlijst wilt legen? Dit kan niet ongedaan worden gemaakt.',

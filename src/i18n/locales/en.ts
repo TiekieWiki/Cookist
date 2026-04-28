@@ -247,8 +247,8 @@ export const en = {
   },
   groceryListPage: {
     title: 'Grocery list',
+    addItem: 'Add',
     noItems: 'No items in the grocery list',
-    ingredients: 'Ingredients',
     emptyGroceryList: 'Empty grocery list',
     confirmEmpty: 'Are you sure you want to empty the grocery list? This cannot be undone.',
     cancel: 'Cancel',

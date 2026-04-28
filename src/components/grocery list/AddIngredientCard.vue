@@ -1,41 +1,39 @@
 <template>
-  <article>
-    <section>
-      <InputField
-        name="newIngredientAmount"
-        :placeholder="$t('editRecipePage.placeholder.amount')"
-        :ariaLabel="$t('editRecipePage.ariaLabel.amount')"
-        :step="0.01"
-        type="number"
-        v-model:input="newIngredient.amount"
-      />
-      <SelectField
-        :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
-        :placeholder="$t('editRecipePage.placeholder.unit')"
-        :items="
-          Object.values(RecipeUnits).map((unit) => ({
-            value: unit.toLowerCase(),
-            label: unit.toLowerCase()
-          }))
-        "
-        labelPrefix="editRecipePage.units."
-        v-model:selected="newIngredient.unit"
-      />
-      <InputField
-        name="newIngredientName"
-        :placeholder="$t('editRecipePage.placeholder.ingredient')"
-        :ariaLabel="$t('editRecipePage.ariaLabel.ingredient')"
-        type="text"
-        v-model:input="newIngredient.name"
-      />
+  <section class="card addIngredient">
+    <InputField
+      name="newIngredientAmount"
+      :placeholder="$t('editRecipePage.placeholder.amount')"
+      :ariaLabel="$t('editRecipePage.ariaLabel.amount')"
+      :step="0.01"
+      type="number"
+      v-model:input="newIngredient.amount"
+    />
+    <SelectField
+      :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
+      :placeholder="$t('editRecipePage.placeholder.unit')"
+      :items="
+        Object.values(RecipeUnits).map((unit) => ({
+          value: unit.toLowerCase(),
+          label: unit.toLowerCase()
+        }))
+      "
+      labelPrefix="editRecipePage.units."
+      v-model:selected="newIngredient.unit"
+    />
+    <InputField
+      name="newIngredientName"
+      :placeholder="$t('editRecipePage.placeholder.ingredient')"
+      :ariaLabel="$t('editRecipePage.ariaLabel.ingredient')"
+      type="text"
+      v-model:input="newIngredient.name"
+    />
 
-      <Button @click="addIngredient()" :type="ButtonType.BUTTON">
-        <font-awesome-icon :icon="['fas', 'plus']" />
-        {{ $t('recipePage.addToGroceryList') }}
-      </Button>
-    </section>
-    <ErrorMessage v-model:message="errorMessage" />
-  </article>
+    <Button @click="addIngredient()" :type="ButtonType.BUTTON">
+      <font-awesome-icon :icon="['fas', 'plus']" />
+      {{ $t('groceryListPage.addItem') }}
+    </Button>
+  </section>
+  <ErrorMessage v-model:message="errorMessage" />
 </template>
 
 <script setup lang="ts">
