@@ -1,0 +1,11 @@
+.editRecipe {
+    .column {
+        &.left {
+            grid-template-rows: auto 1fr;
+        }
+
+        &.right {
+            grid-template-rows: 1fr auto;
+        }
+    }
+}

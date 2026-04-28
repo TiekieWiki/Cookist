@@ -1,35 +1,26 @@
 <template>
   <main v-if="$route.params.cookGroupRecipeId && !recipe.name">
-    <article>
-      <section>
-        <h2>{{ $t('editRecipePage.recipeNotFound') }}</h2>
-      </section>
+    <article class="card">
+      <h2>{{ $t('editRecipePage.recipeNotFound') }}</h2>
     </article>
   </main>
-  <main v-else>
+  <main v-else class="editRecipe">
     <article>
-      <h2>{{ $t('editRecipePage.title') }}</h2>
-      <form>
-        <NewRecipe
-          v-model:recipe="recipe"
-          v-model:cook-groups="cookGroups"
-          v-model:cook-group-recipe="cookGroupRecipe"
-          v-model:image="image"
-          v-model:error-message="errorMessage"
-        />
-        <Button @click.prevent="saveRecipe" id="save" :type="ButtonType.SUBMIT">
-          {{ $t('editRecipePage.save') }}
-        </Button>
-      </form>
+      <NewRecipe
+        v-model:recipe="recipe"
+        v-model:cook-groups="cookGroups"
+        v-model:cook-group-recipe="cookGroupRecipe"
+        v-model:image="image"
+        v-model:save="save"
+        v-model:error-message="errorMessage"
+      />
     </article>
   </main>
 </template>
 
 <script setup lang="ts">
 import NewRecipe from '@/components/edit recipe/NewRecipe.vue';
-import Button from '@/components/form/Button.vue';
 import { useEditRecipe } from '@/composables/useEditRecipe';
-import { ButtonType } from '@/utils/types/enums';
 
-const { recipe, cookGroups, cookGroupRecipe, image, errorMessage, saveRecipe } = useEditRecipe();
+const { recipe, cookGroups, cookGroupRecipe, image, errorMessage, save } = useEditRecipe();
 </script>

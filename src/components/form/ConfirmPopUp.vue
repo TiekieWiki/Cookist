@@ -1,8 +1,8 @@
 <template>
   <teleport to="body" v-if="openPopUp">
     <main class="modal">
-      <article>
-        <section>
+      <article class="card">
+        <section class="header">
           <h2>{{ $t(title) }}</h2>
           <Button
             @click="openPopUp = false"
@@ -16,7 +16,7 @@
         <section>
           <p>{{ $t(section) }}</p>
         </section>
-        <section>
+        <section class="footer">
           <Button @click="openPopUp = false" :type="ButtonType.BUTTON">
             {{ $t(cancel) }}
           </Button>

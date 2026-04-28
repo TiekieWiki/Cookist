@@ -1,6 +1,6 @@
 <template>
-  <article class="card">
-    <section :class="['timer', timer.isFinished ? 'finished' : '']">
+  <section class="card">
+    <div :class="['timer', timer.isFinished ? 'finished' : '']">
       <font-awesome-icon :icon="['fas', 'stopwatch']" />
       <Button :type="ButtonType.BUTTON">
         <font-awesome-icon
@@ -41,8 +41,8 @@
         <font-awesome-icon v-if="timer.isRunning" :icon="['fas', 'pause']" />
         <font-awesome-icon v-else :icon="['fas', 'play']" />
       </Button>
-    </section>
-  </article>
+    </div>
+  </section>
 </template>
 
 <script lang="ts" setup>

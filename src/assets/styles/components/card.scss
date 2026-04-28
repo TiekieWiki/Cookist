@@ -28,4 +28,10 @@
           flex-wrap: wrap;
         }
     }
+
+    .footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: var(--gap-small);
+    }
 }

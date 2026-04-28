@@ -1,19 +1,19 @@
 <template>
-  <article class="card">
-    <section class="header">
+  <section class="card">
+    <div class="header">
       <h3>{{ $t('recipePage.instructions') }}</h3>
       <div class="actions align">
         {{ $t('recipePage.keepOnScreen') }}
         <Toggle @click="keepScreenOn = !keepScreenOn" />
       </div>
-    </section>
+    </div>
     <CheckBoxList v-model:items="instructions" />
     <Button @click="updateLastEaten" :disabled="lastEatenToday" :type="ButtonType.BUTTON">
       <font-awesome-icon v-if="lastEatenToday" :icon="['fas', 'check']" />
       <font-awesome-icon v-else :icon="['fas', 'calendar']" />
       {{ $t('recipePage.eatenToday') }}
     </Button>
-  </article>
+  </section>
 </template>
 
 <script setup lang="ts">

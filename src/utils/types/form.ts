@@ -1,4 +1,4 @@
-import { AutoCompleteVariant, ButtonSize, ButtonType, ColorVariant } from './enums';
+import { AutoCompleteVariant, ButtonSize, ButtonType, ColAmount, ColorVariant } from './enums';
 import { GroceryList } from './groceryList';
 
 export interface ButtonProps {
@@ -56,6 +56,7 @@ export interface InputListProps {
   label?: string | number;
   required?: boolean;
   empty?: boolean;
+  colAmount?: ColAmount;
 }
 
 export interface SelectFieldProps {

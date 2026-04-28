@@ -18,10 +18,29 @@ main {
   }
 
   article {
-    @include background-colors;
-
     display: flex;
     flex-direction: column;
     gap: var(--gap-large);
+
+    &.row,
+    .row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--gap-large);
+
+        @media screen and (max-width: 1100px) {
+            grid-template-columns: 1fr;
+        }
+
+        .column {
+            display: grid;
+            gap: var(--gap-large);
+        }
+    }
+
+    section {
+      @include background-colors;
+    }
   }
+
 }

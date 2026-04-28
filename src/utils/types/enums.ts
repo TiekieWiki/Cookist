@@ -25,3 +25,9 @@ export enum ButtonSize {
   MEDIUM = 'medium',
   LARGE = 'large'
 }
+
+export enum ColAmount {
+  TWO = 'twoCols',
+  THREE = 'threeCols',
+  FOUR = 'fourCols'
+}

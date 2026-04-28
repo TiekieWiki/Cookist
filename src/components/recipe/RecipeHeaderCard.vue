@@ -1,6 +1,6 @@
 <template>
-  <article class="card accent">
-    <section class="header">
+  <section class="card" :class="ColorVariant.ACCENT">
+    <div class="header">
       <h2>{{ capitalizeFirstLetter(recipe.name) }}</h2>
       <div v-if="recipe.owner === getAuth().currentUser?.uid" class="actions">
         <Button :type="ButtonType.BUTTON" :icon-only="true" :variant="ColorVariant.TERTIARY">
@@ -17,8 +17,8 @@
           <font-awesome-icon @click="deleteOpen = true" :icon="['fas', 'trash-can']" />
         </Button>
       </div>
-    </section>
-    <section class="actions wrap">
+    </div>
+    <div class="actions wrap">
       <p>{{ capitalizeFirstLetter($t('editRecipePage.categories.' + recipe.category)) }}</p>
       |
       <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipe.duration }}</p>
@@ -40,9 +40,9 @@
         <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
         <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
       </div>
-    </section>
+    </div>
     <p v-if="recipe.notes">{{ recipe.notes }}</p>
-  </article>
+  </section>
 </template>
 
 <script setup lang="ts">

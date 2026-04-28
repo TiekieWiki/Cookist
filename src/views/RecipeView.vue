@@ -1,6 +1,6 @@
 <template>
   <main v-if="recipe.name" class="recipe">
-    <div class="row">
+    <article class="row">
       <div class="column left">
         <RecipeHeaderCard v-model:delete-open="deleteRecipeOpen" /> <IngredientsCard />
       </div>
@@ -8,13 +8,11 @@
         <InstructionsCard />
         <TimerCard />
       </div>
-    </div>
+    </article>
   </main>
   <main v-else>
     <article>
-      <section>
-        <h2>{{ $t('recipePage.recipeNotFound') }}</h2>
-      </section>
+      <h2>{{ $t('recipePage.recipeNotFound') }}</h2>
     </article>
   </main>
   <ConfirmPopUp

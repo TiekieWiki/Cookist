@@ -1,5 +1,5 @@
 <template>
-  <label :id="id">
+  <label :id="id" class="inputList" :class="colAmount">
     {{ required ? label + ' *' : label }}
 
     <ul>

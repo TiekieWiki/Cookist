@@ -29,7 +29,7 @@ export function useEditRecipe(): {
   cookGroupRecipe: Ref<CookGroupRecipe>;
   image: Ref<File | null>;
   errorMessage: Ref<string>;
-  saveRecipe: () => Promise<void>;
+  save: Ref<boolean>;
 } {
   const route = useRoute();
 
@@ -40,6 +40,7 @@ export function useEditRecipe(): {
   let oldImage: string = '';
   const cookGroupRecipe = ref<CookGroupRecipe>(emptyCookGroupRecipe());
   const image = ref<File | null>(null);
+  const save = ref<boolean>(false);
   const errorMessage = ref<string>('');
 
   // Get the recipe from the database
@@ -115,6 +116,15 @@ export function useEditRecipe(): {
     },
     { immediate: true }
   );
+
+  // Save the recipe when the save variable changes to true
+  watch(save, (newValue) => {
+    if (newValue) {
+      saveRecipe().then(() => {
+        save.value = false;
+      });
+    }
+  });
 
   /**
    * Save the recipe
@@ -244,5 +254,5 @@ export function useEditRecipe(): {
     }
   });
 
-  return { recipe, cookGroups, cookGroupRecipe, image, errorMessage, saveRecipe };
+  return { recipe, cookGroups, cookGroupRecipe, image, errorMessage, save };
 }

@@ -1,0 +1,24 @@
+.inputList {
+    &.twoCols {
+        li {
+            grid-template-columns: 1fr auto;
+        }
+    }
+
+    &.fourCols {
+        li {
+            grid-template-columns: 60px auto minmax(0, 1fr) auto;
+        }
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-small);
+
+        li {
+            display: grid;
+            gap: var(--gap-small);
+        }
+    }
+}
