@@ -1,26 +1,28 @@
 <template>
-  <main>
+  <main class="home">
     <article>
       <section>
         <router-link to="/" class="brand" tabindex="0">Cookist</router-link>
       </section>
-    </article>
-    <article id="home-banner-1">
-      <!-- Photo by Joseph Gonzalez on Unsplash -->
-      <section>
-        <h3>{{ $t('homePage.banner1') }}</h3>
-      </section>
-    </article>
-    <article id="home-banner-2">
-      <!-- Photo by Chad Montano on Unsplash -->
-      <section>
-        <h3>{{ $t('homePage.banner2') }}</h3>
-      </section>
-    </article>
-    <article id="home-banner-3">
-      <!-- Photo by Chad Montano on Unsplash -->
-      <section>
-        <h3>{{ $t('homePage.banner3') }}</h3>
+      <section class="banners">
+        <div id="home-banner-1" class="banner">
+          <!-- Photo by Joseph Gonzalez on Unsplash -->
+          <div class="header">
+            <h3>{{ $t('homePage.banner1') }}</h3>
+          </div>
+        </div>
+        <div id="home-banner-2" class="banner">
+          <!-- Photo by Chad Montano on Unsplash -->
+          <div class="header">
+            <h3>{{ $t('homePage.banner2') }}</h3>
+          </div>
+        </div>
+        <div id="home-banner-3" class="banner">
+          <!-- Photo by Chad Montano on Unsplash -->
+          <div class="header">
+            <h3>{{ $t('homePage.banner3') }}</h3>
+          </div>
+        </div>
       </section>
     </article>
   </main>

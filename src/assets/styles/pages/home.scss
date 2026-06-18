@@ -1,0 +1,33 @@
+@import '../mixins/visuals.scss';
+
+.home {
+  .brand {
+    font-style: italic;
+    color: var(--color-secondary);
+  }
+
+  .banners {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--gap-large);
+
+    .banner {
+      @include background-image-card;
+
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 300px;
+      padding: var(--gap-xlarge);
+      border-radius: var(--border-radius-medium);
+      background-size: cover;
+      background-repeat: no-repeat;
+      text-align: center;
+
+      .header {
+        z-index: 23;
+      }
+    }
+  }
+}
