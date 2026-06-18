@@ -23,7 +23,7 @@
       <Transition name="fade">
         <p v-if="successMessage" class="success">{{ successMessage }}</p>
       </Transition>
-      <Button @click="saveSettings" :type="ButtonType.BUTTON">
+      <Button @click="saveSettings" :type="ButtonType.BUTTON" :variant="ColorVariant.SECONDARY">
         {{ $t('profilePage.save') }}
       </Button>
     </form>
@@ -40,7 +40,7 @@ import SelectField from '@/components/form/SelectField.vue';
 import { setColorScheme, setHandedness } from '@/utils/global/setInterfaceVariables';
 import { ref, onMounted, watch } from 'vue';
 import Button from '../form/Button.vue';
-import { ButtonType } from '@/utils/types/enums';
+import { ButtonType, ColorVariant } from '@/utils/types/enums';
 
 // Set language dropdown to user language
 const languages = [

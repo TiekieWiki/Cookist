@@ -18,7 +18,7 @@
         :disabled="true"
         :autocomplete="AutoCompleteVariant.EMAIL"
       />
-      <Button @click="handleSignOut" :type="ButtonType.BUTTON">
+      <Button @click="handleSignOut" :type="ButtonType.BUTTON" :variant="ColorVariant.SECONDARY">
         {{ $t('profilePage.logout') }}
       </Button>
     </form>

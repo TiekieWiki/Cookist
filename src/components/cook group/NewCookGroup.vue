@@ -81,10 +81,14 @@
         </section>
       </div>
       <section class="footer">
-        <Button @click="closePopUp" :type="ButtonType.BUTTON">
+        <Button @click="closePopUp" :type="ButtonType.BUTTON" :variant="ColorVariant.WARNING">
           {{ $t('editCookGroupPage.cancel') }}
         </Button>
-        <Button @click.prevent="saveCookGroup" :type="ButtonType.SUBMIT">
+        <Button
+          @click.prevent="saveCookGroup"
+          :type="ButtonType.SUBMIT"
+          :variant="ColorVariant.SECONDARY"
+        >
           {{ $t('editCookGroupPage.save') }}
         </Button>
       </section>

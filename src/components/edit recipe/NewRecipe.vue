@@ -149,7 +149,12 @@
         />
       </section>
       <section class="card">
-        <Button v-model:save="save" id="save" :type="ButtonType.SUBMIT">
+        <Button
+          v-model:save="save"
+          id="save"
+          :type="ButtonType.SUBMIT"
+          :variant="ColorVariant.SECONDARY"
+        >
           {{ $t('editRecipePage.save') }}
         </Button>
       </section>

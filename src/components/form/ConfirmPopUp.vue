@@ -17,7 +17,11 @@
           <p>{{ $t(section) }}</p>
         </section>
         <section class="footer">
-          <Button @click="openPopUp = false" :type="ButtonType.BUTTON">
+          <Button
+            @click="openPopUp = false"
+            :type="ButtonType.BUTTON"
+            :variant="ColorVariant.SECONDARY"
+          >
             {{ $t(cancel) }}
           </Button>
           <Button

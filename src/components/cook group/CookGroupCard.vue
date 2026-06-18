@@ -10,7 +10,12 @@
         }}
       </h3>
       <div v-if="cookGroup.owner === getAuth().currentUser?.uid" class="actions">
-        <Button @click="editCookGroup(cookGroup)" :type="ButtonType.BUTTON" :icon-only="true">
+        <Button
+          @click="editCookGroup(cookGroup)"
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.TERTIARY"
+          :icon-only="true"
+        >
           <font-awesome-icon :icon="['fas', 'pen']" />
         </Button>
         <Button

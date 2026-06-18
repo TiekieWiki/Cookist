@@ -19,10 +19,18 @@
         v-model:input="passwordLogin"
       />
       <ErrorMessage v-model:message="errorMessageLogin" />
-      <Button @click.prevent="handleLogin" :type="ButtonType.SUBMIT">
+      <Button
+        @click.prevent="handleLogin"
+        :type="ButtonType.SUBMIT"
+        :variant="ColorVariant.SECONDARY"
+      >
         {{ $t('loginPage.login') }}
       </Button>
-      <Button @click.prevent="signInWithGoogle" :type="ButtonType.SUBMIT">
+      <Button
+        @click.prevent="signInWithGoogle"
+        :type="ButtonType.SUBMIT"
+        :variant="ColorVariant.SECONDARY"
+      >
         {{ $t('loginPage.googleLogin') }}
       </Button>
     </form>
@@ -35,7 +43,7 @@ import { ref } from 'vue';
 import { signInWithGoogle } from '@/utils/global/authentication';
 import ErrorMessage from '../form/ErrorMessage.vue';
 import InputField from '../form/InputField.vue';
-import { AutoCompleteVariant, ButtonType } from '@/utils/types/enums';
+import { AutoCompleteVariant, ButtonType, ColorVariant } from '@/utils/types/enums';
 import Button from '../form/Button.vue';
 
 // Login

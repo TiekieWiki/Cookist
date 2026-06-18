@@ -8,7 +8,7 @@
             <li v-for="invite in cookGroupInvites" :key="invite.id">
               <p>{{ capitalizeFirstLetter(invite.name) }}</p>
               <div class="actions">
-                <Button @click="acceptInvite(invite.id)" :type="ButtonType.BUTTON">
+                <Button @click="acceptInvite(invite.id)" :type="ButtonType.BUTTON" :variant="ColorVariant.SECONDARY">
                   <font-awesome-icon :icon="['fas', 'check']" />
                 </Button>
                 <Button @click="declineInvite(invite.id)" :type="ButtonType.SUBMIT" :variant="ColorVariant.WARNING">
@@ -24,7 +24,7 @@
           <div class="header">
             <h2>{{ $t('cookGroupsPage.title') }}</h2>
             <div class="actions align">
-              <Button @click="editCookGroupOpen = !editCookGroupOpen" :type="ButtonType.BUTTON" :icon-only="true">
+              <Button @click="editCookGroupOpen = !editCookGroupOpen" :type="ButtonType.BUTTON"  :variant="ColorVariant.PRIMARY" :icon-only="true">
                 <font-awesome-icon :icon="['fas', 'plus']" />
               </Button>
             </div>

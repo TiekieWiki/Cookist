@@ -34,7 +34,11 @@
         <p>{{ item.name }}</p>
       </template>
     </CheckBoxList>
-    <Button @click="addToGroceryList(recipe.ingredients)" :type="ButtonType.SUBMIT">
+    <Button
+      @click="addToGroceryList(recipe.ingredients)"
+      :type="ButtonType.SUBMIT"
+      :variant="ColorVariant.SECONDARY"
+    >
       <font-awesome-icon :icon="['fas', 'plus']" />
       {{ $t('recipePage.addToGroceryList') }}
     </Button>
@@ -47,7 +51,7 @@ import { getPossibleUnits, updateIngredientUnit } from '@/utils/recipe/updateIng
 import { addToGroceryList } from '@/utils/grocery list/editGroceryList';
 import { useRecipe } from '@/composables/useRecipe';
 import Button from '../form/Button.vue';
-import { ButtonType } from '@/utils/types/enums';
+import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import CheckBoxList from '../form/CheckBoxList.vue';
 import { computed } from 'vue';
 import { capitalizeFirstLetter } from '@/utils/global/text';

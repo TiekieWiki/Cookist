@@ -8,7 +8,12 @@
       </div>
     </div>
     <CheckBoxList v-model:items="instructions" />
-    <Button @click="updateLastEaten" :disabled="lastEatenToday" :type="ButtonType.BUTTON">
+    <Button
+      @click="updateLastEaten"
+      :disabled="lastEatenToday"
+      :type="ButtonType.BUTTON"
+      :variant="ColorVariant.SECONDARY"
+    >
       <font-awesome-icon v-if="lastEatenToday" :icon="['fas', 'check']" />
       <font-awesome-icon v-else :icon="['fas', 'calendar']" />
       {{ $t('recipePage.eatenToday') }}
@@ -21,7 +26,7 @@ import { useKeepScreenOn } from '@/composables/useKeepScreenOn';
 import { useRecipe } from '@/composables/useRecipe';
 import { capitalizeFirstLetter } from '@/utils/global/text';
 import Button from '../form/Button.vue';
-import { ButtonType } from '@/utils/types/enums';
+import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import Toggle from '../form/Toggle.vue';
 import CheckBoxList from '../form/CheckBoxList.vue';
 import { computed } from 'vue';

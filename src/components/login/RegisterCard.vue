@@ -19,10 +19,18 @@
         v-model:input="passwordRegister"
       />
       <ErrorMessage v-model:message="errorMessageRegister" />
-      <Button @click.prevent="handleRegister" :type="ButtonType.SUBMIT">
+      <Button
+        @click.prevent="handleRegister"
+        :type="ButtonType.SUBMIT"
+        :variant="ColorVariant.SECONDARY"
+      >
         {{ $t('loginPage.register') }}
       </Button>
-      <Button @click.prevent="signInWithGoogle" :type="ButtonType.SUBMIT">
+      <Button
+        @click.prevent="signInWithGoogle"
+        :type="ButtonType.SUBMIT"
+        :variant="ColorVariant.SECONDARY"
+      >
         {{ $t('loginPage.googleRegister') }}
       </Button>
     </form>
@@ -35,7 +43,7 @@ import { signInWithGoogle } from '@/utils/global/authentication';
 import { useRegister } from '@/composables/useAuthentication';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import InputField from '@/components/form/InputField.vue';
-import { AutoCompleteVariant, ButtonType } from '@/utils/types/enums';
+import { AutoCompleteVariant, ButtonType, ColorVariant } from '@/utils/types/enums';
 import Button from '../form/Button.vue';
 
 // Register

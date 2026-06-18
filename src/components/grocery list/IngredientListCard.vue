@@ -29,7 +29,11 @@
             @change="changeIngredientUnit()"
           />
           <p>{{ item.name }}</p>
-          <Button :type="ButtonType.BUTTON" @click="deleteIngredient(index)">
+          <Button
+            :type="ButtonType.BUTTON"
+            :variant="ColorVariant.WARNING"
+            @click="deleteIngredient(index)"
+          >
             <font-awesome-icon :icon="['fas', 'trash']" />
           </Button>
         </template>

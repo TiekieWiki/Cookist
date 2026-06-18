@@ -28,7 +28,7 @@
       v-model:input="newIngredient.name"
     />
 
-    <Button @click="addIngredient()" :type="ButtonType.BUTTON">
+    <Button @click="addIngredient()" :type="ButtonType.BUTTON" :variant="ColorVariant.SECONDARY">
       <font-awesome-icon :icon="['fas', 'plus']" />
       {{ $t('groceryListPage.addItem') }}
     </Button>
