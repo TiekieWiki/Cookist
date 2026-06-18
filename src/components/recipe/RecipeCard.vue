@@ -1,12 +1,12 @@
 <template>
-  <section>
+  <section class="header">
     <h3>{{ capitalizeFirstLetter(recipe.name) }}</h3>
     <div v-if="currentCookGroupRecipes">
       <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
       <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
     </div>
   </section>
-  <section v-if="currentCookGroupRecipes">
+  <section v-if="currentCookGroupRecipes" class="footer">
     <p>{{ capitalizeFirstLetter(recipe.category) }}</p>
     |
     <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipe.duration }}</p>

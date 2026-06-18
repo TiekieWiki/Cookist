@@ -1,7 +1,7 @@
 <template>
   <main class="modal">
-    <article>
-      <section>
+    <article class="card">
+      <section class="header">
         <h2>{{ $t('editCookGroupPage.title') }}</h2>
         <Button
           @click="$emit('closePopUp')"
@@ -12,68 +12,75 @@
           <font-awesome-icon :icon="['fas', 'xmark']" />
         </Button>
       </section>
-      <InputField
-        id="name"
-        name="name"
-        :label="$t('editCookGroupPage.name')"
-        :placeholder="$t('editCookGroupPage.placeholder.name')"
-        :ariaLabel="$t('editCookGroupPage.ariaLabel.name')"
-        type="text"
-        :required="true"
-        v-model:input="cookGroup.name"
-      />
-      <InputList
-        id="inviteeEmails"
-        :label="$t('editCookGroupPage.inviteeEmails')"
-        v-model:items="cookGroup.invitees"
-        v-slot="{ index }"
-      >
+      <section class="content">
         <InputField
-          :name="'invitee email ' + index"
-          :placeholder="$t('editCookGroupPage.placeholder.inviteeEmails')"
-          :ariaLabel="$t('editCookGroupPage.ariaLabel.inviteeEmails')"
+          id="name"
+          name="name"
+          :label="$t('editCookGroupPage.name')"
+          :placeholder="$t('editCookGroupPage.placeholder.name')"
+          :ariaLabel="$t('editCookGroupPage.ariaLabel.name')"
           type="text"
-          v-model:input="cookGroup.invitees[index]"
-          @input="addInputRow(cookGroup.invitees, index, '')"
+          :required="true"
+          v-model:input="cookGroup.name"
         />
-      </InputList>
-      <ErrorMessage v-model:message="errorMessage" />
-      <InputList
-        v-if="recipes.length > 0"
-        id="cookGroupRecipes"
-        :label="$t('editCookGroupPage.cookGroupRecipes')"
-        :empty="true"
-        v-model:items="recipes"
-        v-slot="{ index }"
-      >
+        <InputList
+          id="inviteeEmails"
+          :label="$t('editCookGroupPage.inviteeEmails')"
+          :colAmount="ColAmount.TWO"
+          v-model:items="cookGroup.invitees"
+          v-slot="{ index }"
+        >
+          <InputField
+            :name="'invitee email ' + index"
+            :placeholder="$t('editCookGroupPage.placeholder.inviteeEmails')"
+            :ariaLabel="$t('editCookGroupPage.ariaLabel.inviteeEmails')"
+            type="text"
+            v-model:input="cookGroup.invitees[index]"
+            @input="addInputRow(cookGroup.invitees, index, '')"
+          />
+        </InputList>
+        <ErrorMessage v-model:message="errorMessage" />
+        <InputList
+          v-if="recipes.length > 0"
+          id="cookGroupRecipes"
+          :label="$t('editCookGroupPage.cookGroupRecipes')"
+          :empty="true"
+          :colAmount="ColAmount.TWO"
+          v-model:items="recipes"
+          v-slot="{ index }"
+        >
+          <InputField
+            :name="'cookGroupRecipe ' + index"
+            :ariaLabel="$t('editCookGroupPage.ariaLabel.cookGroupRecipe')"
+            type="text"
+            :disabled="true"
+            v-model:input="recipes[index].name"
+            @input="addInputRow(recipes, index, '')"
+          />
+        </InputList>
         <InputField
-          :name="'cookGroupRecipe ' + index"
-          :ariaLabel="$t('editCookGroupPage.ariaLabel.cookGroupRecipe')"
+          id="searchRecipes"
+          name="searchRecipes"
+          :label="$t('editCookGroupPage.searchRecipes')"
+          :placeholder="$t('editCookGroupPage.placeholder.searchRecipes')"
+          :ariaLabel="$t('editCookGroupPage.ariaLabel.searchRecipes')"
           type="text"
-          :disabled="true"
-          v-model:input="recipes[index].name"
-          @input="addInputRow(recipes, index, '')"
+          v-model:input="searchRecipeQuery"
         />
-      </InputList>
-      <InputField
-        id="searchRecipes"
-        name="searchRecipes"
-        :label="$t('editCookGroupPage.searchRecipes')"
-        :placeholder="$t('editCookGroupPage.placeholder.searchRecipes')"
-        :ariaLabel="$t('editCookGroupPage.ariaLabel.searchRecipes')"
-        type="text"
-        v-model:input="searchRecipeQuery"
-      />
-      <article
-        v-for="recipe in filteredRecipes"
-        :key="recipe.id"
-        :id="recipe.id"
-        @click="addRecipe(recipe)"
-        tabindex="0"
-      >
-        <RecipeCard :recipe="recipe" />
-      </article>
-      <section>
+      </section>
+      <div v-if="filteredRecipes.length > 0" class="newCookGroup">
+        <section
+          v-for="recipe in filteredRecipes"
+          :key="recipe.id"
+          :id="recipe.id"
+          class="card"
+          @click="addRecipe(recipe)"
+          tabindex="0"
+        >
+          <RecipeCard :recipe="recipe" />
+        </section>
+      </div>
+      <section class="footer">
         <Button @click="closePopUp" :type="ButtonType.BUTTON">
           {{ $t('editCookGroupPage.cancel') }}
         </Button>
@@ -103,7 +110,7 @@ import { getAuth } from 'firebase/auth';
 import { where, Timestamp, and } from 'firebase/firestore';
 import { ref, onMounted, capitalize, watch } from 'vue';
 import Button from '../form/Button.vue';
-import { ButtonType, ColorVariant } from '@/utils/types/enums';
+import { ButtonType, ColAmount, ColorVariant } from '@/utils/types/enums';
 
 const props = defineProps<{
   cookGroup?: CookGroup;

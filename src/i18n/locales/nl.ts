@@ -214,7 +214,6 @@ export const nl: TranslationSchema = {
   cookGroupsPage: {
     title: 'Kookgroepen',
     invites: 'Kookgroep uitnodigingen',
-    noCookGroups: 'Geen kookgroepen gevonden',
     personalCookGroup: 'Persoonlijke kookgroep',
     members: 'deelnemers | deelnemer | deelnemers',
     recipes: 'recepten | recept | recepten',

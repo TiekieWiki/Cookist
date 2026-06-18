@@ -4,11 +4,16 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
 
-  .card {
+  & > .card {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    min-width: 50%;
     padding: var(--gap-large);
+
+    .footer {
+      justify-content: flex-end;
+    }
   }
 }

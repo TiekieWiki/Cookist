@@ -1,45 +1,42 @@
 <template>
-  <main>
+  <main class="cookGroups">
     <article>
-      <section>
-        <h2>{{ $t('cookGroupsPage.title') }}</h2>
-      </section>
-    </article>
-    <Transition name="fade">
-      <article v-if="cookGroupInvites.length > 0">
-        <h3>{{ $t('cookGroupsPage.invites') }}</h3>
-        <TransitionGroup name="fade" tag="ul">
-          <li v-for="invite in cookGroupInvites" :key="invite.id">
-            <p>{{ capitalizeFirstLetter(invite.name) }}</p>
-            <div>
-              <Button @click="acceptInvite(invite.id)" :type="ButtonType.BUTTON">
-                <font-awesome-icon :icon="['fas', 'check']" />
-              </Button>
-              <Button @click="declineInvite(invite.id)" :type="ButtonType.SUBMIT">
-                <font-awesome-icon :icon="['fas', 'trash']" />
+      <Transition name="fade">
+        <section v-if="cookGroupInvites.length > 0" class="card">
+          <h3>{{ $t('cookGroupsPage.invites') }}</h3>
+          <TransitionGroup name="fade" tag="ul">
+            <li v-for="invite in cookGroupInvites" :key="invite.id">
+              <p>{{ capitalizeFirstLetter(invite.name) }}</p>
+              <div class="actions">
+                <Button @click="acceptInvite(invite.id)" :type="ButtonType.BUTTON">
+                  <font-awesome-icon :icon="['fas', 'check']" />
+                </Button>
+                <Button @click="declineInvite(invite.id)" :type="ButtonType.SUBMIT" :variant="ColorVariant.WARNING">
+                  <font-awesome-icon :icon="['fas', 'trash']" />
+                </Button>
+              </div>
+            </li>
+          </TransitionGroup>
+        </section>
+      </Transition>
+      <div class="cookGroupList">
+        <section class="card" :class="ColorVariant.ACCENT">
+          <div class="header">
+            <h2>{{ $t('cookGroupsPage.title') }}</h2>
+            <div class="actions align">
+              <Button @click="editCookGroupOpen = !editCookGroupOpen" :type="ButtonType.BUTTON" :icon-only="true">
+                <font-awesome-icon :icon="['fas', 'plus']" />
               </Button>
             </div>
-          </li>
-        </TransitionGroup>
-      </article>
-    </Transition>
-    <article v-if="cookGroups.length <= 0">
-      <h3>{{ $t('cookGroupsPage.noCookGroups') }}</h3>
-    </article>
-    <template v-else>
-      <article v-for="cookGroup in cookGroups" :key="cookGroup.id" :id="cookGroup.id">
-        <CookGroupCard
+          </div>
+        </section>
+        <CookGroupCard v-for="cookGroup in cookGroups" :key="cookGroup.id""
           :cook-group="cookGroup"
           v-model:edit-cook-group-open="editCookGroupOpen"
           v-model:editable-cook-group="editableCookGroup"
           @refresh-cook-groups="getCookGroups()"
         />
-      </article>
-    </template>
-    <article>
-      <Button @click="editCookGroupOpen = !editCookGroupOpen" :type="ButtonType.BUTTON">
-        <font-awesome-icon :icon="['fas', 'plus']" />
-      </Button>
+      </div>
     </article>
   </main>
   <teleport to="body" v-if="editCookGroupOpen">
@@ -60,7 +57,7 @@ import CookGroupCard from '@/components/cook group/CookGroupCard.vue';
 import { capitalizeFirstLetter } from '@/utils/global/text';
 import { useCookGroup } from '@/composables/useCookGroup';
 import Button from '@/components/form/Button.vue';
-import { ButtonType } from '@/utils/types/enums';
+import { ButtonType, ColorVariant } from '@/utils/types/enums';
 
 // Cook groups
 const { cookGroups, cookGroupInvites, acceptInvite, declineInvite } = useCookGroup();

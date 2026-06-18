@@ -20,7 +20,11 @@
           <Button @click="openPopUp = false" :type="ButtonType.BUTTON">
             {{ $t(cancel) }}
           </Button>
-          <Button @click.prevent="emit('confirm', true)" :type="ButtonType.SUBMIT">
+          <Button
+            @click.prevent="emit('confirm', true)"
+            :type="ButtonType.SUBMIT"
+            :variant="ColorVariant.WARNING"
+          >
             {{ $t(confirm) }}
           </Button>
         </section>

@@ -210,7 +210,6 @@ export const en = {
   cookGroupsPage: {
     title: 'Cook groups',
     invites: 'Cook group invites',
-    noCookGroups: 'No cook groups found',
     personalCookGroup: 'Personal cook group',
     members: 'members | member | members',
     recipes: 'recipes | recipe | recipes',

@@ -1,37 +1,40 @@
 <template>
-  <section>
-    <h3>
-      {{
-        cookGroup.name
-          ? capitalizeFirstLetter(cookGroup.name)
-          : $t('cookGroupsPage.personalCookGroup')
-      }}
-    </h3>
-    <div v-if="cookGroup.owner === getAuth().currentUser?.uid">
-      <Button @click="editCookGroup(cookGroup)" :type="ButtonType.BUTTON" :icon-only="true">
-        <font-awesome-icon :icon="['fas', 'pen']" />
-      </Button>
-      <Button
-        v-if="!cookGroup.personal"
-        @click="((deleteCookGroupOpen = true), (editableCookGroup = cookGroup))"
-        :type="ButtonType.BUTTON"
-        :icon-only="true"
-        :variant="ColorVariant.WARNING"
-      >
-        <font-awesome-icon :icon="['fas', 'trash']" />
-      </Button>
+  <section class="card cookGroup">
+    <div :id="cookGroup.id" class="image"></div>
+    <div class="header">
+      <h3>
+        {{
+          cookGroup.name
+            ? capitalizeFirstLetter(cookGroup.name)
+            : $t('cookGroupsPage.personalCookGroup')
+        }}
+      </h3>
+      <div v-if="cookGroup.owner === getAuth().currentUser?.uid" class="actions">
+        <Button @click="editCookGroup(cookGroup)" :type="ButtonType.BUTTON" :icon-only="true">
+          <font-awesome-icon :icon="['fas', 'pen']" />
+        </Button>
+        <Button
+          v-if="!cookGroup.personal"
+          @click="((deleteCookGroupOpen = true), (editableCookGroup = cookGroup))"
+          :type="ButtonType.BUTTON"
+          :icon-only="true"
+          :variant="ColorVariant.WARNING"
+        >
+          <font-awesome-icon :icon="['fas', 'trash']" />
+        </Button>
+      </div>
     </div>
-  </section>
-  <section>
-    <p>
-      {{ cookGroupRecipesCount }}
-      {{ $t('cookGroupsPage.recipes', cookGroupRecipesCount ?? 0) }}
-    </p>
-    |
-    <p>
-      {{ cookGroup.members.length + 1 }}
-      {{ $t('cookGroupsPage.members', cookGroup.members.length + 1) }}
-    </p>
+    <div class="footer">
+      <p>
+        {{ cookGroupRecipesCount }}
+        {{ $t('cookGroupsPage.recipes', cookGroupRecipesCount ?? 0) }}
+      </p>
+      |
+      <p>
+        {{ cookGroup.members.length + 1 }}
+        {{ $t('cookGroupsPage.members', cookGroup.members.length + 1) }}
+      </p>
+    </div>
   </section>
   <ConfirmPopUp
     v-model:open-pop-up="deleteCookGroupOpen"
