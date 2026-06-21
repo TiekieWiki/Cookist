@@ -3,15 +3,16 @@ import { deleteImage, uploadImage } from '@/utils/global/manageImage';
 import { emptyRecipe, Recipe } from '@/utils/types/recipe';
 import { User } from '@/utils/types/user';
 import { getAuth } from 'firebase/auth';
-import { Timestamp, where } from 'firebase/firestore';
+import { where } from 'firebase/firestore';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useLastEatenStore } from './useLastEatenStore';
 
 export const useRecipeStore = defineStore('recipe', () => {
   const recipe = ref<Recipe>(emptyRecipe());
-  const lastEaten = ref<string>('');
-  const lastEatenToday = ref<boolean>(false);
+
+  const lastEatenStore = useLastEatenStore();
 
   /**
    * Get recipe from database
@@ -26,9 +27,7 @@ export const useRecipeStore = defineStore('recipe', () => {
       })
       .then((userRecipe) => {
         if (userRecipe) {
-          lastEaten.value = userRecipe.lastEaten.toDate().toLocaleDateString();
-          lastEatenToday.value =
-            userRecipe.lastEaten.toDate().toLocaleDateString() === new Date().toLocaleDateString();
+          lastEatenStore.setLastEaten(userRecipe.lastEaten);
 
           getData('recipes', where('id', '==', recipeId))
             .then((result) => {
@@ -61,43 +60,6 @@ export const useRecipeStore = defineStore('recipe', () => {
       })
       .catch(() => {
         console.error('Could not save recipe');
-      });
-  }
-
-  /**
-   * Update last eaten of recipe in database
-   * @param recipeId Recipe id
-   */
-  async function updateLastEaten(recipeId: string): Promise<void> {
-    getData('users', where('id', '==', getAuth().currentUser?.uid))
-      .then((result) => {
-        const user = result[0] as User;
-
-        return user.recipes;
-      })
-      .then((recipes) => {
-        if (recipes) {
-          const updatedRecipes = recipes.map((r) => {
-            if (r.recipeId == recipeId) {
-              r.lastEaten = Timestamp.fromMillis(Date.now());
-            }
-            return r;
-          });
-
-          updateData('users', where('id', '==', getAuth().currentUser?.uid), {
-            recipes: updatedRecipes
-          })
-            .then(() => {
-              lastEaten.value = Timestamp.fromMillis(Date.now()).toDate().toLocaleDateString();
-              lastEatenToday.value = true;
-            })
-            .catch(() => {
-              console.error('Could not update last eaten');
-            });
-        }
-      })
-      .catch(() => {
-        console.error('No access to recipe');
       });
   }
 
@@ -152,11 +114,8 @@ export const useRecipeStore = defineStore('recipe', () => {
 
   return {
     recipe,
-    lastEaten,
-    lastEatenToday,
     getRecipe,
     saveRecipe,
-    updateLastEaten,
     updateRecipe,
     deleteRecipe,
     clearRecipe

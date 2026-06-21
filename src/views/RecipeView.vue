@@ -41,9 +41,12 @@ import InstructionsCard from '@/components/recipe/InstructionsCard.vue';
 import { useRecipeStore } from '@/stores/useRecipeStore';
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
+import { useLastEatenStore } from '@/stores/useLastEatenStore';
 
 const recipeStore = useRecipeStore();
-const { recipe, lastEaten, lastEatenToday } = storeToRefs(recipeStore);
+const { recipe } = storeToRefs(recipeStore);
+const lastEatenStore = useLastEatenStore();
+const { lastEaten, lastEatenToday } = storeToRefs(lastEatenStore);
 const route = useRoute();
 
 onMounted(() => {

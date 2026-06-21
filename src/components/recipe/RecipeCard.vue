@@ -1,12 +1,12 @@
 <template>
   <section class="header">
     <h3>{{ capitalizeFirstLetter(recipe.name) }}</h3>
-    <div v-if="currentCookGroupRecipes">
+    <div v-if="recipe.rating">
       <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
       <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
     </div>
   </section>
-  <section v-if="currentCookGroupRecipes" class="footer">
+  <section v-if="recipe" class="footer">
     <p>{{ capitalizeFirstLetter(recipe.category) }}</p>
     |
     <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipe.duration }}</p>
@@ -16,11 +16,11 @@
 
       {{ recipe.portions }}
     </p>
-    <template v-if="getRecipesLastEaten(recipe, currentCookGroupRecipes, selectedCookGroup ?? '')">
+    <template v-if="lastEaten">
       |
       <p>
         <font-awesome-icon :icon="['fas', 'calendar']" />
-        {{ getRecipesLastEaten(recipe, currentCookGroupRecipes, selectedCookGroup ?? '') }}
+        {{ lastEaten }}
       </p>
     </template>
   </section>
@@ -28,13 +28,19 @@
 
 <script lang="ts" setup>
 import type { Recipe } from '@/utils/types/recipe';
-import { getRecipesLastEaten } from '@/utils/recipe/lastEaten';
-import type { CookGroupRecipe } from '@/utils/types/cookgroup';
 import { capitalizeFirstLetter } from '@/utils/global/text';
+import { useLastEatenStore } from '@/stores/useLastEatenStore';
+import { storeToRefs } from 'pinia';
+import { onMounted } from 'vue';
 
-defineProps<{
+const props = defineProps<{
   recipe: Recipe;
-  currentCookGroupRecipes?: CookGroupRecipe[];
-  selectedCookGroup?: string | undefined;
 }>();
+
+const lastEatenStore = useLastEatenStore();
+const { lastEaten } = storeToRefs(lastEatenStore);
+
+onMounted(() => {
+  lastEatenStore.getLastEaten(props.recipe.id);
+});
 </script>

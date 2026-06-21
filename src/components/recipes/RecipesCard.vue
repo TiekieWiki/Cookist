@@ -9,23 +9,21 @@
       :id="recipe.id"
       @click="
         $router.push({
-          path: `/recipe/${currentCookGroupRecipes.find((group) => group.cookGroupId == selectedCookGroup && group.recipeId == recipe.id)?.id || ''}`
+          path: `/recipe/${recipe.id}`
         })
       "
       tabindex="0"
     >
-      <RecipeCard
-        :recipe="recipe"
-        :current-cook-group-recipes="currentCookGroupRecipes"
-        :selected-cook-group="selectedCookGroup"
-      />
+      <RecipeCard :recipe="recipe" />
     </article>
   </TransitionGroup>
 </template>
 
 <script setup lang="ts">
 import RecipeCard from '@/components/recipe/RecipeCard.vue';
-import { useRecipes } from '@/composables/useRecipes';
+import { Recipe } from '@/utils/types/recipe';
 
-const { currentCookGroupRecipes, selectedCookGroup, recipes } = useRecipes();
+const props = defineProps<{
+  recipes: Recipe[];
+}>();
 </script>

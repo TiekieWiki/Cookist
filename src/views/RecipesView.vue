@@ -1,7 +1,7 @@
 <template>
   <main>
-    <RecipeOrderFilterCard />
-    <RecipesCard />
+    <!-- <RecipeOrderFilterCard /> -->
+    <RecipesCard :recipes="recipes" />
     <article>
       <Button
         @click="
@@ -22,4 +22,14 @@ import RecipeOrderFilterCard from '@/components/recipes/RecipeOrderFilterCard.vu
 import RecipesCard from '@/components/recipes/RecipesCard.vue';
 import Button from '@/components/form/Button.vue';
 import { ButtonType } from '@/utils/types/enums';
+import { useRecipesStore } from '@/stores/useRecipesStore';
+import { storeToRefs } from 'pinia';
+import { onMounted } from 'vue';
+
+const recipesStore = useRecipesStore();
+const { recipes } = storeToRefs(recipesStore);
+
+onMounted(() => {
+  recipesStore.getRecipes();
+});
 </script>
