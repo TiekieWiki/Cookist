@@ -1,5 +1,5 @@
 <template>
-  <main v-if="recipe" class="recipe">
+  <main v-if="recipe.name !== ''" class="recipe">
     <article class="row">
       <div class="column left">
         <RecipeHeaderCard

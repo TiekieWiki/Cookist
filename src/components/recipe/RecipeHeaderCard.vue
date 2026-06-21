@@ -7,7 +7,7 @@
           <font-awesome-icon
             @click="
               $router.push({
-                path: `/edit-recipe/${cookGroupRecipe.id}`
+                path: `/edit-recipe/${recipe.id}`
               })
             "
             :icon="['fas', 'pen']"

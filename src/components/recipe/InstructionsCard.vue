@@ -9,7 +9,7 @@
     </div>
     <CheckBoxList v-model:items="instructions" />
     <Button
-      @click="recipeStore.setLastEaten(recipe.id)"
+      @click="recipeStore.updateLastEaten(recipe.id)"
       :disabled="lastEatenToday"
       :type="ButtonType.BUTTON"
       :variant="ColorVariant.SECONDARY"

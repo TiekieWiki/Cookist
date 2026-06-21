@@ -63,11 +63,6 @@
           :max="5"
           v-model:input="recipe.rating"
         />
-        <CheckBoxList
-          id="cookGroups"
-          :label="$t('editRecipePage.cookGroups')"
-          v-model:items="cookGroups"
-        />
       </section>
       <section class="card">
         <InputList
@@ -172,13 +167,10 @@ import SelectField from '@/components/form/SelectField.vue';
 import TextArea from '@/components/form/TextArea.vue';
 import UploadImage from '@/components/form/UploadImage.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
-import type { CheckBoxProps } from '@/utils/types/form';
-import CheckBoxList from '../form/CheckBoxList.vue';
 import Button from '../form/Button.vue';
 import { ButtonType, ColAmount, ColorVariant } from '@/utils/types/enums';
 
 const recipe = defineModel<Recipe>('recipe', { required: true });
-const cookGroups = defineModel<CheckBoxProps[]>('cookGroups', { required: true });
 const image = defineModel<File | null>('image', { required: true });
 const save = defineModel<boolean>('save', { required: true });
 const errorMessage = defineModel<string>('errorMessage', { required: true });

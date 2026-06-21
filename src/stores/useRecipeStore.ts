@@ -1,5 +1,6 @@
-import { getData, updateData } from '@/utils/global/db';
-import { Recipe } from '@/utils/types/recipe';
+import { addData, getData, updateData } from '@/utils/global/db';
+import { deleteImage, uploadImage } from '@/utils/global/manageImage';
+import { emptyRecipe, Recipe } from '@/utils/types/recipe';
 import { User } from '@/utils/types/user';
 import { getAuth } from 'firebase/auth';
 import { Timestamp, where } from 'firebase/firestore';
@@ -7,20 +8,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useRecipeStore = defineStore('recipe', () => {
-  const recipe = ref<Recipe>({
-    id: '',
-    owner: '',
-    name: '',
-    category: '',
-    duration: undefined,
-    portions: undefined,
-    rating: undefined,
-    image: '',
-    ingredients: [{ amount: 0, unit: '', name: '' }],
-    instructions: [''],
-    notes: '',
-    filterIngredients: []
-  });
+  const recipe = ref<Recipe>(emptyRecipe());
   const lastEaten = ref<string>('');
   const lastEatenToday = ref<boolean>(false);
 
@@ -51,7 +39,22 @@ export const useRecipeStore = defineStore('recipe', () => {
       });
   }
 
-  async function setLastEaten(recipeId: string): Promise<void> {
+  async function saveRecipe(newRecipe: Recipe, image: File): Promise<void> {
+    addData('recipes', recipe)
+      .then(() => {
+        recipe.value = newRecipe;
+      })
+      .then(() => {
+        if (image) {
+          uploadImage(image);
+        }
+      })
+      .catch(() => {
+        console.error('Could not save recipe');
+      });
+  }
+
+  async function updateLastEaten(recipeId: string): Promise<void> {
     getData('users', where('id', '==', getAuth().currentUser?.uid))
       .then((result) => {
         const user = result[0] as User;
@@ -84,5 +87,34 @@ export const useRecipeStore = defineStore('recipe', () => {
       });
   }
 
-  return { recipe, lastEaten, lastEatenToday, getRecipe, setLastEaten };
+  async function updateRecipe(newRecipe: Recipe, image: File, oldImage: string): Promise<void> {
+    updateData('recipes', where('id', '==', newRecipe.id), recipe)
+      .then(() => {
+        recipe.value = newRecipe;
+      })
+      .then(() => {
+        if (image && image.name !== oldImage) {
+          uploadImage(image);
+          deleteImage(oldImage);
+        }
+      })
+      .catch(() => {
+        console.error('Could not update recipe');
+      });
+  }
+
+  function clearRecipe(): void {
+    recipe.value = emptyRecipe();
+  }
+
+  return {
+    recipe,
+    lastEaten,
+    lastEatenToday,
+    getRecipe,
+    saveRecipe,
+    updateLastEaten,
+    updateRecipe,
+    clearRecipe
+  };
 });
