@@ -56,11 +56,16 @@ import CheckBoxList from '../form/CheckBoxList.vue';
 import { computed } from 'vue';
 import { capitalizeFirstLetter } from '@/utils/global/text';
 import { CheckBoxProps } from '@/utils/types/form';
+import { Recipe } from '@/utils/types/recipe';
 
-const { recipe, initialIngredients, portionCount } = useRecipe();
+const props = defineProps<{
+  recipe: Recipe;
+}>();
+
+const { initialIngredients, portionCount } = useRecipe();
 
 const ingredients = computed(() => {
-  return recipe.value.ingredients.map((ingredient) => {
+  return props.recipe.ingredients.map((ingredient) => {
     return {
       name: capitalizeFirstLetter(ingredient.name),
       label: ingredient.amount.toString(),
@@ -73,10 +78,10 @@ const ingredients = computed(() => {
  * Update the ingredient unit
  */
 function changeIngredientUnit(): void {
-  recipe.value.ingredients = updateIngredientUnit(
+  props.recipe.ingredients = updateIngredientUnit(
     initialIngredients,
-    recipe.value.ingredients,
-    recipe.value.portions,
+    props.recipe.ingredients,
+    props.recipe.portions,
     portionCount.value
   );
 }

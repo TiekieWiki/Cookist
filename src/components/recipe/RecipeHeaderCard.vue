@@ -46,13 +46,16 @@
 </template>
 
 <script setup lang="ts">
-import { useRecipe } from '@/composables/useRecipe';
 import { getAuth } from 'firebase/auth';
 import { capitalizeFirstLetter } from '@/utils/global/text';
 import Button from '../form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
+import { Recipe } from '@/utils/types/recipe';
+
+const props = defineProps<{
+  recipe: Recipe;
+  lastEaten: string;
+}>();
 
 const deleteOpen = defineModel<boolean>('deleteOpen', { required: true });
-
-const { recipe, cookGroupRecipe, lastEaten } = useRecipe();
 </script>

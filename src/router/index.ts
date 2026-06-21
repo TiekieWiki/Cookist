@@ -22,7 +22,7 @@ const routes = [
     }
   },
   {
-    path: '/recipe/:cookGroupRecipeId',
+    path: '/recipe/:recipeId',
     name: 'Recipe',
     component: () => import('../views/RecipeView.vue'),
     meta: {

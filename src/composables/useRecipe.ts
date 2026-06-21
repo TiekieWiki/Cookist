@@ -1,6 +1,6 @@
 import { ref, watch, type Ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { useSecureRecipe } from './useSecurity';
+import { useAccessRecipe } from './useSecurity';
 import { getRecipeLastEaten } from '@/utils/recipe/lastEaten';
 import { emptyCookGroupRecipe, type CookGroupRecipe } from '@/utils/types/cookgroup';
 import type { Recipe } from '@/utils/types/recipe';
@@ -44,32 +44,32 @@ export function useRecipe(): {
   const portionCount = ref<number>(1);
 
   // Get the recipe from the database
-  watch(
-    [route.params.cookGroupRecipeId],
-    async () => {
-      // Get the recipe if user has access to it
-      useSecureRecipe(route.params.cookGroupRecipeId as string, cookGroupRecipe, recipe)
-        .then(async (result) => {
-          if (result) {
-            // Get the recipe last eaten date
-            const lastEatenDate = getRecipeLastEaten(cookGroupRecipe.value as CookGroupRecipe);
-            lastEaten.value = lastEatenDate
-              ? lastEatenDate.toDate().toLocaleDateString()
-              : undefined;
-            lastEatenToday.value = lastEatenDate
-              ? lastEatenDate.toDate().toLocaleDateString() === new Date().toLocaleDateString()
-              : false;
+  // watch(
+  //   [route.params.recipeId],
+  //   async () => {
+  //     // Get the recipe if user has access to it
+  //     useAccessRecipe(route.params.recipeId as string)
+  //       .then(async (result) => {
+  //         if (result) {
+  //           // Get the recipe last eaten date
+  //           const lastEatenDate = getRecipeLastEaten(route.params.recipeId as string);
+  //           lastEaten.value = lastEatenDate
+  //             ? lastEatenDate.toDate().toLocaleDateString()
+  //             : undefined;
+  //           lastEatenToday.value = lastEatenDate
+  //             ? lastEatenDate.toDate().toLocaleDateString() === new Date().toLocaleDateString()
+  //             : false;
 
-            initialIngredients = recipe.value.ingredients;
-            portionCount.value = recipe.value.portions || 1;
-          }
-        })
-        .catch((error) => {
-          console.error('Error getting recipe:', error);
-        });
-    },
-    { immediate: true }
-  );
+  //           initialIngredients = recipe.value.ingredients;
+  //           portionCount.value = recipe.value.portions || 1;
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error('Error getting recipe:', error);
+  //       });
+  //   },
+  //   { immediate: true }
+  // );
 
   // Update ingredient amount and unit
   watch(

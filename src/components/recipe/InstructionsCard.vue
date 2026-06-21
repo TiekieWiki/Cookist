@@ -9,7 +9,7 @@
     </div>
     <CheckBoxList v-model:items="instructions" />
     <Button
-      @click="updateLastEaten"
+      @click="recipeStore.setLastEaten(recipe.id)"
       :disabled="lastEatenToday"
       :type="ButtonType.BUTTON"
       :variant="ColorVariant.SECONDARY"
@@ -23,7 +23,6 @@
 
 <script setup lang="ts">
 import { useKeepScreenOn } from '@/composables/useKeepScreenOn';
-import { useRecipe } from '@/composables/useRecipe';
 import { capitalizeFirstLetter } from '@/utils/global/text';
 import Button from '../form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
@@ -31,11 +30,18 @@ import Toggle from '../form/Toggle.vue';
 import CheckBoxList from '../form/CheckBoxList.vue';
 import { computed } from 'vue';
 import { CheckBoxProps } from '@/utils/types/form';
+import { Recipe } from '@/utils/types/recipe';
+import { useRecipeStore } from '@/stores/useRecipeStore';
 
-const { recipe, lastEatenToday, updateLastEaten } = useRecipe();
+const props = defineProps<{
+  recipe: Recipe;
+  lastEatenToday: boolean;
+}>();
+
+const recipeStore = useRecipeStore();
 
 const instructions = computed(() => {
-  return recipe.value.instructions.map((instruction) => {
+  return props.recipe.instructions.map((instruction) => {
     return {
       name: instruction,
       label: capitalizeFirstLetter(instruction)
