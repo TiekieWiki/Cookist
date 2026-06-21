@@ -4,7 +4,6 @@ import { addData, getData } from '../global/db';
 import { where } from 'firebase/firestore';
 import type { User } from '../types/user';
 import { DatabaseError } from '../types/errors';
-import type { CookGroup } from '../types/cookgroup';
 
 /**
  * Sign in user with Google and register if not already registered
@@ -55,24 +54,6 @@ export async function signInWithGoogle(): Promise<void> {
         }).catch((error: any) => {
           console.error('Error adding grocery list to database:', error);
         });
-
-        // Create user's personal cook group
-        const cookGroup: CookGroup = {
-          id: uid,
-          name: '',
-          owner: uid,
-          personal: true,
-          invitees: [],
-          members: [uid]
-        };
-
-        addData('cookGroups', cookGroup)
-          .then(() => {
-            router.push('/recipes');
-          })
-          .catch((error: any) => {
-            console.error('Error adding cook group to database:', error);
-          });
       } else if (error instanceof Error) {
         console.error('Error signing in user:', error);
       }

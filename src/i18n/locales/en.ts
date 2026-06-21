@@ -3,7 +3,7 @@ export const en = {
     title: 'Home',
     banner1: 'All your favourite recipes in one place',
     banner2: 'Never forget a recipe with the last eaten function',
-    banner3: 'Share your recipes with your own created cook groups'
+    banner3: 'Share your recipes others'
   },
   loginPage: {
     title: 'Login',
@@ -68,7 +68,6 @@ export const en = {
   },
   recipesPage: {
     title: 'Recipes',
-    cookGroups: 'Cook groups',
     filter: 'Filter',
     order: 'Order',
     orders: {
@@ -90,11 +89,9 @@ export const en = {
     noRecipes: 'No recipes found',
     placeholder: {
       search: 'Search recipes',
-      order: 'Last eaten (old-new)',
-      cookGroups: 'Cook group'
+      order: 'Last eaten (old-new)'
     },
     ariaLabel: {
-      cookGroups: 'Cook groups of the user',
       search: 'Search',
       order: 'Order recipes by',
       durationMin: 'Minimum duration of the recipe',
@@ -161,7 +158,6 @@ export const en = {
     instructions: 'Instructions',
     instruction: 'Instruction',
     notes: 'Notes',
-    cookGroups: 'Cook groups',
     save: 'Save',
     recipeNotFound: 'Recipe not found',
     placeholder: {
@@ -205,43 +201,6 @@ export const en = {
       instructions: 'Instructions is required',
       save: 'Something went wrong. Please try again.',
       unsavedChanges: 'You have unsaved changes. Are you sure you want to leave?'
-    }
-  },
-  cookGroupsPage: {
-    title: 'Cook groups',
-    invites: 'Cook group invites',
-    personalCookGroup: 'Personal cook group',
-    members: 'members | member | members',
-    recipes: 'recipes | recipe | recipes',
-    deleteCookGroup: 'Delete cook group',
-    confirmDelete: 'Are you sure you want to delete this cook group? This cannot be undone.',
-    cancel: 'Cancel',
-    delete: 'Delete'
-  },
-  editCookGroupPage: {
-    title: 'Edit cook group',
-    name: 'Name',
-    inviteeEmails: 'Invitee emails',
-    cookGroupRecipes: 'Cook group recipes',
-    searchRecipes: 'Search recipes to add',
-    cancel: 'Cancel',
-    save: 'Save',
-    placeholder: {
-      name: 'Family',
-      inviteeEmails: "john.doe{'@'}gmail.com",
-      searchRecipes: 'Lasagna'
-    },
-    ariaLabel: {
-      name: 'Name of the cook group',
-      inviteeEmails: 'Emails of the invitees of the cook group',
-      cookGroupRecipe: 'Recipe added to the cook group',
-      searchRecipes: 'Search for recipes to add to the cook group'
-    },
-    errors: {
-      name: 'Name is required',
-      save: 'Something went wrong. Please try again.',
-      invitees: 'At least one invitee is required',
-      invalidEmail: 'Invalid email address'
     }
   },
   groceryListPage: {

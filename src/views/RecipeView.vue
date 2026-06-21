@@ -26,7 +26,7 @@
     :section="$t('recipePage.confirmDelete')"
     :cancel="$t('recipePage.cancel')"
     :confirm="$t('recipePage.delete')"
-    @confirm="recipe ? deleteRecipe(recipe.id) : ''"
+    @confirm="recipe ? recipeStore.deleteRecipe(recipe.id) : ''"
   />
 </template>
 
@@ -35,7 +35,6 @@ import { useSetRecipeImage } from '@/composables/useManageImage';
 import { onMounted, ref } from 'vue';
 import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
 import TimerCard from '@/components/recipe/TimerCard.vue';
-import { deleteRecipe } from '@/utils/recipe/deleteRecipe';
 import RecipeHeaderCard from '@/components/recipe/RecipeHeaderCard.vue';
 import IngredientsCard from '@/components/recipe/IngredientsCard.vue';
 import InstructionsCard from '@/components/recipe/InstructionsCard.vue';

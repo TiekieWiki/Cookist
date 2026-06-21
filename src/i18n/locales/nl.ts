@@ -5,7 +5,7 @@ export const nl: TranslationSchema = {
     title: 'Home',
     banner1: 'Al je favoriete recepten op één plek',
     banner2: 'Vergeet nooit een recept met de laatst gegeten functie',
-    banner3: 'Deel je recepten met je eigen gemaakte kookgroepen'
+    banner3: 'Deel je recepten met anderen'
   },
   loginPage: {
     title: 'Log in',
@@ -71,7 +71,6 @@ export const nl: TranslationSchema = {
   },
   recipesPage: {
     title: 'Recepten',
-    cookGroups: 'Kookgroepen',
     filter: 'Filter',
     order: 'Sorteer',
     orders: {
@@ -93,11 +92,9 @@ export const nl: TranslationSchema = {
     noRecipes: 'Geen recepten gevonden',
     placeholder: {
       search: 'Zoek recepten',
-      order: 'Laatst gegeten (oud-nieuw)',
-      cookGroups: 'Kookgroep'
+      order: 'Laatst gegeten (oud-nieuw)'
     },
     ariaLabel: {
-      cookGroups: 'Kookgroepen van de gebruiker',
       search: 'Zoeken',
       order: 'Recepten sorteren op',
       durationMin: 'Minimum duur van het recept',
@@ -164,7 +161,6 @@ export const nl: TranslationSchema = {
     instructions: 'Instructies',
     instruction: 'Instructie',
     notes: 'Aantekeningen',
-    cookGroups: 'Kookgroepen',
     save: 'Opslaan',
     recipeNotFound: 'Recept niet gevonden',
     placeholder: {
@@ -209,44 +205,6 @@ export const nl: TranslationSchema = {
       save: 'Er is iets misgegaan. Probeer het opnieuw.',
       unsavedChanges:
         'Er zijn niet opgeslagen wijzigingen. Weet je zeker dat je de pagina wilt verlaten?'
-    }
-  },
-  cookGroupsPage: {
-    title: 'Kookgroepen',
-    invites: 'Kookgroep uitnodigingen',
-    personalCookGroup: 'Persoonlijke kookgroep',
-    members: 'deelnemers | deelnemer | deelnemers',
-    recipes: 'recepten | recept | recepten',
-    deleteCookGroup: 'Kookgroep verwijderen',
-    confirmDelete:
-      'Weet je zeker dat je deze kookgroep wilt verwijderen? Dit kan niet ongedaan worden gemaakt.',
-    cancel: 'Annuleren',
-    delete: 'Verwijderen'
-  },
-  editCookGroupPage: {
-    title: 'Kookgroep toevoegen',
-    name: 'Naam',
-    inviteeEmails: 'E-mailadressen van de genodigden',
-    cookGroupRecipes: 'Kookgroep recepten',
-    searchRecipes: 'Zoek recepten om toe te voegen',
-    cancel: 'Annuleren',
-    save: 'Opslaan',
-    placeholder: {
-      name: 'Familie',
-      inviteeEmails: "john.doe{'@'}gmail.com",
-      searchRecipes: 'Lasagne'
-    },
-    ariaLabel: {
-      name: 'Naam van de kookgroep',
-      inviteeEmails: 'E-mailadressen van de genodigden',
-      cookGroupRecipe: 'Recept dat toegevoegd is aan de kookgroep',
-      searchRecipes: 'Zoek naar recepten om toe te voegen aan de kookgroep'
-    },
-    errors: {
-      name: 'Naam is verplicht',
-      save: 'Er is iets misgegaan. Probeer het opnieuw.',
-      invitees: 'Ten minste één e-mailadres is verplicht',
-      invalidEmail: 'Ongeldig e-mailadres'
     }
   },
   groceryListPage: {

@@ -39,31 +39,6 @@ export async function deleteAccount(): Promise<void> {
       );
     })
     .then(async () => {
-      // Get the user's cook groups
-      return getData('cookGroups', where('owner', '==', getAuth().currentUser?.uid)).catch(
-        (err) => {
-          console.error('Error getting cook groups:', err);
-          return [];
-        }
-      );
-    })
-    .then((cookGroups) => {
-      // Delete the user's cook group recipes
-      cookGroups.forEach((cookGroup) => {
-        deleteData('cookGroupRecipes', where('cookGroupId', '==', cookGroup.id)).catch((err) => {
-          console.error(`Error deleting recipes for cook group ${cookGroup.id}:`, err);
-        });
-      });
-    })
-    .then(async () => {
-      // Delete the user's cook groups
-      return deleteData('cookGroups', where('owner', '==', getAuth().currentUser?.uid)).catch(
-        (err) => {
-          console.error('Error deleting cook groups:', err);
-        }
-      );
-    })
-    .then(async () => {
       // Delete the user's grocery list
       return deleteData('groceryLists', where('userId', '==', getAuth().currentUser?.uid)).catch(
         (err) => {

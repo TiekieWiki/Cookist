@@ -40,15 +40,6 @@ const routes = [
     }
   },
   {
-    path: '/cookgroups',
-    name: 'Cook Groups',
-    component: () => import('../views/CookGroupsView.vue'),
-    meta: {
-      requiresAuth: true,
-      title: 'cookGroupsPage.title'
-    }
-  },
-  {
     path: '/grocery-list',
     name: 'Grocery List',
     component: () => import('../views/GroceryListView.vue'),

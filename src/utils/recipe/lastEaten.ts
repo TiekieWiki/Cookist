@@ -1,9 +1,6 @@
-import { Timestamp, where } from 'firebase/firestore';
+import { Timestamp } from 'firebase/firestore';
 import type { CookGroupRecipe } from '../types/cookgroup';
 import type { Recipe } from '../types/recipe';
-import { getData } from '../global/db';
-import { getAuth } from 'firebase/auth';
-import { User } from '../types/user';
 
 /**
  * Get the last eaten date of the recipe
@@ -26,22 +23,4 @@ export function getRecipesLastEaten(
   } else {
     return undefined;
   }
-}
-
-/**
- * Get the last eaten date of the recipe for the current user
- * @param recipeId Recipe id
- * @returns {Timestamp | undefined} The last eaten date of the recipe in a readable format
- */
-export function getRecipeLastEaten(recipeId: string): Timestamp | undefined {
-  return getData('users', where('id', '==', getAuth().currentUser?.uid))
-    .then((result) => {
-      const user = result[0] as User;
-
-      return user.recipes.find((recipe) => recipe.recipeId == recipeId)?.lastEaten as Timestamp;
-    })
-    .catch((error) => {
-      console.error(error);
-      return undefined;
-    });
 }

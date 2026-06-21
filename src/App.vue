@@ -57,15 +57,6 @@
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.NEUTRAL"
         >
-          <router-link to="/cookgroups" tabindex="0">{{ $t('cookGroupsPage.title') }}</router-link>
-        </Button>
-      </Transition>
-      <Transition name="slide-fade">
-        <Button
-          v-if="menuOpen && isLoggedIn"
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.NEUTRAL"
-        >
           <router-link to="/grocery-list" tabindex="0">{{
             $t('groceryListPage.title')
           }}</router-link>

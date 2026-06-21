@@ -1,4 +1,4 @@
-import { addData, getData, updateData } from '@/utils/global/db';
+import { addData, deleteData, getData, updateData } from '@/utils/global/db';
 import { deleteImage, uploadImage } from '@/utils/global/manageImage';
 import { emptyRecipe, Recipe } from '@/utils/types/recipe';
 import { User } from '@/utils/types/user';
@@ -6,12 +6,17 @@ import { getAuth } from 'firebase/auth';
 import { Timestamp, where } from 'firebase/firestore';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 export const useRecipeStore = defineStore('recipe', () => {
   const recipe = ref<Recipe>(emptyRecipe());
   const lastEaten = ref<string>('');
   const lastEatenToday = ref<boolean>(false);
 
+  /**
+   * Get recipe from database
+   * @param recipeId Recipe id
+   */
   async function getRecipe(recipeId: string): Promise<void> {
     getData('users', where('id', '==', getAuth().currentUser?.uid))
       .then((result) => {
@@ -39,6 +44,11 @@ export const useRecipeStore = defineStore('recipe', () => {
       });
   }
 
+  /**
+   * Save recipe to database
+   * @param newRecipe New recipe to save
+   * @param image Image to save
+   */
   async function saveRecipe(newRecipe: Recipe, image: File): Promise<void> {
     addData('recipes', recipe)
       .then(() => {
@@ -54,6 +64,10 @@ export const useRecipeStore = defineStore('recipe', () => {
       });
   }
 
+  /**
+   * Update last eaten of recipe in database
+   * @param recipeId Recipe id
+   */
   async function updateLastEaten(recipeId: string): Promise<void> {
     getData('users', where('id', '==', getAuth().currentUser?.uid))
       .then((result) => {
@@ -87,6 +101,12 @@ export const useRecipeStore = defineStore('recipe', () => {
       });
   }
 
+  /**
+   * Update recipe in database
+   * @param newRecipe Recipe to update
+   * @param image Image to save
+   * @param oldImage Old saved image name
+   */
   async function updateRecipe(newRecipe: Recipe, image: File, oldImage: string): Promise<void> {
     updateData('recipes', where('id', '==', newRecipe.id), recipe)
       .then(() => {
@@ -103,6 +123,29 @@ export const useRecipeStore = defineStore('recipe', () => {
       });
   }
 
+  /**
+   * Delete recipe from database
+   * @param recipeId Recipe id
+   */
+  async function deleteRecipe(recipeId: string): Promise<void> {
+    const router = useRouter();
+    // Delete the recipe
+    deleteData('recipes', where('id', '==', recipeId))
+      .then(() => {
+        if (recipe.value.id == recipeId) {
+          recipe.value = emptyRecipe();
+        }
+
+        router.push({ path: '/recipes' });
+      })
+      .catch((error) => {
+        console.error('Error deleting recipe:', error);
+      });
+  }
+
+  /**
+   * Clear recipe
+   */
   function clearRecipe(): void {
     recipe.value = emptyRecipe();
   }
@@ -115,6 +158,7 @@ export const useRecipeStore = defineStore('recipe', () => {
     saveRecipe,
     updateLastEaten,
     updateRecipe,
+    deleteRecipe,
     clearRecipe
   };
 });

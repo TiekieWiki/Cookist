@@ -9,7 +9,6 @@ import {
 import router from '@/router';
 import type { User } from '@/utils/types/user';
 import { addData } from '@/utils/global/db';
-import type { CookGroup } from '@/utils/types/cookgroup';
 
 /**
  * Register user with email and password
@@ -79,24 +78,6 @@ export function useRegister(): {
         }).catch((error: any) => {
           console.error('Error adding grocery list to database:', error);
         });
-
-        // Create user's personal cook group
-        const cookGroup: CookGroup = {
-          id: uid,
-          name: '',
-          owner: uid,
-          personal: true,
-          invitees: [],
-          members: [uid]
-        };
-
-        addData('cookGroups', cookGroup)
-          .then(() => {
-            router.push('/recipes');
-          })
-          .catch((error: any) => {
-            console.error('Error adding cook group to database:', error);
-          });
       })
       .then(() => {
         // Redirect to recipes page
