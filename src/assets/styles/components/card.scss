@@ -13,6 +13,10 @@
   box-shadow: var(--box-shadow);
   overflow: hidden;
 
+  &.accent {
+    color: var(--color-text-secondary);
+  }
+
   .header {
     display: flex;
     justify-content: space-between;

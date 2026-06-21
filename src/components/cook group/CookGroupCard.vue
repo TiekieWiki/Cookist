@@ -1,5 +1,5 @@
 <template>
-  <section class="card cookGroup">
+  <section class="card cookGroup accent">
     <div :id="cookGroup.id" class="image"></div>
     <div class="header">
       <h3>

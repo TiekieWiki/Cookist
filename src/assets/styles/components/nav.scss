@@ -37,7 +37,7 @@ aside {
         @include zoom-on-hover(var(--scale-medium));
         @include text-on-focus(var(--color-secondary));
 
-        color: var(--color-primary);
+        color: var(--color-secondary);
       }
     }
   }

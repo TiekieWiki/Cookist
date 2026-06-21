@@ -21,17 +21,17 @@
           @click="menuOpen = true"
           :type="ButtonType.BUTTON"
           :icon-only="true"
-          :variant="ColorVariant.NEUTRAL"
+          :variant="ColorVariant.SECONDARY"
           :size="ButtonSize.LARGE"
         >
           <font-awesome-icon :icon="['fas', 'bars']" tabindex="0" />
         </Button>
         <Button
           v-else
-          @click="menuOpen = false"
+          @click="menuOpen = !menuOpen"
           :type="ButtonType.BUTTON"
           :icon-only="true"
-          :variant="ColorVariant.NEUTRAL"
+          :variant="ColorVariant.SECONDARY"
           :size="ButtonSize.LARGE"
         >
           <font-awesome-icon :icon="['fas', 'xmark']" tabindex="0" />
