@@ -2,7 +2,8 @@
   <main v-if="recipe.name" class="recipe">
     <article class="row">
       <div class="column left">
-        <RecipeHeaderCard v-model:delete-open="deleteRecipeOpen" /> <IngredientsCard />
+        <RecipeHeaderCard v-model:delete-open="deleteRecipeOpen" />
+        <IngredientsCard />
       </div>
       <div class="column right">
         <InstructionsCard />
@@ -30,29 +31,16 @@ import { useSetRecipeImage } from '@/composables/useManageImage';
 import { ref } from 'vue';
 import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
 import TimerCard from '@/components/recipe/TimerCard.vue';
-import { updateIngredientUnit } from '@/utils/recipe/updateIngredientUnit';
 import { useRecipe } from '@/composables/useRecipe';
 import { deleteRecipe } from '@/utils/recipe/deleteRecipe';
 import RecipeHeaderCard from '@/components/recipe/RecipeHeaderCard.vue';
 import IngredientsCard from '@/components/recipe/IngredientsCard.vue';
 import InstructionsCard from '@/components/recipe/InstructionsCard.vue';
 
-const { recipe, initialIngredients, portionCount } = useRecipe();
+const { recipe } = useRecipe();
 
 // Set the image
 useSetRecipeImage(recipe);
-
-/**
- * Update the ingredient unit
- */
-function changeIngredientUnit(): void {
-  recipe.value.ingredients = updateIngredientUnit(
-    initialIngredients,
-    recipe.value.ingredients,
-    recipe.value.portions,
-    portionCount.value
-  );
-}
 
 // Delete recipe
 const deleteRecipeOpen = ref<boolean>(false);

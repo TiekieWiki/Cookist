@@ -10,7 +10,6 @@ import router from '@/router';
 import type { User } from '@/utils/types/user';
 import { addData } from '@/utils/global/db';
 import type { CookGroup } from '@/utils/types/cookgroup';
-import { get } from 'http';
 
 /**
  * Register user with email and password
@@ -66,7 +65,8 @@ export function useRegister(): {
               ? 'dark'
               : window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
                 ? 'light'
-                : 'dark'
+                : 'dark',
+          recipes: []
         };
         addData('users', user).catch((error: any) => {
           console.error('Error adding user to database:', error);

@@ -39,7 +39,8 @@ export async function signInWithGoogle(): Promise<void> {
               ? 'dark'
               : window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
                 ? 'light'
-                : 'dark'
+                : 'dark',
+          recipes: []
         };
 
         // Add user
