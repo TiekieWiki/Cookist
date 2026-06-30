@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory, type RouteLocation } from 'vue-router';
 import i18n from '@/i18n/index';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { supabase } from '@/utils/global/supabase.js';
+import { ref } from 'vue';
+import { Session } from '@supabase/auth-js';
 
 const routes = [
   {
@@ -58,6 +60,15 @@ const routes = [
     }
   },
   {
+    path: '/register',
+    name: 'Register',
+    component: () => import('../views/RegisterView.vue'),
+    meta: {
+      requiresAuth: false,
+      title: 'registerPage.title'
+    }
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('../views/LoginView.vue'),
@@ -92,34 +103,17 @@ const router = createRouter({
   }
 });
 
-// Gets the current user
-const getCurrentUser = () => {
-  return new Promise((resolve, reject) => {
-    const removeListener = onAuthStateChanged(
-      getAuth(),
-      (user) => {
-        removeListener();
-        resolve(user);
-      },
-      reject
-    );
-  });
-};
-
 // Navigation guard to check if user is logged in
-router.beforeEach(async (to: RouteLocation, from: RouteLocation, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (await getCurrentUser()) {
-      next();
-    } else {
-      next('/login');
-    }
-  } else {
-    next();
+router.beforeEach(async (to: RouteLocation) => {
+  const { data } = await supabase.auth.getSession();
+
+  if (to.meta.requiresAuth && !data.session) {
+    return '/login';
   }
 
-  //Set page title
   document.title = i18n.global.t(String(to.meta.title));
+
+  return true;
 });
 
 export default router;

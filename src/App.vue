@@ -95,7 +95,6 @@
 
 <script setup lang="ts">
 import { RouterView, useRoute } from 'vue-router';
-import { useIsLoggedIn } from './composables/useAuthentication';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { getData } from './utils/global/db';
 import { where } from 'firebase/firestore';
@@ -107,32 +106,35 @@ import { lazyLoadLocaleMessages } from './i18n';
 import { setColorScheme, setHandedness } from './utils/global/setInterfaceVariables';
 import Button from './components/form/Button.vue';
 import { ButtonSize, ButtonType, ColorVariant } from './utils/types/enums';
+import { supabase } from './utils/global/supabase';
 
-const isLoggedIn = useIsLoggedIn();
+// const { data } = await supabase.auth.getSession();
+
+// const isLoggedIn = ref<boolean>(!data.session);
 const user = ref<User | undefined>(undefined);
 const menuOpen = ref<boolean>(false);
 const route = useRoute();
 const { t, locale } = useI18n();
 
 // Set user language
-watch(isLoggedIn, async () => {
-  if (isLoggedIn.value) {
-    await getData('users', where('id', '==', getAuth().currentUser?.uid))
-      .then((users) => {
-        if (users.length > 0) {
-          user.value = users[0] as User;
-          setUserLanguage(user.value?.language);
-          setColorScheme(user.value?.colorScheme);
-          setHandedness(user.value?.handedness || 'right');
-        }
-      })
-      .catch((error: any) => {
-        console.error('Error setting user language:', error);
-      });
-  } else {
-    setSystemLanguage();
-  }
-});
+// watch(isLoggedIn, async () => {
+//   if (isLoggedIn.value) {
+//     await getData('users', where('id', '==', getAuth().currentUser?.uid))
+//       .then((users) => {
+//         if (users.length > 0) {
+//           user.value = users[0] as User;
+//           setUserLanguage(user.value?.language);
+//           setColorScheme(user.value?.colorScheme);
+//           setHandedness(user.value?.handedness || 'right');
+//         }
+//       })
+//       .catch((error: any) => {
+//         console.error('Error setting user language:', error);
+//       });
+//   } else {
+//     setSystemLanguage();
+//   }
+// });
 
 // Set language
 watch(locale, () => {

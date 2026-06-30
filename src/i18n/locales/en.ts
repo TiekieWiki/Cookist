@@ -5,12 +5,16 @@ export const en = {
     banner2: 'Never forget a recipe with the last eaten function',
     banner3: 'Share your recipes others'
   },
+  registerPage: {
+    title: 'Register',
+    alreadyAccount: 'Already have an account?',
+    signIn: 'Sign in'
+  },
   loginPage: {
     title: 'Login',
     login: 'Log in',
-    register: 'Register',
-    googleLogin: 'Log in with Google',
-    googleRegister: 'Register with Google',
+    noAccount: "Don't have an account?",
+    signUp: 'Sign up',
     placeholder: {
       email: "john.doe{'@'}gmail.com",
       password: '********'
@@ -20,19 +24,6 @@ export const en = {
       passwordLogin: 'Password for logging in',
       emailRegister: 'Email for registering',
       passwordRegister: 'Password for registering'
-    },
-    errors: {
-      invalidEmail: 'Invalid email',
-      wrongPassword: 'Invalid password',
-      emailAlreadyExists: 'An account with the given email already exists',
-      invalidPassword: 'The password must be at least 6 characters long',
-      passwordLowercase: 'The password must contain at least one lowercase letter',
-      passwordUppercase: 'The password must contain at least one uppercase letter',
-      passwordNumber: 'The password must contain at least one number',
-      passwordMinLength: 'The password must be at least 6 characters long',
-      passwordMaxLength: 'The password must be at most 4096 characters long',
-      userNotFound: 'No account with that email was found',
-      default: 'Email or password was incorrect'
     }
   },
   profilePage: {

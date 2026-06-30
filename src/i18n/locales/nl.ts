@@ -7,12 +7,16 @@ export const nl: TranslationSchema = {
     banner2: 'Vergeet nooit een recept met de laatst gegeten functie',
     banner3: 'Deel je recepten met anderen'
   },
+  registerPage: {
+    title: 'Registreer',
+    alreadyAccount: 'Heb je al een account?',
+    signIn: 'Log in'
+  },
   loginPage: {
     title: 'Log in',
     login: 'Log in',
-    register: 'Registreer',
-    googleLogin: 'Log in met Google',
-    googleRegister: 'Registreer met Google',
+    noAccount: 'Heb je geen account?',
+    signUp: 'Meld je aan',
     placeholder: {
       email: "john.doe{'@'}gmail.com",
       password: '********'
@@ -22,19 +26,6 @@ export const nl: TranslationSchema = {
       passwordLogin: 'Wachtwoord voor inloggen',
       emailRegister: 'Email voor registreren',
       passwordRegister: 'Wachtwoord voor registreren'
-    },
-    errors: {
-      invalidEmail: 'Ongeldige email',
-      wrongPassword: 'Ongeldig wachtwoord',
-      emailAlreadyExists: 'Een account met het gegeven mailadres bestaat al',
-      invalidPassword: 'Het wachtwoord moet minimaal 6 karakters lang zijn',
-      passwordLowercase: 'Het wachtwoord moet minimaal één kleine letter bevatten',
-      passwordUppercase: 'Het wachtwoord moet minimaal één hoofdletter bevatten',
-      passwordNumber: 'Het wachtwoord moet minimaal één nummer bevatten',
-      passwordMinLength: 'Het wachtwoord moet minimaal 6 karakters lang zijn',
-      passwordMaxLength: 'Het wachtwoord mag maximaal 4096 karakters lang zijn',
-      userNotFound: 'Er was geen account met die email gevonden',
-      default: 'Email of wachtwoord was ongeldig'
     }
   },
   profilePage: {
