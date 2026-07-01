@@ -111,6 +111,7 @@ import { supabase } from './utils/global/supabase';
 // const { data } = await supabase.auth.getSession();
 
 // const isLoggedIn = ref<boolean>(!data.session);
+const isLoggedIn = ref<boolean>(true);
 const user = ref<User | undefined>(undefined);
 const menuOpen = ref<boolean>(false);
 const route = useRoute();

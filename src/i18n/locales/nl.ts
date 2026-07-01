@@ -26,6 +26,18 @@ export const nl: TranslationSchema = {
       passwordLogin: 'Wachtwoord voor inloggen',
       emailRegister: 'Email voor registreren',
       passwordRegister: 'Wachtwoord voor registreren'
+    },
+    errors: {
+      emailAddressMissing: 'E-mailadres ontbreekt',
+      emailAddressInvalid: 'E-mailadres is ongeldig',
+      emailExists: 'E-mailadres bestaat al',
+      invalidCredentials: 'Ongeldige inloggegevens',
+      userAlreadyExists: 'Gebruiker bestaat al',
+      userNotFound: 'Gebruiker niet gevonden',
+      passwordMissing: 'Wachtwoord ontbreekt',
+      weakPassword:
+        'Wachtwoord is te zwak. Een wachtwoord moet minimaal 8 tekens lang zijn en ten minste één hoofdletter, één kleine letter, één cijfer en één speciaal teken bevatten',
+      unknown: 'Er is een onbekende fout opgetreden. Probeer het later opnieuw'
     }
   },
   profilePage: {

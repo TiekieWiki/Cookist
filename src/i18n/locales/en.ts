@@ -24,6 +24,18 @@ export const en = {
       passwordLogin: 'Password for logging in',
       emailRegister: 'Email for registering',
       passwordRegister: 'Password for registering'
+    },
+    errors: {
+      emailAddressMissing: 'Email address is missing',
+      emailAddressInvalid: 'Email address is invalid',
+      emailExists: 'Email address already exists',
+      invalidCredentials: 'Invalid credentials',
+      userAlreadyExists: 'User already exists',
+      userNotFound: 'User not found',
+      passwordMissing: 'Password is missing',
+      weakPassword:
+        'Password is too weak. A password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+      unknown: 'An unknown error occurred. Please try again later'
     }
   },
   profilePage: {

@@ -18,7 +18,7 @@
         :disabled="true"
         :autocomplete="AutoCompleteVariant.EMAIL"
       />
-      <Button @click="handleSignOut" :type="ButtonType.BUTTON" :variant="ColorVariant.SECONDARY">
+      <Button @click="useLogout" :type="ButtonType.BUTTON" :variant="ColorVariant.SECONDARY">
         {{ $t('profilePage.logout') }}
       </Button>
     </form>
@@ -27,10 +27,10 @@
 
 <script setup lang="ts">
 import { getAuth } from 'firebase/auth';
-import { handleSignOut } from '@/utils/global/authentication';
 import InputField from '@/components/form/InputField.vue';
 import { AutoCompleteVariant, ButtonType, ColorVariant } from '@/utils/types/enums';
 import Button from '../form/Button.vue';
+import { useLogout } from '@/composables/useAuthentication.js';
 
 const deleteOpen = defineModel<boolean>('deleteOpen', { required: true });
 </script>
