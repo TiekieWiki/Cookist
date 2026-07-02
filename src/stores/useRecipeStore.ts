@@ -1,7 +1,7 @@
 import { addData, deleteData, getData, updateData } from '@/utils/global/db';
 import { deleteImage, uploadImage } from '@/utils/global/manageImage';
 import { emptyRecipe, Recipe } from '@/utils/types/recipe';
-import { User } from '@/utils/types/user';
+import { User } from '@/utils/types/profile';
 import { getAuth } from 'firebase/auth';
 import { where } from 'firebase/firestore';
 import { defineStore } from 'pinia';

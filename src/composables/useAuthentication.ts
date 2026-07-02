@@ -78,7 +78,7 @@ export function usePasswordLogin(): {
     });
 
     if (error) {
-      errorMessagePasswordLogin.value = error.message;
+      errorMessagePasswordLogin.value = getErrorMessage(passwordLoginErrorMessages, error.code);
       return;
     }
 

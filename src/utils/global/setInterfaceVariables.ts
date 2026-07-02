@@ -3,12 +3,12 @@
  * @param colorScheme - The color scheme to set ('light' or 'dark').
  */
 export function setColorScheme(colorScheme: 'light' | 'dark'): void {
-  if (colorScheme === 'dark') {
-    document.documentElement.classList.add('dark');
-    document.documentElement.classList.remove('light');
-  } else {
+  if (colorScheme === 'light') {
     document.documentElement.classList.add('light');
     document.documentElement.classList.remove('dark');
+  } else {
+    document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('light');
   }
 }
 

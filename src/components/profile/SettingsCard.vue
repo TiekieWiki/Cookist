@@ -61,19 +61,19 @@ const handedness = [
 const selectedHandedness = ref<'left' | 'right' | 'ambidextrous'>('right');
 
 // Get user from database and set dropdowns to user settings
-onMounted(async () => {
-  getData('users', where('id', '==', getAuth().currentUser?.uid))
-    .then((users) => {
-      if (users.length > 0) {
-        selectedLanguage.value = users[0].language;
-        selectedColorScheme.value = users[0].colorScheme;
-        selectedHandedness.value = users[0].handedness || 'right';
-      }
-    })
-    .catch((error: any) => {
-      console.error('Error getting user from database:', error);
-    });
-});
+// onMounted(async () => {
+//   getData('users', where('id', '==', getAuth().currentUser?.uid))
+//     .then((users) => {
+//       if (users.length > 0) {
+//         selectedLanguage.value = users[0].language;
+//         selectedColorScheme.value = users[0].colorScheme;
+//         selectedHandedness.value = users[0].handedness || 'right';
+//       }
+//     })
+//     .catch((error: any) => {
+//       console.error('Error getting user from database:', error);
+//     });
+// });
 
 // Watch for changes in selected language and update i18n
 watch(selectedLanguage, () => {

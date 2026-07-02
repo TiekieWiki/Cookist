@@ -1,6 +1,6 @@
 import { getData } from '@/utils/global/db';
 import { Recipe } from '@/utils/types/recipe';
-import { User } from '@/utils/types/user';
+import { User } from '@/utils/types/profile';
 import { getAuth } from 'firebase/auth';
 import { where } from 'firebase/firestore';
 import { defineStore } from 'pinia';

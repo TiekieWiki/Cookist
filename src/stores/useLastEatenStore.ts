@@ -1,5 +1,5 @@
 import { getData, updateData } from '@/utils/global/db';
-import { User } from '@/utils/types/user';
+import { User } from '@/utils/types/profile';
 import { getAuth } from 'firebase/auth';
 import { Timestamp, where } from 'firebase/firestore';
 import { defineStore } from 'pinia';

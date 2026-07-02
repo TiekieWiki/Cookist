@@ -99,7 +99,7 @@ import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { getData } from './utils/global/db';
 import { where } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
-import type { User } from './utils/types/user';
+import type { Profile } from './utils/types/profile';
 import { setSystemLanguage, setUserLanguage } from './utils/global/setLanguage';
 import { useI18n } from 'vue-i18n';
 import { lazyLoadLocaleMessages } from './i18n';
@@ -107,35 +107,32 @@ import { setColorScheme, setHandedness } from './utils/global/setInterfaceVariab
 import Button from './components/form/Button.vue';
 import { ButtonSize, ButtonType, ColorVariant } from './utils/types/enums';
 import { supabase } from './utils/global/supabase';
+import { getUserProfile } from './utils/profile/queries/getUserProfile';
+import { getIsUserLoggedIn } from './utils/global/queries/getIsUserLoggedIn';
 
-// const { data } = await supabase.auth.getSession();
-
-// const isLoggedIn = ref<boolean>(!data.session);
-const isLoggedIn = ref<boolean>(true);
-const user = ref<User | undefined>(undefined);
+const isLoggedIn = ref<boolean>(false);
+const profile = ref<Profile | undefined>(undefined);
 const menuOpen = ref<boolean>(false);
 const route = useRoute();
 const { t, locale } = useI18n();
 
 // Set user language
-// watch(isLoggedIn, async () => {
-//   if (isLoggedIn.value) {
-//     await getData('users', where('id', '==', getAuth().currentUser?.uid))
-//       .then((users) => {
-//         if (users.length > 0) {
-//           user.value = users[0] as User;
-//           setUserLanguage(user.value?.language);
-//           setColorScheme(user.value?.colorScheme);
-//           setHandedness(user.value?.handedness || 'right');
-//         }
-//       })
-//       .catch((error: any) => {
-//         console.error('Error setting user language:', error);
-//       });
-//   } else {
-//     setSystemLanguage();
-//   }
-// });
+onMounted(async () => {
+  isLoggedIn.value = await getIsUserLoggedIn();
+
+  if (isLoggedIn.value) {
+    const userProfile = await getUserProfile();
+
+    if (userProfile) {
+      profile.value = userProfile;
+      setUserLanguage(profile.value.language);
+      setColorScheme(profile.value.colorScheme);
+      setHandedness(profile.value.handedness);
+    }
+  } else {
+    setSystemLanguage();
+  }
+});
 
 // Set language
 watch(locale, () => {
@@ -152,7 +149,7 @@ watch(
 );
 
 // Close menu
-onMounted(() => {
+onMounted(async () => {
   // Close menu when the window is resized
   window.addEventListener('resize', () => {
     menuOpen.value = false;
