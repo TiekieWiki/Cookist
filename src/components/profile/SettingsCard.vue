@@ -20,9 +20,7 @@
         labelPrefix="profilePage.handedness."
         v-model:selected="selectedHandedness"
       />
-      <Transition name="fade">
-        <p v-if="successMessage" class="success">{{ successMessage }}</p>
-      </Transition>
+      <SuccessMessage v-model:message="successMessage" />
       <ErrorMessage v-model:message="errorMessage" />
       <Button @click="saveSettings" :type="ButtonType.BUTTON" :variant="ColorVariant.SECONDARY">
         {{ $t('profilePage.save') }}
@@ -32,7 +30,6 @@
 </template>
 
 <script setup lang="ts">
-import { useSuccessTransition } from '@/composables/useSuccess';
 import i18n from '@/i18n/index';
 import SelectField from '@/components/form/SelectField.vue';
 import { setColorScheme, setHandedness } from '@/utils/global/setInterfaceVariables';
@@ -42,6 +39,7 @@ import { ButtonType, ColorScheme, ColorVariant, Handedness, Language } from '@/u
 import { getUserProfile } from '@/utils/profile/queries/getUserProfile.js';
 import { setUserProfile } from '@/utils/profile/queries/setUserProfile.js';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
+import SuccessMessage from '../form/SuccessMessage.vue';
 
 const languages = [
   { value: 'en', label: 'en' },
@@ -105,7 +103,7 @@ async function saveSettings(): Promise<void> {
   if (profileErrorMessage.value) {
     errorMessage.value = profileErrorMessage.value;
   } else {
-    useSuccessTransition(successMessage, 'profilePage.saveSuccess');
+    successMessage.value = i18n.global.t('profilePage.saveSuccess');
   }
 }
 </script>
