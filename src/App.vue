@@ -13,6 +13,7 @@
       </suspense>
     </Transition>
   </router-view>
+  <ErrorMessage v-model:message="errorMessage" />
   <aside :class="menuOpen ? 'menuOpen' : 'menuClose'">
     <nav>
       <Transition name="switch" mode="out-in" appear>
@@ -115,22 +116,25 @@ const profile = ref<Profile | undefined>(undefined);
 const menuOpen = ref<boolean>(false);
 const route = useRoute();
 const { t, locale } = useI18n();
+const errorMessage = ref<string>('');
 
 // Set user language
 onMounted(async () => {
   isLoggedIn.value = await getIsUserLoggedIn();
 
   if (isLoggedIn.value) {
-    const userProfile = await getUserProfile();
+    const { errorMessage: profileErrorMessage, profile: userProfile } = await getUserProfile();
 
-    if (userProfile) {
+    if (profileErrorMessage.value) {
+      errorMessage.value = profileErrorMessage.value;
+    } else if (userProfile) {
       profile.value = userProfile;
       setUserLanguage(profile.value.language);
       setColorScheme(profile.value.colorScheme);
       setHandedness(profile.value.handedness);
+    } else {
+      setSystemLanguage();
     }
-  } else {
-    setSystemLanguage();
   }
 });
 

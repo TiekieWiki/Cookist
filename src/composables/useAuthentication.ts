@@ -1,30 +1,24 @@
 import { type Ref, ref } from 'vue';
 import router from '@/router';
 import { supabase } from '@/utils/global/supabase';
-import { getErrorMessage, passwordLoginErrorMessages } from '@/utils/global/errorHandling';
+import { getErrorMessage, errorMessages } from '@/utils/global/errorHandling';
 
 /**
  * Register user with email and password
  * @returns {Promise<void>} A promise that resolves when the user is registered
  */
 export function usePasswordRegister(): {
-  errorMessagePasswordRegister: Ref<string>;
+  errorMessage: Ref<string>;
   passwordRegister: (email: string, password: string) => Promise<void>;
 } {
-  const errorMessagePasswordRegister = ref<string>('');
+  const errorMessage = ref<string>('');
 
   const passwordRegister = async (email: string, password: string) => {
     if (!email) {
-      errorMessagePasswordRegister.value = getErrorMessage(
-        passwordLoginErrorMessages,
-        'email_address_missing'
-      );
+      errorMessage.value = getErrorMessage(errorMessages, 'email_address_missing');
       return;
     } else if (!password) {
-      errorMessagePasswordRegister.value = getErrorMessage(
-        passwordLoginErrorMessages,
-        'password_missing'
-      );
+      errorMessage.value = getErrorMessage(errorMessages, 'password_missing');
       return;
     }
 
@@ -34,7 +28,7 @@ export function usePasswordRegister(): {
     });
 
     if (error) {
-      errorMessagePasswordRegister.value = getErrorMessage(passwordLoginErrorMessages, error.code);
+      errorMessage.value = getErrorMessage(errorMessages, error.code);
       return;
     }
 
@@ -42,7 +36,7 @@ export function usePasswordRegister(): {
   };
 
   return {
-    errorMessagePasswordRegister,
+    errorMessage,
     passwordRegister
   };
 }
@@ -52,23 +46,17 @@ export function usePasswordRegister(): {
  * @returns {Promise<void>} A promise that resolves when the user is logged in
  */
 export function usePasswordLogin(): {
-  errorMessagePasswordLogin: Ref<string>;
+  errorMessage: Ref<string>;
   passwordLogin: (email: string, password: string) => Promise<void>;
 } {
-  const errorMessagePasswordLogin = ref<string>('');
+  const errorMessage = ref<string>('');
 
   const passwordLogin = async (email: string, password: string) => {
     if (!email) {
-      errorMessagePasswordLogin.value = getErrorMessage(
-        passwordLoginErrorMessages,
-        'email_address_missing'
-      );
+      errorMessage.value = getErrorMessage(errorMessages, 'email_address_missing');
       return;
     } else if (!password) {
-      errorMessagePasswordLogin.value = getErrorMessage(
-        passwordLoginErrorMessages,
-        'password_missing'
-      );
+      errorMessage.value = getErrorMessage(errorMessages, 'password_missing');
       return;
     }
 
@@ -78,7 +66,7 @@ export function usePasswordLogin(): {
     });
 
     if (error) {
-      errorMessagePasswordLogin.value = getErrorMessage(passwordLoginErrorMessages, error.code);
+      errorMessage.value = getErrorMessage(errorMessages, error.code);
       return;
     }
 
@@ -86,7 +74,7 @@ export function usePasswordLogin(): {
   };
 
   return {
-    errorMessagePasswordLogin,
+    errorMessage,
     passwordLogin
   };
 }

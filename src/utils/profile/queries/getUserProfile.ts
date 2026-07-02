@@ -1,34 +1,48 @@
-import { getErrorMessage, passwordLoginErrorMessages } from '@/utils/global/errorHandling';
+import { getErrorMessage, errorMessages } from '@/utils/global/errorHandling';
 import { supabase } from '@/utils/global/supabase';
 import { Profile } from '@/utils/types/profile';
+import { getUser } from './getUser';
+import { ref, Ref } from 'vue';
 
 /**
  * Get the profile of the current user
- * @returns Profile of current user or error in console
+ * @returns {Promise<void>} A promise that resolves when the user profile is retrieved
  */
-export async function getUserProfile(): Promise<Profile | void> {
-  const { data: user, error: userError } = await supabase.auth.getUser();
+export async function getUserProfile(): Promise<{
+  errorMessage: Ref<string>;
+  profile: Profile | null;
+}> {
+  const errorMessage = ref<string>('');
 
-  if (userError) {
-    console.error(getErrorMessage(passwordLoginErrorMessages, userError.code));
-    return;
+  const { errorMessage: userErrorMessage, user } = await getUser();
+
+  if (userErrorMessage.value) {
+    errorMessage.value = userErrorMessage.value;
+
+    return { errorMessage, profile: null };
+  } else if (!user) {
+    errorMessage.value = getErrorMessage(errorMessages, '');
+
+    return { errorMessage, profile: null };
   }
 
-  const { data: profile, error: profileError } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', user.user.id)
-    .single();
+  const { data, error } = await supabase.from('profiles').select('*').eq('id', user.id).single();
 
-  if (profileError) {
-    console.error(getErrorMessage(passwordLoginErrorMessages, profileError.code));
-    return;
+  if (error) {
+    errorMessage.value = getErrorMessage(errorMessages, '');
+  } else if (!data) {
+    errorMessage.value = getErrorMessage(errorMessages, '');
+
+    return { errorMessage, profile: null };
   }
 
   return {
-    id: profile.id,
-    language: profile.language,
-    colorScheme: profile.colorscheme,
-    handedness: profile.handedness
+    errorMessage,
+    profile: {
+      id: data.id,
+      language: data.language,
+      colorScheme: data.colorscheme,
+      handedness: data.handedness
+    }
   };
 }

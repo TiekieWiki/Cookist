@@ -20,7 +20,7 @@
             :autocomplete="AutoCompleteVariant.CURRENT_PASSWORD"
             v-model:input="password"
           />
-          <ErrorMessage v-model:message="errorMessagePasswordLogin" />
+          <ErrorMessage v-model:message="errorMessage" />
           <Button
             @click.prevent="handleLogin"
             :type="ButtonType.SUBMIT"
@@ -50,7 +50,7 @@ import Button from '@/components/form/Button.vue';
 
 const email = ref<string>('');
 const password = ref<string>('');
-const { errorMessagePasswordLogin, passwordLogin } = usePasswordLogin();
+const { errorMessage, passwordLogin } = usePasswordLogin();
 
 /**
  * Handle the login button click

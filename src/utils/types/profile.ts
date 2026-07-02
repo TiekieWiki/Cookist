@@ -1,6 +1,8 @@
+import { ColorScheme, Handedness, Language } from './enums';
+
 export interface Profile {
   id: string | undefined;
-  language: 'nl' | 'en';
-  colorScheme: 'light' | 'dark';
-  handedness: 'left' | 'right' | 'ambidextrous';
+  language: Language;
+  colorScheme: ColorScheme;
+  handedness: Handedness;
 }

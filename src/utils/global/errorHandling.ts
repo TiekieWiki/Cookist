@@ -11,7 +11,7 @@ export function getErrorMessage(
   return errorRecord[errorCode] || i18n.global.t('loginPage.errors.unknown');
 }
 
-export const passwordLoginErrorMessages: Record<string, string> = {
+export const errorMessages: Record<string, string> = {
   email_address_missing: i18n.global.t('loginPage.errors.emailAddressMissing'),
   email_address_invalid: i18n.global.t('loginPage.errors.emailAddressInvalid'),
   email_exists: i18n.global.t('loginPage.errors.emailExists'),

@@ -31,3 +31,19 @@ export enum ColAmount {
   THREE = 'threeCols',
   FOUR = 'fourCols'
 }
+
+export enum Language {
+  EN = 'en',
+  NL = 'nl'
+}
+
+export enum ColorScheme {
+  LIGHT = 'light',
+  DARK = 'dark'
+}
+
+export enum Handedness {
+  LEFT = 'left',
+  RIGHT = 'right',
+  AMBIDEXTROUS = 'ambidextrous'
+}
