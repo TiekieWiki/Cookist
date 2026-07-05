@@ -106,6 +106,7 @@ import Button from './components/form/Button.vue';
 import { ButtonSize, ButtonType, ColorVariant } from './utils/types/enums';
 import { getUserProfile } from './utils/profile/queries/getUserProfile';
 import { isLoggedIn } from '@/stores/useUserLoggedInStore';
+import ErrorMessage from '@/components/form/ErrorMessage.vue';
 
 const profile = ref<Profile | undefined>(undefined);
 const menuOpen = ref<boolean>(false);

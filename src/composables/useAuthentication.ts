@@ -2,6 +2,7 @@ import { type Ref, ref } from 'vue';
 import router from '@/router';
 import { supabase } from '@/utils/global/supabase';
 import { getErrorMessage, errorMessages } from '@/utils/global/errorHandling';
+import { setUserProfileLocalLanguage } from '@/utils/profile/queries/setUserProfileLocalLanguage';
 
 /**
  * Register user with email and password
@@ -29,6 +30,13 @@ export function usePasswordRegister(): {
 
     if (error) {
       errorMessage.value = getErrorMessage(errorMessages, error.code);
+      return;
+    }
+
+    const { errorMessage: profileErrorMessage } = await setUserProfileLocalLanguage();
+
+    if (profileErrorMessage) {
+      errorMessage.value = profileErrorMessage.value;
       return;
     }
 
