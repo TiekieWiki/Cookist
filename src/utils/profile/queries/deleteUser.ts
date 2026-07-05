@@ -1,4 +1,3 @@
-import { useLogout } from '@/composables/useAuthentication';
 import { getErrorMessage, errorMessages } from '@/utils/global/errorHandling';
 import { supabase } from '@/utils/global/supabase';
 import { ref, Ref } from 'vue';

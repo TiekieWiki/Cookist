@@ -35,7 +35,6 @@
 </template>
 
 <script setup lang="ts">
-import { getAuth } from 'firebase/auth';
 import InputField from '@/components/form/InputField.vue';
 import { AutoCompleteVariant, ButtonType, ColorVariant } from '@/utils/types/enums';
 import Button from '../form/Button.vue';

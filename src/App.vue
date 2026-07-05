@@ -97,9 +97,6 @@
 <script setup lang="ts">
 import { RouterView, useRoute } from 'vue-router';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
-import { getData } from './utils/global/db';
-import { where } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
 import type { Profile } from './utils/types/profile';
 import { setSystemLanguage, setUserLanguage } from './utils/global/setLanguage';
 import { useI18n } from 'vue-i18n';
@@ -107,11 +104,9 @@ import { lazyLoadLocaleMessages } from './i18n';
 import { setColorScheme, setHandedness } from './utils/global/setInterfaceVariables';
 import Button from './components/form/Button.vue';
 import { ButtonSize, ButtonType, ColorVariant } from './utils/types/enums';
-import { supabase } from './utils/global/supabase';
 import { getUserProfile } from './utils/profile/queries/getUserProfile';
-import { getIsUserLoggedIn } from './utils/global/queries/getIsUserLoggedIn';
+import { isLoggedIn } from '@/stores/useUserLoggedInStore';
 
-const isLoggedIn = ref<boolean>(false);
 const profile = ref<Profile | undefined>(undefined);
 const menuOpen = ref<boolean>(false);
 const route = useRoute();
@@ -120,8 +115,6 @@ const errorMessage = ref<string>('');
 
 // Set user language
 onMounted(async () => {
-  isLoggedIn.value = await getIsUserLoggedIn();
-
   if (isLoggedIn.value) {
     const { errorMessage: profileErrorMessage, profile: userProfile } = await getUserProfile();
 
