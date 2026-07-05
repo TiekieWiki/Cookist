@@ -12,7 +12,7 @@
       <InputField
         name="profileEmail"
         :variant="ColorVariant.PRIMARY"
-        :placeholder="getAuth().currentUser?.email ?? ''"
+        :placeholder="email"
         :ariaLabel="$t('profilePage.ariaLabel.userEmail')"
         type="email"
         :disabled="true"
@@ -40,13 +40,25 @@ import InputField from '@/components/form/InputField.vue';
 import { AutoCompleteVariant, ButtonType, ColorVariant } from '@/utils/types/enums';
 import Button from '../form/Button.vue';
 import { useLogout } from '@/composables/useAuthentication.js';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
 import { deleteUser } from '@/utils/profile/queries/deleteUser';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
+import { getUser } from '@/utils/global/queries/getUser.js';
 
 const deleteOpen = ref<boolean>(false);
 const errorMessage = ref<string>('');
+const email = ref<string>('');
+
+onMounted(async () => {
+  const { errorMessage: profileErrorMessage, user: userAccount } = await getUser();
+
+  if (profileErrorMessage.value) {
+    errorMessage.value = profileErrorMessage.value;
+  } else if (userAccount) {
+    email.value = userAccount.email ?? '';
+  }
+});
 
 /**
  * Delete the user account and log out the user
