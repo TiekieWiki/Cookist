@@ -18,11 +18,20 @@
         :disabled="true"
         :autocomplete="AutoCompleteVariant.EMAIL"
       />
+      <ErrorMessage v-model:message="errorMessage" />
       <Button @click="useLogout" :type="ButtonType.BUTTON" :variant="ColorVariant.SECONDARY">
         {{ $t('profilePage.logout') }}
       </Button>
     </form>
   </section>
+  <ConfirmPopUp
+    :title="$t('profilePage.deleteAccount')"
+    :section="$t('profilePage.confirmDelete')"
+    :cancel="'profilePage.cancel'"
+    :confirm="'profilePage.delete'"
+    v-model:openPopUp="deleteOpen"
+    @confirm="deleteUserAccount()"
+  />
 </template>
 
 <script setup lang="ts">
@@ -31,6 +40,26 @@ import InputField from '@/components/form/InputField.vue';
 import { AutoCompleteVariant, ButtonType, ColorVariant } from '@/utils/types/enums';
 import Button from '../form/Button.vue';
 import { useLogout } from '@/composables/useAuthentication.js';
+import { ref } from 'vue';
+import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
+import { deleteUser } from '@/utils/profile/queries/deleteUser';
+import ErrorMessage from '@/components/form/ErrorMessage.vue';
 
-const deleteOpen = defineModel<boolean>('deleteOpen', { required: true });
+const deleteOpen = ref<boolean>(false);
+const errorMessage = ref<string>('');
+
+/**
+ * Delete the user account and log out the user
+ */
+async function deleteUserAccount(): Promise<void> {
+  const { errorMessage: profileErrorMessage } = await deleteUser();
+
+  deleteOpen.value = false;
+
+  if (profileErrorMessage.value) {
+    errorMessage.value = profileErrorMessage.value;
+  } else {
+    await useLogout();
+  }
+}
 </script>

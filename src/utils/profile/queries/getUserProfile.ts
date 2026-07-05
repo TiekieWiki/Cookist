@@ -1,7 +1,7 @@
 import { getErrorMessage, errorMessages } from '@/utils/global/errorHandling';
 import { supabase } from '@/utils/global/supabase';
 import { Profile } from '@/utils/types/profile';
-import { getUser } from './getUser';
+import { getUser } from '../../global/queries/getUser';
 import { ref, Ref } from 'vue';
 
 /**

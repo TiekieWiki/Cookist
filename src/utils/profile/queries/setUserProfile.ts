@@ -1,6 +1,6 @@
 import { getErrorMessage, errorMessages } from '@/utils/global/errorHandling';
 import { supabase } from '@/utils/global/supabase';
-import { getUser } from './getUser';
+import { getUser } from '../../global/queries/getUser';
 import { ColorScheme, Handedness, Language } from '@/utils/types/enums';
 import { ref, Ref } from 'vue';
 
