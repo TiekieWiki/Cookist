@@ -2,11 +2,10 @@ import { getErrorMessage, errorMessages } from '@/utils/global/errorHandling';
 import { supabase } from '@/utils/global/supabase';
 import { getUser } from '../../global/queries/getUser';
 import { ref, Ref } from 'vue';
-import i18n from '@/i18n';
 
 /**
  * Set the local language of the current user
- * @returns {Promise<void>} A promise that resolves when the user profile language is set
+ * @returns An object containing the error message if any
  */
 export async function setUserProfileLocalLanguage(
 ): Promise<{

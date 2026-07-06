@@ -57,6 +57,8 @@ const handedness = [
   { value: 'ambidextrous', label: 'ambidextrous' }
 ];
 const selectedHandedness = ref<Handedness>();
+const successMessage = ref<string>('');
+const errorMessage = ref<string>('');
 
 // Set dropdowns to profile settings
 onMounted(async () => {
@@ -71,24 +73,17 @@ onMounted(async () => {
   }
 });
 
-// Watch for changes in selected language and update i18n
 watch(selectedLanguage, () => {
   i18n.global.locale.value = (selectedLanguage.value as 'en' | 'nl') || 'en';
 });
 
-// Watch for changes in selected color scheme and update color scheme
 watch(selectedColorScheme, () => {
   setColorScheme(selectedColorScheme.value || 'dark');
 });
 
-// Watch for changes in selected handedness and update database
 watch(selectedHandedness, () => {
   setHandedness(selectedHandedness.value || 'right');
 });
-
-// Save settings to database
-const successMessage = ref<string>('');
-const errorMessage = ref<string>('');
 
 /**
  * Save the user settings to the database

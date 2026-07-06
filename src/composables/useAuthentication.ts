@@ -6,7 +6,7 @@ import { setUserProfileLocalLanguage } from '@/utils/profile/queries/setUserProf
 
 /**
  * Register user with email and password
- * @returns {Promise<void>} A promise that resolves when the user is registered
+ * @returns Error message and a function to register the user
  */
 export function usePasswordRegister(): {
   errorMessage: Ref<string>;
@@ -51,7 +51,7 @@ export function usePasswordRegister(): {
 
 /**
  * Login user with email and password
- * @returns {Promise<void>} A promise that resolves when the user is logged in
+ * @returns Error message and a function to log in the user
  */
 export function usePasswordLogin(): {
   errorMessage: Ref<string>;
@@ -89,7 +89,7 @@ export function usePasswordLogin(): {
 
 /**
  * Log out the current user
- * @returns {Promise<void>} A promise that resolves when the user is logged out
+ * @returns A promise that resolves when the user is logged out
  */
 export async function useLogout(): Promise<void> {
   await supabase.auth.signOut({ scope: 'local' });

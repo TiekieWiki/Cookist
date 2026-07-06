@@ -1,5 +1,11 @@
 import i18n from '@/i18n';
 
+/**
+ * Gets the error message corresponding to the provided error code from the error record
+ * @param errorRecord Error record containing error codes and their corresponding messages
+ * @param errorCode Error code for which the message needs to be retrieved
+ * @returns The error message corresponding to the provided error code, or a default unknown error message if the code is not found
+ */
 export function getErrorMessage(
   errorRecord: Record<string, string>,
   errorCode: string | undefined

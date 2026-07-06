@@ -6,7 +6,7 @@ import { ref, Ref } from 'vue';
 
 /**
  * Get the profile of the current user
- * @returns {Promise<void>} A promise that resolves when the user profile is retrieved
+ * @returns A promise that resolves with the user profile and any error message
  */
 export async function getUserProfile(): Promise<{
   errorMessage: Ref<string>;

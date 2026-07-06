@@ -4,7 +4,7 @@ import { ref, Ref } from 'vue';
 
 /**
  * Delete the profile of the current user
- * @returns {Promise<void>} A promise that resolves when the user profile is deleted
+ * @returns A promise that resolves when the user profile is deleted or an error message if the deletion fails
  */
 export async function deleteUser(): Promise<{
   errorMessage: Ref<string>;

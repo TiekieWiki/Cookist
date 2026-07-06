@@ -20,7 +20,7 @@
             :autocomplete="AutoCompleteVariant.NEW_PASSWORD"
             v-model:input="password"
           />
-          <ErrorMessage v-model:message="errorMessagePasswordRegister" />
+          <ErrorMessage v-model:message="errorMessage" />
           <Button
             @click.prevent="handleRegister"
             :type="ButtonType.SUBMIT"
@@ -50,7 +50,7 @@ import Button from '@/components/form/Button.vue';
 
 const email = ref<string>('');
 const password = ref<string>('');
-const { errorMessagePasswordRegister, passwordRegister } = usePasswordRegister();
+const { errorMessage, passwordRegister } = usePasswordRegister();
 
 /**
  * Handle the register button click

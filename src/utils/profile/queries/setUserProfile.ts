@@ -6,7 +6,7 @@ import { ref, Ref } from 'vue';
 
 /**
  * Set the profile of the current user
- * @returns {Promise<void>} A promise that resolves when the user profile is set
+ * @returns A promise that resolves when the user profile is set or an error message if there was an error
  */
 export async function setUserProfile(
   language: Language,

@@ -5,7 +5,7 @@ import { Ref, ref } from 'vue';
 
 /**
  * Get the current user
- * @returns {Promise<void>} A promise that resolves when the user is retrieved
+ * @returns Error message and user object if available
  */
 export async function getUser(): Promise<{
   errorMessage: Ref<string>;
