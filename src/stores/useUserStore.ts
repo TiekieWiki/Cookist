@@ -6,6 +6,7 @@ import { User } from '@supabase/supabase-js';
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<User>();
+  const isLoggedIn = ref<boolean>(false);
   const errorMessage = ref<string>('');
 
     /**
@@ -33,10 +34,16 @@ export const useUserStore = defineStore('user', () => {
         errorMessage.value = getErrorMessage(errorMessages, '');
       }
     }
+
+    // Update user's logged in state
+    supabase.auth.onAuthStateChange((event, session) => {
+      isLoggedIn.value = !!session
+    });
     
   return {
-    errorMessage,
     user,
+    isLoggedIn,
+    errorMessage,
     getUser,
     deleteUser
   };

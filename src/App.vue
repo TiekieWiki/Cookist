@@ -45,7 +45,7 @@
       </Transition>
       <Transition name="slide-fade">
         <Button
-          v-if="menuOpen && isLoggedIn"
+          v-if="menuOpen && userStore.isLoggedIn"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.NEUTRAL"
         >
@@ -54,7 +54,7 @@
       </Transition>
       <Transition name="slide-fade">
         <Button
-          v-if="menuOpen && isLoggedIn"
+          v-if="menuOpen && userStore.isLoggedIn"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.NEUTRAL"
         >
@@ -65,7 +65,7 @@
       </Transition>
       <Transition name="slide-fade">
         <Button
-          v-if="menuOpen && !isLoggedIn"
+          v-if="menuOpen && !userStore.isLoggedIn"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.NEUTRAL"
         >
@@ -74,7 +74,7 @@
       </Transition>
       <Transition name="slide-fade">
         <Button
-          v-if="menuOpen && isLoggedIn"
+          v-if="menuOpen && userStore.isLoggedIn"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.NEUTRAL"
         >
@@ -105,7 +105,6 @@ import { setColorScheme, setHandedness } from './utils/global/setInterfaceVariab
 import Button from './components/form/Button.vue';
 import { ButtonSize, ButtonType, ColorVariant } from './utils/types/enums';
 import { getUserProfile } from './utils/profile/queries/getUserProfile';
-import { isLoggedIn } from '@/stores/useUserLoggedInStore';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import { useUserStore } from './stores/useUserStore';
 
@@ -120,7 +119,7 @@ const errorMessage = ref<string>('');
 onMounted(async () => {
   await userStore.getUser();
 
-  if (isLoggedIn.value) {
+  if (userStore.isLoggedIn) {
     const { errorMessage: profileErrorMessage, profile: userProfile } = await getUserProfile();
 
     if (profileErrorMessage.value) {
