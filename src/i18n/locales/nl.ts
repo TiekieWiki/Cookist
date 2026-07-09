@@ -122,6 +122,9 @@ export const nl: TranslationSchema = {
     delete: 'Verwijderen',
     recipeNotFound: 'Recept niet gevonden'
   },
+  createRecipePage: {
+    title: 'Recept aanmaken',
+  },
   editRecipePage: {
     title: 'Recept bewerken',
     name: 'Naam',

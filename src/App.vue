@@ -107,15 +107,19 @@ import { ButtonSize, ButtonType, ColorVariant } from './utils/types/enums';
 import { getUserProfile } from './utils/profile/queries/getUserProfile';
 import { isLoggedIn } from '@/stores/useUserLoggedInStore';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
+import { useUserStore } from './stores/useUserStore';
 
 const profile = ref<Profile | undefined>(undefined);
 const menuOpen = ref<boolean>(false);
 const route = useRoute();
 const { t, locale } = useI18n();
+const userStore = useUserStore();
 const errorMessage = ref<string>('');
 
 // Set user language
 onMounted(async () => {
+  await userStore.getUser();
+
   if (isLoggedIn.value) {
     const { errorMessage: profileErrorMessage, profile: userProfile } = await getUserProfile();
 

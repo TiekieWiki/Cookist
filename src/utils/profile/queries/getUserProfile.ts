@@ -1,8 +1,8 @@
 import { getErrorMessage, errorMessages } from '@/utils/global/errorHandling';
 import { supabase } from '@/utils/global/supabase';
 import { Profile } from '@/utils/types/profile';
-import { getUser } from '../../global/queries/getUser';
 import { ref, Ref } from 'vue';
+import { useUserStore } from '@/stores/useUserStore';
 
 /**
  * Get the profile of the current user
@@ -12,21 +12,20 @@ export async function getUserProfile(): Promise<{
   errorMessage: Ref<string>;
   profile: Profile | null;
 }> {
+  const userStore = useUserStore();
   const errorMessage = ref<string>('');
 
-  const { errorMessage: userErrorMessage, user } = await getUser();
-
-  if (userErrorMessage.value) {
-    errorMessage.value = userErrorMessage.value;
+  if (userStore.errorMessage) {
+    errorMessage.value = userStore.errorMessage;
 
     return { errorMessage, profile: null };
-  } else if (!user) {
+  } else if (!userStore.user) {
     errorMessage.value = getErrorMessage(errorMessages, '');
 
     return { errorMessage, profile: null };
   }
 
-  const { data, error } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+  const { data, error } = await supabase.from('profiles').select('*').eq('id', userStore.user.id).single();
 
   if (error) {
     errorMessage.value = getErrorMessage(errorMessages, '');

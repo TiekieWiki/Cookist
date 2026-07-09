@@ -41,21 +41,19 @@ import Button from '../form/Button.vue';
 import { useLogout } from '@/composables/useAuthentication.js';
 import { onMounted, ref } from 'vue';
 import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
-import { deleteUser } from '@/utils/profile/queries/deleteUser';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
-import { getUser } from '@/utils/global/queries/getUser.js';
+import { useUserStore } from '@/stores/useUserStore';
 
+const userStore = useUserStore();
 const deleteOpen = ref<boolean>(false);
 const errorMessage = ref<string>('');
 const email = ref<string>('');
 
 onMounted(async () => {
-  const { errorMessage: profileErrorMessage, user: userAccount } = await getUser();
-
-  if (profileErrorMessage.value) {
-    errorMessage.value = profileErrorMessage.value;
-  } else if (userAccount) {
-    email.value = userAccount.email ?? '';
+  if (userStore.errorMessage) {
+    errorMessage.value = userStore.errorMessage;
+  } else if (userStore.user) {
+    email.value = userStore.user.email ?? '';
   }
 });
 
@@ -63,12 +61,12 @@ onMounted(async () => {
  * Delete the user account and log out the user
  */
 async function deleteUserAccount(): Promise<void> {
-  const { errorMessage: profileErrorMessage } = await deleteUser();
+  await userStore.deleteUser();
 
   deleteOpen.value = false;
 
-  if (profileErrorMessage.value) {
-    errorMessage.value = profileErrorMessage.value;
+  if (userStore.errorMessage) {
+    errorMessage.value = userStore.errorMessage;
   } else {
     await useLogout();
   }

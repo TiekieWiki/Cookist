@@ -119,6 +119,9 @@ export const en = {
     delete: 'Delete',
     recipeNotFound: 'Recipe not found'
   },
+  createRecipePage: {
+    title: 'Create recipe',
+  },
   editRecipePage: {
     title: 'Edit recipe',
     name: 'Name',

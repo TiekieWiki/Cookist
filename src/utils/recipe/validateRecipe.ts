@@ -22,7 +22,7 @@ export function validateRecipe(recipe: Recipe): string {
     recipe.ingredients[0].name === ''
   ) {
     return 'editRecipePage.errors.ingredients';
-  } else if (recipe.instructions[0] === '') {
+  } else if (recipe.instructions[0].instruction === '') {
     return 'editRecipePage.errors.instructions';
   } else {
     return '';

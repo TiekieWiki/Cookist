@@ -6,17 +6,21 @@ export interface Recipe {
   duration: number | undefined;
   portions: number | undefined;
   rating: number | undefined;
-  image: string;
+  image: string | undefined;
   ingredients: Ingredient[];
-  instructions: string[];
-  notes: string;
-  filterIngredients: string[];
+  instructions: Instruction[];
+  notes: string | undefined;
 }
 
 export interface Ingredient {
   name: string;
   unit: string;
   amount: number;
+}
+
+export interface Instruction {
+  order: number;
+  instruction: string;
 }
 
 export enum RecipeCategories {
@@ -65,10 +69,9 @@ export function emptyRecipe(): Recipe {
     duration: undefined,
     portions: undefined,
     rating: undefined,
-    image: '',
+    image: undefined,
     ingredients: [{ amount: 0, unit: '', name: '' }],
-    instructions: [''],
-    notes: '',
-    filterIngredients: []
+    instructions: [{ order: 1, instruction: '' }],
+    notes: undefined,
   };
 }

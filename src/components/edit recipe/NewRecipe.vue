@@ -2,7 +2,9 @@
   <form class="row">
     <div class="column left">
       <section class="card" :class="ColorVariant.ACCENT">
-        <h2>{{ $t('editRecipePage.title') }}</h2>
+        <h2>
+          {{ $route.params.recipeId ? $t('editRecipePage.title') : $t('createRecipePage.title') }}
+        </h2>
 
         <InputField
           id="name"
@@ -119,7 +121,7 @@
             :placeholder="$t('editRecipePage.placeholder.instruction')"
             :ariaLabel="$t('editRecipePage.ariaLabel.instruction')"
             type="text"
-            v-model:input="recipe.instructions[index]"
+            v-model:input="recipe.instructions[index].instruction"
             @input="addInputRow(recipe.instructions, index, '')"
           />
         </InputList>
