@@ -36,11 +36,11 @@ import { setColorScheme, setHandedness } from '@/utils/global/setInterfaceVariab
 import { ref, onMounted, watch } from 'vue';
 import Button from '../form/Button.vue';
 import { ButtonType, ColorScheme, ColorVariant, Handedness, Language } from '@/utils/types/enums';
-import { getUserProfile } from '@/utils/profile/queries/getUserProfile.js';
-import { setUserProfile } from '@/utils/profile/queries/setUserProfile.js';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import SuccessMessage from '../form/SuccessMessage.vue';
+import { useProfileStore } from '@/stores/useProfileStore.js';
 
+const profileStore = useProfileStore();
 const languages = [
   { value: 'en', label: 'en' },
   { value: 'nl', label: 'nl' }
@@ -62,14 +62,12 @@ const errorMessage = ref<string>('');
 
 // Set dropdowns to profile settings
 onMounted(async () => {
-  const { errorMessage: profileErrorMessage, profile: userProfile } = await getUserProfile();
-
-  if (profileErrorMessage.value) {
-    errorMessage.value = profileErrorMessage.value;
-  } else if (userProfile) {
-    selectedLanguage.value = userProfile.language;
-    selectedColorScheme.value = userProfile.colorScheme;
-    selectedHandedness.value = userProfile.handedness;
+  if (profileStore.errorMessage) {
+    errorMessage.value = profileStore.errorMessage;
+  } else if (profileStore.profile) {
+    selectedLanguage.value = profileStore.profile.language;
+    selectedColorScheme.value = profileStore.profile.colorscheme;
+    selectedHandedness.value = profileStore.profile.handedness;
   }
 });
 
@@ -89,14 +87,14 @@ watch(selectedHandedness, () => {
  * Save the user settings to the database
  */
 async function saveSettings(): Promise<void> {
-  const { errorMessage: profileErrorMessage } = await setUserProfile(
+  await profileStore.setProfile(
     selectedLanguage.value || Language.EN,
     selectedColorScheme.value || ColorScheme.DARK,
     selectedHandedness.value || Handedness.RIGHT
   );
 
-  if (profileErrorMessage.value) {
-    errorMessage.value = profileErrorMessage.value;
+  if (profileStore.errorMessage) {
+    errorMessage.value = profileStore.errorMessage;
   } else {
     successMessage.value = i18n.global.t('profilePage.saveSuccess');
   }

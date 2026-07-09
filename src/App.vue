@@ -104,15 +104,16 @@ import { lazyLoadLocaleMessages } from './i18n';
 import { setColorScheme, setHandedness } from './utils/global/setInterfaceVariables';
 import Button from './components/form/Button.vue';
 import { ButtonSize, ButtonType, ColorVariant } from './utils/types/enums';
-import { getUserProfile } from './utils/profile/queries/getUserProfile';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import { useUserStore } from './stores/useUserStore';
+import { useProfileStore } from './stores/useProfileStore';
 
-const profile = ref<Profile | undefined>(undefined);
-const menuOpen = ref<boolean>(false);
 const route = useRoute();
 const { t, locale } = useI18n();
 const userStore = useUserStore();
+const profileStore = useProfileStore();
+const profile = ref<Profile | undefined>(undefined);
+const menuOpen = ref<boolean>(false);
 const errorMessage = ref<string>('');
 
 // Set user language
@@ -120,14 +121,14 @@ onMounted(async () => {
   await userStore.getUser();
 
   if (userStore.isLoggedIn) {
-    const { errorMessage: profileErrorMessage, profile: userProfile } = await getUserProfile();
+    await profileStore.getProfile();
 
-    if (profileErrorMessage.value) {
-      errorMessage.value = profileErrorMessage.value;
-    } else if (userProfile) {
-      profile.value = userProfile;
+    if (profileStore.errorMessage) {
+      errorMessage.value = profileStore.errorMessage;
+    } else if (profileStore.profile) {
+      profile.value = profileStore.profile;
       setUserLanguage(profile.value.language);
-      setColorScheme(profile.value.colorScheme);
+      setColorScheme(profile.value.colorscheme);
       setHandedness(profile.value.handedness);
     } else {
       setSystemLanguage();

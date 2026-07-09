@@ -2,7 +2,7 @@ import { type Ref, ref } from 'vue';
 import router from '@/router';
 import { supabase } from '@/utils/global/supabase';
 import { getErrorMessage, errorMessages } from '@/utils/global/errorHandling';
-import { setUserProfileLocalLanguage } from '@/utils/profile/queries/setUserProfileLocalLanguage';
+import { useProfileStore } from '@/stores/useProfileStore';
 
 /**
  * Register user with email and password
@@ -12,6 +12,7 @@ export function usePasswordRegister(): {
   errorMessage: Ref<string>;
   passwordRegister: (email: string, password: string) => Promise<void>;
 } {
+  const profileStore = useProfileStore();
   const errorMessage = ref<string>('');
 
   const passwordRegister = async (email: string, password: string) => {
@@ -33,10 +34,10 @@ export function usePasswordRegister(): {
       return;
     }
 
-    const { errorMessage: profileErrorMessage } = await setUserProfileLocalLanguage();
+    await profileStore.setUsersLocalLanguage();
 
-    if (profileErrorMessage) {
-      errorMessage.value = profileErrorMessage.value;
+    if (profileStore.errorMessage) {
+      errorMessage.value = profileStore.errorMessage;
       return;
     }
 
