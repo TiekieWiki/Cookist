@@ -1,4 +1,5 @@
 import type { Recipe } from '../types/recipe';
+import { getErrorMessage } from '../global/errorHandling';
 
 /**
  * Validates a recipe object to ensure all required fields are filled out
@@ -6,24 +7,22 @@ import type { Recipe } from '../types/recipe';
  * @returns {string} Validation error message key or empty string if valid
  */
 export function validateRecipe(recipe: Recipe): string {
-  if (recipe.name === '') {
-    return 'editRecipePage.errors.name';
-  } else if (recipe.category === '') {
-    return 'editRecipePage.errors.category';
+  if (!recipe.name) {
+    return getErrorMessage('recipe_name_missing');
+  } else if (!recipe.category) {
+    return getErrorMessage('recipe_category_missing');
   } else if (recipe.duration === undefined) {
-    return 'editRecipePage.errors.duration';
+    return getErrorMessage('recipe_duration_missing');
   } else if (recipe.portions === undefined) {
-    return 'editRecipePage.errors.portions';
+    return getErrorMessage('recipe_portions_missing');
   } else if (recipe.rating === undefined) {
-    return 'editRecipePage.errors.rating';
+    return getErrorMessage('recipe_rating_missing');
   } else if (
-    recipe.ingredients[0].amount === 0 ||
-    recipe.ingredients[0].unit === '' ||
-    recipe.ingredients[0].name === ''
+    recipe.ingredients.length <= 0
   ) {
-    return 'editRecipePage.errors.ingredients';
-  } else if (recipe.instructions[0].instruction === '') {
-    return 'editRecipePage.errors.instructions';
+    return getErrorMessage('recipe_ingredients_missing');
+  } else if (recipe.instructions.length <= 0) {
+    return getErrorMessage('recipe_instructions_missing');
   } else {
     return '';
   }

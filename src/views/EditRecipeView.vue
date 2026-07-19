@@ -1,5 +1,5 @@
 <template>
-  <main v-if="$route.params.recipeId && recipe.name == ''">
+  <main v-if="$route.params.recipeId && !recipeStore.recipe.name">
     <article class="card">
       <h2>{{ $t('editRecipePage.recipeNotFound') }}</h2>
     </article>
@@ -9,8 +9,8 @@
       <NewRecipe
         v-model:recipe="recipe"
         v-model:image="image"
-        v-model:save="save"
-        v-model:error-message="errorMessage"
+        @save="saveRecipe(recipe, image)"
+        v-model:error-message="recipeStore.errorMessage"
       />
     </article>
   </main>
@@ -20,16 +20,20 @@
 import NewRecipe from '@/components/edit recipe/NewRecipe.vue';
 import { useEditRecipe } from '@/composables/useEditRecipe';
 import { useRecipeStore } from '@/stores/useRecipeStore';
-import { storeToRefs } from 'pinia';
-import { onMounted } from 'vue';
+import { emptyRecipe, Recipe } from '@/utils/types/recipe';
+import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 const recipeStore = useRecipeStore();
-const { recipe } = storeToRefs(recipeStore);
-const { image, errorMessage, save } = useEditRecipe();
+const { saveRecipe } = useEditRecipe();
 const route = useRoute();
+const recipe = ref<Recipe>(emptyRecipe());
+const image = ref<File | null>(null);
 
 onMounted(() => {
-  recipeStore.getRecipe(route.params.recipeId as string);
+  if (route.params.recipeId) {
+    recipeStore.getRecipe(route.params.recipeId as string);
+    recipe.value = recipeStore.recipe;
+  }
 });
 </script>

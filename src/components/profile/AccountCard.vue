@@ -18,7 +18,7 @@
         :disabled="true"
         :autocomplete="AutoCompleteVariant.EMAIL"
       />
-      <ErrorMessage v-model:message="errorMessage" />
+      <ErrorMessage v-model:message="userStore.errorMessage" />
       <Button @click="useLogout" :type="ButtonType.BUTTON" :variant="ColorVariant.SECONDARY">
         {{ $t('profilePage.logout') }}
       </Button>
@@ -46,13 +46,10 @@ import { useUserStore } from '@/stores/useUserStore';
 
 const userStore = useUserStore();
 const deleteOpen = ref<boolean>(false);
-const errorMessage = ref<string>('');
 const email = ref<string>('');
 
 onMounted(async () => {
-  if (userStore.errorMessage) {
-    errorMessage.value = userStore.errorMessage;
-  } else if (userStore.user) {
+  if (userStore.user) {
     email.value = userStore.user.email ?? '';
   }
 });
@@ -65,9 +62,7 @@ async function deleteUserAccount(): Promise<void> {
 
   deleteOpen.value = false;
 
-  if (userStore.errorMessage) {
-    errorMessage.value = userStore.errorMessage;
-  } else {
+  if (!userStore.errorMessage) {
     await useLogout();
   }
 }

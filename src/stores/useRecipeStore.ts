@@ -1,4 +1,4 @@
-import { addData, deleteData, getData, updateData } from '@/utils/global/db';
+import { deleteData, getData, updateData } from '@/utils/global/db';
 import { deleteImage, uploadImage } from '@/utils/global/manageImage';
 import { emptyRecipe, Recipe } from '@/utils/types/recipe';
 import { User } from '@/utils/types/profile';
@@ -8,11 +8,16 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useLastEatenStore } from './useLastEatenStore';
+import { useUserStore } from './useUserStore';
+import { getErrorMessage } from '@/utils/global/errorHandling';
+import { supabase } from '@/utils/global/supabase';
+import { validateRecipe } from '@/utils/recipe/validateRecipe';
 
 export const useRecipeStore = defineStore('recipe', () => {
+  const userStore = useUserStore();
   const recipe = ref<Recipe>(emptyRecipe());
-
   const lastEatenStore = useLastEatenStore();
+  const errorMessage = ref<string>('');
 
   /**
    * Get recipe from database
@@ -23,7 +28,7 @@ export const useRecipeStore = defineStore('recipe', () => {
       .then((result) => {
         const user = result[0] as User;
 
-        return user.recipes.find((recipe) => recipe.recipeId == recipeId);
+        return user.recipes.find((recipe: any) => recipe.recipeId == recipeId);
       })
       .then((userRecipe) => {
         if (userRecipe) {
@@ -45,22 +50,50 @@ export const useRecipeStore = defineStore('recipe', () => {
 
   /**
    * Save recipe to database
-   * @param newRecipe New recipe to save
+   * @param recipe Recipe to save
    * @param image Image to save
    */
-  async function saveRecipe(newRecipe: Recipe, image: File): Promise<void> {
-    addData('recipes', recipe)
-      .then(() => {
-        recipe.value = newRecipe;
-      })
-      .then(() => {
+  async function setRecipe(newRecipe: Recipe, image: File | null): Promise<void> {
+    const message = validateRecipe(newRecipe);
+
+    if (message) {
+      errorMessage.value = message;
+    }
+    else if (userStore.errorMessage) {
+      errorMessage.value = userStore.errorMessage;
+    } else if (!userStore.user) {
+      errorMessage.value = getErrorMessage('unknown');
+    } else {
+      const { data, error: recipeError } =
+        await supabase.rpc('create_recipe', {
+          p_name: newRecipe.name,
+          p_category: newRecipe.category,
+          p_duration: newRecipe.duration,
+          p_portions: newRecipe.portions,
+          p_rating: newRecipe.rating,
+          p_notes: newRecipe.notes ?? '',
+          p_ingredients: newRecipe.ingredients,
+          p_instructions: newRecipe.instructions
+        })
+
+      if (recipeError || !data) {
+        errorMessage.value = getErrorMessage('unknown');
+      } else {
+        recipe.value = Array.isArray(data) ? data[0] : data;
+
         if (image) {
-          uploadImage(image);
+          const { error: uploadError } = await supabase.storage
+            .from('recipe_images')
+            .upload(recipe.value.id, image, {
+              upsert: true
+            });
+
+            if (uploadError) {
+            errorMessage.value = getErrorMessage('unknown');
+          } 
         }
-      })
-      .catch(() => {
-        console.error('Could not save recipe');
-      });
+      }
+    }
   }
 
   /**
@@ -114,8 +147,9 @@ export const useRecipeStore = defineStore('recipe', () => {
 
   return {
     recipe,
+    errorMessage,
     getRecipe,
-    saveRecipe,
+    setRecipe,
     updateRecipe,
     deleteRecipe,
     clearRecipe

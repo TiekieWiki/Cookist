@@ -1,5 +1,3 @@
-import i18n from '@/i18n';
-
 /**
  * Gets the error message corresponding to the provided error code from the error record
  * @param errorRecord Error record containing error codes and their corresponding messages
@@ -7,23 +5,31 @@ import i18n from '@/i18n';
  * @returns The error message corresponding to the provided error code, or a default unknown error message if the code is not found
  */
 export function getErrorMessage(
-  errorRecord: Record<string, string>,
   errorCode: string | undefined
 ): string {
   if (!errorCode) {
-    return i18n.global.t('loginPage.errors.unknown');
+    return 'errors.unknown';
   }
 
-  return errorRecord[errorCode] || i18n.global.t('loginPage.errors.unknown');
+  return errorMessages[errorCode] || 'errors.unknown';
 }
 
 export const errorMessages: Record<string, string> = {
-  email_address_missing: i18n.global.t('loginPage.errors.emailAddressMissing'),
-  email_address_invalid: i18n.global.t('loginPage.errors.emailAddressInvalid'),
-  email_exists: i18n.global.t('loginPage.errors.emailExists'),
-  invalid_credentials: i18n.global.t('loginPage.errors.invalidCredentials'),
-  user_already_exists: i18n.global.t('loginPage.errors.userAlreadyExists'),
-  user_not_found: i18n.global.t('loginPage.errors.userNotFound'),
-  password_missing: i18n.global.t('loginPage.errors.passwordMissing'),
-  weak_password: i18n.global.t('loginPage.errors.weakPassword')
+  email_address_missing: 'errors.emailAddressMissing',
+  email_address_invalid: 'errors.emailAddressInvalid',
+  email_exists: 'errors.emailExists',
+  invalid_credentials: 'errors.invalidCredentials',
+  user_already_exists: 'errors.userAlreadyExists',
+  user_not_found: 'errors.userNotFound',
+  password_missing: 'errors.passwordMissing',
+  weak_password: 'errors.weakPassword',
+  recipe_name_missing: 'errors.recipeNameMissing',
+  recipe_category_missing: 'errors.recipeCategoryMissing',
+  recipe_duration_missing: 'errors.recipeDurationMissing',
+  recipe_portions_missing: 'errors.recipePortionsMissing',
+  recipe_rating_missing: 'errors.recipeRatingMissing',
+  recipe_ingredients_missing: 'errors.recipeIngredientsMissing',
+  recipe_instructions_missing: 'errors.recipeInstructionsMissing',
+  unsaved_changes: 'errors.unsavedChanges',
+  unknown: 'errors.unknown',
 };

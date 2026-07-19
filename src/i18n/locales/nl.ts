@@ -27,18 +27,6 @@ export const nl: TranslationSchema = {
       emailRegister: 'Email voor registreren',
       passwordRegister: 'Wachtwoord voor registreren'
     },
-    errors: {
-      emailAddressMissing: 'E-mailadres ontbreekt',
-      emailAddressInvalid: 'E-mailadres is ongeldig',
-      emailExists: 'E-mailadres bestaat al',
-      invalidCredentials: 'Ongeldige inloggegevens',
-      userAlreadyExists: 'Gebruiker bestaat al',
-      userNotFound: 'Gebruiker niet gevonden',
-      passwordMissing: 'Wachtwoord ontbreekt',
-      weakPassword:
-        'Wachtwoord is te zwak. Een wachtwoord moet minimaal 8 tekens lang zijn en ten minste één hoofdletter, één kleine letter, één cijfer en één speciaal teken bevatten',
-      unknown: 'Er is een onbekende fout opgetreden. Probeer het later opnieuw'
-    }
   },
   profilePage: {
     title: 'Profiel',
@@ -200,18 +188,6 @@ export const nl: TranslationSchema = {
     alt: {
       previewImage: 'Voorbeeld van de receptafbeelding'
     },
-    errors: {
-      name: 'Naam is verplicht',
-      category: 'Categorie is verplicht',
-      duration: 'Duur is verplicht',
-      portions: 'Porties is verplicht',
-      rating: 'Beoordeling is verplicht',
-      ingredients: 'Ingredienten is verplicht',
-      instructions: 'Instructies is verplicht',
-      save: 'Er is iets misgegaan. Probeer het opnieuw.',
-      unsavedChanges:
-        'Er zijn niet opgeslagen wijzigingen. Weet je zeker dat je de pagina wilt verlaten?'
-    }
   },
   groceryListPage: {
     title: 'Boodschappenlijst',
@@ -238,5 +214,26 @@ export const nl: TranslationSchema = {
       update: 'Er is een fout opgetreden bij het updaten van de data',
       delete: 'Er is een fout opgetreden bij het verwijderen van de data'
     }
+  },
+  errors: {
+      emailAddressMissing: 'E-mailadres ontbreekt',
+      emailAddressInvalid: 'E-mailadres is ongeldig',
+      emailExists: 'E-mailadres bestaat al',
+      invalidCredentials: 'Ongeldige inloggegevens',
+      userAlreadyExists: 'Gebruiker bestaat al',
+      userNotFound: 'Gebruiker niet gevonden',
+      passwordMissing: 'Wachtwoord ontbreekt',
+      weakPassword:
+        'Wachtwoord is te zwak. Een wachtwoord moet minimaal 8 tekens lang zijn en ten minste één hoofdletter, één kleine letter, één cijfer en één speciaal teken bevatten',
+      recipeNameMissing: 'Naam is verplicht',
+      recipeCategoryMissing: 'Categorie is verplicht',
+      recipeDurationMissing: 'Duur is verplicht',
+      recipePortionsMissing: 'Porties is verplicht',
+      recipeRatingMissing: 'Beoordeling is verplicht',
+      recipeIngredientsMissing: 'Ingredienten is verplicht',
+      recipeInstructionsMissing: 'Instructies is verplicht',
+      unsavedChanges:
+        'Er zijn niet opgeslagen wijzigingen. Weet je zeker dat je de pagina wilt verlaten?',
+      unknown: 'Er is een onbekende fout opgetreden. Probeer het later opnieuw'
   }
 };

@@ -1,7 +1,7 @@
 import { type Ref, ref } from 'vue';
 import router from '@/router';
 import { supabase } from '@/utils/global/supabase';
-import { getErrorMessage, errorMessages } from '@/utils/global/errorHandling';
+import { getErrorMessage } from '@/utils/global/errorHandling';
 import { useProfileStore } from '@/stores/useProfileStore';
 
 /**
@@ -17,10 +17,10 @@ export function usePasswordRegister(): {
 
   const passwordRegister = async (email: string, password: string) => {
     if (!email) {
-      errorMessage.value = getErrorMessage(errorMessages, 'email_address_missing');
+      errorMessage.value = getErrorMessage('email_address_missing');
       return;
     } else if (!password) {
-      errorMessage.value = getErrorMessage(errorMessages, 'password_missing');
+      errorMessage.value = getErrorMessage('password_missing');
       return;
     }
 
@@ -30,7 +30,7 @@ export function usePasswordRegister(): {
     });
 
     if (error) {
-      errorMessage.value = getErrorMessage(errorMessages, error.code);
+      errorMessage.value = getErrorMessage(error.code);
       return;
     }
 
@@ -62,10 +62,10 @@ export function usePasswordLogin(): {
 
   const passwordLogin = async (email: string, password: string) => {
     if (!email) {
-      errorMessage.value = getErrorMessage(errorMessages, 'email_address_missing');
+      errorMessage.value = getErrorMessage('email_address_missing');
       return;
     } else if (!password) {
-      errorMessage.value = getErrorMessage(errorMessages, 'password_missing');
+      errorMessage.value = getErrorMessage('password_missing');
       return;
     }
 
@@ -75,7 +75,7 @@ export function usePasswordLogin(): {
     });
 
     if (error) {
-      errorMessage.value = getErrorMessage(errorMessages, error.code);
+      errorMessage.value = getErrorMessage(error.code);
       return;
     }
 
@@ -90,7 +90,6 @@ export function usePasswordLogin(): {
 
 /**
  * Log out the current user
- * @returns A promise that resolves when the user is logged out
  */
 export async function useLogout(): Promise<void> {
   await supabase.auth.signOut({ scope: 'local' });

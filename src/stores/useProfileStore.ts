@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { supabase } from '@/utils/global/supabase';
-import { errorMessages, getErrorMessage } from '@/utils/global/errorHandling';
+import { getErrorMessage } from '@/utils/global/errorHandling';
 import { Profile } from '@/utils/types/profile';
 import { useUserStore } from './useUserStore';
 import { ColorScheme, Handedness, Language } from '@/utils/types/enums';
@@ -13,18 +13,17 @@ export const useProfileStore = defineStore('profile', () => {
 
   /**
    * Get the profile of the current user
-   * @returns A promise that resolves when the profile is retrieved or an error message if there was an error
    */
   async function getProfile(): Promise<void> {
     if (userStore.errorMessage) {
       errorMessage.value = userStore.errorMessage;
     } else if (!userStore.user) {
-      errorMessage.value = getErrorMessage(errorMessages, '');
+      errorMessage.value = getErrorMessage('unknown');
     } else {
       const { data, error } = await supabase.from('profiles').select('*').eq('id', userStore.user.id).single();
     
       if (error || !data) {
-        errorMessage.value = getErrorMessage(errorMessages, '');
+        errorMessage.value = getErrorMessage('unknown');
       } else {
         profile.value = data;
       }
@@ -34,7 +33,6 @@ export const useProfileStore = defineStore('profile', () => {
 
   /**
    * Set the profile of the current user
-   * @returns A promise that resolves when the profile is updated or an error message if there was an error
    */
   async function setProfile(
     language: Language,
@@ -44,7 +42,7 @@ export const useProfileStore = defineStore('profile', () => {
     if (userStore.errorMessage) {
       errorMessage.value = userStore.errorMessage;
     } else if (!userStore.user) {
-      errorMessage.value = getErrorMessage(errorMessages, '');
+      errorMessage.value = getErrorMessage('unknown');
     } else {
       const { data, error } = await supabase
         .from('profiles')
@@ -56,7 +54,7 @@ export const useProfileStore = defineStore('profile', () => {
         .eq('id', userStore.user.id);
     
       if (error || !data) {
-        errorMessage.value = getErrorMessage(errorMessages, '');
+        errorMessage.value = getErrorMessage('unknown');
       } else {
         profile.value = data;
       }
@@ -66,14 +64,13 @@ export const useProfileStore = defineStore('profile', () => {
 
   /**
    * Set the local language of the current user
-   * @returns A promise that resolves when the user's local language is updated or an error message if there was an error
    */
   async function setUsersLocalLanguage(
   ): Promise<void> {
     if (userStore.errorMessage) {
       errorMessage.value = userStore.errorMessage;
     } else if (!userStore.user) {
-      errorMessage.value = getErrorMessage(errorMessages, '');
+      errorMessage.value = getErrorMessage('unknown');
     } else {
       if (navigator.language.includes('nl')) {
           const { data, error } = await supabase
@@ -84,7 +81,7 @@ export const useProfileStore = defineStore('profile', () => {
             .eq('id', userStore.user.id);
     
           if (error) {
-            errorMessage.value = getErrorMessage(errorMessages, '');
+            errorMessage.value = getErrorMessage('unknown');
           } 
       }
     }

@@ -25,18 +25,6 @@ export const en = {
       emailRegister: 'Email for registering',
       passwordRegister: 'Password for registering'
     },
-    errors: {
-      emailAddressMissing: 'Email address is missing',
-      emailAddressInvalid: 'Email address is invalid',
-      emailExists: 'Email address already exists',
-      invalidCredentials: 'Invalid credentials',
-      userAlreadyExists: 'User already exists',
-      userNotFound: 'User not found',
-      passwordMissing: 'Password is missing',
-      weakPassword:
-        'Password is too weak. A password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character',
-      unknown: 'An unknown error occurred. Please try again later'
-    }
   },
   profilePage: {
     title: 'Profile',
@@ -197,17 +185,6 @@ export const en = {
     alt: {
       previewImage: 'Preview of the recipe image'
     },
-    errors: {
-      name: 'Name is required',
-      category: 'Category is required',
-      duration: 'Duration is required',
-      portions: 'Portions is required',
-      rating: 'Rating is required',
-      ingredients: 'Ingredients is required',
-      instructions: 'Instructions is required',
-      save: 'Something went wrong. Please try again.',
-      unsavedChanges: 'You have unsaved changes. Are you sure you want to leave?'
-    }
   },
   groceryListPage: {
     title: 'Grocery list',
@@ -233,6 +210,26 @@ export const en = {
       update: 'An error occurred while updating the data',
       delete: 'An error occurred while deleting the data'
     }
+  },
+  errors: {
+    emailAddressMissing: 'Email address is missing',
+    emailAddressInvalid: 'Email address is invalid',
+    emailExists: 'Email address already exists',
+    invalidCredentials: 'Invalid credentials',
+    userAlreadyExists: 'User already exists',
+    userNotFound: 'User not found',
+    passwordMissing: 'Password is missing',
+    weakPassword:
+      'Password is too weak. A password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+    recipeNameMissing: 'Name is required',
+    recipeCategoryMissing: 'Category is required',
+    recipeDurationMissing: 'Duration is required',
+    recipePortionsMissing: 'Portions is required',
+    recipeRatingMissing: 'Rating is required',
+    recipeIngredientsMissing: 'Ingredients is required',
+    recipeInstructionsMissing: 'Instructions is required',
+    unsavedChanges: 'You have unsaved changes. Are you sure you want to leave?',
+    unknown: 'An unknown error occurred. Please try again later'
   }
 };
 

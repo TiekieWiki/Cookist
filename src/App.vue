@@ -13,7 +13,7 @@
       </suspense>
     </Transition>
   </router-view>
-  <ErrorMessage v-model:message="errorMessage" />
+  <ErrorMessage v-model:message="profileStore.errorMessage" />
   <aside :class="menuOpen ? 'menuOpen' : 'menuClose'">
     <nav>
       <Transition name="switch" mode="out-in" appear>
@@ -114,7 +114,6 @@ const userStore = useUserStore();
 const profileStore = useProfileStore();
 const profile = ref<Profile | undefined>(undefined);
 const menuOpen = ref<boolean>(false);
-const errorMessage = ref<string>('');
 
 // Set user language
 onMounted(async () => {
@@ -123,9 +122,7 @@ onMounted(async () => {
   if (userStore.isLoggedIn) {
     await profileStore.getProfile();
 
-    if (profileStore.errorMessage) {
-      errorMessage.value = profileStore.errorMessage;
-    } else if (profileStore.profile) {
+    if (profileStore.profile) {
       profile.value = profileStore.profile;
       setUserLanguage(profile.value.language);
       setColorScheme(profile.value.colorscheme);

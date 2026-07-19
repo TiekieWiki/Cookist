@@ -1,12 +1,10 @@
 export interface Recipe {
   id: string;
-  owner: string;
   name: string;
   category: string;
   duration: number | undefined;
   portions: number | undefined;
   rating: number | undefined;
-  image: string | undefined;
   ingredients: Ingredient[];
   instructions: Instruction[];
   notes: string | undefined;
@@ -19,7 +17,7 @@ export interface Ingredient {
 }
 
 export interface Instruction {
-  order: number;
+  sort_order: number;
   instruction: string;
 }
 
@@ -63,15 +61,13 @@ export const RecipeUnits = { ...RecipeUnitsPiece, ...RecipeUnitsVolume, ...Recip
 export function emptyRecipe(): Recipe {
   return {
     id: '',
-    owner: '',
     name: '',
     category: RecipeCategories.Other,
     duration: undefined,
     portions: undefined,
     rating: undefined,
-    image: undefined,
-    ingredients: [{ amount: 0, unit: '', name: '' }],
-    instructions: [{ order: 1, instruction: '' }],
+    ingredients: [{ amount: 0, unit: RecipeUnits.Piece, name: '' }],
+    instructions: [{ sort_order: 0, instruction: '' }],
     notes: undefined,
   };
 }

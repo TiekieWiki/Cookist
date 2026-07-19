@@ -63,7 +63,6 @@ export async function getData(
  * @param table Firestore collection name
  * @param tableQuery Firestore query constraint
  * @param data Data to update
- * @returns {Promise<void>} A promise that resolves when the data is updated
  */
 export async function updateData(
   table: string,
@@ -85,7 +84,6 @@ export async function updateData(
  * Delete data from a Firestore collection
  * @param table Firestore collection name
  * @param tableQuery Firestore query constraint
- * @returns {Promise<void>} A promise that resolves when the data is deleted
  */
 export async function deleteData(
   table: string,

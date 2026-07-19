@@ -122,7 +122,7 @@
             :ariaLabel="$t('editRecipePage.ariaLabel.instruction')"
             type="text"
             v-model:input="recipe.instructions[index].instruction"
-            @input="addInputRow(recipe.instructions, index, '')"
+            @input="addInputRow(recipe.instructions, index, { sort_order: index, instruction: '' })"
           />
         </InputList>
         <TextArea
@@ -141,15 +141,15 @@
           :label="$t('editRecipePage.image')"
           :placeholder="$t('editRecipePage.placeholder.image')"
           :ariaLabel="$t('editRecipePage.ariaLabel.image')"
-          :oldImage="recipe.image"
           @image="(i: File | null) => (image = i)"
         />
       </section>
       <section class="card">
+        <ErrorMessage v-model:message="errorMessage" />
         <Button
-          v-model:save="save"
+          @click="$emit('save', true)"
           id="save"
-          :type="ButtonType.SUBMIT"
+          :type="ButtonType.BUTTON"
           :variant="ColorVariant.SECONDARY"
         >
           {{ $t('editRecipePage.save') }}
@@ -157,7 +157,6 @@
       </section>
     </div>
   </form>
-  <ErrorMessage v-model:message="errorMessage" />
 </template>
 
 <script setup lang="ts">
@@ -174,6 +173,6 @@ import { ButtonType, ColAmount, ColorVariant } from '@/utils/types/enums';
 
 const recipe = defineModel<Recipe>('recipe', { required: true });
 const image = defineModel<File | null>('image', { required: true });
-const save = defineModel<boolean>('save', { required: true });
+const save = defineEmits<{ save: [boolean] }>();
 const errorMessage = defineModel<string>('errorMessage', { required: true });
 </script>

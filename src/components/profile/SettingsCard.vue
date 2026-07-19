@@ -21,7 +21,7 @@
         v-model:selected="selectedHandedness"
       />
       <SuccessMessage v-model:message="successMessage" />
-      <ErrorMessage v-model:message="errorMessage" />
+      <ErrorMessage v-model:message="profileStore.errorMessage" />
       <Button @click="saveSettings" :type="ButtonType.BUTTON" :variant="ColorVariant.SECONDARY">
         {{ $t('profilePage.save') }}
       </Button>
@@ -58,13 +58,10 @@ const handedness = [
 ];
 const selectedHandedness = ref<Handedness>();
 const successMessage = ref<string>('');
-const errorMessage = ref<string>('');
 
 // Set dropdowns to profile settings
 onMounted(async () => {
-  if (profileStore.errorMessage) {
-    errorMessage.value = profileStore.errorMessage;
-  } else if (profileStore.profile) {
+  if (profileStore.profile) {
     selectedLanguage.value = profileStore.profile.language;
     selectedColorScheme.value = profileStore.profile.colorscheme;
     selectedHandedness.value = profileStore.profile.handedness;
@@ -93,9 +90,7 @@ async function saveSettings(): Promise<void> {
     selectedHandedness.value || Handedness.RIGHT
   );
 
-  if (profileStore.errorMessage) {
-    errorMessage.value = profileStore.errorMessage;
-  } else {
+  if (!profileStore.errorMessage) {
     successMessage.value = i18n.global.t('profilePage.saveSuccess');
   }
 }
