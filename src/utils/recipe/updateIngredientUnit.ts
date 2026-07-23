@@ -120,7 +120,7 @@ export function updateIngredientUnit(
   recipePortions: number | undefined,
   portionCount: number | undefined
 ): Ingredient[] {
-  let updatedIngredients = JSON.parse(JSON.stringify(initialIngredients));
+  let updatedIngredients = structuredClone(initialIngredients);
 
   // Use initial ingredients to determine new amount based on unit conversion
   updatedIngredients = updatedIngredients.map((ingredient: Ingredient) => {

@@ -43,7 +43,7 @@ export function useGroceryList(): {
           initialGroceryList = list[0] as GroceryList;
           groceryList.value = {
             ...initialGroceryList,
-            ingredients: JSON.parse(JSON.stringify(initialGroceryList.ingredients))
+            ingredients: structuredClone(initialGroceryList.ingredients)
           };
         }
       })

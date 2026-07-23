@@ -9,7 +9,7 @@
       <NewRecipe
         v-model:recipe="recipe"
         v-model:image="image"
-        @save="saveRecipe(recipe, image)"
+        @save="saveRecipe()"
         v-model:error-message="recipeStore.errorMessage"
       />
     </article>
@@ -20,15 +20,12 @@
 import NewRecipe from '@/components/edit recipe/NewRecipe.vue';
 import { useEditRecipe } from '@/composables/useEditRecipe';
 import { useRecipeStore } from '@/stores/useRecipeStore';
-import { emptyRecipe, Recipe } from '@/utils/types/recipe';
-import { onMounted, ref } from 'vue';
+import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 const recipeStore = useRecipeStore();
-const { saveRecipe } = useEditRecipe();
+const { recipe, image, saveRecipe } = useEditRecipe();
 const route = useRoute();
-const recipe = ref<Recipe>(emptyRecipe());
-const image = ref<File | null>(null);
 
 onMounted(() => {
   if (route.params.recipeId) {

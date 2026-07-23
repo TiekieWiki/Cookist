@@ -16,6 +16,7 @@ import { validateRecipe } from '@/utils/recipe/validateRecipe';
 export const useRecipeStore = defineStore('recipe', () => {
   const userStore = useUserStore();
   const recipe = ref<Recipe>(emptyRecipe());
+  const recipeImage = ref<File | null>(null);
   const lastEatenStore = useLastEatenStore();
   const errorMessage = ref<string>('');
 
@@ -88,9 +89,11 @@ export const useRecipeStore = defineStore('recipe', () => {
               upsert: true
             });
 
-            if (uploadError) {
+          if (uploadError) {
             errorMessage.value = getErrorMessage('unknown');
-          } 
+          } else {
+            recipeImage.value = image;
+          }
         }
       }
     }
@@ -147,6 +150,7 @@ export const useRecipeStore = defineStore('recipe', () => {
 
   return {
     recipe,
+    recipeImage,
     errorMessage,
     getRecipe,
     setRecipe,
