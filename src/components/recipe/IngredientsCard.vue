@@ -17,12 +17,12 @@
       </div>
     </section>
     <CheckBoxList :items="ingredients">
-      <template #item="{ item, index }">
+      <template #item="{ item }">
         <SelectField
           :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
           :placeholder="$t('editRecipePage.placeholder.unit')"
           :items="
-            Object.values(getPossibleUnits(item.slot)).map((unit) => ({
+            Object.values(getPossibleUnits(item.slot!)).map((unit) => ({
               value: (unit as string).toLowerCase(),
               label: (unit as string).toLowerCase()
             }))

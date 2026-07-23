@@ -105,7 +105,17 @@ export const en = {
     confirmDelete: 'Are you sure you want to delete this recipe?',
     cancel: 'Cancel',
     delete: 'Delete',
-    recipeNotFound: 'Recipe not found'
+    recipeNotFound: 'Recipe not found',
+    placeholder: {
+      hours: "hh",
+      minutes: "mm",
+      seconds: "ss",
+    },
+    ariaLabel: {
+      hours: "Hours",
+      minutes: "Minutes",
+      seconds: "Seconds",
+    }
   },
   createRecipePage: {
     title: 'Create recipe',

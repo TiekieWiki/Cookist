@@ -108,7 +108,17 @@ export const nl: TranslationSchema = {
     confirmDelete: 'Weet je zeker dat je dit recept wilt verwijderen?',
     cancel: 'Annuleren',
     delete: 'Verwijderen',
-    recipeNotFound: 'Recept niet gevonden'
+    recipeNotFound: 'Recept niet gevonden',
+    placeholder: {
+      hours: "uu",
+      minutes: "mm",
+      seconds: "ss",
+    },
+    ariaLabel: {
+      hours: "Uren",
+      minutes: "Minuten",
+      seconds: "Seconden",
+    }
   },
   createRecipePage: {
     title: 'Recept aanmaken',
