@@ -1,5 +1,6 @@
 export interface Recipe {
   id: string;
+  owner: string | undefined;
   name: string;
   category: string;
   duration: number | undefined;

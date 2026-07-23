@@ -28,7 +28,6 @@ export const useProfileStore = defineStore('profile', () => {
         profile.value = data;
       }
     }
-  
   }
 
   /**
@@ -58,7 +57,6 @@ export const useProfileStore = defineStore('profile', () => {
       } else {
         profile.value = data;
       }
-
     }
   }
 

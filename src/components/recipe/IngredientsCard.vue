@@ -54,7 +54,6 @@ import Button from '../form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import CheckBoxList from '../form/CheckBoxList.vue';
 import { computed } from 'vue';
-import { capitalizeFirstLetter } from '@/utils/global/text';
 import { CheckBoxProps } from '@/utils/types/form';
 import { Recipe } from '@/utils/types/recipe';
 
@@ -67,7 +66,7 @@ const { initialIngredients, portionCount } = useRecipe();
 const ingredients = computed(() => {
   return props.recipe.ingredients.map((ingredient) => {
     return {
-      name: capitalizeFirstLetter(ingredient.name),
+      name: ingredient.name,
       label: ingredient.amount.toString(),
       slot: ingredient.unit
     } as CheckBoxProps;

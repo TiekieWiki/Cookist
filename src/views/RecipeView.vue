@@ -1,16 +1,16 @@
 <template>
-  <main v-if="!recipe.name" class="recipe">
+  <main v-if="recipeStore.recipe.name" class="recipe">
     <article class="row">
       <div class="column left">
         <RecipeHeaderCard
-          :recipe="recipe"
-          :last-eaten="lastEaten"
+          :recipe="recipeStore.recipe"
+          :last-eaten="recipeStore.lastEatenRecipe"
           v-model:delete-open="deleteRecipeOpen"
         />
-        <IngredientsCard :recipe="recipe" />
+        <IngredientsCard :recipe="recipeStore.recipe" />
       </div>
       <div class="column right">
-        <InstructionsCard :recipe="recipe" :last-eaten-today="lastEatenToday" />
+        <InstructionsCard :recipe="recipeStore.recipe" :last-eaten="recipeStore.lastEatenRecipe" />
         <TimerCard />
       </div>
     </article>
@@ -26,7 +26,7 @@
     :section="$t('recipePage.confirmDelete')"
     :cancel="$t('recipePage.cancel')"
     :confirm="$t('recipePage.delete')"
-    @confirm="recipe ? recipeStore.deleteRecipe(recipe.id) : ''"
+    @confirm="recipeStore.recipe ? recipeStore.deleteRecipe(recipeStore.recipe.id) : ''"
   />
 </template>
 
@@ -40,13 +40,8 @@ import IngredientsCard from '@/components/recipe/IngredientsCard.vue';
 import InstructionsCard from '@/components/recipe/InstructionsCard.vue';
 import { useRecipeStore } from '@/stores/useRecipeStore';
 import { useRoute } from 'vue-router';
-import { storeToRefs } from 'pinia';
-import { useLastEatenStore } from '@/stores/useLastEatenStore';
 
 const recipeStore = useRecipeStore();
-const { recipe } = storeToRefs(recipeStore);
-const lastEatenStore = useLastEatenStore();
-const { lastEaten, lastEatenToday } = storeToRefs(lastEatenStore);
 const route = useRoute();
 
 onMounted(() => {
@@ -54,7 +49,7 @@ onMounted(() => {
 });
 
 // Set the image
-useSetRecipeImage(recipe);
+// useSetRecipeImage(recipeStore.recipe);
 
 // Delete recipe
 const deleteRecipeOpen = ref<boolean>(false);

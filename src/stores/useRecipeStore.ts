@@ -1,23 +1,20 @@
-import { deleteData, getData, updateData } from '@/utils/global/db';
-import { deleteImage, uploadImage } from '@/utils/global/manageImage';
+import { deleteData } from '@/utils/global/db';
 import { emptyRecipe, Recipe } from '@/utils/types/recipe';
-import { User } from '@/utils/types/profile';
-import { getAuth } from 'firebase/auth';
 import { where } from 'firebase/firestore';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useLastEatenStore } from './useLastEatenStore';
 import { useUserStore } from './useUserStore';
 import { getErrorMessage } from '@/utils/global/errorHandling';
 import { supabase } from '@/utils/global/supabase';
 import { validateRecipe } from '@/utils/recipe/validateRecipe';
+import { formatDate } from '@/utils/global/date';
 
 export const useRecipeStore = defineStore('recipe', () => {
   const userStore = useUserStore();
   const recipe = ref<Recipe>(emptyRecipe());
   const recipeImage = ref<File | null>(null);
-  const lastEatenStore = useLastEatenStore();
+  const lastEatenRecipe = ref<string | null>(null);
   const errorMessage = ref<string>('');
 
   /**
@@ -25,28 +22,17 @@ export const useRecipeStore = defineStore('recipe', () => {
    * @param recipeId Recipe id
    */
   async function getRecipe(recipeId: string): Promise<void> {
-    getData('users', where('id', '==', getAuth().currentUser?.uid))
-      .then((result) => {
-        const user = result[0] as User;
-
-        return user.recipes.find((recipe: any) => recipe.recipeId == recipeId);
-      })
-      .then((userRecipe) => {
-        if (userRecipe) {
-          lastEatenStore.setLastEaten(userRecipe.lastEaten);
-
-          getData('recipes', where('id', '==', recipeId))
-            .then((result) => {
-              recipe.value = result[0] as Recipe;
-            })
-            .catch(() => {
-              console.error('No access to recipe');
-            });
-        }
-      })
-      .catch(() => {
-        console.error('No access to recipe');
+    const { data, error } =
+      await supabase.rpc('get_recipe', {
+        p_recipe_id: recipeId
       });
+
+    if (error || !data) {
+      errorMessage.value = getErrorMessage('unknown');
+    } else {
+      recipe.value = data.recipe;
+      lastEatenRecipe.value = formatDate(data.last_eaten);
+    }
   }
 
   /**
@@ -100,25 +86,30 @@ export const useRecipeStore = defineStore('recipe', () => {
   }
 
   /**
-   * Update recipe in database
-   * @param newRecipe Recipe to update
-   * @param image Image to save
-   * @param oldImage Old saved image name
+   * Update last eaten date of recipe to today
    */
-  async function updateRecipe(newRecipe: Recipe, image: File, oldImage: string): Promise<void> {
-    updateData('recipes', where('id', '==', newRecipe.id), recipe)
-      .then(() => {
-        recipe.value = newRecipe;
-      })
-      .then(() => {
-        if (image && image.name !== oldImage) {
-          uploadImage(image);
-          deleteImage(oldImage);
-        }
-      })
-      .catch(() => {
-        console.error('Could not update recipe');
-      });
+  async function setLastEaten(): Promise<void> {
+    if (userStore.errorMessage) {
+      errorMessage.value = userStore.errorMessage;
+    } else if (!userStore.user) {
+      errorMessage.value = getErrorMessage('unknown');
+    } else {
+      const { data, error } = await supabase
+        .from('recipe_users')
+        .update({
+          last_eaten: new Date(),
+        })
+        .eq('user_id', userStore.user.id)
+        .eq('recipe_id', recipe.value.id)
+        .select()
+        .single();
+    
+      if (error || !data) {
+        errorMessage.value = getErrorMessage('unknown');
+      } else {
+        lastEatenRecipe.value = formatDate(data.last_eaten);
+      }
+    }
   }
 
   /**
@@ -151,10 +142,11 @@ export const useRecipeStore = defineStore('recipe', () => {
   return {
     recipe,
     recipeImage,
+    lastEatenRecipe,
     errorMessage,
     getRecipe,
     setRecipe,
-    updateRecipe,
+    setLastEaten,
     deleteRecipe,
     clearRecipe
   };

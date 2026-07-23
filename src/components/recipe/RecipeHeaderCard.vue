@@ -1,7 +1,7 @@
 <template>
   <section class="card" :class="ColorVariant.ACCENT">
     <div class="header">
-      <h2>{{ capitalizeFirstLetter(recipe.name) }}</h2>
+      <h2>{{ recipe.name }}</h2>
       <div v-if="recipe.owner === getAuth().currentUser?.uid" class="actions">
         <Button :type="ButtonType.BUTTON" :icon-only="true" :variant="ColorVariant.TERTIARY">
           <font-awesome-icon
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="actions wrap">
-      <p>{{ capitalizeFirstLetter($t('editRecipePage.categories.' + recipe.category)) }}</p>
+      <p>{{ $t('editRecipePage.categories.' + recipe.category) }}</p>
       <p>|</p>
       <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipe.duration }}</p>
       <p>|</p>
@@ -47,14 +47,13 @@
 
 <script setup lang="ts">
 import { getAuth } from 'firebase/auth';
-import { capitalizeFirstLetter } from '@/utils/global/text';
 import Button from '../form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import { Recipe } from '@/utils/types/recipe';
 
 const props = defineProps<{
   recipe: Recipe;
-  lastEaten: string;
+  lastEaten: string | null;
 }>();
 
 const deleteOpen = defineModel<boolean>('deleteOpen', { required: true });
