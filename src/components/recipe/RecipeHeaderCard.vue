@@ -1,13 +1,13 @@
 <template>
   <section class="card" :class="ColorVariant.ACCENT">
     <div class="header">
-      <h2>{{ recipe.name }}</h2>
-      <div v-if="recipe.owner === getAuth().currentUser?.uid" class="actions">
+      <h2>{{ recipeStore.recipe.name }}</h2>
+      <div v-if="recipeStore.recipe.owner === userStore.user?.id" class="actions">
         <Button :type="ButtonType.BUTTON" :icon-only="true" :variant="ColorVariant.TERTIARY">
           <font-awesome-icon
             @click="
               $router.push({
-                path: `/edit-recipe/${recipe.id}`
+                path: `/edit-recipe/${recipeStore.recipe.id}`
               })
             "
             :icon="['fas', 'pen']"
@@ -19,42 +19,48 @@
       </div>
     </div>
     <div class="actions wrap">
-      <p>{{ $t('editRecipePage.categories.' + recipe.category) }}</p>
+      <p>{{ $t('editRecipePage.categories.' + recipeStore.recipe.category) }}</p>
       <p>|</p>
-      <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipe.duration }}</p>
+      <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipeStore.recipe.duration }}</p>
       <p>|</p>
       <p>
         <font-awesome-icon :icon="['fas', 'utensils']" />
 
-        {{ recipe.portions }}
+        {{ recipeStore.recipe.portions }}
       </p>
-      <template v-if="lastEaten">
+      <template v-if="recipeStore.lastEatenRecipe">
         <p>|</p>
         <p>
           <font-awesome-icon :icon="['fas', 'calendar']" />
-          {{ lastEaten }}
+          {{ recipeStore.lastEatenRecipe }}
         </p>
       </template>
       <p>|</p>
-      <div v-if="recipe.rating">
-        <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
-        <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
+      <div v-if="recipeStore.recipe.rating">
+        <font-awesome-icon
+          v-for="n in recipeStore.recipe.rating"
+          :icon="['fas', 'star']"
+          :key="n"
+        />
+        <font-awesome-icon
+          v-for="n in 5 - recipeStore.recipe.rating!"
+          :icon="['far', 'star']"
+          :key="n"
+        />
       </div>
     </div>
-    <p v-if="recipe.notes">{{ recipe.notes }}</p>
+    <p v-if="recipeStore.recipe.notes">{{ recipeStore.recipe.notes }}</p>
   </section>
 </template>
 
 <script setup lang="ts">
-import { getAuth } from 'firebase/auth';
 import Button from '../form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
-import { Recipe } from '@/utils/types/recipe';
+import { useRecipeStore } from '@/stores/useRecipeStore.js';
+import { useUserStore } from '@/stores/useUserStore.js';
 
-const props = defineProps<{
-  recipe: Recipe;
-  lastEaten: string | null;
-}>();
+const userStore = useUserStore();
+const recipeStore = useRecipeStore();
 
 const deleteOpen = defineModel<boolean>('deleteOpen', { required: true });
 </script>

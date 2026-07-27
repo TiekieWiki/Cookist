@@ -35,7 +35,7 @@
       </template>
     </CheckBoxList>
     <Button
-      @click="addToGroceryList(recipe.ingredients)"
+      @click="addToGroceryList(portionedIngredients)"
       :type="ButtonType.SUBMIT"
       :variant="ColorVariant.SECONDARY"
     >
@@ -55,11 +55,6 @@ import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import CheckBoxList from '../form/CheckBoxList.vue';
 import { computed } from 'vue';
 import { CheckBoxProps } from '@/utils/types/form';
-import { Recipe } from '@/utils/types/recipe';
-
-const props = defineProps<{
-  recipe: Recipe;
-}>();
 
 const { portionCount, portionedIngredients, changeIngredientUnit } = useRecipePortions();
 

@@ -29,19 +29,13 @@ import Toggle from '../form/Toggle.vue';
 import CheckBoxList from '../form/CheckBoxList.vue';
 import { computed } from 'vue';
 import { CheckBoxProps } from '@/utils/types/form';
-import { Recipe } from '@/utils/types/recipe';
 import { useRecipeStore } from '@/stores/useRecipeStore.js';
 import { isToday } from '@/utils/global/date.js';
-
-const props = defineProps<{
-  recipe: Recipe;
-  lastEaten: string | null;
-}>();
 
 const recipeStore = useRecipeStore();
 
 const instructions = computed(() => {
-  return props.recipe.instructions.map((instruction) => {
+  return recipeStore.recipe.instructions.map((instruction) => {
     return {
       name: instruction.instruction,
       label: instruction.instruction
@@ -50,7 +44,7 @@ const instructions = computed(() => {
 });
 
 const lastEatenToday = computed(() => {
-  return isToday(props.lastEaten);
+  return isToday(recipeStore.lastEatenRecipe);
 });
 
 // Keep screen on

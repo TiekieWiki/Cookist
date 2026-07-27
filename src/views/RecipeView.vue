@@ -2,15 +2,11 @@
   <main v-if="recipeStore.recipe.name" class="recipe">
     <article class="row">
       <div class="column left">
-        <RecipeHeaderCard
-          :recipe="recipeStore.recipe"
-          :last-eaten="recipeStore.lastEatenRecipe"
-          v-model:delete-open="deleteRecipeOpen"
-        />
-        <IngredientsCard :recipe="recipeStore.recipe" />
+        <RecipeHeaderCard v-model:delete-open="deleteRecipeOpen" />
+        <IngredientsCard />
       </div>
       <div class="column right">
-        <InstructionsCard :recipe="recipeStore.recipe" :last-eaten="recipeStore.lastEatenRecipe" />
+        <InstructionsCard />
         <TimerCard />
       </div>
     </article>

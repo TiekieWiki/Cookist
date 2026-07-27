@@ -26,16 +26,16 @@ export const useUserStore = defineStore('user', () => {
      * Delete the profile of the current user
      */
     async function deleteUser(): Promise<void> {
-      const { data, error } = await supabase.functions.invoke('delete-user');
-    
-      if (error) {
+        const { data, error } = await supabase.functions.invoke('delete-user');
+
+        if (error) {
         errorMessage.value = getErrorMessage('unknown');
-      }
+        }
     }
 
     // Update user's logged in state
     supabase.auth.onAuthStateChange((event, session) => {
-      isLoggedIn.value = !!session
+        isLoggedIn.value = !!session
     });
     
   return {
