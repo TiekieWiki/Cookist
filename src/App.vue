@@ -85,8 +85,8 @@
       </Transition>
     </nav>
     <div class="banner">
-      <!-- Photo by Andy Chilton on Unsplash -->
-      <img src="/src/assets/images/Banner.jpg" alt="" />
+      <!-- Photo by Andy Chilton, NordWood Themes on Unsplash or private photo -->
+      <img :src="bannerImage" alt="" />
     </div>
     <Transition name="slide-fade">
       <router-link v-if="menuOpen" to="/" class="brand" tabindex="0">Cookist</router-link>
@@ -96,7 +96,7 @@
 
 <script setup lang="ts">
 import { RouterView, useRoute } from 'vue-router';
-import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import type { Profile } from './utils/types/profile';
 import { setSystemLanguage, setUserLanguage } from './utils/global/setLanguage';
 import { useI18n } from 'vue-i18n';
@@ -107,11 +107,13 @@ import { ButtonSize, ButtonType, ColorVariant } from './utils/types/enums';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import { useUserStore } from './stores/useUserStore';
 import { useProfileStore } from './stores/useProfileStore';
+import { useRecipeStore } from './stores/useRecipeStore';
 
 const route = useRoute();
 const { t, locale } = useI18n();
 const userStore = useUserStore();
 const profileStore = useProfileStore();
+const recipeStore = useRecipeStore();
 const profile = ref<Profile | undefined>(undefined);
 const menuOpen = ref<boolean>(false);
 
@@ -184,5 +186,14 @@ onUnmounted(() => {
       menuOpen.value = false;
     }
   });
+});
+
+// Set banner image
+const bannerImage = computed(() => {
+  if (route.path.startsWith('/recipe')) {
+    return recipeStore.recipeImage;
+  }
+
+  return '/src/assets/images/Banner.jpg';
 });
 </script>

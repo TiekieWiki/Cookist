@@ -3,7 +3,9 @@
  * @param date The date to format
  * @returns {string} The formatted date
  */
-export function formatDate(date: string): string {
+export function formatDate(date: string | null): string {
+    if (!date) return '';
+    
     const splittedDate = date.split('-');
   
     return `${splittedDate[2]}-${splittedDate[1]}-${splittedDate[0]}`;
@@ -16,6 +18,7 @@ export function formatDate(date: string): string {
  */
 export function isToday(date: string | null): boolean {
     if (!date) return false;
+    
     const today = new Date();
     
   return `${('0' + today.getDate()).slice(-2)}-${('0' + (today.getMonth() + 1)).slice(-2)}-${today.getFullYear()}` === date;

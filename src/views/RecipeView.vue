@@ -27,7 +27,6 @@
 </template>
 
 <script setup lang="ts">
-import { useSetRecipeImage } from '@/composables/useManageImage';
 import { onMounted, ref } from 'vue';
 import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
 import TimerCard from '@/components/recipe/TimerCard.vue';
@@ -43,9 +42,6 @@ const route = useRoute();
 onMounted(() => {
   recipeStore.getRecipe(route.params.recipeId as string);
 });
-
-// Set the image
-// useSetRecipeImage(recipeStore.recipe);
 
 // Delete recipe
 const deleteRecipeOpen = ref<boolean>(false);

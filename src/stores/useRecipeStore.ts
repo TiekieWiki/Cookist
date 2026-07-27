@@ -13,7 +13,7 @@ import { formatDate } from '@/utils/global/date';
 export const useRecipeStore = defineStore('recipe', () => {
   const userStore = useUserStore();
   const recipe = ref<Recipe>(emptyRecipe());
-  const recipeImage = ref<File | null>(null);
+  const recipeImage = ref<string>('/src/assets/images/DefaultRecipe.jpg');
   const lastEatenRecipe = ref<string | null>(null);
   const errorMessage = ref<string>('');
 
@@ -22,16 +22,23 @@ export const useRecipeStore = defineStore('recipe', () => {
    * @param recipeId Recipe id
    */
   async function getRecipe(recipeId: string): Promise<void> {
-    const { data, error } =
+    const { data, error: recipeError } =
       await supabase.rpc('get_recipe', {
         p_recipe_id: recipeId
       });
 
-    if (error || !data) {
+    if (recipeError || !data) {
       errorMessage.value = getErrorMessage('unknown');
     } else {
       recipe.value = data.recipe;
       lastEatenRecipe.value = formatDate(data.last_eaten);
+
+      const { data: image, error: imageError } = await supabase.storage
+        .from('recipe_images').createSignedUrl(recipe.value.id, 60);
+
+      if (image && !imageError) {
+        recipeImage.value = image.signedUrl;
+      }
     }
   }
 
@@ -77,9 +84,7 @@ export const useRecipeStore = defineStore('recipe', () => {
 
           if (uploadError) {
             errorMessage.value = getErrorMessage('unknown');
-          } else {
-            recipeImage.value = image;
-          }
+          } 
         }
       }
     }
