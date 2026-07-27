@@ -1,6 +1,7 @@
 import type { Ingredient } from '@/utils/types/recipe';
 
 import { RecipeUnitsPiece, RecipeUnitsVolume, RecipeUnitsWeight } from '../types/recipe';
+import { toRaw } from 'vue';
 
 interface UnitConversion {
   group: 'count' | 'volume' | 'mass';
@@ -120,7 +121,7 @@ export function updateIngredientUnit(
   recipePortions: number | undefined,
   portionCount: number | undefined
 ): Ingredient[] {
-  let updatedIngredients = structuredClone(initialIngredients);
+  let updatedIngredients = structuredClone(toRaw(initialIngredients));
 
   // Use initial ingredients to determine new amount based on unit conversion
   updatedIngredients = updatedIngredients.map((ingredient: Ingredient) => {

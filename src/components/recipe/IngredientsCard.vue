@@ -47,9 +47,9 @@
 
 <script setup lang="ts">
 import SelectField from '@/components/form/SelectField.vue';
-import { getPossibleUnits, updateIngredientUnit } from '@/utils/recipe/updateIngredientUnit';
+import { getPossibleUnits } from '@/utils/recipe/updateIngredientUnit';
 import { addToGroceryList } from '@/utils/grocery list/editGroceryList';
-import { useRecipe } from '@/composables/useRecipe';
+import { useRecipePortions } from '@/composables/useRecipePortions';
 import Button from '../form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import CheckBoxList from '../form/CheckBoxList.vue';
@@ -61,10 +61,10 @@ const props = defineProps<{
   recipe: Recipe;
 }>();
 
-const { initialIngredients, portionCount } = useRecipe();
+const { portionCount, portionedIngredients, changeIngredientUnit } = useRecipePortions();
 
 const ingredients = computed(() => {
-  return props.recipe.ingredients.map((ingredient) => {
+  return portionedIngredients.value.map((ingredient) => {
     return {
       name: ingredient.name,
       label: ingredient.amount.toString(),
@@ -72,16 +72,4 @@ const ingredients = computed(() => {
     } as CheckBoxProps;
   });
 });
-
-/**
- * Update the ingredient unit
- */
-function changeIngredientUnit(): void {
-  props.recipe.ingredients = updateIngredientUnit(
-    initialIngredients,
-    props.recipe.ingredients,
-    props.recipe.portions,
-    portionCount.value
-  );
-}
 </script>
