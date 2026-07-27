@@ -9,6 +9,7 @@ import { getErrorMessage } from '@/utils/global/errorHandling';
 import { supabase } from '@/utils/global/supabase';
 import { validateRecipe } from '@/utils/recipe/validateRecipe';
 import { formatDate } from '@/utils/global/date';
+import { PostgrestError } from '@supabase/supabase-js';
 
 export const useRecipeStore = defineStore('recipe', () => {
   const userStore = useUserStore();
@@ -58,22 +59,46 @@ export const useRecipeStore = defineStore('recipe', () => {
     } else if (!userStore.user) {
       errorMessage.value = getErrorMessage('unknown');
     } else {
-      const { data, error: recipeError } =
-        await supabase.rpc('create_recipe', {
-          p_name: newRecipe.name,
-          p_category: newRecipe.category,
-          p_duration: newRecipe.duration,
-          p_portions: newRecipe.portions,
-          p_rating: newRecipe.rating,
-          p_notes: newRecipe.notes ?? '',
-          p_ingredients: newRecipe.ingredients,
-          p_instructions: newRecipe.instructions
-        })
+      let recipeData: any = null;
+      let recipeError: PostgrestError | null = null;
+      
+      if (newRecipe.id) {
+        const { data, error } =
+          await supabase.rpc('update_recipe', {
+            p_recipe_id: newRecipe.id,
+            p_name: newRecipe.name,
+            p_category: newRecipe.category,
+            p_duration: newRecipe.duration,
+            p_portions: newRecipe.portions,
+            p_rating: newRecipe.rating,
+            p_notes: newRecipe.notes ?? '',
+            p_ingredients: newRecipe.ingredients,
+            p_instructions: newRecipe.instructions
+          });
 
-      if (recipeError || !data) {
+          recipeData = data;
+          recipeError = error;
+      } else {
+        const { data, error } =
+          await supabase.rpc('create_recipe', {
+            p_name: newRecipe.name,
+            p_category: newRecipe.category,
+            p_duration: newRecipe.duration,
+            p_portions: newRecipe.portions,
+            p_rating: newRecipe.rating,
+            p_notes: newRecipe.notes ?? '',
+            p_ingredients: newRecipe.ingredients,
+            p_instructions: newRecipe.instructions
+          })
+
+          recipeData = data;
+          recipeError = error;
+        }
+
+      if (recipeError || !recipeData) {
         errorMessage.value = getErrorMessage('unknown');
       } else {
-        recipe.value = Array.isArray(data) ? data[0] : data;
+        recipe.value = Array.isArray(recipeData) ? recipeData[0] : recipeData;
 
         if (image) {
           const { error: uploadError } = await supabase.storage
@@ -83,6 +108,7 @@ export const useRecipeStore = defineStore('recipe', () => {
             });
 
           if (uploadError) {
+            console.log(uploadError);
             errorMessage.value = getErrorMessage('unknown');
           } 
         }

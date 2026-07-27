@@ -59,16 +59,25 @@ export enum RecipeUnitsWeight {
 
 export const RecipeUnits = { ...RecipeUnitsPiece, ...RecipeUnitsVolume, ...RecipeUnitsWeight };
 
+export function emptyIngredient(): Ingredient {
+  return { amount: 0, unit: RecipeUnits.Piece, name: '' };
+}
+
+export function emptyInstruction(): Instruction {
+  return { sort_order: 0, instruction: '' };
+}
+
 export function emptyRecipe(): Recipe {
   return {
     id: '',
+    owner: '',
     name: '',
     category: RecipeCategories.Other,
     duration: undefined,
     portions: undefined,
     rating: undefined,
-    ingredients: [{ amount: 0, unit: RecipeUnits.Piece, name: '' }],
-    instructions: [{ sort_order: 0, instruction: '' }],
+    ingredients: [emptyIngredient()],
+    instructions: [emptyInstruction()],
     notes: undefined,
   };
 }

@@ -20,17 +20,7 @@
 import NewRecipe from '@/components/edit recipe/NewRecipe.vue';
 import { useEditRecipe } from '@/composables/useEditRecipe';
 import { useRecipeStore } from '@/stores/useRecipeStore';
-import { onMounted } from 'vue';
-import { useRoute } from 'vue-router';
 
 const recipeStore = useRecipeStore();
 const { recipe, image, saveRecipe } = useEditRecipe();
-const route = useRoute();
-
-onMounted(() => {
-  if (route.params.recipeId) {
-    recipeStore.getRecipe(route.params.recipeId as string);
-    recipe.value = recipeStore.recipe;
-  }
-});
 </script>

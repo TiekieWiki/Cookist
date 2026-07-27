@@ -21,7 +21,6 @@
 </template>
 
 <script setup lang="ts">
-import { getImage } from '@/utils/global/manageImage';
 import { ColorVariant } from '@/utils/types/enums';
 import { UploadImageProps } from '@/utils/types/form';
 import { ref, watch } from 'vue';
@@ -54,16 +53,9 @@ function showImagePreview(event: Event) {
 // Set preview image to the image prop
 watch(
   () => props.oldImage,
-  (newImage) => {
-    if (newImage) {
-      getImage(newImage)
-        .then((url) => {
-          previewImage.value = url;
-        })
-        .catch((error) => {
-          console.error('Error getting preview image:', error);
-          previewImage.value = '';
-        });
+  () => {
+    if (props.oldImage) {
+      previewImage.value = props.oldImage;
     }
   },
   { immediate: true }

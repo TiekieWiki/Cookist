@@ -141,6 +141,7 @@
           :label="$t('editRecipePage.image')"
           :placeholder="$t('editRecipePage.placeholder.image')"
           :ariaLabel="$t('editRecipePage.ariaLabel.image')"
+          :oldImage="image as string"
           @image="(i: File | null) => (image = i)"
         />
       </section>
@@ -172,7 +173,7 @@ import Button from '../form/Button.vue';
 import { ButtonType, ColAmount, ColorVariant } from '@/utils/types/enums';
 
 const recipe = defineModel<Recipe>('recipe', { required: true });
-const image = defineModel<File | null>('image', { required: true });
+const image = defineModel<File | string | null>('image', { required: true });
 const save = defineEmits<{ save: [boolean] }>();
 const errorMessage = defineModel<string>('errorMessage', { required: true });
 </script>
