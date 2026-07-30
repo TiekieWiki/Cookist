@@ -22,7 +22,7 @@
     :section="$t('recipePage.confirmDelete')"
     :cancel="$t('recipePage.cancel')"
     :confirm="$t('recipePage.delete')"
-    @confirm="recipeStore.recipe ? recipeStore.deleteRecipe(recipeStore.recipe.id) : ''"
+    @confirm="deleteRecipe()"
   />
 </template>
 
@@ -43,6 +43,13 @@ onMounted(() => {
   recipeStore.getRecipe(route.params.recipeId as string);
 });
 
-// Delete recipe
 const deleteRecipeOpen = ref<boolean>(false);
+
+/**
+ * Delete recipe
+ */
+function deleteRecipe(): void {
+  deleteRecipeOpen.value = false;
+  recipeStore.recipe ? recipeStore.deleteRecipe(recipeStore.recipe.id) : '';
+}
 </script>

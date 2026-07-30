@@ -26,10 +26,10 @@ export const useUserStore = defineStore('user', () => {
      * Delete the profile of the current user
      */
     async function deleteUser(): Promise<void> {
-        const { data, error } = await supabase.functions.invoke('delete-user');
+        const { error } = await supabase.functions.invoke('delete-user');
 
         if (error) {
-        errorMessage.value = getErrorMessage('unknown');
+            errorMessage.value = getErrorMessage('unknown');
         }
     }
 

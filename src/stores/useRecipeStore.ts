@@ -1,6 +1,4 @@
-import { deleteData } from '@/utils/global/db';
 import { emptyRecipe, Recipe } from '@/utils/types/recipe';
-import { where } from 'firebase/firestore';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -10,11 +8,13 @@ import { supabase } from '@/utils/global/supabase';
 import { validateRecipe } from '@/utils/recipe/validateRecipe';
 import { formatDate } from '@/utils/global/date';
 import { PostgrestError } from '@supabase/supabase-js';
+import { DEFAULT_RECIPE_IMAGE_SRC } from '@/utils/global/variables';
+import router from '@/router';
 
 export const useRecipeStore = defineStore('recipe', () => {
   const userStore = useUserStore();
   const recipe = ref<Recipe>(emptyRecipe());
-  const recipeImage = ref<string>('/src/assets/images/DefaultRecipe.jpg');
+  const recipeImage = ref<string>(DEFAULT_RECIPE_IMAGE_SRC);
   const lastEatenRecipe = ref<string | null>(null);
   const errorMessage = ref<string>('');
 
@@ -108,7 +108,6 @@ export const useRecipeStore = defineStore('recipe', () => {
             });
 
           if (uploadError) {
-            console.log(uploadError);
             errorMessage.value = getErrorMessage('unknown');
           } 
         }
@@ -148,19 +147,36 @@ export const useRecipeStore = defineStore('recipe', () => {
    * @param recipeId Recipe id
    */
   async function deleteRecipe(recipeId: string): Promise<void> {
-    const router = useRouter();
-    // Delete the recipe
-    deleteData('recipes', where('id', '==', recipeId))
-      .then(() => {
-        if (recipe.value.id == recipeId) {
-          recipe.value = emptyRecipe();
-        }
+    if (userStore.errorMessage) {
+      errorMessage.value = userStore.errorMessage;
+      return;
+    }
 
-        router.push({ path: '/recipes' });
-      })
-      .catch((error) => {
-        console.error('Error deleting recipe:', error);
-      });
+    if (recipeImage) {
+      const { error: imageError } = await supabase.storage
+        .from('recipe_images')
+        .remove([recipeId]);
+
+      if (imageError) {
+        errorMessage.value = getErrorMessage('unknown');
+        return;
+      }
+    }
+
+    const { error: recipeError } = await supabase
+      .from('recipes')
+      .delete()
+      .eq('id', recipeId);
+
+    if (recipeError) {
+      errorMessage.value = getErrorMessage('unknown');
+      return;
+    }
+
+    recipe.value = emptyRecipe();
+    recipeImage.value = DEFAULT_RECIPE_IMAGE_SRC;
+
+    router.push({ path: '/recipes' });
   }
 
   /**
