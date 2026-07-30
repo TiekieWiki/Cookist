@@ -10,7 +10,7 @@
         :items="
           cookGroups.map((group) => ({
             value: group.id,
-            label: capitalizeFirstLetter(group.name)
+            label: group.name
           }))
         "
         v-model:selected="selectedCookGroup"
@@ -60,7 +60,6 @@ import RecipesFilter from '@/components/recipes/RecipesFilter.vue';
 import { useRecipes } from '@/composables/useRecipes';
 import { RecipeOrderCategories } from '@/utils/types/orderFilter';
 import { ref } from 'vue';
-import { capitalizeFirstLetter } from '@/utils/global/text';
 import { AutoCompleteVariant, ButtonType } from '@/utils/types/enums';
 import Button from '../form/Button.vue';
 

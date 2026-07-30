@@ -1,13 +1,13 @@
 <template>
   <section class="header">
-    <h3>{{ capitalizeFirstLetter(recipe.name) }}</h3>
+    <h3>{{ recipe.name }}</h3>
     <div v-if="recipe.rating">
       <font-awesome-icon v-for="n in recipe.rating" :icon="['fas', 'star']" :key="n" />
       <font-awesome-icon v-for="n in 5 - recipe.rating!" :icon="['far', 'star']" :key="n" />
     </div>
   </section>
   <section v-if="recipe" class="footer">
-    <p>{{ capitalizeFirstLetter(recipe.category) }}</p>
+    <p>{{ recipe.category }}</p>
     |
     <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipe.duration }}</p>
     |
@@ -28,7 +28,6 @@
 
 <script lang="ts" setup>
 import type { Recipe } from '@/utils/types/recipe';
-import { capitalizeFirstLetter } from '@/utils/global/text';
 import { useLastEatenStore } from '@/stores/useLastEatenStore';
 import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
