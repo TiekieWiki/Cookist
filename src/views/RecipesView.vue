@@ -6,7 +6,7 @@
       <Button
         @click="
           $router.push({
-            path: '/edit-recipe'
+            path: '/create-recipe'
           })
         "
         :type="ButtonType.BUTTON"

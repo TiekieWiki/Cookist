@@ -1,6 +1,6 @@
 import { ref, watch, type Ref } from 'vue';
 import { Ingredient } from '@/utils/types/recipe';
-import { updateIngredientUnit } from '@/utils/recipe/updateIngredientUnit';
+import { updateIngredientsUnit } from '@/utils/recipe/updateIngredientUnit';
 import { useRecipeStore } from '@/stores/useRecipeStore';
 
 /**
@@ -28,7 +28,7 @@ export function useRecipePortions(): {
    * Update the ingredient unit
    */
   function changeIngredientUnit(): void {
-    portionedIngredients.value = updateIngredientUnit(
+    portionedIngredients.value = updateIngredientsUnit(
       recipeStore.recipe.ingredients,
       portionedIngredients.value,
       recipeStore.recipe.portions,

@@ -6,7 +6,7 @@
       :ariaLabel="$t('editRecipePage.ariaLabel.amount')"
       :step="0.01"
       type="number"
-      v-model:input="newIngredient.amount"
+      v-model:input="ingredient.amount"
     />
     <SelectField
       :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
@@ -18,32 +18,39 @@
         }))
       "
       labelPrefix="editRecipePage.units."
-      v-model:selected="newIngredient.unit"
+      v-model:selected="ingredient.unit"
     />
     <InputField
       name="newIngredientName"
       :placeholder="$t('editRecipePage.placeholder.ingredient')"
       :ariaLabel="$t('editRecipePage.ariaLabel.ingredient')"
       type="text"
-      v-model:input="newIngredient.name"
+      v-model:input="ingredient.name"
     />
 
-    <Button @click="addIngredient()" :type="ButtonType.BUTTON" :variant="ColorVariant.SECONDARY">
+    <Button
+      @click="groceryListStore.setGroceryList(ingredient)"
+      :type="ButtonType.BUTTON"
+      :variant="ColorVariant.SECONDARY"
+    >
       <font-awesome-icon :icon="['fas', 'plus']" />
       {{ $t('groceryListPage.addItem') }}
     </Button>
   </section>
-  <ErrorMessage v-model:message="errorMessage" />
+  <ErrorMessage v-model:message="groceryListStore.errorMessage" />
 </template>
 
 <script setup lang="ts">
 import SelectField from '@/components/form/SelectField.vue';
 import InputField from '@/components/form/InputField.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
-import { RecipeUnits } from '@/utils/types/recipe';
-import { useGroceryList } from '@/composables/useGroceryList';
+import { emptyIngredient, Ingredient, RecipeUnits } from '@/utils/types/recipe';
 import Button from '../form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
+import { ref } from 'vue';
+import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
 
-const { newIngredient, errorMessage, addIngredient } = useGroceryList();
+const groceryListStore = useGroceryListStore();
+
+const ingredient = ref<Ingredient>(emptyIngredient());
 </script>

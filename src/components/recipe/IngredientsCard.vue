@@ -35,7 +35,7 @@
       </template>
     </CheckBoxList>
     <Button
-      @click="addToGroceryList(portionedIngredients)"
+      @click="groceryListStore.setGroceryList(portionedIngredients)"
       :type="ButtonType.SUBMIT"
       :variant="ColorVariant.SECONDARY"
     >
@@ -48,13 +48,15 @@
 <script setup lang="ts">
 import SelectField from '@/components/form/SelectField.vue';
 import { getPossibleUnits } from '@/utils/recipe/updateIngredientUnit';
-import { addToGroceryList } from '@/utils/grocery list/editGroceryList';
 import { useRecipePortions } from '@/composables/useRecipePortions';
 import Button from '../form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import CheckBoxList from '../form/CheckBoxList.vue';
 import { computed } from 'vue';
 import { CheckBoxProps } from '@/utils/types/form';
+import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
+
+const groceryListStore = useGroceryListStore();
 
 const { portionCount, portionedIngredients, changeIngredientUnit } = useRecipePortions();
 

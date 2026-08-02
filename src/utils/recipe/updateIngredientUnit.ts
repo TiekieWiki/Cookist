@@ -106,16 +106,38 @@ export function getPossibleUnits(
 }
 
 /**
- * Converts recipe ingredient units based on the provided initial ingredients and portion counts.
- * @param initialIngredients Initial ingredients to use for conversion
- * @param currentIngredients Current ingredients to update
- * @param ingredient Ingredient to convert
- * @param ingredientIndex Index of the ingredient in the initial ingredients array
- * @param recipePortions Amount of portions the recipe is for
- * @param portionCount Amount of portions to convert to
+ * Converts recipe ingredient unit based on the provided initial ingredient.
+ * @param initialIngredient Initial ingredient to use for conversion
+ * @param currentIngredient Current ingredient to update
  * @returns Updated ingredient with converted amount and unit
  */
 export function updateIngredientUnit(
+  initialIngredient: Ingredient,
+  currentIngredient: Ingredient,
+): Ingredient {
+
+  const currentUnit =
+    unitConversionMap[initialIngredient.unit as keyof typeof unitConversionMap];
+  const baseAmount = currentUnit.toBase(initialIngredient.amount);
+  const toUnit = unitConversionMap[currentIngredient.unit as keyof typeof unitConversionMap];
+  const convertedAmount = toUnit.fromBase(baseAmount);
+
+  return {
+    ...currentIngredient,
+    amount: parseFloat(convertedAmount.toFixed(2)), // Round to 2 decimal places
+    unit: currentIngredient.unit
+  };
+}
+
+/**
+ * Converts recipe ingredients units based on the provided initial ingredients and portion counts.
+ * @param initialIngredients Initial ingredients to use for conversion
+ * @param currentIngredients Current ingredients to update
+ * @param recipePortions Amount of portions the recipe is for
+ * @param portionCount Amount of portions to convert to
+ * @returns Updated ingredients with converted amount and unit
+ */
+export function updateIngredientsUnit(
   initialIngredients: Ingredient[],
   currentIngredients: Ingredient[],
   recipePortions: number | undefined,
