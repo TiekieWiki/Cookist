@@ -1,8 +1,8 @@
 <template>
-  <article class="card">
-    <section class="header">
+  <article>
+    <section>
       <h3>{{ $t('recipePage.ingredients') }}</h3>
-      <div class="actions align">
+      <div>
         <Button
           @click="portionCount = Math.max(portionCount - 1, 1)"
           :type="ButtonType.BUTTON"

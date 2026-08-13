@@ -1,6 +1,6 @@
 <template>
   <main v-if="$route.params.recipeId && !recipeStore.recipe.name">
-    <article class="card">
+    <article>
       <h2>{{ $t('editRecipePage.recipeNotFound') }}</h2>
     </article>
   </main>

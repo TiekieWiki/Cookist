@@ -3,8 +3,8 @@
 .toggle {
   position: relative;
   display: inline-block;
-  width: calc(var(--gap-xlarge) * 2 - var(--gap-xxsmall) * 2);
-  height: var(--gap-xlarge);
+  width: calc(var(--gap-medium) * 2 - var(--gap-medium) * 2);
+  height: var(--gap-medium);
 
   input {
     opacity: 0;
@@ -14,9 +14,9 @@
     &:checked + .slider {
       @include background-colors;
       &::before {
-        -webkit-transform: translateX(calc(var(--gap-xlarge) - var(--gap-xxsmall) * 4));
-        -ms-transform: translateX(calc(var(--gap-xlarge) - var(--gap-xxsmall) * 4));
-        transform: translateX(calc(var(--gap-xlarge) - var(--gap-xxsmall) * 4));
+        -webkit-transform: translateX(calc(var(--gap-medium) - var(--gap-medium) * 4));
+        -ms-transform: translateX(calc(var(--gap-medium) - var(--gap-medium) * 4));
+        transform: translateX(calc(var(--gap-medium) - var(--gap-medium) * 4));
       }
     }
 
@@ -33,17 +33,17 @@
     right: 0;
     bottom: 0;
     background-color: var(--color-disabled);
-    border-radius: var(--gap-xlarge);
+    border-radius: var(--gap-medium);
     -webkit-transition: 0.4s;
     transition: 0.4s;
 
     &::before {
       position: absolute;
       content: '';
-      height: calc(var(--gap-xlarge) - var(--gap-xxsmall) * 4);
-      width: calc(var(--gap-xlarge) - var(--gap-xxsmall) * 4);
-      left: calc(var(--gap-xxsmall) * 2);
-      bottom: calc(var(--gap-xxsmall) * 2);
+      height: calc(var(--gap-medium) - var(--gap-medium) * 4);
+      width: calc(var(--gap-medium) - var(--gap-medium) * 4);
+      left: calc(var(--gap-medium) * 2);
+      bottom: calc(var(--gap-medium) * 2);
       background-color: var(--color-text-secondary);
       border-radius: 50%;
       -webkit-transition: 0.4s;

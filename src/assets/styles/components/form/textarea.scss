@@ -5,7 +5,6 @@ textarea {
   @include form-element;
   @include border-colors;
 
-  border-radius: var(--border-radius-medium);
   background-color: transparent;
 
   &:disabled {

@@ -1,11 +1,9 @@
 .error {
-  padding: var(--gap-xxsmall) var(--gap-small);
-  border-radius: var(--border-radius-medium);
+  padding: var(--gap-medium) var(--gap-medium);
   background-color: var(--color-error);
 }
 
 .success {
-  padding: var(--gap-xxsmall) var(--gap-small);
-  border-radius: var(--border-radius-medium);
+  padding: var(--gap-medium) var(--gap-medium);
   background-color: var(--color-tertiary);
 }

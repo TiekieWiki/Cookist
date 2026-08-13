@@ -1,5 +1,5 @@
 <template>
-  <section class="card">
+  <section>
     <div :class="['timer', timer.isFinished ? 'finished' : '']">
       <font-awesome-icon :icon="['fas', 'stopwatch']" />
       <Button :type="ButtonType.BUTTON">

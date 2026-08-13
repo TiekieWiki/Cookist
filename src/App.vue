@@ -14,7 +14,36 @@
     </Transition>
   </router-view>
   <ErrorMessage v-model:message="profileStore.errorMessage" />
-  <aside :class="menuOpen ? 'menuOpen' : 'menuClose'">
+  <nav>
+    <div class="brand">
+      <font-awesome-icon :icon="['fas', 'utensils']" tabindex="0" />
+      <router-link to="/" tabindex="0">Cookist</router-link>
+    </div>
+    <div class="menu">
+      <Button :type="ButtonType.BUTTON" :variant="ColorVariant.NEUTRAL">
+        <router-link to="/" tabindex="0">{{ $t('homePage.title') }}</router-link>
+      </Button>
+      <Button v-if="userStore.isLoggedIn" :type="ButtonType.BUTTON" :variant="ColorVariant.NEUTRAL">
+        <router-link to="/recipes" tabindex="0">{{ $t('recipesPage.title') }}</router-link>
+      </Button>
+      <Button v-if="userStore.isLoggedIn" :type="ButtonType.BUTTON" :variant="ColorVariant.NEUTRAL">
+        <router-link to="/grocery-list" tabindex="0">{{ $t('groceryListPage.title') }}</router-link>
+      </Button>
+      <Button v-if="userStore.isLoggedIn" :type="ButtonType.BUTTON" :variant="ColorVariant.NEUTRAL">
+        <router-link to="/profile" tabindex="0">
+          {{ $t('profilePage.title') }}
+        </router-link>
+      </Button>
+      <Button
+        v-if="!userStore.isLoggedIn"
+        :type="ButtonType.BUTTON"
+        :variant="ColorVariant.NEUTRAL"
+      >
+        <router-link to="/login" tabindex="0">{{ $t('loginPage.title') }}</router-link>
+      </Button>
+    </div>
+  </nav>
+  <!-- <aside :class="menuOpen ? 'menuOpen' : 'menuClose'">
     <nav>
       <Transition name="switch" mode="out-in" appear>
         <Button
@@ -85,13 +114,13 @@
       </Transition>
     </nav>
     <div class="banner">
-      <!-- Photo by Andy Chilton, NordWood Themes on Unsplash or private photo -->
+      Photo by Andy Chilton, NordWood Themes on Unsplash or private photo
       <img :src="bannerImage" alt="" />
     </div>
     <Transition name="slide-fade">
       <router-link v-if="menuOpen" to="/" class="brand" tabindex="0">Cookist</router-link>
     </Transition>
-  </aside>
+  </aside> -->
 </template>
 
 <script setup lang="ts">

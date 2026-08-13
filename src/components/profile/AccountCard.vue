@@ -1,8 +1,8 @@
 <template>
-  <section class="card">
-    <div class="header">
+  <section>
+    <div>
       <h2>{{ $t('profilePage.account') }}</h2>
-      <div class="actions">
+      <div>
         <Button :type="ButtonType.BUTTON" :iconOnly="true" :variant="ColorVariant.WARNING">
           <font-awesome-icon @click="deleteOpen = true" :icon="['fas', 'trash-can']" />
         </Button>

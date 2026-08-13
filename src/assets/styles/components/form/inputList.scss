@@ -14,11 +14,11 @@
   ul {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-small);
+    gap: var(--gap-medium);
 
     li {
       display: grid;
-      gap: var(--gap-small);
+      gap: var(--gap-medium);
     }
   }
 }

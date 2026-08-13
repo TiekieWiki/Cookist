@@ -2,24 +2,21 @@
   <main class="home">
     <article>
       <section>
-        <router-link to="/" class="brand" tabindex="0">Cookist</router-link>
-      </section>
-      <section class="banners">
-        <div id="home-banner-1" class="banner">
+        <div id="home-banner-1">
           <!-- Photo by Joseph Gonzalez on Unsplash -->
-          <div class="header">
+          <div>
             <h3>{{ $t('homePage.banner1') }}</h3>
           </div>
         </div>
-        <div id="home-banner-2" class="banner">
+        <div id="home-banner-2">
           <!-- Photo by Chad Montano on Unsplash -->
-          <div class="header">
+          <div>
             <h3>{{ $t('homePage.banner2') }}</h3>
           </div>
         </div>
-        <div id="home-banner-3" class="banner">
+        <div id="home-banner-3">
           <!-- Photo by Chad Montano on Unsplash -->
-          <div class="header">
+          <div>
             <h3>{{ $t('homePage.banner3') }}</h3>
           </div>
         </div>

@@ -1,10 +1,10 @@
 <template>
-  <section v-if="groceryListStore.groceryList.length <= 0" class="card">
+  <section v-if="groceryListStore.groceryList.length <= 0">
     <h2>{{ $t('groceryListPage.title') }}</h2>
     <h3>{{ $t('groceryListPage.noItems') }}</h3>
   </section>
-  <section v-else class="card">
-    <div class="header">
+  <section v-else>
+    <div>
       <h2>{{ $t('groceryListPage.title') }}</h2>
       <div>
         <Button :type="ButtonType.BUTTON" :iconOnly="true" :variant="ColorVariant.WARNING">

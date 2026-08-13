@@ -1,8 +1,8 @@
 <template>
-  <section class="card">
-    <div class="header">
+  <section>
+    <div>
       <h3>{{ $t('recipePage.instructions') }}</h3>
-      <div class="actions align">
+      <div>
         {{ $t('recipePage.keepOnScreen') }}
         <Toggle @click="keepScreenOn = !keepScreenOn" />
       </div>

@@ -1,8 +1,8 @@
 <template>
-  <section class="card" :class="ColorVariant.ACCENT">
-    <div class="header">
+  <section>
+    <div>
       <h2>{{ recipeStore.recipe.name }}</h2>
-      <div v-if="recipeStore.recipe.owner === userStore.user?.id" class="actions">
+      <div v-if="recipeStore.recipe.owner === userStore.user?.id">
         <Button :type="ButtonType.BUTTON" :icon-only="true" :variant="ColorVariant.TERTIARY">
           <font-awesome-icon
             @click="
@@ -18,7 +18,7 @@
         </Button>
       </div>
     </div>
-    <div class="actions wrap">
+    <div>
       <p>{{ $t('editRecipePage.categories.' + recipeStore.recipe.category) }}</p>
       <p>|</p>
       <p><font-awesome-icon :icon="['far', 'clock']" /> {{ recipeStore.recipe.duration }}</p>

@@ -4,7 +4,7 @@
 label {
   display: flex;
   flex-direction: column;
-  gap: var(--gap-small);
+  gap: var(--gap-medium);
   width: 100%;
 }
 
@@ -17,7 +17,6 @@ input[type='date'] {
   @include form-element;
 
   width: 100%;
-  border-radius: var(--border-radius-medium);
   background-color: transparent;
 
   &:disabled {
@@ -27,7 +26,7 @@ input[type='date'] {
 }
 
 input[type='date'] {
-  padding: calc(var(--gap-small) - 2px) var(--gap-medium);
+  padding: calc(var(--gap-medium) - 2px) var(--gap-medium);
 }
 
 input {

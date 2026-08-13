@@ -1,11 +1,11 @@
 <template>
   <main v-if="recipeStore.recipe.name" class="recipe">
-    <article class="row">
-      <div class="column left">
+    <article>
+      <div>
         <RecipeHeaderCard v-model:delete-open="deleteRecipeOpen" />
         <IngredientsCard />
       </div>
-      <div class="column right">
+      <div>
         <InstructionsCard />
         <TimerCard />
       </div>

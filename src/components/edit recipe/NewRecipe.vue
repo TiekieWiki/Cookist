@@ -1,7 +1,7 @@
 <template>
-  <form class="row">
-    <div class="column left">
-      <section class="card" :class="ColorVariant.ACCENT">
+  <form>
+    <div>
+      <section>
         <h2>
           {{ $route.params.recipeId ? $t('editRecipePage.title') : $t('createRecipePage.title') }}
         </h2>
@@ -66,7 +66,7 @@
           v-model:input="recipe.rating"
         />
       </section>
-      <section class="card">
+      <section>
         <InputList
           id="ingredients"
           :label="$t('editRecipePage.ingredients')"
@@ -106,8 +106,8 @@
         </InputList>
       </section>
     </div>
-    <div class="column right">
-      <section class="card">
+    <div>
+      <section>
         <InputList
           id="instructions"
           :label="$t('editRecipePage.instructions')"
@@ -134,7 +134,7 @@
           v-model:input="recipe.notes"
         />
       </section>
-      <section class="card">
+      <section>
         <UploadImage
           id="image"
           name="image"
@@ -145,7 +145,7 @@
           @image="(i: File | null) => (image = i)"
         />
       </section>
-      <section class="card">
+      <section>
         <ErrorMessage v-model:message="errorMessage" />
         <Button
           @click="$emit('save', true)"

@@ -23,12 +23,6 @@ input {
     }
   }
 
-  &.accent {
-    &::file-selector-button {
-      background-image: var(--color-accent);
-    }
-  }
-
   &.warning {
     &::file-selector-button {
       background-color: var(--color-error);
@@ -39,12 +33,10 @@ input {
     @include form-element;
 
     display: grid;
-    grid-template-columns: auto var(--size-icon-small);
     justify-self: start;
     align-self: center;
-    margin-bottom: var(--gap-small);
+    margin-bottom: var(--gap-medium);
     border: none;
-    border-radius: var(--border-radius-medium);
     color: var(--color-text-secondary);
     cursor: pointer;
   }

@@ -1,7 +1,7 @@
 <template>
   <main class="login">
-    <article class="row">
-      <section class="card">
+    <article>
+      <section>
         <h2>{{ $t('loginPage.login') }}</h2>
         <form>
           <InputField
@@ -30,9 +30,7 @@
           </Button>
           <p>
             {{ $t('loginPage.noAccount') }}
-            <router-link to="/register" tabindex="0" :class="ColorVariant.SECONDARY">{{
-              $t('loginPage.signUp')
-            }}</router-link>
+            <router-link to="/register" tabindex="0">{{ $t('loginPage.signUp') }}</router-link>
           </p>
         </form>
       </section>

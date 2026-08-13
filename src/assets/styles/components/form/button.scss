@@ -2,46 +2,44 @@
 @import '../../mixins/colors.scss';
 
 button {
-    @include form-element;
+  @include form-element;
 
-    display: flex;
-    gap: var(--gap-small);
-    justify-content: center;
-    align-items: center;
-    height: fit-content;
-    padding: calc(var(--gap-small) + 3px) var(--gap-large);
-    border-radius: var(--border-radius-medium);
-    color: var(--color-text-secondary);
-    cursor: pointer;
+  display: flex;
+  gap: var(--gap-medium);
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  padding: calc(var(--gap-medium) + 3px) var(--gap-medium);
+  color: var(--color-text-secondary);
+  cursor: pointer;
 
-    &.large {
-        font-size: var(--size-icon-medium);
-    }
+  &.filled {
+    border: none;
 
-    &.filled {
-        border: none;
+    @include background-colors;
+  }
 
-        @include background-colors;
-    }
+  &.outline {
+    background-color: transparent;
 
-    &.outline {
-        background-color: transparent;
+    @include border-colors;
+  }
 
-        @include border-colors;
-    }
+  &.iconOnly {
+    padding: calc(var(--gap-medium) + 3px) var(--gap-medium);
+    border: none;
+    background-color: transparent !important;
 
-    &.iconOnly {
-        padding: calc(var(--gap-xsmall) + 3px) var(--gap-small);
-        border: none;
-        background-color: transparent !important;
+    @include text-colors;
+  }
 
-        @include text-colors;
-    }
+  &:disabled {
+    background-image: none !important;
+    background-color: var(--color-disabled) !important;
+    color: var(--color-text-disabled) !important;
+    cursor: auto !important;
+  }
 
-    &:disabled {
-        background-image: none !important;
-        background-color: var(--color-disabled) !important;
-        color: var(--color-text-disabled) !important;
-        cursor: auto !important;
-    }
+  &.active {
+  }
 }

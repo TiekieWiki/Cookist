@@ -1,5 +1,5 @@
 <template>
-  <section class="card">
+  <section>
     <h2>{{ $t('profilePage.settings') }}</h2>
     <form>
       <SelectField

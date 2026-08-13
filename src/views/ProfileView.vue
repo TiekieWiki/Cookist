@@ -1,6 +1,6 @@
 <template>
   <main>
-    <article class="row">
+    <article>
       <SettingsCard />
       <AccountCard />
     </article>
