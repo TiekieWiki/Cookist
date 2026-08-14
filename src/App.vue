@@ -5,43 +5,54 @@
       <router-link to="/" tabindex="0">Cookist</router-link>
     </div>
     <div class="menu">
-      <Button :type="ButtonType.BUTTON" :variant="ColorVariant.TERTIARY" :size="ButtonSize.LARGE">
-        <router-link to="/" tabindex="0">{{ $t('homePage.title') }}</router-link>
-      </Button>
-      <Button
-        v-if="userStore.isLoggedIn"
-        :type="ButtonType.BUTTON"
-        :variant="ColorVariant.TERTIARY"
-        :size="ButtonSize.LARGE"
+      <router-link to="/" tabindex="-1">
+        <Button
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.TERTIARY"
+          :size="ButtonSize.LARGE"
+          >{{ $t('homePage.title') }}</Button
+        ></router-link
       >
-        <router-link to="/recipes" tabindex="0">{{ $t('recipesPage.title') }}</router-link>
-      </Button>
-      <Button
-        v-if="userStore.isLoggedIn"
-        :type="ButtonType.BUTTON"
-        :variant="ColorVariant.TERTIARY"
-        :size="ButtonSize.LARGE"
+      <router-link to="/recipes" tabindex="-1"
+        ><Button
+          v-if="userStore.isLoggedIn"
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.TERTIARY"
+          :size="ButtonSize.LARGE"
+        >
+          {{ $t('recipesPage.title') }}
+        </Button></router-link
       >
-        <router-link to="/grocery-list" tabindex="0">{{ $t('groceryListPage.title') }}</router-link>
-      </Button>
-      <Button
-        v-if="userStore.isLoggedIn"
-        :type="ButtonType.BUTTON"
-        :variant="ColorVariant.TERTIARY"
-        :size="ButtonSize.LARGE"
+      <router-link to="/grocery-list" tabindex="-1"
+        ><Button
+          v-if="userStore.isLoggedIn"
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.TERTIARY"
+          :size="ButtonSize.LARGE"
+        >
+          {{ $t('groceryListPage.title') }}
+        </Button></router-link
       >
-        <router-link to="/profile" tabindex="0">
+      <router-link to="/profile" tabindex="-1">
+        <Button
+          v-if="userStore.isLoggedIn"
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.TERTIARY"
+          :size="ButtonSize.LARGE"
+        >
           {{ $t('profilePage.title') }}
-        </router-link>
-      </Button>
-      <Button
-        v-if="!userStore.isLoggedIn"
-        :type="ButtonType.BUTTON"
-        :variant="ColorVariant.TERTIARY"
-        :size="ButtonSize.LARGE"
+        </Button>
+      </router-link>
+      <router-link to="/login" tabindex="-1">
+        <Button
+          v-if="!userStore.isLoggedIn"
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.TERTIARY"
+          :size="ButtonSize.LARGE"
+        >
+          {{ $t('loginPage.title') }}
+        </Button></router-link
       >
-        <router-link to="/login" tabindex="0">{{ $t('loginPage.title') }}</router-link>
-      </Button>
     </div>
   </nav>
   <!-- <aside :class="menuOpen ? 'menuOpen' : 'menuClose'">
