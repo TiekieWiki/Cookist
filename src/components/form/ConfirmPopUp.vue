@@ -1,6 +1,7 @@
 <template>
   <teleport to="body" v-if="openPopUp">
-    <main class="modal">
+    <div class="overlay"></div>
+    <main>
       <article class="card">
         <section class="header">
           <h2>{{ $t(title) }}</h2>

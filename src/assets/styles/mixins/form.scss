@@ -2,10 +2,6 @@
   border-style: solid;
   border-width: 1px;
 
-  &:not(:disabled) {
-    @include outline-on-focus;
-  }
-
   &:user-invalid {
     border-color: var(--color-error);
   }

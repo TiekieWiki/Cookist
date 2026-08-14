@@ -1,9 +1,7 @@
 @import '../../mixins/form.scss';
-@import '../../mixins/colors.scss';
 
 textarea {
   @include form-element;
-  @include border-colors;
 
   background-color: transparent;
 

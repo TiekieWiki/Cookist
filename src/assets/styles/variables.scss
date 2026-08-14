@@ -21,6 +21,8 @@
   --color-disabled-text: #7a685b;
 
   --color-gradient: linear-gradient(135deg, #ffe2ca 0%, #f8f3e5 55%, #dceedc 100%);
+
+  --color-border: #e2dbd0;
 }
 
 @mixin dark-mode {
@@ -46,6 +48,8 @@
   --color-disabled-text: #b1a699;
 
   --color-gradient: linear-gradient(135deg, #3e281b 0%, #261d19 55%, #202d20 100%);
+
+  --color-border: #fcf8f11f;
 }
 
 :root {
@@ -75,4 +79,7 @@
 
   // Transition speeds
   --speed-medium: 0.3s;
+
+  // Border
+  --border: 1px solid var(--color-border);
 }

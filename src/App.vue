@@ -5,15 +5,15 @@
       <router-link to="/" tabindex="0">Cookist</router-link>
     </div>
     <div class="menu">
-      <router-link to="/" tabindex="-1">
+      <router-link to="/" class="desktop" tabindex="-1">
         <Button
           :type="ButtonType.BUTTON"
-          :variant="ColorVariant.TERTIARY"
+          :variant="ColorVariant.SECONDARY"
           :size="ButtonSize.LARGE"
           >{{ $t('homePage.title') }}</Button
         ></router-link
       >
-      <router-link to="/recipes" tabindex="-1"
+      <router-link to="/recipes" class="desktop" tabindex="-1"
         ><Button
           v-if="userStore.isLoggedIn"
           :type="ButtonType.BUTTON"
@@ -23,7 +23,7 @@
           {{ $t('recipesPage.title') }}
         </Button></router-link
       >
-      <router-link to="/grocery-list" tabindex="-1"
+      <router-link to="/grocery-list" class="desktop" tabindex="-1"
         ><Button
           v-if="userStore.isLoggedIn"
           :type="ButtonType.BUTTON"
@@ -33,7 +33,7 @@
           {{ $t('groceryListPage.title') }}
         </Button></router-link
       >
-      <router-link to="/profile" tabindex="-1">
+      <router-link to="/profile" class="desktop" tabindex="-1">
         <Button
           v-if="userStore.isLoggedIn"
           :type="ButtonType.BUTTON"
@@ -43,7 +43,7 @@
           {{ $t('profilePage.title') }}
         </Button>
       </router-link>
-      <router-link to="/login" tabindex="-1">
+      <router-link to="/login" class="desktop" tabindex="-1">
         <Button
           v-if="!userStore.isLoggedIn"
           :type="ButtonType.BUTTON"
@@ -53,86 +53,81 @@
           {{ $t('loginPage.title') }}
         </Button></router-link
       >
+      <Button
+        v-if="!menuOpen"
+        class="mobile"
+        @click.stop="menuOpen = true"
+        :type="ButtonType.BUTTON"
+        :variant="ColorVariant.TERTIARY"
+        :size="ButtonSize.LARGE"
+      >
+        <font-awesome-icon :icon="['fas', 'bars']" />
+      </Button>
     </div>
   </nav>
-  <!-- <aside :class="menuOpen ? 'menuOpen' : 'menuClose'">
-    <nav>
-      <Transition name="switch" mode="out-in" appear>
-        <Button
-          v-if="!menuOpen"
-          @click="menuOpen = true"
+  <div v-if="menuOpen" class="overlay"></div>
+  <Transition name="slide-fade">
+    <aside v-if="menuOpen" class="mobile">
+      <Button
+        @click="menuOpen = false"
+        :type="ButtonType.BUTTON"
+        :variant="ColorVariant.TERTIARY"
+        :size="ButtonSize.LARGE"
+      >
+        <font-awesome-icon :icon="['fas', 'xmark']" />
+      </Button>
+      <router-link to="/" tabindex="-1"
+        ><Button
           :type="ButtonType.BUTTON"
-          :icon-only="true"
-          :variant="ColorVariant.SECONDARY"
+          :variant="ColorVariant.TERTIARY"
           :size="ButtonSize.LARGE"
         >
-          <font-awesome-icon :icon="['fas', 'bars']" tabindex="0" />
-        </Button>
-        <Button
-          v-else
-          @click="menuOpen = !menuOpen"
+          {{ $t('homePage.title') }}
+        </Button></router-link
+      >
+
+      <router-link to="/recipes" tabindex="-1"
+        ><Button
+          v-if="userStore.isLoggedIn"
           :type="ButtonType.BUTTON"
-          :icon-only="true"
-          :variant="ColorVariant.SECONDARY"
+          :variant="ColorVariant.TERTIARY"
+          :size="ButtonSize.LARGE"
+          >{{ $t('recipesPage.title') }}
+        </Button></router-link
+      >
+
+      <router-link to="/grocery-list" tabindex="-1"
+        ><Button
+          v-if="userStore.isLoggedIn"
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.TERTIARY"
+          :size="ButtonSize.LARGE"
+          >{{ $t('groceryListPage.title') }}
+        </Button></router-link
+      >
+
+      <router-link to="/login" tabindex="-1"
+        ><Button
+          v-if="!userStore.isLoggedIn"
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.TERTIARY"
+          :size="ButtonSize.LARGE"
+          >{{ $t('loginPage.title') }}
+        </Button></router-link
+      >
+
+      <router-link to="/profile" tabindex="-1"
+        ><Button
+          v-if="userStore.isLoggedIn"
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.TERTIARY"
           :size="ButtonSize.LARGE"
         >
-          <font-awesome-icon :icon="['fas', 'xmark']" tabindex="0" />
+          {{ $t('profilePage.title') }}
         </Button>
-      </Transition>
-      <Transition name="slide-fade">
-        <Button v-if="menuOpen" :type="ButtonType.BUTTON" :variant="ColorVariant.NEUTRAL">
-          <router-link to="/" tabindex="0">{{ $t('homePage.title') }}</router-link>
-        </Button>
-      </Transition>
-      <Transition name="slide-fade">
-        <Button
-          v-if="menuOpen && userStore.isLoggedIn"
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.NEUTRAL"
-        >
-          <router-link to="/recipes" tabindex="0">{{ $t('recipesPage.title') }}</router-link>
-        </Button>
-      </Transition>
-      <Transition name="slide-fade">
-        <Button
-          v-if="menuOpen && userStore.isLoggedIn"
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.NEUTRAL"
-        >
-          <router-link to="/grocery-list" tabindex="0">{{
-            $t('groceryListPage.title')
-          }}</router-link>
-        </Button>
-      </Transition>
-      <Transition name="slide-fade">
-        <Button
-          v-if="menuOpen && !userStore.isLoggedIn"
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.NEUTRAL"
-        >
-          <router-link to="/login" tabindex="0">{{ $t('loginPage.title') }}</router-link>
-        </Button>
-      </Transition>
-      <Transition name="slide-fade">
-        <Button
-          v-if="menuOpen && userStore.isLoggedIn"
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.NEUTRAL"
-        >
-          <router-link to="/profile" tabindex="0">
-            {{ $t('profilePage.title') }}
-          </router-link>
-        </Button>
-      </Transition>
-    </nav>
-    <div class="banner">
-      Photo by Andy Chilton, NordWood Themes on Unsplash or private photo
-      <img :src="bannerImage" alt="" />
-    </div>
-    <Transition name="slide-fade">
-      <router-link v-if="menuOpen" to="/" class="brand" tabindex="0">Cookist</router-link>
-    </Transition>
-  </aside> -->
+      </router-link>
+    </aside>
+  </Transition>
   <router-view v-slot="{ Component }">
     <Transition name="slide-fade">
       <suspense>
@@ -152,7 +147,7 @@
 
 <script setup lang="ts">
 import { RouterView, useRoute } from 'vue-router';
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 import type { Profile } from './utils/types/profile';
 import { setSystemLanguage, setUserLanguage } from './utils/global/setLanguage';
 import { useI18n } from 'vue-i18n';
@@ -163,13 +158,11 @@ import { ButtonSize, ButtonType, ColorVariant } from './utils/types/enums';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import { useUserStore } from './stores/useUserStore';
 import { useProfileStore } from './stores/useProfileStore';
-import { useRecipeStore } from './stores/useRecipeStore';
 
 const route = useRoute();
 const { t, locale } = useI18n();
 const userStore = useUserStore();
 const profileStore = useProfileStore();
-const recipeStore = useRecipeStore();
 const profile = ref<Profile | undefined>(undefined);
 const menuOpen = ref<boolean>(false);
 
@@ -242,14 +235,5 @@ onUnmounted(() => {
       menuOpen.value = false;
     }
   });
-});
-
-// Set banner image
-const bannerImage = computed(() => {
-  if (route.path.startsWith('/recipe')) {
-    return recipeStore.recipeImage;
-  }
-
-  return '/src/assets/images/Banner.jpg';
 });
 </script>

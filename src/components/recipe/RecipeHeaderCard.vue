@@ -3,7 +3,7 @@
     <div>
       <h2>{{ recipeStore.recipe.name }}</h2>
       <div v-if="recipeStore.recipe.owner === userStore.user?.id">
-        <Button :type="ButtonType.BUTTON" :icon-only="true" :variant="ColorVariant.TERTIARY">
+        <Button :type="ButtonType.BUTTON" :variant="ColorVariant.TERTIARY">
           <font-awesome-icon
             @click="
               $router.push({
@@ -13,7 +13,7 @@
             :icon="['fas', 'pen']"
           />
         </Button>
-        <Button :type="ButtonType.BUTTON" :icon-only="true" :variant="ColorVariant.ERROR">
+        <Button :type="ButtonType.BUTTON" :variant="ColorVariant.ERROR">
           <font-awesome-icon @click="deleteOpen = true" :icon="['fas', 'trash-can']" />
         </Button>
       </div>

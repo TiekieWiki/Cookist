@@ -1,4 +1,5 @@
 @import '../mixins/interactions.scss';
+@import '../mixins/responsiveness.scss';
 
 nav {
   display: flex;
@@ -12,6 +13,7 @@ nav {
   padding: 0 var(--gap-xxlarge);
   background-color: var(--color-background-primary);
   color: var(--color-background-primary-text);
+  border-bottom: var(--border);
 
   .brand {
     display: flex;
@@ -43,6 +45,8 @@ nav {
   }
 
   .menu {
+    @include responsiveness;
+
     display: flex;
     justify-content: end;
     align-items: center;
@@ -51,26 +55,40 @@ nav {
 }
 
 aside {
-  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--gap-medium);
+  position: absolute;
+  z-index: 1;
   right: 0;
   top: 0;
+  width: 60vw;
+  height: 100vh;
+  z-index: 1001;
+  padding: var(--gap-xxlarge);
+  background-color: var(--color-background-primary);
+  border-left: var(--border);
+  border-right: var(--border);
 
-  &.menuOpen {
-    z-index: 2;
+  & > button:first-child {
+    display: flex;
+    align-self: end;
   }
 }
 
 :root.left {
   @media only screen and (max-width: 1100px) {
+    nav {
+      flex-direction: row-reverse;
+      justify-content: start;
+    }
+
     aside {
       left: 0;
 
-      nav {
-        align-items: start;
-      }
-
-      .brand {
-        right: auto;
+      & > button:first-child {
+        align-self: start;
       }
     }
   }

@@ -1,5 +1,4 @@
 @import '../../mixins/form.scss';
-@import '../../mixins/colors.scss';
 
 .select {
   @include form-element;
@@ -15,8 +14,6 @@
     justify-self: end;
     clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
   }
-
-  @include border-colors;
 
   &.primary {
     &::after {

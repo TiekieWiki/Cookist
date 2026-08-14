@@ -1,5 +1,4 @@
 @import '../../mixins/form.scss';
-@import '../../mixins/colors.scss';
 
 button {
   @include form-element;
@@ -26,7 +25,7 @@ button {
   &.secondary {
     background-color: var(--color-background-primary);
     color: var(--color-secondary-text);
-    border: 1px solid #fcf8f129;
+    border: var(--border);
 
     &:hover,
     &:focus {

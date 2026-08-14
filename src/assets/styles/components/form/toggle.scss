@@ -1,5 +1,3 @@
-@import '../../mixins/colors.scss';
-
 .toggle {
   position: relative;
   display: inline-block;
@@ -12,7 +10,6 @@
     height: 0;
 
     &:checked + .slider {
-      @include background-colors;
       &::before {
         -webkit-transform: translateX(calc(var(--gap-medium) - var(--gap-medium) * 4));
         -ms-transform: translateX(calc(var(--gap-medium) - var(--gap-medium) * 4));

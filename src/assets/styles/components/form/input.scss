@@ -1,5 +1,4 @@
 @import '../../mixins/form.scss';
-@import '../../mixins/colors.scss';
 
 label {
   display: flex;
@@ -27,8 +26,4 @@ input[type='date'] {
 
 input[type='date'] {
   padding: calc(var(--gap-medium) - 2px) var(--gap-medium);
-}
-
-input {
-  @include border-colors;
 }

@@ -14,11 +14,3 @@
     box-shadow: 0 0 5px 1px var(--color-primary);
   }
 }
-
-@mixin text-on-focus($color) {
-  &:focus-visible,
-  &:focus-within {
-    transition: all var(--speed-medium) ease-in-out;
-    color: $color;
-  }
-}
