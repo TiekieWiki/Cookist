@@ -4,9 +4,7 @@ import { GroceryList } from './groceryList';
 export interface ButtonProps {
   variant?: ColorVariant;
   type: ButtonType;
-  filled?: boolean;
   size?: ButtonSize;
-  iconOnly?: boolean;
   disabled?: boolean;
 }
 

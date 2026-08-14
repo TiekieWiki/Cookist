@@ -8,7 +8,7 @@
         <Button
           @click="deleteRow(items!, index, empty)"
           :type="ButtonType.BUTTON"
-          :variant="ColorVariant.WARNING"
+          :variant="ColorVariant.ERROR"
         >
           <font-awesome-icon :icon="['fas', 'trash-can']" />
         </Button>

@@ -1,29 +1,51 @@
 @mixin light-mode {
   --color-primary: #b55d42;
+  --color-primary-text: #fdfaf4;
   --color-secondary: #f0ebdd;
+  --color-secondary-text: #472f24;
   --color-tertiary: #425e3f;
-  --color-background-primary: #fef7f9;
-  --color-background-secondary: #ebb896;
-  --color-background-tertiary: #fdfdfd;
-  --color-error: #922b35;
-  --color-disabled: #ababab;
-  --color-text-primary: black;
-  --color-text-secondary: white;
-  --color-text-disabled: #555555;
+  --color-tertiary-text: #f1f7f0;
+  --color-accent: #ebb896;
+  --color-accent-text: #472215;
+
+  --color-background-primary: #fcf9f3;
+  --color-background-primary-text: #33221a;
+  --color-background-secondary: #f5efe6;
+  --color-background-secondary-text: #33221a;
+  --color-background-tertiary: #fffdfa;
+  --color-background-tertiary-text: #33221a;
+
+  --color-error: #c9302d;
+  --color-error-text: #fdfaf4;
+  --color-disabled: #f1ece3;
+  --color-disabled-text: #7a685b;
+
+  --color-gradient: linear-gradient(135deg, #ffe2ca 0%, #f8f3e5 55%, #dceedc 100%);
 }
 
 @mixin dark-mode {
-  --color-primary: #b55d42;
+  --color-primary: #d67d5e;
+  --color-primary-text: #22110b;
   --color-secondary: #362b25;
-  --color-tertiary: #425e3f;
+  --color-secondary-text: #efeae2;
+  --color-tertiary: #72906e;
+  --color-tertiary-text: #0d140c;
+  --color-accent: #bf8b68;
+  --color-accent-text: #22110b;
+
   --color-background-primary: #1b1410;
-  --color-background-secondary: #3e281b;
+  --color-background-primary-text: #f1ece4;
+  --color-background-secondary: #261d19;
+  --color-background-secondary-text: #f1ece4;
   --color-background-tertiary: #281e1a;
-  --color-error: #922b35;
-  --color-disabled: #272727;
-  --color-text-primary: white;
-  --color-text-secondary: white;
-  --color-text-disabled: #616161;
+  --color-background-tertiary-text: #f1ece4;
+
+  --color-error: #dd5652;
+  --color-error-text: #fcf8f1;
+  --color-disabled: #332924;
+  --color-disabled-text: #b1a699;
+
+  --color-gradient: linear-gradient(135deg, #3e281b 0%, #261d19 55%, #202d20 100%);
 }
 
 :root {
@@ -46,7 +68,8 @@
   --gap-xxsmall: 2px;
   --gap-xsmall: 4px;
   --gap-small: 8px;
-  --gap-medium: 16px;
-  --gap-large: 20px;
-  --gap-xlarge: 24px;
+  --gap-medium: 12px;
+  --gap-large: 16px;
+  --gap-xlarge: 20px;
+  --gap-xxlarge: 24px;
 }

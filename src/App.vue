@@ -1,35 +1,35 @@
 <template>
-  <router-view v-slot="{ Component }">
-    <Transition name="slide-fade">
-      <suspense>
-        <template #default>
-          <component :is="Component" />
-        </template>
-        <template #fallback>
-          <div class="loader">
-            <div class="loader-spinner"></div>
-          </div>
-        </template>
-      </suspense>
-    </Transition>
-  </router-view>
-  <ErrorMessage v-model:message="profileStore.errorMessage" />
   <nav>
     <div class="brand">
-      <font-awesome-icon :icon="['fas', 'utensils']" tabindex="0" />
+      <div class="logo"><font-awesome-icon :icon="['fas', 'utensils']" /></div>
       <router-link to="/" tabindex="0">Cookist</router-link>
     </div>
     <div class="menu">
-      <Button :type="ButtonType.BUTTON" :variant="ColorVariant.NEUTRAL">
+      <Button :type="ButtonType.BUTTON" :variant="ColorVariant.TERTIARY" :size="ButtonSize.LARGE">
         <router-link to="/" tabindex="0">{{ $t('homePage.title') }}</router-link>
       </Button>
-      <Button v-if="userStore.isLoggedIn" :type="ButtonType.BUTTON" :variant="ColorVariant.NEUTRAL">
+      <Button
+        v-if="userStore.isLoggedIn"
+        :type="ButtonType.BUTTON"
+        :variant="ColorVariant.TERTIARY"
+        :size="ButtonSize.LARGE"
+      >
         <router-link to="/recipes" tabindex="0">{{ $t('recipesPage.title') }}</router-link>
       </Button>
-      <Button v-if="userStore.isLoggedIn" :type="ButtonType.BUTTON" :variant="ColorVariant.NEUTRAL">
+      <Button
+        v-if="userStore.isLoggedIn"
+        :type="ButtonType.BUTTON"
+        :variant="ColorVariant.TERTIARY"
+        :size="ButtonSize.LARGE"
+      >
         <router-link to="/grocery-list" tabindex="0">{{ $t('groceryListPage.title') }}</router-link>
       </Button>
-      <Button v-if="userStore.isLoggedIn" :type="ButtonType.BUTTON" :variant="ColorVariant.NEUTRAL">
+      <Button
+        v-if="userStore.isLoggedIn"
+        :type="ButtonType.BUTTON"
+        :variant="ColorVariant.TERTIARY"
+        :size="ButtonSize.LARGE"
+      >
         <router-link to="/profile" tabindex="0">
           {{ $t('profilePage.title') }}
         </router-link>
@@ -37,7 +37,8 @@
       <Button
         v-if="!userStore.isLoggedIn"
         :type="ButtonType.BUTTON"
-        :variant="ColorVariant.NEUTRAL"
+        :variant="ColorVariant.TERTIARY"
+        :size="ButtonSize.LARGE"
       >
         <router-link to="/login" tabindex="0">{{ $t('loginPage.title') }}</router-link>
       </Button>
@@ -121,6 +122,21 @@
       <router-link v-if="menuOpen" to="/" class="brand" tabindex="0">Cookist</router-link>
     </Transition>
   </aside> -->
+  <router-view v-slot="{ Component }">
+    <Transition name="slide-fade">
+      <suspense>
+        <template #default>
+          <component :is="Component" />
+        </template>
+        <template #fallback>
+          <div class="loader">
+            <div class="loader-spinner"></div>
+          </div>
+        </template>
+      </suspense>
+    </Transition>
+  </router-view>
+  <ErrorMessage v-model:message="profileStore.errorMessage" />
 </template>
 
 <script setup lang="ts">

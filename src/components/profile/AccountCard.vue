@@ -3,7 +3,7 @@
     <div>
       <h2>{{ $t('profilePage.account') }}</h2>
       <div>
-        <Button :type="ButtonType.BUTTON" :iconOnly="true" :variant="ColorVariant.WARNING">
+        <Button :type="ButtonType.BUTTON" :variant="ColorVariant.ERROR">
           <font-awesome-icon @click="deleteOpen = true" :icon="['fas', 'trash-can']" />
         </Button>
       </div>

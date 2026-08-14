@@ -1,15 +1,5 @@
 <template>
-  <button
-    :class="[
-      variant,
-      size,
-      filled ? 'filled' : 'outline',
-      $slots.icon && 'icon',
-      iconOnly && 'iconOnly'
-    ]"
-    :type="type"
-    :disabled="disabled"
-  >
+  <button :class="[variant, size]" :type="type" :disabled="disabled">
     <slot></slot>
   </button>
 </template>
@@ -20,7 +10,6 @@ import { ButtonProps } from '@/utils/types/form';
 
 withDefaults(defineProps<ButtonProps>(), {
   variant: ColorVariant.PRIMARY,
-  filled: true,
   size: ButtonSize.MEDIUM,
   required: false,
   disabled: false

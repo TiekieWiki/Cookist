@@ -5,41 +5,88 @@ button {
   @include form-element;
 
   display: flex;
-  gap: var(--gap-medium);
+  gap: var(--gap-small);
   justify-content: center;
   align-items: center;
   height: fit-content;
-  padding: calc(var(--gap-medium) + 3px) var(--gap-medium);
-  color: var(--color-text-secondary);
   cursor: pointer;
+  border-radius: var(--gap-xlarge);
 
-  &.filled {
+  &.primary {
+    background-color: var(--color-primary);
+    color: var(--color-primary-text);
     border: none;
 
-    @include background-colors;
+    &:hover,
+    &:focus {
+      background-color: color-mix(in srgb, var(--color-primary) 80%, transparent);
+    }
   }
 
-  &.outline {
+  &.secondary {
+    background-color: var(--color-background-primary);
+    color: var(--color-secondary-text);
+    border: 1px solid #fcf8f129;
+
+    &:hover,
+    &:focus {
+      background-color: var(--color-accent);
+      color: var(--color-accent-text);
+    }
+  }
+
+  &.tertiary {
     background-color: transparent;
+    color: var(--color-disabled-text);
+    border: none;
 
-    @include border-colors;
+    &:hover,
+    &:focus {
+      background-color: var(--color-secondary);
+      color: var(--color-secondary-text);
+    }
+
+    &:has(.active) {
+      background-color: var(--color-secondary);
+      color: var(--color-secondary-text);
+
+      &:hover,
+      &:focus {
+        background-color: color-mix(in srgb, var(--color-secondary) 80%, transparent);
+      }
+    }
   }
 
-  &.iconOnly {
-    padding: calc(var(--gap-medium) + 3px) var(--gap-medium);
+  &.accent {
+    background-color: var(--color-accent);
+    color: var(--color-accent-text);
     border: none;
-    background-color: transparent !important;
 
-    @include text-colors;
+    &:hover,
+    &:focus {
+      background-color: color-mix(in srgb, var(--color-accent) 80%, transparent);
+    }
+  }
+
+  &.medium {
+    padding: var(--gap-xsmall) var(--gap-medium);
+
+    a {
+      font-size: 0.8rem;
+    }
+  }
+
+  &.large {
+    padding: var(--gap-small) var(--gap-large);
+
+    a {
+      font-size: 0.9rem;
+    }
   }
 
   &:disabled {
-    background-image: none !important;
     background-color: var(--color-disabled) !important;
-    color: var(--color-text-disabled) !important;
+    color: var(--color-disabled-text) !important;
     cursor: auto !important;
-  }
-
-  &.active {
   }
 }

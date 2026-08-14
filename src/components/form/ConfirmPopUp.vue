@@ -7,8 +7,7 @@
           <Button
             @click="openPopUp = false"
             :type="ButtonType.BUTTON"
-            :iconOnly="true"
-            :variant="ColorVariant.NEUTRAL"
+            :variant="ColorVariant.SECONDARY"
           >
             <font-awesome-icon :icon="['fas', 'xmark']" />
           </Button>
@@ -27,7 +26,7 @@
           <Button
             @click.prevent="emit('confirm', true)"
             :type="ButtonType.SUBMIT"
-            :variant="ColorVariant.WARNING"
+            :variant="ColorVariant.ERROR"
           >
             {{ $t(confirm) }}
           </Button>

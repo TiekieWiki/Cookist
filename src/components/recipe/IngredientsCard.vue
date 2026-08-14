@@ -3,15 +3,11 @@
     <section>
       <h3>{{ $t('recipePage.ingredients') }}</h3>
       <div>
-        <Button
-          @click="portionCount = Math.max(portionCount - 1, 1)"
-          :type="ButtonType.BUTTON"
-          :iconOnly="true"
-        >
+        <Button @click="portionCount = Math.max(portionCount - 1, 1)" :type="ButtonType.BUTTON">
           <font-awesome-icon :icon="['fas', 'minus']" />
         </Button>
         <p>{{ portionCount }} {{ $t('recipePage.portions', portionCount) }}</p>
-        <Button @click="portionCount++" :type="ButtonType.BUTTON" :iconOnly="true">
+        <Button @click="portionCount++" :type="ButtonType.BUTTON">
           <font-awesome-icon :icon="['fas', 'plus']" />
         </Button>
       </div>

@@ -2,30 +2,48 @@
 
 nav {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  gap: var(--gap-medium);
-  position: absolute;
+  gap: var(--gap-xlarge);
+  position: fixed;
   width: 100vw;
-  z-index: 2;
-  padding: var(--gap-medium) var(--gap-medium);
+  height: 65px;
+  padding: 0 var(--gap-xxlarge);
   background-color: var(--color-background-primary);
-  border-bottom: var(--border-medium) solid #cacaca;
+  color: var(--color-background-primary-text);
 
   .brand {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    gap: var(--gap-medium);
+    gap: var(--gap-large);
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 36px;
+      width: 36px;
+      border-radius: 100%;
+      background-color: var(--color-primary);
+      color: var(--color-primary-text);
+
+      svg {
+        height: 20px;
+        width: 20px;
+      }
+    }
+
+    a {
+      font-weight: 600;
+      font-size: 1.17rem;
+    }
   }
 
   .menu {
     display: flex;
-    flex-direction: row;
     justify-content: end;
     align-items: center;
-    gap: var(--gap-medium);
+    gap: var(--gap-xsmall);
   }
 }
 

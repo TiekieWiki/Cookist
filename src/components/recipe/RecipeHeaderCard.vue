@@ -13,7 +13,7 @@
             :icon="['fas', 'pen']"
           />
         </Button>
-        <Button :type="ButtonType.BUTTON" :icon-only="true" :variant="ColorVariant.WARNING">
+        <Button :type="ButtonType.BUTTON" :icon-only="true" :variant="ColorVariant.ERROR">
           <font-awesome-icon @click="deleteOpen = true" :icon="['fas', 'trash-can']" />
         </Button>
       </div>
