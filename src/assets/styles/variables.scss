@@ -49,7 +49,7 @@
 
   --color-gradient: linear-gradient(135deg, #3e281b 0%, #261d19 55%, #202d20 100%);
 
-  --color-border: #fcf8f11f;
+  --color-border-secondary: #fcf8f11f;
 }
 
 :root {
@@ -91,7 +91,8 @@
   --speed-medium: 0.3s;
 
   // Border
-  --border: 1px solid var(--color-border);
+  --border-primary: 1px solid var(--color-primary);
+  --border-secondary: 1px solid var(--color-border-secondary);
 
   // Box shadow
   --box-shadow: 0 2px 4px #00000059, 0 22px 44px -18px #00000099;

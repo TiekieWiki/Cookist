@@ -26,13 +26,6 @@ export interface CheckBoxListProps {
   required?: boolean;
 }
 
-export interface ConfirmPopUpProps {
-  title: string;
-  section: string;
-  cancel: string;
-  confirm: string;
-}
-
 export interface InputFieldProps {
   id?: string;
   name: string;

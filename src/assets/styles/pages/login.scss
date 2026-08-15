@@ -1,0 +1,63 @@
+.login {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  height: 100vh;
+
+  @media only screen and (max-width: 1100px) {
+    grid-template-columns: 1fr;
+  }
+
+  .banner {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-gradient);
+
+    @media only screen and (max-width: 1100px) {
+      display: none;
+    }
+
+    .title {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
+
+      h2 {
+        margin-bottom: var(--spacing-4);
+        color: var(--color-background-primary-text);
+      }
+    }
+
+    p {
+      color: var(--color-disabled-text);
+
+      &.quote {
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  .loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--spacing-7);
+      width: 350px;
+      margin: 0 auto;
+
+      h2 {
+        margin-bottom: var(--spacing-2);
+        color: var(--color-background-primary-text);
+      }
+
+      p {
+        color: var(--color-disabled-text);
+      }
+    }
+  }
+}

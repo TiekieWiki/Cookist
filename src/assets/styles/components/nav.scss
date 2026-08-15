@@ -13,7 +13,7 @@ nav {
   padding: 0 var(--spacing-6);
   background-color: var(--color-background-primary);
   color: var(--color-background-primary-text);
-  border-bottom: var(--border);
+  border-bottom: var(--border-secondary);
 
   .brand {
     display: flex;
@@ -80,8 +80,8 @@ aside {
   z-index: 1001;
   padding: var(--spacing-6);
   background-color: var(--color-background-primary);
-  border-left: var(--border);
-  border-right: var(--border);
+  border-left: var(--border-secondary);
+  border-right: var(--border-secondary);
 
   & > button:first-child {
     display: flex;

@@ -24,7 +24,7 @@ button {
   &.secondary {
     background-color: var(--color-background-primary);
     color: var(--color-secondary-text);
-    border: var(--border);
+    border: var(--border-secondary);
 
     &:hover,
     &:focus {

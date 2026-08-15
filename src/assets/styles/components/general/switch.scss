@@ -1,0 +1,13 @@
+.switch {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: var(--spacing-1);
+  border-radius: var(--spacing-5);
+  background-color: var(--color-disabled);
+
+  button {
+    &.active {
+      background-color: var(--color-background-primary);
+    }
+  }
+}

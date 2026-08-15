@@ -34,7 +34,7 @@
       img {
         object-fit: cover;
         border-radius: var(--spacing-6);
-        border: var(--border);
+        border: var(--border-secondary);
         box-shadow: var(--box-shadow);
       }
 
@@ -47,7 +47,7 @@
         bottom: calc(var(--spacing-5) * -1);
         padding: var(--spacing-4);
         border-radius: var(--spacing-6);
-        border: var(--border);
+        border: var(--border-secondary);
         background-color: var(--color-background-primary);
 
         :nth-child(1) {
@@ -71,8 +71,8 @@
     flex-wrap: nowrap;
     gap: var(--spacing-5);
     background-color: var(--color-background-secondary);
-    border-top: var(--border);
-    border-bottom: var(--border);
+    border-top: var(--border-secondary);
+    border-bottom: var(--border-secondary);
 
     @media (max-width: 600px) {
       flex-direction: column;

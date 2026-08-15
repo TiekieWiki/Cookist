@@ -28,25 +28,34 @@ export const nl: TranslationSchema = {
       }
     }
   },
-  registerPage: {
-    title: 'Registreer',
-    alreadyAccount: 'Heb je al een account?',
-    signIn: 'Log in'
-  },
   loginPage: {
     title: 'Log in',
-    login: 'Log in',
-    noAccount: 'Heb je geen account?',
-    signUp: 'Meld je aan',
+    banner: {
+      title: '"We maakten dit elke week. Toen vergaten we het simpelweg."',
+      subtitle: 'Cookist bestaat zodat dat nooit gebeurd.',
+      quote: 'Recepten, onthouden.'
+    },
+    login: {
+      title: 'Welkom terug',
+      subtitle: 'Ga verder waar je gebleven was.',
+      toggle: 'Log in',
+      button: 'Log in'
+    },
+    register: {
+      title: 'Doe alsof je thuis bent',
+      subtitle: 'Een paar seconden, en begin dan met het toevoegen van recepten.',
+      toggle: 'Registreer',
+      button: 'Maak account aan'
+    },
+    email: 'E-mail',
+    password: 'Wachtwoord',
     placeholder: {
       email: "john.doe{'@'}gmail.com",
       password: '********'
     },
     ariaLabel: {
-      emailLogin: 'Email voor inloggen',
-      passwordLogin: 'Wachtwoord voor inloggen',
-      emailRegister: 'Email voor registreren',
-      passwordRegister: 'Wachtwoord voor registreren'
+      email: 'Email',
+      password: 'Wachtwoord',
     },
   },
   profilePage: {

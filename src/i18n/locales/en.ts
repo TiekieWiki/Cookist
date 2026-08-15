@@ -26,25 +26,34 @@ export const en = {
       }
     }
   },
-  registerPage: {
-    title: 'Register',
-    alreadyAccount: 'Already have an account?',
-    signIn: 'Sign in'
-  },
   loginPage: {
     title: 'Login',
-    login: 'Log in',
-    noAccount: "Don't have an account?",
-    signUp: 'Sign up',
+    banner: {
+      title: '"We made this every week. Then we simply stopped."',
+      subtitle: 'Cookist exists so that never happens again.',
+      quote: 'Recipes, remembered.'
+    },
+    login: {
+      title: 'Welcome back',
+      subtitle: 'Pick up where your kitchen left off.',
+      toggle: 'Sign in',
+      button: 'Sign in',
+    },
+    register: {
+      title: 'Make yourself at home',
+      subtitle: 'A few seconds, then start adding recipes.',
+      toggle: 'Register',
+      button: 'Create account'
+    },
+    email: 'Email',
+    password: 'Password',
     placeholder: {
       email: "john.doe{'@'}gmail.com",
       password: '********'
     },
     ariaLabel: {
-      emailLogin: 'Email for logging in',
-      passwordLogin: 'Password for logging in',
-      emailRegister: 'Email for registering',
-      passwordRegister: 'Password for registering'
+      email: 'Email',
+      password: 'Password',
     },
   },
   profilePage: {

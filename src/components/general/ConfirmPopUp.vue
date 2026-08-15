@@ -39,8 +39,8 @@
 
 <script setup lang="ts">
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
-import Button from './Button.vue';
-import { ConfirmPopUpProps } from '@/utils/types/form';
+import Button from '../form/Button.vue';
+import { ConfirmPopUpProps } from '@/utils/types/general';
 
 defineProps<ConfirmPopUpProps>();
 

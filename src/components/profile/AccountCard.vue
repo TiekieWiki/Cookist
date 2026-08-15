@@ -40,7 +40,7 @@ import { AutoCompleteVariant, ButtonType, ColorVariant } from '@/utils/types/enu
 import Button from '../form/Button.vue';
 import { useLogout } from '@/composables/useAuthentication.js';
 import { onMounted, ref } from 'vue';
-import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
+import ConfirmPopUp from '@/components/general/ConfirmPopUp.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import { useUserStore } from '@/stores/useUserStore';
 

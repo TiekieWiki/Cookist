@@ -3,8 +3,10 @@
 label {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-3);
+  gap: calc(var(--spacing-1) / 2);
   width: 100%;
+  color: var(--color-background-primary-text);
+  font-weight: 500;
 }
 
 input[type='text'],
@@ -16,7 +18,16 @@ input[type='date'] {
   @include form-element;
 
   width: 100%;
+  min-height: var(--spacing-9);
+  padding: var(--spacing-1) var(--spacing-3);
   background-color: transparent;
+  color: var(--color-background-primary-text);
+  border-radius: var(--spacing-5);
+  border: var(--border-secondary);
+
+  &:focus-visible {
+    border: var(--border-primary);
+  }
 
   &:disabled {
     background-color: var(--color-disabled);

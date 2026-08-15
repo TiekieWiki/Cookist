@@ -69,15 +69,6 @@ const routes = [
     }
   },
   {
-    path: '/register',
-    name: 'Register',
-    component: () => import('../views/RegisterView.vue'),
-    meta: {
-      requiresAuth: false,
-      title: 'registerPage.title'
-    }
-  },
-  {
     path: '/login',
     name: 'Login',
     component: () => import('../views/LoginView.vue'),
