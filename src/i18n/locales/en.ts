@@ -2,6 +2,7 @@ export const en = {
   homePage: {
     title: 'Home',
     banner: {
+      pill: 'Your cookbook, with a memory',
       title: 'Cook the recipes you forgot you loved.',
       subtitle: 'Cookist keeps your recipes and tracks when you last made each one — so the good ones resurface instead of gathering dust.',
       browseRecipes: 'Browse my recipes',

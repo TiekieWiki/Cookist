@@ -4,6 +4,7 @@ export const nl: TranslationSchema = {
   homePage: {
     title: 'Home',
     banner: {
+      pill: 'Jouw kookboek, met een geheugen',
       title: 'Kook de recepten die je vergeten was dat je ze lekker vond.',
       subtitle: 'Cookist houdt je recepten bij en registreert wanneer je ze voor het laatst hebt gemaakt — zodat de goede recepten weer boven komen drijven in plaats van stof te verzamelen.',
       browseRecipes: 'Bekijk mijn recepten',

@@ -6,19 +6,16 @@
     </div>
     <div class="menu">
       <router-link to="/" class="desktop" tabindex="-1">
-        <Button
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.TERTIARY"
-          :size="ButtonSize.LARGE"
-          >{{ $t('homePage.title') }}</Button
-        ></router-link
+        <Button :type="ButtonType.BUTTON" :variant="ColorVariant.TERTIARY" :size="Size.LARGE">{{
+          $t('homePage.title')
+        }}</Button></router-link
       >
       <router-link to="/recipes" class="desktop" tabindex="-1"
         ><Button
           v-if="userStore.isLoggedIn"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.TERTIARY"
-          :size="ButtonSize.LARGE"
+          :size="Size.LARGE"
         >
           {{ $t('recipesPage.title') }}
         </Button></router-link
@@ -28,7 +25,7 @@
           v-if="userStore.isLoggedIn"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.TERTIARY"
-          :size="ButtonSize.LARGE"
+          :size="Size.LARGE"
         >
           {{ $t('groceryListPage.title') }}
         </Button></router-link
@@ -38,7 +35,7 @@
           v-if="userStore.isLoggedIn"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.TERTIARY"
-          :size="ButtonSize.LARGE"
+          :size="Size.LARGE"
         >
           {{ $t('profilePage.title') }}
         </Button>
@@ -48,7 +45,7 @@
           v-if="!userStore.isLoggedIn"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.TERTIARY"
-          :size="ButtonSize.LARGE"
+          :size="Size.LARGE"
         >
           {{ $t('loginPage.title') }}
         </Button></router-link
@@ -59,7 +56,7 @@
         @click.stop="menuOpen = true"
         :type="ButtonType.BUTTON"
         :variant="ColorVariant.TERTIARY"
-        :size="ButtonSize.LARGE"
+        :size="Size.LARGE"
       >
         <font-awesome-icon :icon="['fas', 'bars']" />
       </Button>
@@ -72,16 +69,12 @@
         @click="menuOpen = false"
         :type="ButtonType.BUTTON"
         :variant="ColorVariant.TERTIARY"
-        :size="ButtonSize.LARGE"
+        :size="Size.LARGE"
       >
         <font-awesome-icon :icon="['fas', 'xmark']" />
       </Button>
       <router-link to="/" tabindex="-1"
-        ><Button
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.TERTIARY"
-          :size="ButtonSize.LARGE"
-        >
+        ><Button :type="ButtonType.BUTTON" :variant="ColorVariant.TERTIARY" :size="Size.LARGE">
           {{ $t('homePage.title') }}
         </Button></router-link
       >
@@ -91,7 +84,7 @@
           v-if="userStore.isLoggedIn"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.TERTIARY"
-          :size="ButtonSize.LARGE"
+          :size="Size.LARGE"
           >{{ $t('recipesPage.title') }}
         </Button></router-link
       >
@@ -101,7 +94,7 @@
           v-if="userStore.isLoggedIn"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.TERTIARY"
-          :size="ButtonSize.LARGE"
+          :size="Size.LARGE"
           >{{ $t('groceryListPage.title') }}
         </Button></router-link
       >
@@ -111,7 +104,7 @@
           v-if="!userStore.isLoggedIn"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.TERTIARY"
-          :size="ButtonSize.LARGE"
+          :size="Size.LARGE"
           >{{ $t('loginPage.title') }}
         </Button></router-link
       >
@@ -121,7 +114,7 @@
           v-if="userStore.isLoggedIn"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.TERTIARY"
-          :size="ButtonSize.LARGE"
+          :size="Size.LARGE"
         >
           {{ $t('profilePage.title') }}
         </Button>
@@ -154,7 +147,7 @@ import { useI18n } from 'vue-i18n';
 import { lazyLoadLocaleMessages } from './i18n';
 import { setColorScheme, setHandedness } from './utils/global/setInterfaceVariables';
 import Button from './components/form/Button.vue';
-import { ButtonSize, ButtonType, ColorVariant } from './utils/types/enums';
+import { Size, ButtonType, ColorVariant } from './utils/types/enums';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import { useUserStore } from './stores/useUserStore';
 import { useProfileStore } from './stores/useProfileStore';

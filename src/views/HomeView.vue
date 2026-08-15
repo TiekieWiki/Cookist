@@ -2,24 +2,20 @@
   <main class="home">
     <article class="banner">
       <section class="info">
+        <Pill :size="Size.LARGE">
+          <font-awesome-icon :icon="['fas', 'bahai']" />
+          {{ $t('homePage.banner.pill') }}
+        </Pill>
         <h1>{{ $t('homePage.banner.title') }}</h1>
         <p>{{ $t('homePage.banner.subtitle') }}</p>
         <div class="buttons">
           <router-link to="/" tabindex="-1"
-            ><Button
-              :type="ButtonType.BUTTON"
-              :variant="ColorVariant.PRIMARY"
-              :size="ButtonSize.LARGE"
-            >
+            ><Button :type="ButtonType.BUTTON" :variant="ColorVariant.PRIMARY" :size="Size.LARGE">
               {{ $t('homePage.banner.browseRecipes')
               }}<font-awesome-icon :icon="['fas', 'arrow-right']" /> </Button
           ></router-link>
           <router-link to="/" tabindex="-1"
-            ><Button
-              :type="ButtonType.BUTTON"
-              :variant="ColorVariant.SECONDARY"
-              :size="ButtonSize.LARGE"
-            >
+            ><Button :type="ButtonType.BUTTON" :variant="ColorVariant.SECONDARY" :size="Size.LARGE">
               {{ $t('homePage.banner.addRecipe') }}
             </Button></router-link
           >
@@ -38,6 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { ButtonSize, ButtonType, ColorVariant } from '@/utils/types/enums';
+import { Size, ButtonType, ColorVariant } from '@/utils/types/enums';
 import Button from '@/components/form/Button.vue';
+import Pill from '@/components/general/Pill.vue';
 </script>

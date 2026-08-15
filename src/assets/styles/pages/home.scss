@@ -2,7 +2,7 @@
   .banner {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--spacing-6);
+    gap: var(--spacing-10);
     background: var(--color-gradient);
 
     .info {
@@ -27,6 +27,8 @@
     }
 
     .image {
+      display: flex;
+      justify-content: center;
       position: relative;
 
       img {
@@ -42,7 +44,7 @@
         gap: var(--spacing-2);
         position: absolute;
         left: var(--spacing-4);
-        bottom: calc(var(--spacing-4) * -1);
+        bottom: calc(var(--spacing-5) * -1);
         padding: var(--spacing-4);
         border-radius: var(--spacing-6);
         border: var(--border);

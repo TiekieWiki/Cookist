@@ -20,7 +20,7 @@ export enum ButtonType {
   RESET = 'reset'
 }
 
-export enum ButtonSize {
+export enum Size {
   MEDIUM = 'medium',
   LARGE = 'large'
 }

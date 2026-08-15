@@ -1,0 +1,26 @@
+.pill {
+  display: flex;
+  gap: var(--spacing-2);
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  border-radius: var(--spacing-5);
+  background-color: var(--color-background-primary);
+  color: var(--color-disabled-text);
+  border: var(--border);
+  font-size: 0.75rem;
+
+  &.medium {
+    height: var(--spacing-6);
+    padding: var(--spacing-1) var(--spacing-3);
+  }
+
+  &.large {
+    height: var(--spacing-7);
+    padding: var(--spacing-2) var(--spacing-4);
+  }
+
+  svg {
+    color: var(--color-primary);
+  }
+}
