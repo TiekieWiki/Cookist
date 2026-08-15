@@ -81,7 +81,6 @@ const { errorMessage: registerErrorMessage, passwordRegister } = usePasswordRegi
  */
 function handleLogin(): void {
   if (isRegistering.value) {
-    console.log('register');
     passwordRegister(email.value, password.value);
   } else {
     passwordLogin(email.value, password.value);
