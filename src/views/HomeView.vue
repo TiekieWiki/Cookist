@@ -2,7 +2,7 @@
   <main class="home">
     <article class="banner">
       <section class="info">
-        <Pill :size="Size.LARGE">
+        <Pill :variant="ColorVariant.SECONDARY" :size="Size.LARGE">
           <font-awesome-icon :icon="['fas', 'bahai']" />
           {{ $t('homePage.banner.pill') }}
         </Pill>
@@ -24,10 +24,33 @@
       <section class="image">
         <img src="../assets/images/Banner.jpg" alt="" />
         <div class="image-info">
-          <p class="small">{{ $t('homePage.image.longestUntouched') }}</p>
-          <p>{{ $t('homePage.image.recipeTitle') }}</p>
-          <p class="small">{{ $t('homePage.image.lastEaten') }}</p>
+          <p class="small">{{ $t('homePage.banner.longestUntouched') }}</p>
+          <p>{{ $t('homePage.banner.recipeTitle') }}</p>
+          <p class="small">{{ $t('homePage.banner.lastEaten') }}</p>
         </div>
+      </section>
+    </article>
+    <article class="actionPoints">
+      <section>
+        <Pill :variant="ColorVariant.PRIMARY" :size="Size.XLARGE">
+          <font-awesome-icon :icon="['fas', 'calendar']" />
+        </Pill>
+        <h3>{{ $t('homePage.actionPoints.lastEaten.title') }}</h3>
+        <p>{{ $t('homePage.actionPoints.lastEaten.subtitle') }}</p>
+      </section>
+      <section>
+        <Pill :variant="ColorVariant.PRIMARY" :size="Size.XLARGE">
+          <font-awesome-icon :icon="['fas', 'carrot']" />
+        </Pill>
+        <h3>{{ $t('homePage.actionPoints.nutrition.title') }}</h3>
+        <p>{{ $t('homePage.actionPoints.nutrition.subtitle') }}</p>
+      </section>
+      <section>
+        <Pill :variant="ColorVariant.PRIMARY" :size="Size.XLARGE">
+          <font-awesome-icon :icon="['fas', 'handshake']" />
+        </Pill>
+        <h3>{{ $t('homePage.actionPoints.recipeMatcher.title') }}</h3>
+        <p>{{ $t('homePage.actionPoints.recipeMatcher.subtitle') }}</p>
       </section>
     </article>
   </main>

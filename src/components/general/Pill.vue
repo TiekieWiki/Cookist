@@ -1,14 +1,15 @@
 <template>
-  <span class="pill" :class="size">
+  <span class="pill" :class="[variant, size]">
     <slot></slot>
   </span>
 </template>
 
 <script setup lang="ts">
-import { Size } from '@/utils/types/enums';
+import { ColorVariant, Size } from '@/utils/types/enums';
 import { PillProps } from '@/utils/types/general';
 
 withDefaults(defineProps<PillProps>(), {
+  variant: ColorVariant.PRIMARY,
   size: Size.MEDIUM
 });
 </script>

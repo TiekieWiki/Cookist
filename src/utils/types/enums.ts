@@ -22,7 +22,8 @@ export enum ButtonType {
 
 export enum Size {
   MEDIUM = 'medium',
-  LARGE = 'large'
+  LARGE = 'large',
+  XLARGE = 'xlarge',
 }
 
 export enum ColAmount {

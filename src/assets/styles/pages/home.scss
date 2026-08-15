@@ -65,4 +65,32 @@
       }
     }
   }
+
+  .actionPoints {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--spacing-5);
+    background-color: var(--color-background-secondary);
+    border-top: var(--border);
+    border-bottom: var(--border);
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+      gap: var(--spacing-7);
+    }
+
+    section {
+      flex: 1;
+
+      h3 {
+        margin-top: var(--spacing-4);
+        color: var(--color-background-secondary-text);
+      }
+
+      p {
+        margin-top: var(--spacing-2);
+        color: var(--color-disabled-text);
+      }
+    }
+  }
 }

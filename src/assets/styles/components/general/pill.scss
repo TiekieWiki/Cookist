@@ -4,20 +4,54 @@
   justify-content: center;
   align-items: center;
   width: fit-content;
-  border-radius: var(--spacing-5);
-  background-color: var(--color-background-primary);
-  color: var(--color-disabled-text);
-  border: var(--border);
+  border-radius: var(--spacing-6);
   font-size: 0.75rem;
+
+  &.primary {
+    background-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
+    color: var(--color-primary-text);
+  }
+
+  &.secondary {
+    background-color: color-mix(in srgb, var(--color-background-primary) 70%, transparent);
+    color: var(--color-disabled-text);
+  }
+
+  &.tertiary {
+    background-color: transparent;
+    color: var(--color-disabled-text);
+  }
+
+  &.accent {
+    background-color: color-mix(in srgb, var(--color-accent) 70%, transparent);
+    color: var(--color-accent-text);
+  }
 
   &.medium {
     height: var(--spacing-6);
     padding: var(--spacing-1) var(--spacing-3);
+
+    svg {
+      height: var(--spacing-2);
+    }
   }
 
   &.large {
     height: var(--spacing-7);
     padding: var(--spacing-2) var(--spacing-4);
+
+    svg {
+      height: var(--spacing-3);
+    }
+  }
+
+  &.xlarge {
+    height: var(--spacing-11);
+    aspect-ratio: 1/1;
+
+    svg {
+      height: var(--spacing-5);
+    }
   }
 
   svg {
