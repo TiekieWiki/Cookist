@@ -1,8 +1,8 @@
 .toggle {
   position: relative;
   display: inline-block;
-  width: calc(var(--gap-medium) * 2 - var(--gap-medium) * 2);
-  height: var(--gap-medium);
+  width: calc(var(--spacing-3) * 2 - var(--spacing-3) * 2);
+  height: var(--spacing-3);
 
   input {
     opacity: 0;
@@ -11,9 +11,9 @@
 
     &:checked + .slider {
       &::before {
-        -webkit-transform: translateX(calc(var(--gap-medium) - var(--gap-medium) * 4));
-        -ms-transform: translateX(calc(var(--gap-medium) - var(--gap-medium) * 4));
-        transform: translateX(calc(var(--gap-medium) - var(--gap-medium) * 4));
+        -webkit-transform: translateX(calc(var(--spacing-3) - var(--spacing-3) * 4));
+        -ms-transform: translateX(calc(var(--spacing-3) - var(--spacing-3) * 4));
+        transform: translateX(calc(var(--spacing-3) - var(--spacing-3) * 4));
       }
     }
 
@@ -30,17 +30,17 @@
     right: 0;
     bottom: 0;
     background-color: var(--color-disabled);
-    border-radius: var(--gap-medium);
+    border-radius: var(--spacing-3);
     -webkit-transition: 0.4s;
     transition: 0.4s;
 
     &::before {
       position: absolute;
       content: '';
-      height: calc(var(--gap-medium) - var(--gap-medium) * 4);
-      width: calc(var(--gap-medium) - var(--gap-medium) * 4);
-      left: calc(var(--gap-medium) * 2);
-      bottom: calc(var(--gap-medium) * 2);
+      height: calc(var(--spacing-3) - var(--spacing-3) * 4);
+      width: calc(var(--spacing-3) - var(--spacing-3) * 4);
+      left: calc(var(--spacing-3) * 2);
+      bottom: calc(var(--spacing-3) * 2);
       background-color: var(--color-text-secondary);
       border-radius: 50%;
       -webkit-transition: 0.4s;

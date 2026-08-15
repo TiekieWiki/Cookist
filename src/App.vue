@@ -8,7 +8,7 @@
       <router-link to="/" class="desktop" tabindex="-1">
         <Button
           :type="ButtonType.BUTTON"
-          :variant="ColorVariant.SECONDARY"
+          :variant="ColorVariant.TERTIARY"
           :size="ButtonSize.LARGE"
           >{{ $t('homePage.title') }}</Button
         ></router-link

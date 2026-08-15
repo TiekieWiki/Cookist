@@ -1,9 +1,17 @@
 export const en = {
   homePage: {
     title: 'Home',
-    banner1: 'All your favourite recipes in one place',
-    banner2: 'Never forget a recipe with the last eaten function',
-    banner3: 'Share your recipes others'
+    banner: {
+      title: 'Cook the recipes you forgot you loved.',
+      subtitle: 'Cookist keeps your recipes and tracks when you last made each one — so the good ones resurface instead of gathering dust.',
+      browseRecipes: 'Browse my recipes',
+      addRecipe: 'Add recipe'
+    },
+    image: {
+      longestUntouched: 'Longest untouched',
+      recipeTitle: 'Pumpkin brussels sprout salad',
+      lastEaten: '8 months'
+    }
   },
   registerPage: {
     title: 'Register',

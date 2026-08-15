@@ -1,4 +1,11 @@
 main {
+  padding-top: var(--nav-height);
+
   article {
+    padding: var(--spacing-15) var(--spacing-12);
+
+    @media only screen and (max-width: 1100px) {
+      padding: var(--spacing-11) var(--spacing-6);
+    }
   }
 }

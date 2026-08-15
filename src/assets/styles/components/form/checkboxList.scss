@@ -1,12 +1,12 @@
 .checkbox-list {
   display: flex;
   flex-direction: column;
-  gap: var(--gap-medium);
+  gap: var(--spacing-3);
   justify-content: center;
 
   .checkbox-list-item {
     display: grid;
-    gap: var(--gap-medium);
+    gap: var(--spacing-3);
     align-items: center;
   }
 }

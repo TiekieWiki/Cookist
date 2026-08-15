@@ -1,9 +1,9 @@
 .error {
-  padding: var(--gap-medium) var(--gap-medium);
+  padding: var(--spacing-3) var(--spacing-3);
   background-color: var(--color-error);
 }
 
 .success {
-  padding: var(--gap-medium) var(--gap-medium);
+  padding: var(--spacing-3) var(--spacing-3);
   background-color: var(--color-tertiary);
 }

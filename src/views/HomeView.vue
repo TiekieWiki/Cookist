@@ -1,24 +1,36 @@
 <template>
   <main class="home">
-    <article>
-      <section>
-        <div id="home-banner-1">
-          <!-- Photo by Joseph Gonzalez on Unsplash -->
-          <div>
-            <h3>{{ $t('homePage.banner1') }}</h3>
-          </div>
+    <article class="banner">
+      <section class="info">
+        <h1>{{ $t('homePage.banner.title') }}</h1>
+        <p>{{ $t('homePage.banner.subtitle') }}</p>
+        <div class="buttons">
+          <router-link to="/" tabindex="-1"
+            ><Button
+              :type="ButtonType.BUTTON"
+              :variant="ColorVariant.PRIMARY"
+              :size="ButtonSize.LARGE"
+            >
+              {{ $t('homePage.banner.browseRecipes')
+              }}<font-awesome-icon :icon="['fas', 'arrow-right']" /> </Button
+          ></router-link>
+          <router-link to="/" tabindex="-1"
+            ><Button
+              :type="ButtonType.BUTTON"
+              :variant="ColorVariant.SECONDARY"
+              :size="ButtonSize.LARGE"
+            >
+              {{ $t('homePage.banner.addRecipe') }}
+            </Button></router-link
+          >
         </div>
-        <div id="home-banner-2">
-          <!-- Photo by Chad Montano on Unsplash -->
-          <div>
-            <h3>{{ $t('homePage.banner2') }}</h3>
-          </div>
-        </div>
-        <div id="home-banner-3">
-          <!-- Photo by Chad Montano on Unsplash -->
-          <div>
-            <h3>{{ $t('homePage.banner3') }}</h3>
-          </div>
+      </section>
+      <section class="image">
+        <img src="../assets/images/Banner.jpg" alt="" />
+        <div class="image-info">
+          <p class="small">{{ $t('homePage.image.longestUntouched') }}</p>
+          <p>{{ $t('homePage.image.recipeTitle') }}</p>
+          <p class="small">{{ $t('homePage.image.lastEaten') }}</p>
         </div>
       </section>
     </article>
@@ -26,21 +38,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
-
-// Set the images for the banners on mount
-onMounted(() => {
-  const homeBanner1 = document.getElementById('home-banner-1');
-  if (homeBanner1) {
-    homeBanner1.style.backgroundImage = `url(src/assets/images/HomeBanner1.jpg)`;
-  }
-  const homeBanner2 = document.getElementById('home-banner-2');
-  if (homeBanner2) {
-    homeBanner2.style.backgroundImage = `url(src/assets/images/HomeBanner2.jpg)`;
-  }
-  const homeBanner3 = document.getElementById('home-banner-3');
-  if (homeBanner3) {
-    homeBanner3.style.backgroundImage = `url(src/assets/images/HomeBanner3.jpg)`;
-  }
-});
+import { ButtonSize, ButtonType, ColorVariant } from '@/utils/types/enums';
+import Button from '@/components/form/Button.vue';
 </script>

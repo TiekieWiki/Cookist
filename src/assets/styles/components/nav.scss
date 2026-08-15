@@ -5,12 +5,12 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: var(--gap-xlarge);
+  gap: var(--spacing-5);
   position: fixed;
   z-index: 2;
   width: 100vw;
-  height: 65px;
-  padding: 0 var(--gap-xxlarge);
+  height: var(--nav-height);
+  padding: 0 var(--spacing-6);
   background-color: var(--color-background-primary);
   color: var(--color-background-primary-text);
   border-bottom: var(--border);
@@ -18,21 +18,21 @@ nav {
   .brand {
     display: flex;
     align-items: center;
-    gap: var(--gap-large);
+    gap: var(--spacing-4);
 
     .logo {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 36px;
-      width: 36px;
+      height: var(--spacing-9);
+      width: var(--spacing-9);
       border-radius: 100%;
       background-color: var(--color-primary);
       color: var(--color-primary-text);
 
       svg {
-        height: 20px;
-        width: 20px;
+        height: var(--spacing-5);
+        width: var(--spacing-5);
       }
     }
 
@@ -50,7 +50,19 @@ nav {
     display: flex;
     justify-content: end;
     align-items: center;
-    gap: var(--gap-xsmall);
+    gap: var(--spacing-1);
+
+    .active {
+      button {
+        background-color: var(--color-secondary);
+        color: var(--color-secondary-text);
+
+        &:hover,
+        &:focus {
+          background-color: color-mix(in srgb, var(--color-secondary) 80%, transparent);
+        }
+      }
+    }
   }
 }
 
@@ -58,7 +70,7 @@ aside {
   display: flex;
   flex-direction: column;
   align-items: start;
-  gap: var(--gap-medium);
+  gap: var(--spacing-3);
   position: absolute;
   z-index: 1;
   right: 0;
@@ -66,7 +78,7 @@ aside {
   width: 60vw;
   height: 100vh;
   z-index: 1001;
-  padding: var(--gap-xxlarge);
+  padding: var(--spacing-6);
   background-color: var(--color-background-primary);
   border-left: var(--border);
   border-right: var(--border);

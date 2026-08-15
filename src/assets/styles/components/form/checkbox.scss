@@ -2,7 +2,7 @@
 
 .checkbox {
   display: grid;
-  gap: var(--gap-medium);
+  gap: var(--spacing-3);
   align-items: center;
 
   input[type='checkbox'] {
@@ -16,25 +16,25 @@
 
     &.primary {
       &::before {
-        box-shadow: inset var(--gap-medium) var(--gap-medium) var(--color-primary);
+        box-shadow: inset var(--spacing-3) var(--spacing-3) var(--color-primary);
       }
     }
 
     &.secondary {
       &::before {
-        box-shadow: inset var(--gap-medium) var(--gap-medium) var(--color-secondary);
+        box-shadow: inset var(--spacing-3) var(--spacing-3) var(--color-secondary);
       }
     }
 
     &.tertiary {
       &::before {
-        box-shadow: inset var(--gap-medium) var(--gap-medium) var(--color-tertiary);
+        box-shadow: inset var(--spacing-3) var(--spacing-3) var(--color-tertiary);
       }
     }
 
     &.warning {
       &::before {
-        box-shadow: inset var(--gap-medium) var(--gap-medium) var(--color-error);
+        box-shadow: inset var(--spacing-3) var(--spacing-3) var(--color-error);
       }
     }
 

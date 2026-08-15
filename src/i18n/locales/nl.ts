@@ -3,9 +3,17 @@ import type { TranslationSchema } from './en';
 export const nl: TranslationSchema = {
   homePage: {
     title: 'Home',
-    banner1: 'Al je favoriete recepten op één plek',
-    banner2: 'Vergeet nooit een recept met de laatst gegeten functie',
-    banner3: 'Deel je recepten met anderen'
+    banner: {
+      title: 'Kook de recepten die je vergeten was dat je ze lekker vond.',
+      subtitle: 'Cookist houdt je recepten bij en registreert wanneer je ze voor het laatst hebt gemaakt — zodat de goede recepten weer boven komen drijven in plaats van stof te verzamelen.',
+      browseRecipes: 'Bekijk mijn recepten',
+      addRecipe: 'Voeg recept toe'
+    },
+    image: {
+      longestUntouched: 'Lang niet aangeraakt',
+      recipeTitle: 'Pompoen spruitjes salade',
+      lastEaten: '8 maanden'
+    }
   },
   registerPage: {
     title: 'Registreer',
