@@ -57,6 +57,12 @@
 
       p {
         color: var(--color-disabled-text);
+
+        &.small {
+          display: flex;
+          justify-self: center;
+          margin-top: var(--spacing-4);
+        }
       }
     }
   }

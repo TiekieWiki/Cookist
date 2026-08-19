@@ -8,6 +8,7 @@
   button {
     &.active {
       background-color: var(--color-background-primary);
+      box-shadow: var(--box-shadow-small);
     }
   }
 }

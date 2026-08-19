@@ -31,7 +31,7 @@ export const en = {
     banner: {
       title: '"We made this every week. Then we simply stopped."',
       subtitle: 'Cookist exists so that never happens again.',
-      quote: 'Recipes, remembered.'
+      quote: 'Recipes, remembered.',
     },
     login: {
       title: 'Welcome back',
@@ -47,6 +47,7 @@ export const en = {
     },
     email: 'Email',
     password: 'Password',
+    policy: "By continuing you agree to keep cooking.",
     placeholder: {
       email: "john.doe{'@'}gmail.com",
       password: '********'

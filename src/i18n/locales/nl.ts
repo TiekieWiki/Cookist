@@ -33,7 +33,7 @@ export const nl: TranslationSchema = {
     banner: {
       title: '"We maakten dit elke week. Toen vergaten we het simpelweg."',
       subtitle: 'Cookist bestaat zodat dat nooit gebeurd.',
-      quote: 'Recepten, onthouden.'
+      quote: 'Recepten, onthouden.',
     },
     login: {
       title: 'Welkom terug',
@@ -49,6 +49,7 @@ export const nl: TranslationSchema = {
     },
     email: 'E-mail',
     password: 'Wachtwoord',
+    policy: "Door door te gaan, stem je ermee in om te blijven koken.",
     placeholder: {
       email: "john.doe{'@'}gmail.com",
       password: '********'

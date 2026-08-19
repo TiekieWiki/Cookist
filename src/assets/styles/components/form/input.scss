@@ -24,6 +24,7 @@ input[type='date'] {
   color: var(--color-background-primary-text);
   border-radius: var(--spacing-5);
   border: var(--border-secondary);
+  box-shadow: var(--box-shadow-small);
 
   &:focus-visible {
     border: var(--border-primary);

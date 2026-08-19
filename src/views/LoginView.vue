@@ -55,6 +55,7 @@
           >
             {{ isRegistering ? $t('loginPage.register.button') : $t('loginPage.login.button') }}
           </Button>
+          <p class="small">{{ $t('loginPage.policy') }}</p>
         </form>
       </section>
     </article>

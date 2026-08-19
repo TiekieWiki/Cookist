@@ -14,6 +14,7 @@ button {
     background-color: var(--color-primary);
     color: var(--color-primary-text);
     border: none;
+    box-shadow: var(--box-shadow-small);
 
     &:hover,
     &:focus {
@@ -25,6 +26,7 @@ button {
     background-color: var(--color-background-primary);
     color: var(--color-secondary-text);
     border: var(--border-secondary);
+    box-shadow: var(--box-shadow-small);
 
     &:hover,
     &:focus {
