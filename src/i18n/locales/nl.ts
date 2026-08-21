@@ -63,22 +63,28 @@ export const nl: TranslationSchema = {
     title: 'Profiel',
     account: 'Account',
     logout: 'Log uit',
-    settings: 'Instellingen',
+    preferences: 'Voorkeuren',
+    language: 'Taal',
+    languageDescription: 'Als koken je tweede taal is, wat is je eerste?',
     languages: {
       en: 'Engels',
       nl: 'Nederlands'
     },
+    colorScheme: "Dark mode",
+    colorSchemeDescription: "Aangenamer voor de ogen.",
     colorSchemes: {
       light: 'Licht',
       dark: 'Donker'
     },
-    handedness: {
+    handedness: "Handigheid",
+    handednessDescription: "Je hebt maar twee handen, laten we er maar een voor je telefoon gebruiken.",
+    handednessType: {
       right: 'Rechtshandig',
       left: 'Linkshandig',
       ambidextrous: 'Tweehandig'
     },
-    save: 'Opslaan',
-    saveSuccess: 'Instellingen opgeslagen',
+    save: 'Veranderingen opslaan',
+    saveSuccess: 'Voorkeuren opgeslagen',
     deleteAccount: 'Account verwijderen',
     confirmDelete:
       'Weet je zeker dat je je account wilt verwijderen? Dit kan niet ongedaan worden gemaakt.',

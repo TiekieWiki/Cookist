@@ -60,23 +60,29 @@ export const en = {
   profilePage: {
     title: 'Profile',
     account: 'Account',
-    logout: 'Log out',
-    settings: 'Settings',
+    logout: 'Sign out',
+    preferences: 'Preferences',
+    language: 'Language',
+    languageDescription: 'When cooking is your second language, what is your first?',
     languages: {
       en: 'English',
       nl: 'Dutch'
     },
+    colorScheme: "Dark mode",
+    colorSchemeDescription: "Easier on the eyes.",
     colorSchemes: {
       light: 'Light',
       dark: 'Dark'
     },
-    handedness: {
+    handedness: "Handedness",
+    handednessDescription: "You only have two hands, let's only use one for your phone",
+    handednessType: {
       right: 'Right-handed',
       left: 'Left-handed',
       ambidextrous: 'Ambidextrous'
     },
-    save: 'Save',
-    saveSuccess: 'Settings saved successfully',
+    save: 'Save changes',
+    saveSuccess: 'Preferences saved successfully',
     deleteAccount: 'Delete account',
     confirmDelete: 'Are you sure you want to delete your account? This cannot be undone.',
     cancel: 'Cancel',
