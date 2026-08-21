@@ -7,36 +7,23 @@
   grid-template-areas: 'select';
   align-items: center;
   cursor: pointer;
+  width: 100%;
+  min-height: var(--spacing-9);
+  padding: var(--spacing-1) var(--spacing-3);
+  background-color: transparent;
+  color: var(--color-background-primary-text);
+  border: var(--border-primary);
+  border-radius: var(--spacing-5);
+  box-shadow: var(--box-shadow-small);
 
   &::after {
     content: '';
     grid-area: select;
     justify-self: end;
-    clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
-  }
-
-  &.primary {
-    &::after {
-      background-color: var(--color-primary);
-    }
-  }
-
-  &.secondary {
-    &::after {
-      background-color: var(--color-secondary);
-    }
-  }
-
-  &.tertiary {
-    &::after {
-      background-color: var(--color-tertiary);
-    }
-  }
-
-  &.warning {
-    &::after {
-      background-color: var(--color-error);
-    }
+    clip-path: polygon(50% 55%, 80% 25%, 100% 25%, 50% 75%, 0 25%, 20% 25%);
+    width: var(--spacing-3);
+    height: var(--spacing-3);
+    background-color: var(--color-primary);
   }
 
   &:has(select:disabled) {
@@ -61,7 +48,7 @@
     }
 
     option {
-      color: var(--color-text-primary);
+      color: var(--color-background-primary-text);
       background-color: var(--color-background-primary);
     }
   }

@@ -82,7 +82,9 @@
         }
 
         > :nth-child(2) {
-          width: calc(var(--spacing-15) * 2);
+          &:not(.toggle) {
+            width: calc(var(--spacing-15) * 2);
+          }
         }
 
         &:not(:last-child) {

@@ -40,7 +40,7 @@
             <p>{{ $t('profilePage.colorScheme') }}</p>
             <p class="small">{{ $t('profilePage.colorSchemeDescription') }}</p>
           </div>
-          <Toggle @click="darkModeOn = !darkModeOn" />
+          <Toggle v-model:input="darkModeOn" />
         </div>
         <div class="preference">
           <div class="name">
@@ -68,7 +68,7 @@
       <Button
         @click="deleteOpen = true"
         :type="ButtonType.BUTTON"
-        :variant="ColorVariant.ERROR"
+        :variant="ColorVariant.ACCENT"
         :size="Size.LARGE"
       >
         <font-awesome-icon :icon="['fas', 'trash-can']" />
@@ -106,6 +106,7 @@ import SelectField from '@/components/form/SelectField.vue';
 import Toggle from '@/components/form/Toggle.vue';
 import SuccessMessage from '@/components/form/SuccessMessage.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
+import ConfirmPopUp from '@/components/general/ConfirmPopUp.vue';
 
 const userStore = useUserStore();
 const profileStore = useProfileStore();
@@ -129,19 +130,26 @@ onMounted(async () => {
   if (userStore.user) {
     email.value = userStore.user.email ?? '';
   }
-
-  if (profileStore.profile) {
-    selectedLanguage.value = profileStore.profile.language;
-    darkModeOn.value = profileStore.profile.colorscheme === ColorScheme.DARK;
-    selectedHandedness.value = profileStore.profile.handedness;
-  }
 });
+
+watch(
+  () => profileStore.profile,
+  (profile) => {
+    if (!profile) return;
+
+    selectedLanguage.value = profile.language;
+    darkModeOn.value = profile.colorscheme === ColorScheme.DARK;
+    selectedHandedness.value = profile.handedness;
+  },
+  { immediate: true }
+);
 
 watch(selectedLanguage, () => {
   i18n.global.locale.value = (selectedLanguage.value as 'en' | 'nl') || 'en';
 });
 
 watch(darkModeOn, () => {
+  console.log('test');
   setColorScheme(!darkModeOn.value ? ColorScheme.LIGHT : ColorScheme.DARK);
 });
 

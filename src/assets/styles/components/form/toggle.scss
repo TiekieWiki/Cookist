@@ -1,8 +1,8 @@
 .toggle {
   position: relative;
   display: inline-block;
-  width: calc(var(--spacing-3) * 2 - var(--spacing-3) * 2);
-  height: var(--spacing-3);
+  width: var(--spacing-12);
+  height: calc(var(--spacing-7) + var(--spacing-1) / 2);
 
   input {
     opacity: 0;
@@ -11,14 +11,14 @@
 
     &:checked + .slider {
       &::before {
-        -webkit-transform: translateX(calc(var(--spacing-3) - var(--spacing-3) * 4));
-        -ms-transform: translateX(calc(var(--spacing-3) - var(--spacing-3) * 4));
-        transform: translateX(calc(var(--spacing-3) - var(--spacing-3) * 4));
+        -webkit-transform: translateX(var(--spacing-6));
+        -ms-transform: translateX(var(--spacing-6));
+        transform: translateX(var(--spacing-6));
       }
     }
 
     &:focus + .slider {
-      box-shadow: 0 0 1px var(--color-primary);
+      box-shadow: var(--box-shadow-small);
     }
   }
 
@@ -29,19 +29,19 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--color-disabled);
-    border-radius: var(--spacing-3);
+    background-color: var(--color-primary);
+    border-radius: var(--spacing-7);
     -webkit-transition: 0.4s;
     transition: 0.4s;
 
     &::before {
       position: absolute;
       content: '';
-      height: calc(var(--spacing-3) - var(--spacing-3) * 4);
-      width: calc(var(--spacing-3) - var(--spacing-3) * 4);
-      left: calc(var(--spacing-3) * 2);
-      bottom: calc(var(--spacing-3) * 2);
-      background-color: var(--color-text-secondary);
+      height: calc(var(--spacing-5) + var(--spacing-1) / 2);
+      width: calc(var(--spacing-5) + var(--spacing-1) / 2);
+      left: calc(var(--spacing-1) + var(--spacing-1) / 4);
+      bottom: var(--spacing-1);
+      background-color: var(--color-primary-text);
       border-radius: 50%;
       -webkit-transition: 0.4s;
       transition: 0.4s;
