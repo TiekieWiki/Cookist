@@ -27,6 +27,11 @@
     color: var(--color-accent-text);
   }
 
+  &.warning {
+    background-color: color-mix(in srgb, var(--color-warning) 20%, transparent);
+    color: var(--color-warning-text);
+  }
+
   &.medium {
     height: var(--spacing-6);
     padding: var(--spacing-1) var(--spacing-3);

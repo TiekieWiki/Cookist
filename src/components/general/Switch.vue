@@ -1,10 +1,10 @@
 <template>
-  <div class="switch">
+  <div class="switch" :class="variant">
     <Button
       :class="{ active: !input }"
       @click="input = false"
       :type="ButtonType.BUTTON"
-      :variant="variant"
+      :variant="ColorVariant.TERTIARY"
       :size="size"
       >{{ textLeft }}</Button
     >
@@ -12,7 +12,7 @@
       :class="{ active: input }"
       @click="input = true"
       :type="ButtonType.BUTTON"
-      :variant="variant"
+      :variant="ColorVariant.TERTIARY"
       :size="size"
       >{{ textRight }}</Button
     >

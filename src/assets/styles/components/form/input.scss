@@ -7,35 +7,83 @@ label {
   width: 100%;
   color: var(--color-background-primary-text);
   font-weight: 500;
-}
 
-input[type='text'],
-input[type='password'],
-input[type='search'],
-input[type='email'],
-input[type='number'],
-input[type='date'] {
-  @include form-element;
+  input[type='text'],
+  input[type='password'],
+  input[type='search'],
+  input[type='email'],
+  input[type='number'],
+  input[type='date'],
+  textarea {
+    @include form-element;
 
-  width: 100%;
-  min-height: var(--spacing-9);
-  padding: var(--spacing-1) var(--spacing-3);
-  background-color: transparent;
-  color: var(--color-background-primary-text);
-  border-radius: var(--spacing-5);
-  border: var(--border-secondary);
-  box-shadow: var(--box-shadow-small);
+    width: 100%;
+    min-height: var(--spacing-9);
+    padding: var(--spacing-1) var(--spacing-3);
+    background-color: transparent;
+    border-radius: var(--spacing-5);
 
-  &:focus-visible {
-    border: var(--border-primary);
+    &.primary {
+      color: var(--color-background-primary-text);
+      border: var(--border-primary);
+      box-shadow: var(--box-shadow-small);
+
+      &:focus-visible {
+        border: var(--border-accent);
+      }
+    }
+
+    &.secondary {
+      color: var(--color-background-secondary-text);
+      border: var(--border-secondary);
+      box-shadow: var(--box-shadow-small);
+
+      &:focus-visible {
+        border: var(--border-primary);
+      }
+    }
+
+    &.tertiary {
+      color: var(--color-background-tertiary-text);
+      border: none;
+
+      &:focus-visible {
+        border: var(--border-primary);
+      }
+    }
+
+    &.accent {
+      color: var(--color-accent-text);
+      border: var(--border-accent);
+      box-shadow: var(--box-shadow-small);
+
+      &:focus-visible {
+        border: var(--border-primary);
+      }
+    }
+
+    &.warning {
+      color: var(--color-warning-text);
+      border: var(--border-warning);
+      box-shadow: var(--box-shadow-small);
+
+      &:focus-visible {
+        border: var(--border-primary);
+      }
+    }
+
+    &:disabled {
+      background-color: var(--color-disabled);
+      cursor: auto;
+    }
   }
 
-  &:disabled {
-    background-color: var(--color-disabled);
-    cursor: auto;
+  input[type='date'] {
+    padding: calc(var(--spacing-3) - 2px) var(--spacing-3);
   }
-}
 
-input[type='date'] {
-  padding: calc(var(--spacing-3) - 2px) var(--spacing-3);
+  textarea {
+    min-height: var(--spacing-12);
+    padding: var(--spacing-3) var(--spacing-3);
+  }
 }

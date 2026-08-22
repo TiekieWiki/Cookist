@@ -3,6 +3,6 @@
   border-width: 1px;
 
   &:user-invalid {
-    border-color: var(--color-error);
+    border-color: var(--color-warning);
   }
 }

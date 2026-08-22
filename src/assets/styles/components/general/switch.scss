@@ -3,7 +3,50 @@
   grid-template-columns: repeat(2, 1fr);
   padding: var(--spacing-1);
   border-radius: var(--spacing-5);
-  background-color: var(--color-disabled);
+
+  &.primary {
+    background-color: var(--color-primary);
+
+    button {
+      &:not(.active) {
+        color: var(--color-primary-text);
+      }
+    }
+  }
+
+  &.secondary {
+    background-color: var(--color-secondary);
+
+    button {
+      &:not(.active) {
+        color: var(--color-secondary-text);
+      }
+    }
+  }
+
+  &.tertiary {
+    background-color: var(--color-disabled);
+  }
+
+  &.accent {
+    background-color: var(--color-accent);
+
+    button {
+      &:not(.active) {
+        color: var(--color-accent-text);
+      }
+    }
+  }
+
+  &.warning {
+    background-color: var(--color-warning);
+
+    button {
+      &:not(.active) {
+        color: var(--color-warning-text);
+      }
+    }
+  }
 
   button {
     &.active {

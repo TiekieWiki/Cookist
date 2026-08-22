@@ -2,9 +2,9 @@
   <label :for="id">
     {{ required ? label + ' *' : label }}
     <textarea
-      :class="variant"
       :id="id"
       :name="name"
+      :class="variant"
       :placeholder="placeholder"
       :aria-label="ariaLabel"
       :required="required"
@@ -19,7 +19,7 @@ import { ColorVariant } from '@/utils/types/enums';
 import { TextAreaProps } from '@/utils/types/form';
 
 withDefaults(defineProps<TextAreaProps>(), {
-  variant: ColorVariant.PRIMARY
+  variant: ColorVariant.SECONDARY
 });
 
 const input = defineModel<string>('input');

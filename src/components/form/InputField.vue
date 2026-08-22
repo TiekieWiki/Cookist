@@ -2,9 +2,9 @@
   <label :for="id">
     {{ required ? label + ' *' : label }}
     <input
-      :class="variant"
       :id="id"
       :name="name"
+      :class="variant"
       :placeholder="placeholder"
       :aria-label="ariaLabel"
       :type="type"
@@ -23,8 +23,8 @@
 import { AutoCompleteVariant, ColorVariant } from '@/utils/types/enums';
 import { InputFieldProps } from '@/utils/types/form';
 
-withDefaults(defineProps<InputFieldProps>(), {
-  variant: ColorVariant.PRIMARY,
+const props = withDefaults(defineProps<InputFieldProps>(), {
+  variant: ColorVariant.SECONDARY,
   required: false,
   disabled: false,
   autocomplete: AutoCompleteVariant.OFF

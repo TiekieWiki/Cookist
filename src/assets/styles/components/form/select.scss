@@ -10,11 +10,7 @@
   width: 100%;
   min-height: var(--spacing-9);
   padding: var(--spacing-1) var(--spacing-3);
-  background-color: transparent;
-  color: var(--color-background-primary-text);
-  border: var(--border-primary);
   border-radius: var(--spacing-5);
-  box-shadow: var(--box-shadow-small);
 
   &::after {
     content: '';
@@ -23,7 +19,6 @@
     clip-path: polygon(50% 55%, 80% 25%, 100% 25%, 50% 75%, 0 25%, 20% 25%);
     width: var(--spacing-3);
     height: var(--spacing-3);
-    background-color: var(--color-primary);
   }
 
   &:has(select:disabled) {
@@ -37,19 +32,108 @@
     grid-area: select;
     width: 100%;
     margin: 0;
-    color: var(--color-text-primary);
     background-color: transparent;
     border: none;
     outline: none;
     cursor: inherit;
+  }
 
-    &::-ms-expand {
-      display: none;
+  &.primary {
+    background-color: transparent;
+    color: var(--color-background-primary-text);
+    border: var(--border-primary);
+    box-shadow: var(--box-shadow-small);
+
+    &::after {
+      background-color: var(--color-primary);
+    }
+
+    select {
+      color: var(--color-background-primary-text);
     }
 
     option {
-      color: var(--color-background-primary-text);
       background-color: var(--color-background-primary);
+      color: var(--color-background-primary-text);
+    }
+  }
+
+  &.secondary {
+    background-color: transparent;
+    color: var(--color-background-secondary-text);
+    border: var(--border-secondary);
+    box-shadow: var(--box-shadow-small);
+
+    &::after {
+      background-color: var(--color-secondary);
+    }
+
+    select {
+      color: var(--color-background-secondary-text);
+    }
+
+    option {
+      background-color: var(--color-background-secondary);
+      color: var(--color-background-secondary-text);
+    }
+  }
+
+  &.tertiary {
+    background-color: transparent;
+    color: var(--color-disabled-text);
+    border: none;
+
+    &::after {
+      background-color: var(--color-tertiary);
+    }
+
+    select {
+      color: var(--color-background-tertiary-text);
+    }
+
+    option {
+      background-color: var(--color-background-tertiary);
+      color: var(--color-background-tertiary-text);
+    }
+  }
+
+  &.accent {
+    background-color: transparent;
+    color: var(--color-background-primary-text);
+    border: var(--border-accent);
+    box-shadow: var(--box-shadow-small);
+
+    &::after {
+      background-color: var(--color-accent);
+    }
+
+    select {
+      color: var(--color-background-primary-text);
+    }
+
+    option {
+      background-color: var(--color-background-primary);
+      color: var(--color-background-primary-text);
+    }
+  }
+
+  &.warning {
+    background-color: transparent;
+    color: var(--color-background-primary-text);
+    border: var(--border-warning);
+    box-shadow: var(--box-shadow-small);
+
+    &::after {
+      background-color: var(--color-warning);
+    }
+
+    select {
+      color: var(--color-background-primary-text);
+    }
+
+    option {
+      background-color: var(--color-background-primary);
+      color: var(--color-background-primary-text);
     }
   }
 }

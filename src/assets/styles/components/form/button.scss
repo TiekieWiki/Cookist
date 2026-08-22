@@ -23,7 +23,7 @@ button {
   }
 
   &.secondary {
-    background-color: var(--color-background-primary);
+    background-color: var(--color-secondary);
     color: var(--color-secondary-text);
     border: var(--border-secondary);
     box-shadow: var(--box-shadow-small);
@@ -55,6 +55,17 @@ button {
     &:hover,
     &:focus {
       background-color: color-mix(in srgb, var(--color-accent) 80%, transparent);
+    }
+  }
+
+  &.warning {
+    background-color: var(--color-warning);
+    color: var(--color-warning-text);
+    border: none;
+
+    &:hover,
+    &:focus {
+      background-color: color-mix(in srgb, var(--color-warning) 80%, transparent);
     }
   }
 

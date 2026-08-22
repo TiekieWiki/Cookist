@@ -27,7 +27,7 @@
           <Button
             @click.prevent="emit('confirm', true)"
             :type="ButtonType.SUBMIT"
-            :variant="ColorVariant.ERROR"
+            :variant="ColorVariant.WARNING"
           >
             {{ $t(confirm) }}
           </Button>

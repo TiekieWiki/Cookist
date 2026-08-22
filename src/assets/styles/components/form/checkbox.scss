@@ -1,46 +1,72 @@
 @import '../../mixins/interactions.scss';
+@import '../../mixins/form.scss';
 
 .checkbox {
   display: grid;
+  grid-template-columns: 1rem auto;
   gap: var(--spacing-3);
   align-items: center;
 
   input[type='checkbox'] {
+    @include form-element;
+
     -webkit-appearance: none;
     appearance: none;
     display: grid;
     place-content: center;
+    width: var(--spacing-5);
+    height: var(--spacing-5);
     background-color: transparent;
-    border-style: solid;
+    border-radius: var(--spacing-1);
     cursor: pointer;
 
     &.primary {
+      border: var(--border-primary);
+
       &::before {
-        box-shadow: inset var(--spacing-3) var(--spacing-3) var(--color-primary);
+        box-shadow: inset var(--spacing-4) var(--spacing-4) var(--color-primary);
       }
     }
 
     &.secondary {
+      border: var(--border-secondary);
+
       &::before {
-        box-shadow: inset var(--spacing-3) var(--spacing-3) var(--color-secondary);
+        box-shadow: inset var(--spacing-4) var(--spacing-4) var(--color-secondary);
       }
     }
 
     &.tertiary {
+      border: var(--border-tertiary);
+
       &::before {
-        box-shadow: inset var(--spacing-3) var(--spacing-3) var(--color-tertiary);
+        box-shadow: inset var(--spacing-4) var(--spacing-4) var(--color-tertiary);
+      }
+    }
+
+    &.accent {
+      border: var(--border-accent);
+
+      &::before {
+        box-shadow: inset var(--spacing-4) var(--spacing-4) var(--color-accent);
       }
     }
 
     &.warning {
+      border: var(--border-warning);
+
       &::before {
-        box-shadow: inset var(--spacing-3) var(--spacing-3) var(--color-error);
+        box-shadow: inset var(--spacing-4) var(--spacing-4) var(--color-warning);
       }
     }
 
     &::before {
       content: '';
+      width: var(--spacing-3);
+      height: var(--spacing-3);
+      border-radius: calc(var(--spacing-1) / 2);
       transform: scale(0);
+      transition: var(--speed-medium) transform ease-in-out;
     }
 
     &:checked::before {

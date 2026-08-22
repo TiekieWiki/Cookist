@@ -7,7 +7,7 @@
     <div>
       <h2>{{ $t('groceryListPage.title') }}</h2>
       <div>
-        <Button :type="ButtonType.BUTTON" :variant="ColorVariant.ERROR">
+        <Button :type="ButtonType.BUTTON" :variant="ColorVariant.WARNING">
           <font-awesome-icon @click="deleteOpen = true" :icon="['fas', 'trash-can']" />
         </Button>
       </div>
@@ -31,7 +31,7 @@
           <p>{{ item.name }}</p>
           <Button
             :type="ButtonType.BUTTON"
-            :variant="ColorVariant.ERROR"
+            :variant="ColorVariant.WARNING"
             @click="
               groceryListStore.deleteGroceryListIngredient(groceryListStore.groceryList[index].id!)
             "

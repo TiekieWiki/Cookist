@@ -2,30 +2,73 @@
 
 input[type='file'] {
   width: 100%;
-}
 
-input {
   &.primary {
     &::file-selector-button {
       background-color: var(--color-primary);
+      color: var(--color-primary-text);
+      border: none;
+      box-shadow: var(--box-shadow-small);
+
+      &:hover,
+      &:focus {
+        background-color: color-mix(in srgb, var(--color-primary) 80%, transparent);
+      }
     }
   }
 
   &.secondary {
     &::file-selector-button {
       background-color: var(--color-secondary);
+      color: var(--color-secondary-text);
+      border: var(--border-secondary);
+      box-shadow: var(--box-shadow-small);
+
+      &:hover,
+      &:focus {
+        background-color: var(--color-accent);
+        color: var(--color-accent-text);
+      }
     }
   }
 
   &.tertiary {
     &::file-selector-button {
-      background-color: var(--color-tertiary);
+      background-color: transparent;
+      color: var(--color-disabled-text);
+      border: none;
+
+      &:hover,
+      &:focus {
+        background-color: var(--color-secondary);
+        color: var(--color-secondary-text);
+      }
+    }
+  }
+
+  &.accent {
+    &::file-selector-button {
+      background-color: var(--color-accent);
+      color: var(--color-accent-text);
+      border: none;
+
+      &:hover,
+      &:focus {
+        background-color: color-mix(in srgb, var(--color-accent) 80%, transparent);
+      }
     }
   }
 
   &.warning {
     &::file-selector-button {
-      background-color: var(--color-error);
+      background-color: var(--color-warning);
+      color: var(--color-warning-text);
+      border: none;
+
+      &:hover,
+      &:focus {
+        background-color: color-mix(in srgb, var(--color-warning) 80%, transparent);
+      }
     }
   }
 
@@ -35,9 +78,12 @@ input {
     display: grid;
     justify-self: start;
     align-self: center;
+    height: var(--spacing-10);
     margin-bottom: var(--spacing-3);
+    padding: var(--spacing-2) var(--spacing-4);
     border: none;
-    color: var(--color-text-secondary);
+    border-radius: var(--spacing-5);
+    font-size: 0.9rem;
     cursor: pointer;
   }
 
@@ -52,6 +98,7 @@ input {
 
 input:disabled::file-selector-button {
   background-image: none;
-  background-color: var(--color-disabled);
+  background-color: var(--color-disabled) !important;
+  color: var(--color-disabled-text) !important;
   cursor: auto;
 }

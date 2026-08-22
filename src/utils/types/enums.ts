@@ -3,7 +3,7 @@ export enum ColorVariant {
   SECONDARY = 'secondary',
   TERTIARY = 'tertiary',
   ACCENT = 'accent',
-  ERROR = 'error',
+  WARNING = 'warning',
 }
 
 export enum AutoCompleteVariant {

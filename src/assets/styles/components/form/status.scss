@@ -1,9 +1,15 @@
+.error,
+.success {
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--spacing-5);
+}
+
 .error {
-  padding: var(--spacing-3) var(--spacing-3);
-  background-color: var(--color-error);
+  background-color: var(--color-warning);
+  color: var(--color-warning-text);
 }
 
 .success {
-  padding: var(--spacing-3) var(--spacing-3);
   background-color: var(--color-tertiary);
+  color: var(--color-tertiary-text);
 }
