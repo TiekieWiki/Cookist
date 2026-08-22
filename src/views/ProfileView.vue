@@ -68,7 +68,7 @@
       <Button
         @click="deleteOpen = true"
         :type="ButtonType.BUTTON"
-        :variant="ColorVariant.ACCENT"
+        :variant="ColorVariant.TERTIARY"
         :size="Size.LARGE"
       >
         <font-awesome-icon :icon="['fas', 'trash-can']" />
