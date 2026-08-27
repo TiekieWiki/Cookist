@@ -26,7 +26,7 @@ import Button from '../form/Button.vue';
 
 withDefaults(defineProps<SwitchProps>(), {
   variant: ColorVariant.TERTIARY,
-  size: Size.MEDIUM
+  size: Size.SMALL
 });
 
 const input = defineModel<boolean>('input');

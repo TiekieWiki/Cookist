@@ -9,6 +9,7 @@
       <SelectField
         :ariaLabel="$t('profilePage.ariaLabel.language')"
         :items="languages"
+        :variant="ColorVariant.PRIMARY"
         labelPrefix="profilePage.languages."
         v-model:selected="selectedLanguage"
       />
@@ -28,6 +29,7 @@
       <SelectField
         :ariaLabel="$t('profilePage.ariaLabel.handedness')"
         :items="handedness"
+        :variant="ColorVariant.PRIMARY"
         labelPrefix="profilePage.handednessType."
         v-model:selected="selectedHandedness"
       />

@@ -8,7 +8,8 @@
         <Button
           @click="deleteRow(items!, index, empty)"
           :type="ButtonType.BUTTON"
-          :variant="ColorVariant.WARNING"
+          :variant="ColorVariant.TERTIARY"
+          :size="Size.MEDIUM"
         >
           <font-awesome-icon :icon="['fas', 'trash-can']" />
         </Button>
@@ -20,7 +21,7 @@
 <script setup lang="ts">
 import { deleteRow } from '@/utils/global/list';
 import Button from './Button.vue';
-import { ButtonType, ColorVariant } from '@/utils/types/enums';
+import { ButtonType, ColorVariant, Size } from '@/utils/types/enums';
 import { InputListProps } from '@/utils/types/form';
 
 defineProps<InputListProps>();

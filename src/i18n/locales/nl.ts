@@ -162,6 +162,8 @@ export const nl: TranslationSchema = {
   },
   editRecipePage: {
     title: 'Recept bewerken',
+    subtitle: 'Je kunt het zo kort of zo gedetailleerd houden als je wilt — je kan altijd terugkomen.',
+    backToRecipes: 'Terug naar recepten',
     name: 'Naam',
     category: 'Categorie',
     categories: {
@@ -202,7 +204,8 @@ export const nl: TranslationSchema = {
     instructions: 'Instructies',
     instruction: 'Instructie',
     notes: 'Aantekeningen',
-    save: 'Opslaan',
+    save: 'Recept opslaan',
+    cancel: 'Annuleren',
     recipeNotFound: 'Recept niet gevonden',
     placeholder: {
       name: 'Pasta Carbonara',

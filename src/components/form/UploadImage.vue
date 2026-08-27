@@ -26,7 +26,7 @@ import { UploadImageProps } from '@/utils/types/form';
 import { ref, watch } from 'vue';
 
 const props = withDefaults(defineProps<UploadImageProps>(), {
-  variant: ColorVariant.PRIMARY
+  variant: ColorVariant.SECONDARY
 });
 
 const emit = defineEmits<{ image: [File] }>();

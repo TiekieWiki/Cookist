@@ -10,6 +10,6 @@ import { PillProps } from '@/utils/types/general';
 
 withDefaults(defineProps<PillProps>(), {
   variant: ColorVariant.PRIMARY,
-  size: Size.MEDIUM
+  size: Size.SMALL
 });
 </script>

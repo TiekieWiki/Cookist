@@ -17,7 +17,7 @@ import { ColorVariant } from '@/utils/types/enums';
 import { SelectFieldProps } from '@/utils/types/form';
 
 withDefaults(defineProps<SelectFieldProps>(), {
-  variant: ColorVariant.PRIMARY,
+  variant: ColorVariant.SECONDARY,
   required: false,
   disabled: false
 });

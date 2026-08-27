@@ -1,95 +1,99 @@
 .home {
-  .banner {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--spacing-10);
-    background: var(--color-gradient);
+  article {
+    max-width: none;
 
-    .info {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: var(--spacing-5);
+    &.banner {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-10);
+      background: var(--color-gradient);
 
-      h1 {
-        color: var(--color-background-primary-text);
-      }
-
-      p {
-        color: var(--color-disabled-text);
-      }
-
-      .buttons {
-        display: flex;
-        gap: var(--spacing-3);
-        margin-top: var(--spacing-3);
-      }
-    }
-
-    .image {
-      display: flex;
-      justify-content: center;
-      position: relative;
-
-      img {
-        object-fit: cover;
-        border-radius: var(--spacing-6);
-        border: var(--border-secondary);
-        box-shadow: var(--box-shadow-medium);
-      }
-
-      .image-info {
+      .info {
         display: flex;
         flex-direction: column;
-        gap: var(--spacing-2);
-        position: absolute;
-        left: var(--spacing-4);
-        bottom: calc(var(--spacing-5) * -1);
-        padding: var(--spacing-4);
-        border-radius: var(--spacing-6);
-        border: var(--border-secondary);
-        background-color: var(--color-background-primary);
+        justify-content: center;
+        gap: var(--spacing-5);
 
-        :nth-child(1) {
+        h1 {
+          color: var(--color-background-primary-text);
+        }
+
+        p {
           color: var(--color-disabled-text);
         }
 
-        :nth-child(2) {
-          color: var(--color-background-primary-text);
-          font-weight: 600;
+        .buttons {
+          display: flex;
+          gap: var(--spacing-3);
+          margin-top: var(--spacing-3);
+        }
+      }
+
+      .image {
+        display: flex;
+        justify-content: center;
+        position: relative;
+
+        img {
+          object-fit: cover;
+          border-radius: var(--spacing-6);
+          border: var(--border-secondary);
+          box-shadow: var(--box-shadow-medium);
         }
 
-        :nth-child(3) {
-          color: var(--color-primary);
+        .image-info {
+          display: flex;
+          flex-direction: column;
+          gap: var(--spacing-2);
+          position: absolute;
+          left: var(--spacing-4);
+          bottom: calc(var(--spacing-5) * -1);
+          padding: var(--spacing-4);
+          border-radius: var(--spacing-6);
+          border: var(--border-secondary);
+          background-color: var(--color-background-primary);
+
+          :nth-child(1) {
+            color: var(--color-disabled-text);
+          }
+
+          :nth-child(2) {
+            color: var(--color-background-primary-text);
+            font-weight: 600;
+          }
+
+          :nth-child(3) {
+            color: var(--color-primary);
+          }
         }
       }
     }
-  }
 
-  .actionPoints {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: var(--spacing-5);
-    background-color: var(--color-background-secondary);
-    border-top: var(--border-secondary);
-    border-bottom: var(--border-secondary);
+    &.actionPoints {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: var(--spacing-5);
+      background-color: var(--color-background-secondary);
+      border-top: var(--border-secondary);
+      border-bottom: var(--border-secondary);
 
-    @media (max-width: 600px) {
-      flex-direction: column;
-      gap: var(--spacing-7);
-    }
-
-    section {
-      flex: 1;
-
-      h3 {
-        margin-top: var(--spacing-4);
-        color: var(--color-background-secondary-text);
+      @media (max-width: 600px) {
+        flex-direction: column;
+        gap: var(--spacing-7);
       }
 
-      p {
-        margin-top: var(--spacing-2);
-        color: var(--color-disabled-text);
+      section {
+        flex: 1;
+
+        h3 {
+          margin-top: var(--spacing-4);
+          color: var(--color-background-secondary-text);
+        }
+
+        p {
+          margin-top: var(--spacing-2);
+          color: var(--color-disabled-text);
+        }
       }
     }
   }

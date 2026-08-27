@@ -7,7 +7,7 @@
 
   &.fourCols {
     li {
-      grid-template-columns: 60px auto minmax(0, 1fr) auto;
+      grid-template-columns: 80px 80px minmax(0, 1fr) auto;
     }
   }
 

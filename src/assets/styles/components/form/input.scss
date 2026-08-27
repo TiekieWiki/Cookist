@@ -3,7 +3,7 @@
 label {
   display: flex;
   flex-direction: column;
-  gap: calc(var(--spacing-1) / 2);
+  gap: var(--spacing-1);
   width: 100%;
   color: var(--color-background-primary-text);
   font-weight: 500;

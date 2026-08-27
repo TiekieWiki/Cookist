@@ -159,6 +159,8 @@ export const en = {
   },
   editRecipePage: {
     title: 'Edit recipe',
+    subtitle: 'Keep it as short or as detailed as you like — you can always come back.',
+    backToRecipes: 'Back to recipes',
     name: 'Name',
     category: 'Category',
     categories: {
@@ -199,7 +201,8 @@ export const en = {
     instructions: 'Instructions',
     instruction: 'Instruction',
     notes: 'Notes',
-    save: 'Save',
+    save: 'Save recipe',
+    cancel: 'Cancel',
     recipeNotFound: 'Recipe not found',
     placeholder: {
       name: 'Pasta Carbonara',
