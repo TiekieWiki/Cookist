@@ -56,6 +56,10 @@
       background-color: var(--color-background-primary);
       color: var(--color-background-primary-text);
     }
+
+    &:has(:focus-visible) {
+      border: var(--border-accent);
+    }
   }
 
   &.secondary {
@@ -76,6 +80,10 @@
       background-color: var(--color-background-secondary);
       color: var(--color-background-secondary-text);
     }
+
+    &:has(:focus-visible) {
+      border: var(--border-primary);
+    }
   }
 
   &.tertiary {
@@ -94,6 +102,10 @@
     option {
       background-color: var(--color-background-tertiary);
       color: var(--color-background-tertiary-text);
+    }
+
+    &:has(:focus-visible) {
+      border: var(--border-primary);
     }
   }
 
@@ -115,6 +127,10 @@
       background-color: var(--color-background-primary);
       color: var(--color-background-primary-text);
     }
+
+    &:has(:focus-visible) {
+      border: var(--border-primary);
+    }
   }
 
   &.warning {
@@ -134,6 +150,10 @@
     option {
       background-color: var(--color-background-primary);
       color: var(--color-background-primary-text);
+    }
+
+    &:has(:focus-visible) {
+      border: var(--border-primary);
     }
   }
 }

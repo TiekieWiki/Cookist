@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
+import ConfirmPopUp from '@/components/general/ConfirmPopUp.vue';
 import TimerCard from '@/components/recipe/TimerCard.vue';
 import RecipeHeaderCard from '@/components/recipe/RecipeHeaderCard.vue';
 import IngredientsCard from '@/components/recipe/IngredientsCard.vue';

@@ -4,7 +4,7 @@
       <h2>{{ $t('editRecipePage.recipeNotFound') }}</h2>
     </article>
     <article v-else>
-      <router-link to="/" tabindex="-1">
+      <router-link to="/recipes" tabindex="-1">
         <Button :type="ButtonType.BUTTON" :variant="ColorVariant.TERTIARY" :size="Size.LARGE">
           <font-awesome-icon :icon="['fas', 'arrow-left']" />
           {{ $t('editRecipePage.backToRecipes') }}</Button
