@@ -1,1 +1,1 @@
-export const DEFAULT_RECIPE_IMAGE_SRC = '/src/assets/images/DefaultRecipe.jpg';
+export const DEFAULT_RECIPE_IMAGE_SRC = '/src/assets/images/DefaultRecipe.avif';

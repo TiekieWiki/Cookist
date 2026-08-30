@@ -24,7 +24,7 @@ button {
   }
 
   &.secondary {
-    background-color: var(--color-secondary);
+    background-color: transparent;
     color: var(--color-secondary-text);
     border: var(--border-secondary);
     box-shadow: var(--box-shadow-small);

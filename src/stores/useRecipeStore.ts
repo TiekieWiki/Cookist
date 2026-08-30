@@ -1,7 +1,6 @@
 import { emptyRecipe, Recipe } from '@/utils/types/recipe';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 import { useUserStore } from './useUserStore';
 import { getErrorMessage } from '@/utils/global/errorHandling';
 import { supabase } from '@/utils/global/supabase';
@@ -106,6 +105,7 @@ export const useRecipeStore = defineStore('recipe', () => {
             .upload(recipe.value.id, image, {
               upsert: true
             });
+
 
           if (uploadError) {
             errorMessage.value = getErrorMessage('unknown');

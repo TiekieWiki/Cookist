@@ -1,17 +1,26 @@
-import type { Timer } from '@/utils/types/timer';
-import { ref, watch, type Ref } from 'vue';
+import type { Time, Timer } from '@/utils/types/timer';
+import { computed, ref, watch, type Ref } from 'vue';
 
 /**
  * Timer composable that manages a simple timer state.
  * @returns An object containing the timer state and functions to control it.
  */
 export function useTimer(): {
-  timer: Ref<Timer>;
+  time: Ref<Time>;
+  runningTimer: Ref<Timer>;
+  progress: Ref<number>;
+  resetTimer: () => void;
 } {
-  const timer = ref<Timer>({
+  const time = ref<Time>({
     hours: 0,
     minutes: 1,
     seconds: 0,
+  });
+
+  const runningTimer = ref<Timer>({
+    hours: time.value.hours,
+    minutes: time.value.minutes,
+    seconds: time.value.seconds,
     isRunning: false,
     isFinished: false
   });
@@ -20,39 +29,73 @@ export function useTimer(): {
    * Starts the timer.
    */
   function startTimer(): void {
-    timer.value.isRunning = true;
-    timer.value.isFinished = false;
+    runningTimer.value.isRunning = true;
+    runningTimer.value.isFinished = false;
   }
 
   /**
    * Pauses the timer.
    */
   function pauseTimer(): void {
-    timer.value.isRunning = false;
+    runningTimer.value.isRunning = false;
   }
+
+  /**
+   * Resets the timer.
+   */
+  function resetTimer(): void {
+    runningTimer.value.hours = time.value.hours;
+    runningTimer.value.minutes = time.value.minutes;
+    runningTimer.value.seconds = time.value.seconds;
+    runningTimer.value.isRunning = false;
+    runningTimer.value.isFinished = false;
+  }
+
+  /**
+   * Get the progress of the timer.
+   */
+  const progress = computed(() => {
+    const total = time.value.hours * 3600 + time.value.minutes * 60 + time.value.seconds;
+    const current = runningTimer.value.hours * 3600 + runningTimer.value.minutes * 60 + runningTimer.value.seconds;
+
+    return current / total * 100;
+  })
+
+  // Watch for time changes to update the running time
+  watch(
+    time,
+    (newTime) => {
+      if (!runningTimer.value.isRunning) {
+        runningTimer.value.hours = newTime.hours;
+        runningTimer.value.minutes = newTime.minutes;
+        runningTimer.value.seconds = newTime.seconds;
+      }
+    },
+    { deep: true }
+  );
 
   // Watch for changes in the timer's isRunning state to update the timer
   let interval: ReturnType<typeof setInterval> | null = null;
   watch(
-    () => timer.value.isRunning,
+    () => runningTimer.value.isRunning,
     (isRunning) => {
       if (isRunning) {
         interval = setInterval(() => {
-          if (timer.value.hours === 0 && timer.value.minutes === 0 && timer.value.seconds === 0) {
-            timer.value.isRunning = false;
-            timer.value.isFinished = true;
+          if (runningTimer.value.hours === 0 && runningTimer.value.minutes === 0 && runningTimer.value.seconds === 0) {
+            runningTimer.value.isRunning = false;
+            runningTimer.value.isFinished = true;
             return;
           }
-          if (timer.value.seconds > 0) {
-            timer.value.seconds--;
+          if (runningTimer.value.seconds > 0) {
+            runningTimer.value.seconds--;
           } else {
-            if (timer.value.minutes > 0) {
-              timer.value.minutes--;
-              timer.value.seconds = 59;
-            } else if (timer.value.hours > 0) {
-              timer.value.hours--;
-              timer.value.minutes = 59;
-              timer.value.seconds = 59;
+            if (runningTimer.value.minutes > 0) {
+              runningTimer.value.minutes--;
+              runningTimer.value.seconds = 59;
+            } else if (runningTimer.value.hours > 0) {
+              runningTimer.value.hours--;
+              runningTimer.value.minutes = 59;
+              runningTimer.value.seconds = 59;
             }
           }
         }, 1000);
@@ -65,5 +108,5 @@ export function useTimer(): {
     }
   );
 
-  return { timer };
+  return { time, runningTimer, progress, resetTimer };
 }

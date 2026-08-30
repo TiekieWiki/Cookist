@@ -5,7 +5,7 @@
   justify-content: center;
 
   .checkbox-list-item {
-    display: grid;
+    display: flex;
     gap: var(--spacing-2);
     align-items: center;
   }

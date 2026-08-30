@@ -1,17 +1,38 @@
 <template>
-  <article>
-    <section>
+  <section class="ingredients card">
+    <div class="title">
       <h3>{{ $t('recipePage.ingredients') }}</h3>
-      <div>
-        <Button @click="portionCount = Math.max(portionCount - 1, 1)" :type="ButtonType.BUTTON">
-          <font-awesome-icon :icon="['fas', 'minus']" />
-        </Button>
-        <p>{{ portionCount }} {{ $t('recipePage.portions', portionCount) }}</p>
-        <Button @click="portionCount++" :type="ButtonType.BUTTON">
-          <font-awesome-icon :icon="['fas', 'plus']" />
+      <div class="actions">
+        <div class="servings">
+          <Button
+            @click="portionCount = Math.max(portionCount - 1, 1)"
+            :type="ButtonType.BUTTON"
+            :variant="ColorVariant.SECONDARY"
+          >
+            <font-awesome-icon :icon="['fas', 'minus']" />
+          </Button>
+          <p>
+            {{ portionCount }}
+            <span class="desktop">{{ $t('recipePage.servings', portionCount) }}</span>
+          </p>
+          <Button
+            @click="portionCount++"
+            :type="ButtonType.BUTTON"
+            :variant="ColorVariant.SECONDARY"
+          >
+            <font-awesome-icon :icon="['fas', 'plus']" />
+          </Button>
+        </div>
+        <Button
+          @click="groceryListStore.setGroceryList(portionedIngredients)"
+          :type="ButtonType.SUBMIT"
+          :variant="ColorVariant.SECONDARY"
+        >
+          <font-awesome-icon :icon="['fas', 'basket-shopping']" />
+          <span class="desktop">{{ $t('recipePage.addToGroceryList') }}</span>
         </Button>
       </div>
-    </section>
+    </div>
     <CheckBoxList :items="ingredients">
       <template #item="{ item }">
         <SelectField
@@ -30,15 +51,7 @@
         <p>{{ item.name }}</p>
       </template>
     </CheckBoxList>
-    <Button
-      @click="groceryListStore.setGroceryList(portionedIngredients)"
-      :type="ButtonType.SUBMIT"
-      :variant="ColorVariant.SECONDARY"
-    >
-      <font-awesome-icon :icon="['fas', 'plus']" />
-      {{ $t('recipePage.addToGroceryList') }}
-    </Button>
-  </article>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -46,7 +59,7 @@ import SelectField from '@/components/form/SelectField.vue';
 import { getPossibleUnits } from '@/utils/recipe/updateIngredientUnit';
 import { useRecipePortions } from '@/composables/useRecipePortions';
 import Button from '../form/Button.vue';
-import { ButtonType, ColorVariant } from '@/utils/types/enums';
+import { ButtonType, ColAmount, ColorVariant } from '@/utils/types/enums';
 import CheckBoxList from '../form/CheckBoxList.vue';
 import { computed } from 'vue';
 import { CheckBoxProps } from '@/utils/types/form';
