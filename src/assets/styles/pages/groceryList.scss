@@ -1,2 +1,91 @@
 .groceryList {
+  article {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+
+    .title {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--spacing-4);
+
+      h2 {
+        color: var(--color-background-primary-text);
+      }
+
+      p {
+        margin-top: var(--spacing-2);
+        color: var(--color-disabled-text);
+      }
+
+      .actions {
+        display: flex;
+        gap: var(--spacing-3);
+      }
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-5);
+      padding: var(--spacing-6);
+      border: var(--border-secondary);
+      border-radius: var(--spacing-6);
+      background-color: var(--color-background-secondary);
+
+      .empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-6);
+        padding: var(--spacing-6);
+
+        h3 {
+          justify-self: center;
+          color: var(--color-background-secondary-text);
+        }
+
+        p {
+          justify-self: center;
+          margin-top: var(--spacing-3);
+          color: var(--color-disabled-text);
+        }
+      }
+
+      .checkbox-list-item {
+        .checkbox {
+          width: fit-content;
+        }
+
+        label:not(.checkbox) {
+          width: 80px;
+        }
+
+        p {
+          flex-grow: 1;
+        }
+      }
+
+      .addIngredient {
+        display: flex;
+        gap: var(--spacing-2);
+
+        label {
+          flex: 1 1 0;
+          min-width: 0;
+        }
+
+        button {
+          flex: 0 0 auto;
+          width: auto;
+        }
+
+        @media only screen and (max-width: 600px) {
+          .desktop {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 }

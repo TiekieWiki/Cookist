@@ -1,18 +1,20 @@
 <template>
-  <section v-if="groceryListStore.groceryList.length <= 0">
-    <h2>{{ $t('groceryListPage.title') }}</h2>
-    <h3>{{ $t('groceryListPage.noItems') }}</h3>
-  </section>
-  <section v-else>
-    <div>
-      <h2>{{ $t('groceryListPage.title') }}</h2>
+  <div class="card">
+    <div v-if="groceryListStore.groceryList.length <= 0" class="empty">
+      <Pill :variant="ColorVariant.TERTIARY" :size="Size.XLARGE"
+        ><font-awesome-icon :icon="['fas', 'basket-shopping']"
+      /></Pill>
       <div>
-        <Button :type="ButtonType.BUTTON" :variant="ColorVariant.WARNING">
-          <font-awesome-icon @click="deleteOpen = true" :icon="['fas', 'trash-can']" />
-        </Button>
+        <h3>{{ $t('groceryListPage.emptyBasket') }}</h3>
+        <p>{{ $t('groceryListPage.emptyBasketSubtitle') }}</p>
       </div>
+      <router-link to="/recipes" tabindex="-1">
+        <Button :type="ButtonType.BUTTON" :variant="ColorVariant.PRIMARY" :size="Size.LARGE">
+          {{ $t('groceryListPage.browseRecipes') }}</Button
+        ></router-link
+      >
     </div>
-    <TransitionGroup name="fade" tag="div">
+    <TransitionGroup v-else name="fade" tag="div">
       <CheckBoxList :items="ingredients">
         <template #item="{ item, index }">
           <SelectField
@@ -31,7 +33,7 @@
           <p>{{ item.name }}</p>
           <Button
             :type="ButtonType.BUTTON"
-            :variant="ColorVariant.WARNING"
+            :variant="ColorVariant.TERTIARY"
             @click="
               groceryListStore.deleteGroceryListIngredient(groceryListStore.groceryList[index].id!)
             "
@@ -41,20 +43,64 @@
         </template>
       </CheckBoxList>
     </TransitionGroup>
-  </section>
+    <div class="addIngredient">
+      <InputField
+        name="newIngredientAmount"
+        :placeholder="$t('editRecipePage.placeholder.amount')"
+        :ariaLabel="$t('editRecipePage.ariaLabel.amount')"
+        :step="0.01"
+        type="number"
+        v-model:input="ingredient.amount"
+      />
+      <SelectField
+        :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
+        :placeholder="$t('editRecipePage.placeholder.unit')"
+        :items="
+          Object.values(RecipeUnits).map((unit) => ({
+            value: unit.toLowerCase(),
+            label: unit.toLowerCase()
+          }))
+        "
+        labelPrefix="editRecipePage.units."
+        v-model:selected="ingredient.unit"
+      />
+      <InputField
+        name="newIngredientName"
+        :placeholder="$t('editRecipePage.placeholder.ingredient')"
+        :ariaLabel="$t('editRecipePage.ariaLabel.ingredient')"
+        type="text"
+        v-model:input="ingredient.name"
+      />
+
+      <Button
+        @click="groceryListStore.setGroceryList(ingredient)"
+        :type="ButtonType.BUTTON"
+        :variant="ColorVariant.PRIMARY"
+      >
+        <font-awesome-icon :icon="['fas', 'plus']" />
+        <p class="desktop">{{ $t('groceryListPage.addIngredient') }}</p>
+      </Button>
+    </div>
+    <ErrorMessage v-model:message="groceryListStore.errorMessage" />
+  </div>
 </template>
 
 <script setup lang="ts">
 import { getPossibleUnits, updateIngredientUnit } from '@/utils/recipe/updateIngredientUnit';
 import SelectField from '@/components/form/SelectField.vue';
 import Button from '../form/Button.vue';
-import { ButtonType, ColorVariant } from '@/utils/types/enums';
+import { ButtonType, ColorVariant, Size } from '@/utils/types/enums';
 import CheckBoxList from '../form/CheckBoxList.vue';
 import { computed } from 'vue';
 import { CheckBoxProps } from '@/utils/types/form';
 import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
+import Pill from '../general/Pill.vue';
+import InputField from '@/components/form/InputField.vue';
+import ErrorMessage from '@/components/form/ErrorMessage.vue';
+import { emptyIngredient, Ingredient, RecipeUnits } from '@/utils/types/recipe';
+import { ref } from 'vue';
 
-const deleteOpen = defineModel<boolean>('deleteOpen', { required: true });
+const ingredient = ref<Ingredient>(emptyIngredient());
 
 const groceryListStore = useGroceryListStore();
 

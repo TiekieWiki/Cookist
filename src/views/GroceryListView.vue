@@ -1,8 +1,8 @@
 <template>
   <main class="groceryList">
     <article>
-      <IngredientListCard v-model:delete-open="deleteGroceryListOpen" />
-      <AddIngredientCard />
+      <GroceryListTitle v-model:delete-open="deleteGroceryListOpen" />
+      <IngredientListCard />
     </article>
   </main>
   <ConfirmPopUp
@@ -16,11 +16,11 @@
 </template>
 
 <script setup lang="ts">
-import ConfirmPopUp from '@/components/form/ConfirmPopUp.vue';
 import IngredientListCard from '@/components/grocery list/IngredientListCard.vue';
-import AddIngredientCard from '@/components/grocery list/AddIngredientCard.vue';
 import { useGroceryListStore } from '@/stores/useGroceryListStore';
 import { onMounted, ref } from 'vue';
+import ConfirmPopUp from '@/components/general/ConfirmPopUp.vue';
+import GroceryListTitle from '@/components/grocery list/GroceryListTitle.vue';
 
 const groceryListStore = useGroceryListStore();
 

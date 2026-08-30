@@ -9,7 +9,11 @@
 
   &.primary {
     background-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
-    color: var(--color-primary-text);
+    color: var(--color-primary);
+
+    svg {
+      color: var(--color-primary);
+    }
   }
 
   &.secondary {
@@ -18,8 +22,8 @@
   }
 
   &.tertiary {
-    background-color: transparent;
-    color: var(--color-disabled-text);
+    background-color: color-mix(in srgb, var(--color-tertiary) 20%, transparent);
+    color: var(--color-tertiary);
   }
 
   &.accent {
@@ -57,9 +61,5 @@
     svg {
       height: var(--spacing-5);
     }
-  }
-
-  svg {
-    color: var(--color-primary);
   }
 }
