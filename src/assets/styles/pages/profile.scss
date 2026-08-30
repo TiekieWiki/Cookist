@@ -1,10 +1,7 @@
 .profile {
   article {
-    .userCard {
-      display: flex;
-      justify-content: space-between;
+    .title {
       align-items: center;
-      gap: var(--spacing-6);
       padding: var(--spacing-8);
       border: var(--border-secondary);
       border-radius: var(--spacing-6);

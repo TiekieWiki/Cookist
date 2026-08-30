@@ -1,5 +1,5 @@
 <template>
-  <section class="userCard">
+  <section class="title">
     <div class="user">
       <h3 class="userBrand">{{ email.slice(0, 1).toLocaleUpperCase() }}</h3>
       <div class="userName">
