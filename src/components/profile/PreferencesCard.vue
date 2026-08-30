@@ -1,5 +1,5 @@
 <template>
-  <section class="preferencesCard">
+  <section class="card">
     <h3>{{ $t('profilePage.preferences') }}</h3>
     <div class="preference">
       <div class="name">

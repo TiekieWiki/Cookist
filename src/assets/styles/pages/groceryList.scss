@@ -1,79 +1,52 @@
 .groceryList {
-  article {
-    .title {
-      display: flex;
-      justify-content: space-between;
-      gap: var(--spacing-4);
+  .empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-6);
+    padding: var(--spacing-6);
 
-      p {
-        margin-top: var(--spacing-2);
-      }
-
-      .actions {
-        display: flex;
-        gap: var(--spacing-3);
-      }
+    h3 {
+      justify-self: center;
     }
 
-    .card {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-5);
-      padding: var(--spacing-6);
-      border: var(--border-secondary);
-      border-radius: var(--spacing-6);
-      background-color: var(--color-background-secondary);
+    p {
+      justify-self: center;
+      margin-top: var(--spacing-3);
+    }
+  }
 
-      .empty {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: var(--spacing-6);
-        padding: var(--spacing-6);
+  .checkbox-list-item {
+    .checkbox {
+      width: fit-content;
+    }
 
-        h3 {
-          justify-self: center;
-        }
+    label:not(.checkbox) {
+      width: 80px;
+    }
 
-        p {
-          justify-self: center;
-          margin-top: var(--spacing-3);
-        }
-      }
+    p {
+      flex-grow: 1;
+    }
+  }
 
-      .checkbox-list-item {
-        .checkbox {
-          width: fit-content;
-        }
+  .addIngredient {
+    display: flex;
+    gap: var(--spacing-2);
 
-        label:not(.checkbox) {
-          width: 80px;
-        }
+    label {
+      flex: 1 1 0;
+      min-width: 0;
+    }
 
-        p {
-          flex-grow: 1;
-        }
-      }
+    button {
+      flex: 0 0 auto;
+      width: auto;
+    }
 
-      .addIngredient {
-        display: flex;
-        gap: var(--spacing-2);
-
-        label {
-          flex: 1 1 0;
-          min-width: 0;
-        }
-
-        button {
-          flex: 0 0 auto;
-          width: auto;
-        }
-
-        @media only screen and (max-width: 600px) {
-          .desktop {
-            display: none;
-          }
-        }
+    @media only screen and (max-width: 600px) {
+      .desktop {
+        display: none;
       }
     }
   }

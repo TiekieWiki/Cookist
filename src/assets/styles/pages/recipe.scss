@@ -18,21 +18,6 @@
         object-fit: cover;
       }
 
-      .title {
-        display: flex;
-        justify-content: space-between;
-        gap: var(--spacing-4);
-
-        p {
-          margin-top: var(--spacing-2);
-        }
-
-        .actions {
-          display: flex;
-          gap: var(--spacing-3);
-        }
-      }
-
       .info {
         display: flex;
         gap: var(--spacing-5);
@@ -46,16 +31,6 @@
       }
     }
 
-    .card {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-5);
-      padding: var(--spacing-6);
-      border: var(--border-secondary);
-      border-radius: var(--spacing-6);
-      background-color: var(--color-background-secondary);
-    }
-
     .ingredients,
     .instructions {
       display: flex;
@@ -63,13 +38,7 @@
       gap: var(--spacing-4);
 
       .title {
-        display: flex;
-        justify-content: space-between;
-        gap: var(--spacing-4);
-
         .actions {
-          display: flex;
-          gap: var(--spacing-3);
           align-items: center;
 
           .servings {
@@ -79,6 +48,7 @@
           }
 
           p {
+            margin-top: 0;
             color: var(--color-background-primary-text);
           }
 

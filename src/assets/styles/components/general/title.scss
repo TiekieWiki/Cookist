@@ -1,0 +1,14 @@
+.title {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+
+  p {
+    margin-top: var(--spacing-2);
+  }
+
+  .actions {
+    display: flex;
+    gap: var(--spacing-3);
+  }
+}

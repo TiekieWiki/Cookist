@@ -13,25 +13,15 @@
       flex-direction: column;
       gap: var(--spacing-6);
 
-      .card {
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-5);
-        padding: var(--spacing-6);
-        border: var(--border-secondary);
-        border-radius: var(--spacing-6);
-        background-color: var(--color-background-secondary);
-
-        @media only screen and (max-width: 600px) {
-          .compact {
-            flex-direction: column;
-          }
-        }
-      }
-
       .compact {
         display: flex;
         gap: var(--spacing-5);
+      }
+
+      @media only screen and (max-width: 600px) {
+        .compact {
+          flex-direction: column;
+        }
       }
     }
   }
