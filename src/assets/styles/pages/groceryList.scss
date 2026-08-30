@@ -1,21 +1,12 @@
 .groceryList {
   article {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-6);
-
     .title {
       display: flex;
       justify-content: space-between;
       gap: var(--spacing-4);
 
-      h2 {
-        color: var(--color-background-primary-text);
-      }
-
       p {
         margin-top: var(--spacing-2);
-        color: var(--color-disabled-text);
       }
 
       .actions {
@@ -42,13 +33,11 @@
 
         h3 {
           justify-self: center;
-          color: var(--color-background-secondary-text);
         }
 
         p {
           justify-self: center;
           margin-top: var(--spacing-3);
-          color: var(--color-disabled-text);
         }
       }
 

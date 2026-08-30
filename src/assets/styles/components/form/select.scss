@@ -40,7 +40,6 @@
 
   &.primary {
     background-color: transparent;
-    color: var(--color-background-primary-text);
     border: var(--border-primary);
     box-shadow: var(--box-shadow-small);
 
@@ -48,13 +47,8 @@
       background-color: var(--color-primary);
     }
 
-    select {
-      color: var(--color-background-primary-text);
-    }
-
     option {
       background-color: var(--color-background-primary);
-      color: var(--color-background-primary-text);
     }
 
     &:has(:focus-visible) {
@@ -64,7 +58,6 @@
 
   &.secondary {
     background-color: transparent;
-    color: var(--color-background-secondary-text);
     border: var(--border-secondary);
     box-shadow: var(--box-shadow-small);
 
@@ -72,13 +65,8 @@
       background-color: var(--color-secondary);
     }
 
-    select {
-      color: var(--color-background-secondary-text);
-    }
-
     option {
       background-color: var(--color-background-secondary);
-      color: var(--color-background-secondary-text);
     }
 
     &:has(:focus-visible) {
@@ -88,20 +76,14 @@
 
   &.tertiary {
     background-color: transparent;
-    color: var(--color-disabled-text);
     border: none;
 
     &::after {
       background-color: var(--color-tertiary);
     }
 
-    select {
-      color: var(--color-background-tertiary-text);
-    }
-
     option {
       background-color: var(--color-background-tertiary);
-      color: var(--color-background-tertiary-text);
     }
 
     &:has(:focus-visible) {
@@ -111,7 +93,6 @@
 
   &.accent {
     background-color: transparent;
-    color: var(--color-background-primary-text);
     border: var(--border-accent);
     box-shadow: var(--box-shadow-small);
 
@@ -119,13 +100,8 @@
       background-color: var(--color-accent);
     }
 
-    select {
-      color: var(--color-background-primary-text);
-    }
-
     option {
       background-color: var(--color-background-primary);
-      color: var(--color-background-primary-text);
     }
 
     &:has(:focus-visible) {
@@ -135,7 +111,6 @@
 
   &.warning {
     background-color: transparent;
-    color: var(--color-background-primary-text);
     border: var(--border-warning);
     box-shadow: var(--box-shadow-small);
 
@@ -143,13 +118,8 @@
       background-color: var(--color-warning);
     }
 
-    select {
-      color: var(--color-background-primary-text);
-    }
-
     option {
       background-color: var(--color-background-primary);
-      color: var(--color-background-primary-text);
     }
 
     &:has(:focus-visible) {

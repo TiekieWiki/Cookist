@@ -24,13 +24,10 @@
 
       h2 {
         margin-bottom: var(--spacing-4);
-        color: var(--color-background-primary-text);
       }
     }
 
     p {
-      color: var(--color-disabled-text);
-
       &.quote {
         font-size: 0.8rem;
       }
@@ -52,12 +49,9 @@
 
       h2 {
         margin-bottom: var(--spacing-2);
-        color: var(--color-background-primary-text);
       }
 
       p {
-        color: var(--color-disabled-text);
-
         &.small {
           display: flex;
           justify-self: center;

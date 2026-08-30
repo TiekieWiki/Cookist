@@ -14,14 +14,6 @@
         justify-content: center;
         gap: var(--spacing-5);
 
-        h1 {
-          color: var(--color-background-primary-text);
-        }
-
-        p {
-          color: var(--color-disabled-text);
-        }
-
         .buttons {
           display: flex;
           gap: var(--spacing-3);
@@ -54,7 +46,7 @@
           background-color: var(--color-background-primary);
 
           :nth-child(1) {
-            color: var(--color-disabled-text);
+            color: var(--color-background-secondary-text);
           }
 
           :nth-child(2) {
@@ -71,6 +63,7 @@
 
     &.actionPoints {
       display: flex;
+      flex-direction: row;
       flex-wrap: nowrap;
       gap: var(--spacing-5);
       background-color: var(--color-background-secondary);
@@ -87,12 +80,10 @@
 
         h3 {
           margin-top: var(--spacing-4);
-          color: var(--color-background-secondary-text);
         }
 
         p {
           margin-top: var(--spacing-2);
-          color: var(--color-disabled-text);
         }
       }
     }

@@ -1,9 +1,5 @@
 .profile {
   article {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-6);
-
     .userCard {
       display: flex;
       justify-content: space-between;
@@ -39,15 +35,9 @@
           flex-direction: column;
 
           h2 {
-            color: var(--color-background-primary-text);
-
             &::first-letter {
               text-transform: uppercase;
             }
-          }
-
-          p {
-            color: var(--color-disabled-text);
           }
         }
       }
@@ -67,7 +57,6 @@
       border: var(--border-secondary);
       border-radius: var(--spacing-6);
       background-color: var(--color-background-secondary);
-      color: var(--color-background-secondary-text);
 
       .preference {
         display: flex;
@@ -80,8 +69,8 @@
           flex-direction: column;
           gap: var(--spacing-1);
 
-          .small {
-            color: var(--color-disabled-text);
+          :not(.small) {
+            color: var(--color-background-primary-text);
           }
         }
 

@@ -1,9 +1,5 @@
 .recipe {
   article {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-6);
-
     a:first-child {
       margin-left: calc(var(--spacing-4) * -1);
     }
@@ -25,13 +21,8 @@
         justify-content: space-between;
         gap: var(--spacing-4);
 
-        h2 {
-          color: var(--color-background-primary-text);
-        }
-
         p {
           margin-top: var(--spacing-2);
-          color: var(--color-disabled-text);
         }
 
         .actions {
@@ -48,7 +39,7 @@
           display: flex;
           gap: var(--spacing-2);
           align-items: center;
-          color: var(--color-disabled-text);
+          color: var(--color-background-secondary-text);
         }
       }
     }
@@ -74,14 +65,6 @@
         justify-content: space-between;
         gap: var(--spacing-4);
 
-        h3 {
-          color: var(--color-background-primary-text);
-        }
-
-        p {
-          color: var(--color-disabled-text);
-        }
-
         .actions {
           display: flex;
           gap: var(--spacing-3);
@@ -94,7 +77,7 @@
           }
 
           p {
-            color: var(--color-background-secondary-text);
+            color: var(--color-background-primary-text);
           }
 
           @media only screen and (max-width: 600px) {
@@ -118,14 +101,6 @@
 
     .lastEaten {
       gap: var(--spacing-2);
-
-      p {
-        color: var(--color-disabled-text);
-      }
-
-      h3 {
-        color: var(--color-background-secondary-text);
-      }
     }
 
     .timer {
@@ -133,7 +108,7 @@
         display: flex;
         gap: var(--spacing-2);
         align-items: center;
-        color: var(--color-disabled-text);
+        color: var(--color-background-secondary-text);
       }
 
       .clock {
@@ -169,7 +144,7 @@
           position: relative;
           z-index: 1;
           font-size: var(--spacing-7);
-          color: var(--color-background-secondary-text);
+          color: var(--color-background-primary-text);
         }
 
         &.finished {

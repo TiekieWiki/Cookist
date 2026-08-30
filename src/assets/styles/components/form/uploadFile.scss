@@ -35,7 +35,7 @@ input[type='file'] {
   &.tertiary {
     &::file-selector-button {
       background-color: transparent;
-      color: var(--color-disabled-text);
+      color: var(--color-background-secondary-text);
       border: none;
 
       &:hover,
@@ -99,6 +99,6 @@ input[type='file'] {
 input:disabled::file-selector-button {
   background-image: none;
   background-color: var(--color-disabled) !important;
-  color: var(--color-disabled-text) !important;
+  color: var(--color-background-secondary-text) !important;
   cursor: auto;
 }

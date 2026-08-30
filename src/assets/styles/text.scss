@@ -3,6 +3,7 @@ h1 {
   font-size: 3rem;
   font-weight: 600;
   line-height: 1.3em;
+  color: var(--color-background-primary-text);
 }
 
 h2 {
@@ -10,6 +11,7 @@ h2 {
   font-size: 1.5rem;
   font-weight: 600;
   line-height: 1.4em;
+  color: var(--color-background-primary-text);
 }
 
 h3 {
@@ -17,6 +19,7 @@ h3 {
   font-size: 1.17rem;
   font-weight: 600;
   line-height: 1.4em;
+  color: var(--color-background-primary-text);
 }
 
 body,
@@ -26,6 +29,7 @@ a {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.2em;
+  color: var(--color-background-secondary-text);
   text-wrap: pretty;
 
   &.small {
@@ -41,6 +45,7 @@ textarea {
   font-size: 0.9rem;
   font-weight: 400;
   line-height: 1em;
+  color: var(--color-background-primary-text);
 }
 
 label {
@@ -49,6 +54,7 @@ label {
   font-weight: 400;
   line-height: 1.2em;
   text-wrap: pretty;
+  color: var(--color-background-primary-text);
 }
 
 img {

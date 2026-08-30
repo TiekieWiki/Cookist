@@ -5,7 +5,6 @@ label {
   flex-direction: column;
   gap: var(--spacing-1);
   width: 100%;
-  color: var(--color-background-primary-text);
   font-weight: 500;
 
   input[type='text'],
@@ -24,7 +23,6 @@ label {
     border-radius: var(--spacing-5);
 
     &.primary {
-      color: var(--color-background-primary-text);
       border: var(--border-primary);
       box-shadow: var(--box-shadow-small);
 
@@ -34,7 +32,6 @@ label {
     }
 
     &.secondary {
-      color: var(--color-background-secondary-text);
       border: var(--border-secondary);
       box-shadow: var(--box-shadow-small);
 
@@ -44,7 +41,6 @@ label {
     }
 
     &.tertiary {
-      color: var(--color-background-tertiary-text);
       border: none;
 
       &:focus-visible {
