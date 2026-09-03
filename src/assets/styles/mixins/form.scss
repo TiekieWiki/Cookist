@@ -6,3 +6,19 @@
     border-color: var(--color-warning);
   }
 }
+
+@mixin compact-checkbox-list {
+  .checkbox-list-item {
+    .checkbox {
+      width: fit-content;
+    }
+
+    label:not(.checkbox) {
+      width: 80px;
+    }
+
+    p {
+      flex-grow: 1;
+    }
+  }
+}

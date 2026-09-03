@@ -78,7 +78,7 @@
         :variant="ColorVariant.PRIMARY"
       >
         <font-awesome-icon :icon="['fas', 'plus']" />
-        <p class="desktop">{{ $t('groceryListPage.addIngredient') }}</p>
+        <span class="desktop">{{ $t('groceryListPage.addIngredient') }}</span>
       </Button>
     </div>
     <ErrorMessage v-model:message="groceryListStore.errorMessage" />

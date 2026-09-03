@@ -1,4 +1,9 @@
+@import '../mixins/form.scss';
+@import '../mixins/responsiveness.scss';
+
 .groceryList {
+  @include compact-checkbox-list;
+
   .empty {
     display: flex;
     flex-direction: column;
@@ -16,21 +21,9 @@
     }
   }
 
-  .checkbox-list-item {
-    .checkbox {
-      width: fit-content;
-    }
-
-    label:not(.checkbox) {
-      width: 80px;
-    }
-
-    p {
-      flex-grow: 1;
-    }
-  }
-
   .addIngredient {
+    @include responsiveness;
+
     display: flex;
     gap: var(--spacing-2);
 
@@ -42,12 +35,6 @@
     button {
       flex: 0 0 auto;
       width: auto;
-    }
-
-    @media only screen and (max-width: 600px) {
-      .desktop {
-        display: none;
-      }
     }
   }
 }

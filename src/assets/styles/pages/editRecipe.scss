@@ -1,8 +1,8 @@
+@import '../mixins/components.scss';
+
 .editRecipe {
   article {
-    a:first-child {
-      margin-left: calc(var(--spacing-4) * -1);
-    }
+    @include header-back-button;
 
     p {
       margin-top: var(--spacing-1);

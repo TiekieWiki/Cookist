@@ -1,10 +1,11 @@
 @import '../mixins/animations.scss';
+@import '../mixins/components.scss';
+@import '../mixins/form.scss';
+@import '../mixins/responsiveness.scss';
 
 .recipe {
   article {
-    a:first-child {
-      margin-left: calc(var(--spacing-4) * -1);
-    }
+    @include header-back-button;
 
     .header {
       display: flex;
@@ -33,12 +34,16 @@
 
     .ingredients,
     .instructions {
+      @include compact-checkbox-list;
+
       display: flex;
       flex-direction: column;
       gap: var(--spacing-4);
 
       .title {
         .actions {
+          @include responsiveness;
+
           align-items: center;
 
           .servings {
@@ -51,22 +56,6 @@
             margin-top: 0;
             color: var(--color-background-primary-text);
           }
-
-          @media only screen and (max-width: 600px) {
-            .desktop {
-              display: none;
-            }
-          }
-        }
-      }
-
-      .checkbox-list-item {
-        .checkbox {
-          width: fit-content;
-        }
-
-        label:not(.checkbox) {
-          width: 80px;
         }
       }
     }
