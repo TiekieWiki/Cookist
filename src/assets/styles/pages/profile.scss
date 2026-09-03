@@ -44,37 +44,39 @@
       }
     }
 
-    .preference {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: var(--spacing-4);
-
-      .name {
+    .card {
+      .preference {
         display: flex;
-        flex-direction: column;
-        gap: var(--spacing-1);
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--spacing-4);
 
-        :not(.small) {
-          color: var(--color-background-primary-text);
+        .name {
+          display: flex;
+          flex-direction: column;
+          gap: var(--spacing-1);
+
+          :not(.small) {
+            color: var(--color-background-primary-text);
+          }
+        }
+
+        > :nth-child(2) {
+          &:not(.toggle) {
+            width: calc(var(--spacing-15) * 2);
+          }
+        }
+
+        &:nth-of-type(-n + 2) {
+          padding-bottom: var(--spacing-4);
+          border-bottom: var(--border-secondary);
         }
       }
 
-      > :nth-child(2) {
-        &:not(.toggle) {
-          width: calc(var(--spacing-15) * 2);
-        }
+      button {
+        width: fit-content;
+        margin-top: var(--spacing-1);
       }
-
-      &:nth-of-type(-n + 2) {
-        padding-bottom: var(--spacing-4);
-        border-bottom: var(--border-secondary);
-      }
-    }
-
-    button {
-      width: fit-content;
-      margin-top: var(--spacing-1);
     }
   }
 }
