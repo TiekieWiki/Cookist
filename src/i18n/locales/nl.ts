@@ -101,7 +101,8 @@ export const nl: TranslationSchema = {
     title: 'Mijn recepten',
     totalRecipes: '{count} geweldige recepten | {count} geweldig recept | {count} geweldige recepten',
     newRecipe: 'Nieuw',
-    filter: 'Filter',
+    filters: 'Filters',
+    reset: 'Reset',
     order: 'Sorteer',
     orders: {
       lastEatenAsc: 'Laatst gegeten (oud-nieuw)',
@@ -113,12 +114,9 @@ export const nl: TranslationSchema = {
       nameAsc: 'Naam (A-Z)',
       nameDesc: 'Naam (Z-A)'
     },
-    durationMin: 'Minimum duur',
-    durationMax: 'Maximum duur',
-    ratingMin: 'Minimum beoordeling',
-    ratingMax: 'Maximum beoordeling',
-    lastEatenMin: 'Minimum laatst gegeten',
-    lastEatenMax: 'Maximum laatst gegeten',
+    duration: 'Duur',
+    rating: 'Beoordeling',
+    lastEaten: 'Laatst gegeten',
     noRecipes: 'Geen recepten gevonden',
     placeholder: {
       search: 'Zoek recepten',

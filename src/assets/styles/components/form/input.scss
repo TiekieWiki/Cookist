@@ -83,3 +83,9 @@ label {
     padding: var(--spacing-3) var(--spacing-3);
   }
 }
+
+.dark {
+  input[type='date'] {
+    color-scheme: dark;
+  }
+}

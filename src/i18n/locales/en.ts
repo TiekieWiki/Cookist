@@ -98,7 +98,8 @@ export const en = {
     title: 'My recipes',
     totalRecipes: '{count} great recipes | {count} great recipe | {count} great recipes',
     newRecipe: 'New',
-    filter: 'Filter',
+    filters: 'Filters',
+    reset: 'Reset',
     order: 'Order',
     orders: {
       lastEatenAsc: 'Last eaten (old-new)',
@@ -110,12 +111,9 @@ export const en = {
       nameAsc: 'Name (A-Z)',
       nameDesc: 'Name (Z-A)'
     },
-    durationMin: 'Minimum duration',
-    durationMax: 'Maximum duration',
-    ratingMin: 'Minimum rating',
-    ratingMax: 'Maximum rating',
-    lastEatenMin: 'Minimum last eaten',
-    lastEatenMax: 'Maximum last eaten',
+    duration: 'Duration',
+    rating: 'Rating',
+    lastEaten: 'Last eaten',
     noRecipes: 'No recipes found',
     placeholder: {
       search: 'Search recipes',

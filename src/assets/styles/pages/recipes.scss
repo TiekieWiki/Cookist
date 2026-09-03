@@ -1,2 +1,82 @@
+@import '../mixins/responsiveness.scss';
+
 .recipes {
+  .searchOrder {
+    @include responsiveness();
+
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--spacing-3);
+
+    @media only screen and (max-width: 1100px) {
+      grid-template-columns: 2fr 1fr auto;
+    }
+
+    @media only screen and (max-width: 600px) {
+      grid-template-columns: 2fr 1fr;
+
+      & > :first-child {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+
+  .filtersRecipes {
+    display: flex;
+    gap: var(--spacing-8);
+
+    aside {
+      @include responsiveness();
+
+      width: 300px;
+
+      @media only screen and (max-width: 1100px) {
+        &:not(.open) {
+          display: none;
+        }
+      }
+
+      @media only screen and (min-width: 1101px) {
+        position: static;
+        border: none;
+        height: auto;
+        width: 250px;
+        padding: 0;
+      }
+
+      .title {
+        width: 100%;
+      }
+
+      > label {
+        gap: var(--spacing-3);
+        font-weight: 600;
+      }
+
+      .range {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-2);
+        width: 100%;
+
+        > label {
+          gap: var(--spacing-3);
+          min-width: 0;
+          font-weight: 600;
+        }
+
+        :nth-child(2) {
+          margin-top: calc(var(--spacing-3) + 17.28px);
+        }
+      }
+
+      .divider {
+        flex-shrink: 0;
+        width: 100%;
+        height: 1px;
+        background-color: var(--color-border-secondary);
+        margin: var(--spacing-4) 0;
+      }
+    }
+  }
 }

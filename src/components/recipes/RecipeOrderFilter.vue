@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="searchOrder">
     <InputField
       id="search"
       name="search"
@@ -11,10 +11,6 @@
       :autocomplete="AutoCompleteVariant.OFF"
       v-model:input="filter.name"
     />
-    <Button @click="openFilter = !openFilter" :type="ButtonType.BUTTON">
-      <font-awesome-icon :icon="['fas', 'filter']" />
-      {{ $t('recipesPage.filter') }}
-    </Button>
     <SelectField
       id="order"
       :ariaLabel="$t('recipesPage.ariaLabel.order')"
@@ -29,22 +25,32 @@
       labelPrefix="recipesPage.orders."
       v-model:selected="order"
     />
+    <Button
+      class="mobile"
+      @click="openFilters = !openFilters"
+      :type="ButtonType.BUTTON"
+      :variant="ColorVariant.SECONDARY"
+      :size="Size.LARGE"
+    >
+      <font-awesome-icon :icon="['fas', 'sliders']" />
+      {{ $t('recipesPage.filters') }}
+    </Button>
   </section>
-  <Transition name="fade">
-    <RecipesFilter v-if="openFilter" v-model:filter="filter" />
-  </Transition>
 </template>
 
 <script setup lang="ts">
 import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
-import RecipesFilter from '@/components/recipes/RecipesFilter.vue';
 import { Filter, RecipeOrderCategories } from '@/utils/types/orderFilter';
 import { ref } from 'vue';
-import { AutoCompleteVariant, ButtonType } from '@/utils/types/enums';
-import Button from '../form/Button.vue';
-import i18n from '@/i18n/index.js';
-import { RecipeCategories } from '@/utils/types/recipe.js';
+import { AutoCompleteVariant, ButtonType, ColorVariant, Size } from '@/utils/types/enums';
+import { RecipeCategories } from '@/utils/types/recipe';
+import i18n from '@/i18n';
+import Button from '@/components/form/Button.vue';
+
+const openFilters = defineModel<boolean>('openFilters', { required: true });
+
+const order = ref<RecipeOrderCategories>(RecipeOrderCategories.durationAsc);
 
 const filter = ref<Filter>({
   name: '',
@@ -65,9 +71,4 @@ const filter = ref<Filter>({
   lastEatenMax: new Date('9999-12-31').toISOString().slice(0, 10),
   ingredients: [{ name: '' }]
 });
-
-const order = ref<RecipeOrderCategories>(RecipeOrderCategories.durationAsc);
-
-// Toggle the filter menu
-const openFilter = ref<boolean>(false);
 </script>
