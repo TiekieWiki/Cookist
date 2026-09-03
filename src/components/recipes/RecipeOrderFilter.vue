@@ -1,40 +1,38 @@
 <template>
-  <article>
-    <section>
-      <InputField
-        id="search"
-        name="search"
-        :ariaLabel="$t('recipesPage.ariaLabel.search')"
-        type="text"
-        :placeholder="$t('recipesPage.placeholder.search')"
-        :required="false"
-        :disabled="false"
-        :autocomplete="AutoCompleteVariant.OFF"
-        v-model:input="filter.name"
-      />
-      <Button @click="openFilter = !openFilter" :type="ButtonType.BUTTON">
-        <font-awesome-icon :icon="['fas', 'filter']" />
-        {{ $t('recipesPage.filter') }}
-      </Button>
-      <SelectField
-        id="order"
-        :ariaLabel="$t('recipesPage.ariaLabel.order')"
-        :placeholder="$t('recipesPage.placeholder.order')"
-        :required="false"
-        :items="
-          Object.values(RecipeOrderCategories).map((category) => ({
-            value: category,
-            label: category
-          }))
-        "
-        labelPrefix="recipesPage.orders."
-        v-model:selected="order"
-      />
-    </section>
-    <Transition name="fade">
-      <RecipesFilter v-if="openFilter" v-model:filter="filter" />
-    </Transition>
-  </article>
+  <section>
+    <InputField
+      id="search"
+      name="search"
+      :ariaLabel="$t('recipesPage.ariaLabel.search')"
+      type="text"
+      :placeholder="$t('recipesPage.placeholder.search')"
+      :required="false"
+      :disabled="false"
+      :autocomplete="AutoCompleteVariant.OFF"
+      v-model:input="filter.name"
+    />
+    <Button @click="openFilter = !openFilter" :type="ButtonType.BUTTON">
+      <font-awesome-icon :icon="['fas', 'filter']" />
+      {{ $t('recipesPage.filter') }}
+    </Button>
+    <SelectField
+      id="order"
+      :ariaLabel="$t('recipesPage.ariaLabel.order')"
+      :placeholder="$t('recipesPage.placeholder.order')"
+      :required="false"
+      :items="
+        Object.values(RecipeOrderCategories).map((category) => ({
+          value: category,
+          label: category
+        }))
+      "
+      labelPrefix="recipesPage.orders."
+      v-model:selected="order"
+    />
+  </section>
+  <Transition name="fade">
+    <RecipesFilter v-if="openFilter" v-model:filter="filter" />
+  </Transition>
 </template>
 
 <script setup lang="ts">
