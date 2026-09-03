@@ -108,9 +108,9 @@ router.beforeEach(async (to: RouteLocation) => {
   if (to.meta.requiresAuth && !data.session) {
     return '/login';
   } 
-  // else if (!to.meta.requiresAuth && data.session && (to.name === 'Login' || to.name === 'Register')) {
-  //   return '/';
-  // }
+  else if (!to.meta.requiresAuth && data.session && (to.name === 'Login' || to.name === 'Register')) {
+    return '/';
+  }
 
   document.title = i18n.global.t(String(to.meta.title));
 
