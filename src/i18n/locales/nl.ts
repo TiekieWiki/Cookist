@@ -98,7 +98,9 @@ export const nl: TranslationSchema = {
     }
   },
   recipesPage: {
-    title: 'Recepten',
+    title: 'Mijn recepten',
+    totalRecipes: '{count} geweldige recepten | {count} geweldig recept | {count} geweldige recepten',
+    newRecipe: 'Nieuw',
     filter: 'Filter',
     order: 'Sorteer',
     orders: {

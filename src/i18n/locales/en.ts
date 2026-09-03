@@ -95,7 +95,9 @@ export const en = {
     }
   },
   recipesPage: {
-    title: 'Recipes',
+    title: 'My recipes',
+    totalRecipes: '{count} great recipes | {count} great recipe | {count} great recipes',
+    newRecipe: 'New',
     filter: 'Filter',
     order: 'Order',
     orders: {

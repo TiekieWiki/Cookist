@@ -1,42 +1,26 @@
-import { getData } from '@/utils/global/db';
+import { getErrorMessage } from '@/utils/global/errorHandling';
+import { supabase } from '@/utils/global/supabase';
 import { Recipe } from '@/utils/types/recipe';
-import { User } from '@/utils/types/profile';
-import { getAuth } from 'firebase/auth';
-import { where } from 'firebase/firestore';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useRecipesStore = defineStore('recipes', () => {
   const recipes = ref<Recipe[]>([]);
+  const errorMessage = ref<string>('');
 
-  /**
-   * Get recipes from database
-   */
-  async function getRecipes(): Promise<void> {
-    getData('users', where('id', '==', getAuth().currentUser?.uid))
-      .then((result) => {
-        const user = result[0] as User;
-
-        return user.recipes.map((r) => {
-          return r.recipeId;
-        });
-      })
-      .then((userRecipes) => {
-        if (userRecipes) {
-          getData('recipes', where('id', 'in', userRecipes.slice(0, 30)))
-            .then((result) => {
-              recipes.value = result as Recipe[];
-            })
-            .catch(() => {
-              console.error('No access to recipes');
-            });
-        }
-      })
-      .catch(() => {
-        console.error('No access to recipes');
-      });
-  }
-
+    /**
+     * Get recipes from database
+     */
+    async function getRecipes(): Promise<void> {
+      const { data, error: recipesError } = await supabase.rpc('get_recipes');
+  
+      if (recipesError || !data) {
+        errorMessage.value = getErrorMessage('unknown');
+      } else {
+        recipes.value = data;
+      }
+    }
+  
   return {
     recipes,
     getRecipes
