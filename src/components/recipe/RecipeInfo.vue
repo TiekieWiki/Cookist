@@ -1,6 +1,5 @@
 <template>
   <section class="header">
-    <img :src="recipeStore.recipeImage" />
     <div class="title">
       <div>
         <h2>{{ recipeStore.recipe.name }}</h2>

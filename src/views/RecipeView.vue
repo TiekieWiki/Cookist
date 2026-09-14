@@ -7,11 +7,18 @@
           {{ $t('recipePage.allRecipes') }}</Button
         ></router-link
       >
-      <RecipeInfo v-model:delete-open="deleteRecipeOpen" />
-      <RecipeIngredients />
-      <RecipeInstructions />
-      <RecipeLastEaten />
-      <TimerCard />
+      <img :src="recipeStore.recipeImage" />
+      <div class="content">
+        <div class="main">
+          <RecipeInfo v-model:delete-open="deleteRecipeOpen" />
+          <RecipeIngredients />
+          <RecipeInstructions />
+        </div>
+        <div class="sidebar">
+          <RecipeLastEaten />
+          <TimerCard />
+        </div>
+      </div>
     </article>
     <article v-else>
       <h2>{{ $t('recipePage.recipeNotFound') }}</h2>

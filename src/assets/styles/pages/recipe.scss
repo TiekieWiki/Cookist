@@ -7,125 +7,148 @@
   article {
     @include header-back-button;
 
-    .header {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-7);
-
-      img {
-        width: 100%;
-        height: 320px;
-        border-radius: var(--spacing-8);
-        object-fit: cover;
-      }
-
-      .info {
-        display: flex;
-        gap: var(--spacing-5);
-
-        p {
-          display: flex;
-          gap: var(--spacing-2);
-          align-items: center;
-          color: var(--color-background-secondary-text);
-        }
-      }
+    img {
+      width: 100%;
+      height: 320px;
+      border-radius: var(--spacing-8);
+      object-fit: cover;
     }
 
-    .ingredients,
-    .instructions {
-      @include compact-checkbox-list;
-
+    .content {
       display: flex;
       flex-direction: column;
-      gap: var(--spacing-4);
+      gap: var(--spacing-6);
 
-      .title {
-        .actions {
-          @include responsiveness;
+      @media only screen and (min-width: 1101px) {
+        flex-direction: row;
+      }
 
-          align-items: center;
+      .main {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-6);
+        flex-grow: 1;
 
-          .servings {
+        .header {
+          display: flex;
+          flex-direction: column;
+          gap: var(--spacing-7);
+
+          .info {
+            display: flex;
+            gap: var(--spacing-5);
+
+            p {
+              display: flex;
+              gap: var(--spacing-2);
+              align-items: center;
+              color: var(--color-background-secondary-text);
+            }
+          }
+        }
+
+        .ingredients,
+        .instructions {
+          @include compact-checkbox-list;
+
+          display: flex;
+          flex-direction: column;
+          gap: var(--spacing-4);
+
+          .title {
+            .actions {
+              @include responsiveness;
+
+              align-items: center;
+
+              .servings {
+                display: flex;
+                gap: var(--spacing-2);
+                align-items: center;
+              }
+
+              p {
+                margin-top: 0;
+                color: var(--color-background-primary-text);
+              }
+            }
+          }
+        }
+      }
+
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-6);
+
+        .lastEaten {
+          gap: var(--spacing-2);
+        }
+
+        .timer {
+          p {
             display: flex;
             gap: var(--spacing-2);
             align-items: center;
+            color: var(--color-background-secondary-text);
           }
 
-          p {
-            margin-top: 0;
-            color: var(--color-background-primary-text);
+          .clock {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-self: center;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--color-background-secondary);
+
+            &::before {
+              content: '';
+              position: absolute;
+              inset: 0;
+              padding: var(--spacing-2);
+              border-radius: 50%;
+
+              background: conic-gradient(
+                var(--color-primary) 0% var(--progress),
+                var(--color-border-secondary) var(--progress) 100%
+              );
+
+              mask:
+                linear-gradient(#000 0 0) content-box,
+                linear-gradient(#000 0 0);
+              mask-composite: exclude;
+            }
+
+            span {
+              position: relative;
+              z-index: 1;
+              font-size: var(--spacing-7);
+              color: var(--color-background-primary-text);
+            }
+
+            &.finished {
+              @include animation-shake;
+            }
           }
-        }
-      }
-    }
 
-    .lastEaten {
-      gap: var(--spacing-2);
-    }
+          .actions {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-2);
+          }
 
-    .timer {
-      p {
-        display: flex;
-        gap: var(--spacing-2);
-        align-items: center;
-        color: var(--color-background-secondary-text);
-      }
+          .setTime {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-2);
 
-      .clock {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        align-self: center;
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        background: var(--color-background-secondary);
-
-        &::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          padding: var(--spacing-2);
-          border-radius: 50%;
-
-          background: conic-gradient(
-            var(--color-primary) 0% var(--progress),
-            var(--color-border-secondary) var(--progress) 100%
-          );
-
-          mask:
-            linear-gradient(#000 0 0) content-box,
-            linear-gradient(#000 0 0);
-          mask-composite: exclude;
-        }
-
-        span {
-          position: relative;
-          z-index: 1;
-          font-size: var(--spacing-7);
-          color: var(--color-background-primary-text);
-        }
-
-        &.finished {
-          @include animation-shake;
-        }
-      }
-
-      .actions {
-        display: flex;
-        justify-content: center;
-        gap: var(--spacing-2);
-      }
-
-      .setTime {
-        display: flex;
-        justify-content: center;
-        gap: var(--spacing-2);
-
-        label {
-          width: 80px;
+            label {
+              width: 80px;
+            }
+          }
         }
       }
     }
