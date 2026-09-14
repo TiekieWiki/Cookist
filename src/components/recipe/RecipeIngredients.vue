@@ -59,10 +59,10 @@ import SelectField from '@/components/form/SelectField.vue';
 import { getPossibleUnits } from '@/utils/recipe/updateIngredientUnit';
 import { useRecipePortions } from '@/composables/useRecipePortions';
 import Button from '../form/Button.vue';
-import { ButtonType, ColAmount, ColorVariant } from '@/utils/types/enums';
+import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import CheckBoxList from '../form/CheckBoxList.vue';
 import { computed } from 'vue';
-import { CheckBoxProps } from '@/utils/types/form';
+import { type CheckBoxProps } from '@/utils/types/form';
 import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
 
 const groceryListStore = useGroceryListStore();
@@ -70,7 +70,7 @@ const groceryListStore = useGroceryListStore();
 const { portionCount, portionedIngredients, changeIngredientUnit } = useRecipePortions();
 
 const ingredients = computed(() => {
-  return portionedIngredients.value.map((ingredient) => {
+  return (portionedIngredients.value ?? []).map((ingredient) => {
     return {
       name: ingredient.name,
       label: ingredient.amount.toString(),

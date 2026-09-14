@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
-import { Filter, RecipeOrderCategories } from '@/utils/types/orderFilter';
+import { type Filter, RecipeOrderCategories } from '@/utils/types/orderFilter';
 import { ref } from 'vue';
 import { AutoCompleteVariant, ButtonType, ColorVariant, Size } from '@/utils/types/enums';
 import { RecipeCategories } from '@/utils/types/recipe';

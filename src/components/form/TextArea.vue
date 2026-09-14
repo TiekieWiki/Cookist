@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { ColorVariant } from '@/utils/types/enums';
-import { TextAreaProps } from '@/utils/types/form';
+import { type TextAreaProps } from '@/utils/types/form';
 
 withDefaults(defineProps<TextAreaProps>(), {
   variant: ColorVariant.SECONDARY

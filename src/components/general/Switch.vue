@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { Size, ColorVariant, ButtonType } from '@/utils/types/enums';
-import { SwitchProps } from '@/utils/types/general';
+import { type SwitchProps } from '@/utils/types/general';
 import Button from '../form/Button.vue';
 
 withDefaults(defineProps<SwitchProps>(), {

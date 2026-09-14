@@ -14,8 +14,8 @@
       :label="$t('editRecipePage.image')"
       :placeholder="$t('editRecipePage.placeholder.image')"
       :ariaLabel="$t('editRecipePage.ariaLabel.image')"
-      :oldImage="image as string"
-      @image="(i: File | null) => (image = i)"
+      :oldImage="typeof image === 'string' ? image : undefined"
+      @image="(i: File) => (image = i)"
     />
   </section>
 </template>

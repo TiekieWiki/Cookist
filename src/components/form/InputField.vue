@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { AutoCompleteVariant, ColorVariant } from '@/utils/types/enums';
-import { InputFieldProps } from '@/utils/types/form';
+import { type InputFieldProps } from '@/utils/types/form';
 
 const props = withDefaults(defineProps<InputFieldProps>(), {
   variant: ColorVariant.SECONDARY,

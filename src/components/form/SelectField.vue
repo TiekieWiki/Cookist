@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { ColorVariant } from '@/utils/types/enums';
-import { SelectFieldProps } from '@/utils/types/form';
+import { type SelectFieldProps } from '@/utils/types/form';
 
 withDefaults(defineProps<SelectFieldProps>(), {
   variant: ColorVariant.SECONDARY,

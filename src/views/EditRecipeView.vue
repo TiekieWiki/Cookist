@@ -21,8 +21,8 @@
         <EditInfo v-model:recipe="recipe" />
         <EditIngredients v-model:ingredients="recipe.ingredients" />
         <EditInstructions v-model:instructions="recipe.instructions" />
-        <EditExtras v-model:notes="recipe.notes" v-bind:image="image" />
-        <ErrorMessage v-if="recipeStore.errorMessage" v-model:message="recipeStore.errorMessage" />
+        <EditExtras v-model:notes="recipe.notes" v-model:image="image" />
+        <ErrorMessage v-model:message="recipeStore.errorMessage" />
         <div class="compact">
           <Button
             @click="saveRecipe()"
@@ -56,6 +56,7 @@ import EditInfo from '@/components/edit recipe/EditInfo.vue';
 import EditIngredients from '@/components/edit recipe/EditIngredients.vue';
 import EditInstructions from '@/components/edit recipe/EditInstructions.vue';
 import EditExtras from '@/components/edit recipe/EditExtras.vue';
+import ErrorMessage from '@/components/form/ErrorMessage.vue';
 
 const recipeStore = useRecipeStore();
 const { recipe, image, saveRecipe } = useEditRecipe();

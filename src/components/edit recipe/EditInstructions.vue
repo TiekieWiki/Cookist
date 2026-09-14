@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { Instruction, type Recipe } from '@/utils/types/recipe';
+import { type Instruction, type Recipe } from '@/utils/types/recipe';
 import { addInputRow } from '@/utils/global/list';
 import InputField from '@/components/form/InputField.vue';
 import InputList from '@/components/form/InputList.vue';

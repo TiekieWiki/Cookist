@@ -1,7 +1,7 @@
 import i18n from '@/i18n';
-import { computed, onMounted, Ref, ref, toRaw} from 'vue';
+import { computed, onMounted, type Ref, ref, toRaw} from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
-import { emptyIngredient, emptyInstruction, emptyRecipe, Ingredient, Instruction, type Recipe } from '@/utils/types/recipe';
+import { emptyIngredient, emptyInstruction, emptyRecipe, type Ingredient, type Instruction, type Recipe } from '@/utils/types/recipe';
 import { useRecipeStore } from '@/stores/useRecipeStore';
 import router from '@/router';
 import { DEFAULT_RECIPE_IMAGE_SRC } from '@/utils/global/variables';
@@ -27,9 +27,12 @@ export function useEditRecipe(): {
    * @param image Recipe image
    */
   async function saveRecipe(): Promise<void> {
-    if (!hasUnsavedChanges) router.push({
-      path: `/recipe/${recipeStore.recipe.id}`
-    });
+    if (!hasUnsavedChanges.value) {
+      await router.push({
+        path: `/recipe/${recipeStore.recipe.id}`
+      })
+      return;
+    };
 
     const cleanedRecipe = structuredClone(toRaw(recipe.value));
 
@@ -43,18 +46,16 @@ export function useEditRecipe(): {
       sort_order: index + 1
     }));
 
-    recipeStore
-      .setRecipe(cleanedRecipe, image.value && typeof image.value !== "string" ? image.value : null)
-      .then(() => {
-        if (!recipeStore.errorMessage) {
-          originalRecipe.value = recipe.value;
-          originalImage.value = image.value;
+    await recipeStore.setRecipe(cleanedRecipe, image.value && typeof image.value !== "string" ? image.value : null)
+    
+    if (!recipeStore.errorMessage) {
+      originalRecipe.value = structuredClone(toRaw(recipe.value));
+      originalImage.value = image.value;
 
-          router.push({
-            path: `/recipe/${recipeStore.recipe.id}`
-          });
-        }
-      })
+      await router.push({
+        path: `/recipe/${recipeStore.recipe.id}`
+      });
+    }
   }
 
   /**
@@ -72,13 +73,13 @@ export function useEditRecipe(): {
   onMounted(async () => {
     if (route.params.recipeId) {
       await recipeStore.getRecipe(route.params.recipeId as string);
-      recipe.value = recipeStore.recipe;
+      recipe.value = structuredClone(toRaw(recipeStore.recipe));
       recipe.value.ingredients.push(emptyIngredient());
       recipe.value.instructions.push({
         ...emptyInstruction(),
         sort_order: recipe.value.instructions.length + 1
       });
-      originalRecipe.value = recipe.value;
+      originalRecipe.value = structuredClone(toRaw(recipe.value));
       image.value =
         recipeStore.recipeImage !== DEFAULT_RECIPE_IMAGE_SRC
           ? recipeStore.recipeImage

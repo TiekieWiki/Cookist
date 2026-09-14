@@ -1,5 +1,5 @@
 import { ref, watch, type Ref } from 'vue';
-import { Ingredient } from '@/utils/types/recipe';
+import { type Ingredient } from '@/utils/types/recipe';
 import { updateIngredientsUnit } from '@/utils/recipe/updateIngredientUnit';
 import { useRecipeStore } from '@/stores/useRecipeStore';
 

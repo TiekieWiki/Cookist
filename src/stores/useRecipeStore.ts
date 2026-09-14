@@ -1,4 +1,4 @@
-import { emptyRecipe, Recipe } from '@/utils/types/recipe';
+import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useUserStore } from './useUserStore';
@@ -22,6 +22,8 @@ export const useRecipeStore = defineStore('recipe', () => {
    * @param recipeId Recipe id
    */
   async function getRecipe(recipeId: string): Promise<void> {
+    errorMessage.value = '';
+
     const { data, error: recipeError } =
       await supabase.rpc('get_recipe', {
         p_recipe_id: recipeId
@@ -33,8 +35,10 @@ export const useRecipeStore = defineStore('recipe', () => {
       recipe.value = data.recipe;
       lastEatenRecipe.value = formatDate(data.last_eaten);
 
+      recipeImage.value = DEFAULT_RECIPE_IMAGE_SRC;
+
       const { data: image, error: imageError } = await supabase.storage
-        .from('recipe_images').createSignedUrl(recipe.value.id, 60);
+        .from('recipe_images').createSignedUrl(recipe.value.id, 3600);
 
       if (image && !imageError) {
         recipeImage.value = image.signedUrl;
@@ -48,6 +52,8 @@ export const useRecipeStore = defineStore('recipe', () => {
    * @param image Image to save
    */
   async function setRecipe(newRecipe: Recipe, image: File | null): Promise<void> {
+    errorMessage.value = '';
+
     const message = validateRecipe(newRecipe);
 
     if (message) {
@@ -152,7 +158,7 @@ export const useRecipeStore = defineStore('recipe', () => {
       return;
     }
 
-    if (recipeImage) {
+    if (recipeImage.value !== DEFAULT_RECIPE_IMAGE_SRC) {
       const { error: imageError } = await supabase.storage
         .from('recipe_images')
         .remove([recipeId]);

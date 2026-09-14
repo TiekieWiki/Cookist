@@ -122,18 +122,16 @@
     </aside>
   </Transition>
   <router-view v-slot="{ Component }">
-    <Transition name="slide-fade">
-      <suspense>
-        <template #default>
-          <component :is="Component" />
-        </template>
-        <template #fallback>
-          <div class="loader">
-            <div class="loader-spinner"></div>
-          </div>
-        </template>
-      </suspense>
-    </Transition>
+    <suspense>
+      <template #default>
+        <component :is="Component" />
+      </template>
+      <template #fallback>
+        <div class="loader">
+          <div class="loader-spinner"></div>
+        </div>
+      </template>
+    </suspense>
   </router-view>
   <ErrorMessage v-model:message="profileStore.errorMessage" />
 </template>
@@ -191,42 +189,35 @@ watch(
   }
 );
 
-// Close menu
-onMounted(async () => {
-  // Close menu when the window is resized
-  window.addEventListener('resize', () => {
+// Close menu when the window is resized
+function closeMenuOnResize(): void {
+  menuOpen.value = false;
+}
+
+// Close menu when escape is pressed
+function closeMenuOnEscape(event: KeyboardEvent): void {
+  if (event.key === 'Escape') {
     menuOpen.value = false;
-  });
+  }
+}
 
-  // Close menu when escape is pressed
-  window.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      menuOpen.value = false;
-    }
-  });
+// Close menu when clicked outside of the menu
+function closeMenuOnOutsideClick(event: MouseEvent): void {
+  if (menuOpen.value && !(event.target as HTMLElement).closest('aside')) {
+    menuOpen.value = false;
+  }
+}
 
-  // Close menu when clicked outside of the menu
-  window.addEventListener('click', (event) => {
-    if (menuOpen.value && !(event.target as HTMLElement).closest('aside')) {
-      menuOpen.value = false;
-    }
-  });
+onMounted(() => {
+  window.addEventListener('resize', closeMenuOnResize);
+  window.addEventListener('keydown', closeMenuOnEscape);
+  window.addEventListener('click', closeMenuOnOutsideClick);
 });
 
 // Remove event listeners when the component is unmounted
 onUnmounted(() => {
-  window.removeEventListener('resize', () => {
-    menuOpen.value = false;
-  });
-  window.removeEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      menuOpen.value = false;
-    }
-  });
-  window.removeEventListener('click', (event) => {
-    if (menuOpen.value && !(event.target as HTMLElement).closest('aside')) {
-      menuOpen.value = false;
-    }
-  });
+  window.removeEventListener('resize', closeMenuOnResize);
+  window.removeEventListener('keydown', closeMenuOnEscape);
+  window.removeEventListener('click', closeMenuOnOutsideClick);
 });
 </script>

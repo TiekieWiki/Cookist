@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { supabase } from '@/utils/global/supabase';
 import { getErrorMessage } from '@/utils/global/errorHandling';
-import { Ingredient } from '@/utils/types/recipe';
+import { type Ingredient } from '@/utils/types/recipe';
 import { useUserStore } from './useUserStore';
 
 export const useGroceryListStore = defineStore('groceryList', () => {

@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { Size, ColorVariant } from '@/utils/types/enums';
-import { ButtonProps } from '@/utils/types/form';
+import { type ButtonProps } from '@/utils/types/form';
 
 withDefaults(defineProps<ButtonProps>(), {
   variant: ColorVariant.PRIMARY,

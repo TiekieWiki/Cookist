@@ -92,12 +92,12 @@ import Button from '../form/Button.vue';
 import { ButtonType, ColorVariant, Size } from '@/utils/types/enums';
 import CheckBoxList from '../form/CheckBoxList.vue';
 import { computed } from 'vue';
-import { CheckBoxProps } from '@/utils/types/form';
+import { type CheckBoxProps } from '@/utils/types/form';
 import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
 import Pill from '../general/Pill.vue';
 import InputField from '@/components/form/InputField.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
-import { emptyIngredient, Ingredient, RecipeUnits } from '@/utils/types/recipe';
+import { emptyIngredient, type Ingredient, RecipeUnits } from '@/utils/types/recipe';
 import { ref } from 'vue';
 
 const ingredient = ref<Ingredient>(emptyIngredient());

@@ -1,5 +1,4 @@
 import { AutoCompleteVariant, Size, ButtonType, ColAmount, ColorVariant } from './enums';
-import { GroceryList } from './groceryList';
 
 export interface ButtonProps {
   variant?: ColorVariant;

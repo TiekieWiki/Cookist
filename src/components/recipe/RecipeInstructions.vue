@@ -16,13 +16,13 @@ import { useKeepScreenOn } from '@/composables/useKeepScreenOn';
 import Toggle from '../form/Toggle.vue';
 import CheckBoxList from '../form/CheckBoxList.vue';
 import { computed } from 'vue';
-import { CheckBoxProps } from '@/utils/types/form';
+import { type CheckBoxProps } from '@/utils/types/form';
 import { useRecipeStore } from '@/stores/useRecipeStore.js';
 
 const recipeStore = useRecipeStore();
 
 const instructions = computed(() => {
-  return recipeStore.recipe.instructions.map((instruction) => {
+  return (recipeStore.recipe.instructions ?? []).map((instruction) => {
     return {
       name: instruction.instruction,
       label: instruction.instruction

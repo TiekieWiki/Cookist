@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { supabase } from '@/utils/global/supabase';
 import { getErrorMessage } from '@/utils/global/errorHandling';
-import { Profile } from '@/utils/types/profile';
+import { type Profile } from '@/utils/types/profile';
 import { useUserStore } from './useUserStore';
 import { ColorScheme, Handedness, Language } from '@/utils/types/enums';
 

@@ -1,6 +1,6 @@
 import { getErrorMessage } from '@/utils/global/errorHandling';
 import { supabase } from '@/utils/global/supabase';
-import { Recipe } from '@/utils/types/recipe';
+import { type Recipe } from '@/utils/types/recipe';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 

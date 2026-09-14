@@ -26,18 +26,12 @@
 
 <script lang="ts" setup>
 import type { Recipe } from '@/utils/types/recipe';
-import { useLastEatenStore } from '@/stores/useLastEatenStore';
-import { storeToRefs } from 'pinia';
-import { onMounted } from 'vue';
+import { formatDate } from '@/utils/global/date';
+import { computed } from 'vue';
 
 const props = defineProps<{
   recipe: Recipe;
 }>();
 
-const lastEatenStore = useLastEatenStore();
-const { lastEaten } = storeToRefs(lastEatenStore);
-
-onMounted(() => {
-  lastEatenStore.getLastEaten(props.recipe.id);
-});
+const lastEaten = computed(() => formatDate(props.recipe.last_eaten ?? null));
 </script>

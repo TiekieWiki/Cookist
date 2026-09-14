@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import { ColorVariant } from '@/utils/types/enums';
-import { UploadImageProps } from '@/utils/types/form';
+import { type UploadImageProps } from '@/utils/types/form';
 import { ref, watch } from 'vue';
 
 const props = withDefaults(defineProps<UploadImageProps>(), {
@@ -39,7 +39,7 @@ const previewImage = ref<string>('');
  */
 function showImagePreview(event: Event) {
   const target = event.target as HTMLInputElement;
-  if (target.files) {
+  if (target.files?.length) {
     const image = target.files[0];
     emit('image', image);
     const reader = new FileReader();
@@ -53,10 +53,8 @@ function showImagePreview(event: Event) {
 // Set preview image to the image prop
 watch(
   () => props.oldImage,
-  () => {
-    if (props.oldImage) {
-      previewImage.value = props.oldImage;
-    }
+  (oldImage) => {
+    previewImage.value = oldImage ?? '';
   },
   { immediate: true }
 );

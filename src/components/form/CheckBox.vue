@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { ColorVariant } from '@/utils/types/enums';
-import { CheckBoxProps } from '@/utils/types/form';
+import { type CheckBoxProps } from '@/utils/types/form';
 
 withDefaults(defineProps<CheckBoxProps>(), {
   variant: ColorVariant.PRIMARY

@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { Ingredient, RecipeUnits } from '@/utils/types/recipe';
+import { type Ingredient, RecipeUnits } from '@/utils/types/recipe';
 import { addInputRow } from '@/utils/global/list';
 import InputField from '@/components/form/InputField.vue';
 import InputList from '@/components/form/InputList.vue';

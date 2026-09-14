@@ -22,7 +22,7 @@
 import { deleteRow } from '@/utils/global/list';
 import Button from './Button.vue';
 import { ButtonType, ColorVariant, Size } from '@/utils/types/enums';
-import { InputListProps } from '@/utils/types/form';
+import { type InputListProps } from '@/utils/types/form';
 
 defineProps<InputListProps>();
 

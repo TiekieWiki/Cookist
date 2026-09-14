@@ -52,7 +52,7 @@ import { ButtonType, Size } from '@/utils/types/enums';
 import { useRecipesStore } from '@/stores/useRecipesStore';
 import { onMounted } from 'vue';
 import RecipeCard from '@/components/recipes/RecipeCard.vue';
-import { Filter } from '@/utils/types/orderFilter';
+import { type Filter } from '@/utils/types/orderFilter';
 import { ref } from 'vue';
 import i18n from '@/i18n/index.js';
 import { RecipeCategories } from '@/utils/types/recipe.js';

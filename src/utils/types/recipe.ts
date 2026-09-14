@@ -9,6 +9,7 @@ export interface Recipe {
   ingredients: Ingredient[];
   instructions: Instruction[];
   notes: string | undefined;
+  last_eaten?: string | null;
 }
 
 export interface Ingredient {

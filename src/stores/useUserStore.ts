@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { supabase } from '@/utils/global/supabase';
 import { getErrorMessage } from '@/utils/global/errorHandling';
-import { User } from '@supabase/supabase-js';
+import { type User } from '@supabase/supabase-js';
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<User>();
@@ -35,7 +35,8 @@ export const useUserStore = defineStore('user', () => {
 
     // Update user's logged in state
     supabase.auth.onAuthStateChange((event, session) => {
-        isLoggedIn.value = !!session
+        isLoggedIn.value = !!session;
+        user.value = session?.user;
     });
     
   return {

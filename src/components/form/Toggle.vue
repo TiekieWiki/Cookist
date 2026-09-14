@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { ColorVariant } from '@/utils/types/enums';
-import { ToggleProps } from '@/utils/types/form';
+import { type ToggleProps } from '@/utils/types/form';
 
 withDefaults(defineProps<ToggleProps>(), {
   variant: ColorVariant.PRIMARY

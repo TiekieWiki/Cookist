@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { ColorVariant, Size } from '@/utils/types/enums';
-import { PillProps } from '@/utils/types/general';
+import { type PillProps } from '@/utils/types/general';
 
 withDefaults(defineProps<PillProps>(), {
   variant: ColorVariant.PRIMARY,
