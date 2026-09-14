@@ -28,12 +28,13 @@
     <div class="info">
       <p>
         <font-awesome-icon :icon="['far', 'clock']" /> {{ recipeStore.recipe.duration }}
-        {{ $t('recipePage.minutes') }}
+        {{ $t('recipePage.minutes', { count: recipeStore.recipe.duration }) }}
       </p>
       <p>
         <font-awesome-icon :icon="['fas', 'user-group']" />
 
-        {{ recipeStore.recipe.portions }} {{ $t('recipePage.servings') }}
+        {{ recipeStore.recipe.portions }}
+        {{ $t('recipePage.servings', { count: recipeStore.recipe.portions }) }}
       </p>
       <p>
         <font-awesome-icon :icon="['fas', 'bowl-food']" />
@@ -41,7 +42,8 @@
       </p>
       <p v-if="recipeStore.recipe.rating">
         <font-awesome-icon :icon="['fas', 'star']" />
-        {{ recipeStore.recipe.rating }} {{ $t('recipePage.rating') }}
+        {{ recipeStore.recipe.rating }}
+        {{ $t('recipePage.rating', { count: recipeStore.recipe.rating }) }}
       </p>
     </div>
   </section>
@@ -52,6 +54,7 @@ import Button from '../form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import { useRecipeStore } from '@/stores/useRecipeStore.js';
 import { useUserStore } from '@/stores/useUserStore.js';
+import type { counter } from '@fortawesome/fontawesome-svg-core';
 
 const userStore = useUserStore();
 const recipeStore = useRecipeStore();

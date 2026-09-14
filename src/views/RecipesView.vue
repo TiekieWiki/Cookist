@@ -25,21 +25,19 @@
         <section v-if="recipesStore.recipes.length <= 0">
           <h3>{{ $t('recipesPage.noRecipes') }}</h3>
         </section>
-        <TransitionGroup v-else name="move">
-          <template
-            v-for="recipe in recipesStore.recipes"
-            :key="recipe.id"
-            :id="recipe.id"
-            @click="
-              $router.push({
-                path: `/recipe/${recipe.id}`
-              })
-            "
-            tabindex="0"
-          >
-            <RecipeCard :recipe="recipe" />
-          </template>
-        </TransitionGroup>
+        <section v-else class="recipesList">
+          <TransitionGroup name="move">
+            <router-link
+              v-for="recipe in recipesStore.recipes"
+              :key="recipe.id"
+              :id="recipe.id"
+              :to="`/recipe/${recipe.id}`"
+              tabindex="0"
+            >
+              <RecipeCard :recipe="recipe" />
+            </router-link>
+          </TransitionGroup>
+        </section>
       </div>
     </article>
   </main>

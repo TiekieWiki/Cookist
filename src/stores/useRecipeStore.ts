@@ -18,6 +18,22 @@ export const useRecipeStore = defineStore('recipe', () => {
   const errorMessage = ref<string>('');
 
   /**
+   * Get recipe image from database
+   * @param recipeId Recipe id
+   */
+  async function getRecipeImage(recipeId: string): Promise<string> {
+
+    const { data: image, error: imageError } = await supabase.storage
+      .from('recipe_images').createSignedUrl(recipeId, 3600);
+
+    if (image && !imageError) {
+      return image.signedUrl;
+    }
+
+    return DEFAULT_RECIPE_IMAGE_SRC;
+  }
+
+  /**
    * Get recipe from database
    * @param recipeId Recipe id
    */
@@ -37,12 +53,7 @@ export const useRecipeStore = defineStore('recipe', () => {
 
       recipeImage.value = DEFAULT_RECIPE_IMAGE_SRC;
 
-      const { data: image, error: imageError } = await supabase.storage
-        .from('recipe_images').createSignedUrl(recipe.value.id, 3600);
-
-      if (image && !imageError) {
-        recipeImage.value = image.signedUrl;
-      }
+      recipeImage.value = await getRecipeImage(recipeId);
     }
   }
 
@@ -198,6 +209,7 @@ export const useRecipeStore = defineStore('recipe', () => {
     lastEatenRecipe,
     errorMessage,
     getRecipe,
+    getRecipeImage,
     setRecipe,
     setLastEaten,
     deleteRecipe,
