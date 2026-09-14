@@ -34,7 +34,7 @@
 
 <script lang="ts" setup>
 import type { Recipe } from '@/utils/types/recipe';
-import { formatDate } from '@/utils/global/date';
+import { formatDateAgo } from '@/utils/global/date';
 import { computed, onMounted, ref } from 'vue';
 import { useRecipeStore } from '@/stores/useRecipeStore';
 import Pill from '@/components/general/Pill.vue';
@@ -46,7 +46,7 @@ const props = defineProps<{
 
 const recipeStore = useRecipeStore();
 
-const lastEaten = computed(() => formatDate(props.recipe.last_eaten ?? null));
+const lastEaten = computed(() => formatDateAgo(props.recipe.last_eaten ?? null));
 const recipeImage = ref<string>('');
 
 onMounted(async () => {

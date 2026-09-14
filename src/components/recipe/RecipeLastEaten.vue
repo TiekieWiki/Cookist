@@ -25,6 +25,6 @@ import { isToday } from '@/utils/global/date.js';
 const recipeStore = useRecipeStore();
 
 const lastEatenToday = computed(() => {
-  return isToday(recipeStore.lastEatenRecipe);
+  return isToday(recipeStore.lastEatenDate);
 });
 </script>

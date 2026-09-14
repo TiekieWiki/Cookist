@@ -1,11 +1,11 @@
 import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useUserStore } from './useUserStore';
 import { getErrorMessage } from '@/utils/global/errorHandling';
 import { supabase } from '@/utils/global/supabase';
 import { validateRecipe } from '@/utils/recipe/validateRecipe';
-import { formatDate } from '@/utils/global/date';
+import { formatDateAgo } from '@/utils/global/date';
 import { PostgrestError } from '@supabase/supabase-js';
 import { DEFAULT_RECIPE_IMAGE_SRC } from '@/utils/global/variables';
 import router from '@/router';
@@ -14,7 +14,8 @@ export const useRecipeStore = defineStore('recipe', () => {
   const userStore = useUserStore();
   const recipe = ref<Recipe>(emptyRecipe());
   const recipeImage = ref<string>(DEFAULT_RECIPE_IMAGE_SRC);
-  const lastEatenRecipe = ref<string | null>(null);
+  const lastEatenDate = ref<string | null>(null);
+  const lastEatenRecipe = computed<string>(() => formatDateAgo(lastEatenDate.value));
   const errorMessage = ref<string>('');
 
   /**
@@ -49,7 +50,7 @@ export const useRecipeStore = defineStore('recipe', () => {
       errorMessage.value = getErrorMessage('unknown');
     } else {
       recipe.value = data.recipe;
-      lastEatenRecipe.value = formatDate(data.last_eaten);
+      lastEatenDate.value = data.last_eaten;
 
       recipeImage.value = DEFAULT_RECIPE_IMAGE_SRC;
 
@@ -154,7 +155,7 @@ export const useRecipeStore = defineStore('recipe', () => {
       if (error || !data) {
         errorMessage.value = getErrorMessage('unknown');
       } else {
-        lastEatenRecipe.value = formatDate(data.last_eaten);
+        lastEatenDate.value = data.last_eaten;
       }
     }
   }
@@ -206,6 +207,7 @@ export const useRecipeStore = defineStore('recipe', () => {
   return {
     recipe,
     recipeImage,
+    lastEatenDate,
     lastEatenRecipe,
     errorMessage,
     getRecipe,
