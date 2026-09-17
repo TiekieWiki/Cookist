@@ -1,20 +1,14 @@
 <template>
-  <div class="card">
-    <div v-if="groceryListStore.groceryList.length <= 0" class="empty">
-      <Pill :variant="ColorVariant.TERTIARY" :size="Size.XLARGE"
-        ><font-awesome-icon :icon="['fas', 'basket-shopping']"
-      /></Pill>
-      <div>
-        <h3>{{ $t('groceryListPage.emptyBasket') }}</h3>
-        <p>{{ $t('groceryListPage.emptyBasketSubtitle') }}</p>
-      </div>
-      <router-link to="/recipes" tabindex="-1">
-        <Button :type="ButtonType.BUTTON" :variant="ColorVariant.PRIMARY" :size="Size.LARGE">
-          {{ $t('groceryListPage.browseRecipes') }}</Button
-        ></router-link
-      >
-    </div>
-    <TransitionGroup v-else name="fade" tag="div">
+  <EmptyState
+    v-if="groceryListStore.groceryList.length <= 0"
+    icon="basket-shopping"
+    title="groceryListPage.emptyBasket"
+    subtitle="groceryListPage.emptyBasketSubtitle"
+    buttonText="groceryListPage.browseRecipes"
+    buttonRoute="/"
+  />
+  <div v-else class="card">
+    <TransitionGroup name="fade" tag="div">
       <CheckBoxList :items="ingredients">
         <template #item="{ item, index }">
           <SelectField
@@ -94,11 +88,11 @@ import CheckBoxList from '../form/CheckBoxList.vue';
 import { computed } from 'vue';
 import { type CheckBoxProps } from '@/utils/types/form';
 import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
-import Pill from '../general/Pill.vue';
 import InputField from '@/components/form/InputField.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import { emptyIngredient, type Ingredient, RecipeUnits } from '@/utils/types/recipe';
 import { ref } from 'vue';
+import EmptyState from '../general/EmptyState.vue';
 
 const ingredient = ref<Ingredient>(emptyIngredient());
 

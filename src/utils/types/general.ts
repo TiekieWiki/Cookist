@@ -7,6 +7,15 @@ export interface ConfirmPopUpProps {
   confirm: string;
 }
 
+export interface EmptyStateProps {
+  icon: string;
+  title: string;
+  subtitle: string;
+  buttonText: string;
+  buttonIcon?: string;
+  buttonRoute: string;
+}
+
 export interface PillProps {
   variant?: ColorVariant;
   size?: Size;

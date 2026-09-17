@@ -1,8 +1,17 @@
 <template>
-  <main>
+  <main class="notFound">
     <article>
-      <h2>{{ $t('notFoundPage.title') }}</h2>
-      <p>{{ $t('notFoundPage.description') }}</p>
+      <EmptyState
+        icon="link-slash"
+        title="notFoundPage.title"
+        subtitle="notFoundPage.description"
+        button-text="homePage.title"
+        button-route="/"
+      />
     </article>
   </main>
 </template>
+
+<script setup lang="ts">
+import EmptyState from '@/components/general/EmptyState.vue';
+</script>

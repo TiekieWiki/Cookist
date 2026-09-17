@@ -4,23 +4,6 @@
 .groceryList {
   @include compact-checkbox-list;
 
-  .empty {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-6);
-    padding: var(--spacing-6);
-
-    h3 {
-      justify-self: center;
-    }
-
-    p {
-      justify-self: center;
-      margin-top: var(--spacing-3);
-    }
-  }
-
   .addIngredient {
     @include responsiveness;
 

@@ -22,21 +22,29 @@
       <RecipeOrderFilter v-model:open-filters="openFilters" />
       <div class="filtersRecipes">
         <RecipesFilter v-model:open-filters="openFilters" v-model:filter="filter" />
-        <section v-if="recipesStore.recipes.length <= 0">
-          <h3>{{ $t('recipesPage.noRecipes') }}</h3>
-        </section>
-        <section v-else class="recipesList">
-          <TransitionGroup name="move">
-            <router-link
-              v-for="recipe in recipesStore.recipes"
-              :key="recipe.id"
-              :id="recipe.id"
-              :to="`/recipe/${recipe.id}`"
-              tabindex="0"
-            >
-              <RecipeCard :recipe="recipe" />
-            </router-link>
-          </TransitionGroup>
+        <section class="recipesList">
+          <EmptyState
+            v-if="recipesStore.recipes.length <= 0"
+            icon="wine-glass-empty"
+            title="recipesPage.noRecipes"
+            subtitle="recipesPage.noRecipesSubtitle"
+            button-text="recipesPage.newRecipe"
+            button-icon="plus"
+            button-route="/create-recipe"
+          />
+          <div v-else>
+            <TransitionGroup name="move">
+              <router-link
+                v-for="recipe in recipesStore.recipes"
+                :key="recipe.id"
+                :id="recipe.id"
+                :to="`/recipe/${recipe.id}`"
+                tabindex="0"
+              >
+                <RecipeCard :recipe="recipe" />
+              </router-link>
+            </TransitionGroup>
+          </div>
         </section>
       </div>
     </article>
@@ -55,6 +63,7 @@ import { ref } from 'vue';
 import i18n from '@/i18n/index.js';
 import { RecipeCategories } from '@/utils/types/recipe.js';
 import RecipesFilter from '@/components/recipes/RecipesFilter.vue';
+import EmptyState from '@/components/general/EmptyState.vue';
 
 const recipesStore = useRecipesStore();
 const openFilters = ref<boolean>(false);

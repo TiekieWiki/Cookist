@@ -1,7 +1,14 @@
 <template>
   <main class="editRecipe">
     <article v-if="$route.params.recipeId && !recipeStore.recipe.name">
-      <h2>{{ $t('editRecipePage.recipeNotFound') }}</h2>
+      <EmptyState
+        icon="martini-glass-empty"
+        title="recipePage.recipeNotFound"
+        subtitle="recipePage.recipeNotFoundSubtitle"
+        button-text="recipesPage.title"
+        button-icon="arrow-left"
+        button-route="/recipes"
+      />
     </article>
     <article v-else>
       <router-link to="/recipes" tabindex="-1">
@@ -57,6 +64,7 @@ import EditIngredients from '@/components/edit recipe/EditIngredients.vue';
 import EditInstructions from '@/components/edit recipe/EditInstructions.vue';
 import EditExtras from '@/components/edit recipe/EditExtras.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
+import EmptyState from '@/components/general/EmptyState.vue';
 
 const recipeStore = useRecipeStore();
 const { recipe, image, saveRecipe } = useEditRecipe();

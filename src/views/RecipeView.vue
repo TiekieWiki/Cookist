@@ -21,7 +21,14 @@
       </div>
     </article>
     <article v-else>
-      <h2>{{ $t('recipePage.recipeNotFound') }}</h2>
+      <EmptyState
+        icon="martini-glass-empty"
+        title="recipePage.recipeNotFound"
+        subtitle="recipePage.recipeNotFoundSubtitle"
+        button-text="recipesPage.title"
+        button-icon="arrow-left"
+        button-route="/recipes"
+      />
     </article>
   </main>
   <ConfirmPopUp
@@ -46,6 +53,7 @@ import { useRoute } from 'vue-router';
 import Button from '@/components/form/Button.vue';
 import { ButtonType, ColorVariant, Size } from '@/utils/types/enums';
 import RecipeLastEaten from '@/components/recipe/RecipeLastEaten.vue';
+import EmptyState from '@/components/general/EmptyState.vue';
 
 const recipeStore = useRecipeStore();
 const route = useRoute();

@@ -118,6 +118,7 @@ export const nl: TranslationSchema = {
     rating: 'Beoordeling',
     lastEaten: 'Laatst gegeten',
     noRecipes: 'Geen recepten gevonden',
+    noRecipesSubtitle: 'Tijd om wat lekkers toe te voegen',
     placeholder: {
       search: 'Zoek recepten',
       order: 'Laatst gegeten (oud-nieuw)'
@@ -162,6 +163,7 @@ export const nl: TranslationSchema = {
     confirmDelete: 'Weet je zeker dat je dit recept wilt verwijderen?',
     cancel: 'Annuleren',
     recipeNotFound: 'Recept niet gevonden',
+    recipeNotFoundSubtitle: 'Probeer een van je andere heerlijke recepten',
     placeholder: {
       hours: "uu",
       minutes: "mm",

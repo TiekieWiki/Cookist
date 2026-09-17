@@ -115,6 +115,7 @@ export const en = {
     rating: 'Rating',
     lastEaten: 'Last eaten',
     noRecipes: 'No recipes found',
+    noRecipesSubtitle: 'Time to add some tasty ones',
     placeholder: {
       search: 'Search recipes',
       order: 'Last eaten (old-new)'
@@ -159,6 +160,7 @@ export const en = {
     confirmDelete: 'Are you sure you want to delete this recipe?',
     cancel: 'Cancel',
     recipeNotFound: 'Recipe not found',
+    recipeNotFoundSubtitle: 'Try one of your other delicious recipes',
     placeholder: {
       hours: "hh",
       minutes: "mm",
