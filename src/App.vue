@@ -62,7 +62,9 @@
       </Button>
     </div>
   </nav>
-  <div v-if="menuOpen" class="overlay"></div>
+  <Transition name="fade">
+    <div v-if="menuOpen" class="overlay"></div>
+  </Transition>
   <Transition name="slide-fade">
     <aside v-if="menuOpen" class="mobile">
       <Button
@@ -122,16 +124,20 @@
     </aside>
   </Transition>
   <router-view v-slot="{ Component }">
-    <suspense>
-      <template #default>
-        <component :is="Component" />
-      </template>
-      <template #fallback>
-        <div class="loader">
-          <div class="loader-spinner"></div>
-        </div>
-      </template>
-    </suspense>
+    <template v-if="Component">
+      <Transition name="fade" mode="out-in">
+        <suspense>
+          <template #default>
+            <component :is="Component" />
+          </template>
+          <template #fallback>
+            <div class="loader">
+              <div class="loader-spinner"></div>
+            </div>
+          </template>
+        </suspense>
+      </Transition>
+    </template>
   </router-view>
   <ErrorMessage v-model:message="profileStore.errorMessage" />
 </template>

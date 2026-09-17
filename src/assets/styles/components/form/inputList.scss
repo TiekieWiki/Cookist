@@ -12,6 +12,7 @@
   }
 
   ul {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-3);

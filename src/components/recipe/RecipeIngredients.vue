@@ -72,6 +72,7 @@ const { portionCount, portionedIngredients, changeIngredientUnit } = useRecipePo
 const ingredients = computed(() => {
   return (portionedIngredients.value ?? []).map((ingredient) => {
     return {
+      id: ingredient.id,
       name: ingredient.name,
       label: ingredient.amount.toString(),
       slot: ingredient.unit

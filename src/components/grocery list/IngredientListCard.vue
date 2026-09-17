@@ -1,14 +1,15 @@
 <template>
-  <EmptyState
-    v-if="groceryListStore.groceryList.length <= 0"
-    icon="basket-shopping"
-    title="groceryListPage.emptyBasket"
-    subtitle="groceryListPage.emptyBasketSubtitle"
-    buttonText="groceryListPage.browseRecipes"
-    buttonRoute="/"
-  />
-  <div v-else class="card">
-    <TransitionGroup name="fade" tag="div">
+  <Transition name="fade" mode="out-in">
+    <EmptyState
+      v-if="groceryListStore.groceryList.length <= 0"
+      key="empty"
+      icon="basket-shopping"
+      title="groceryListPage.emptyBasket"
+      subtitle="groceryListPage.emptyBasketSubtitle"
+      buttonText="groceryListPage.browseRecipes"
+      buttonRoute="/"
+    />
+    <div v-else key="list" class="card">
       <CheckBoxList :items="ingredients">
         <template #item="{ item, index }">
           <SelectField
@@ -36,47 +37,47 @@
           </Button>
         </template>
       </CheckBoxList>
-    </TransitionGroup>
-    <div class="addIngredient">
-      <InputField
-        name="newIngredientAmount"
-        :placeholder="$t('editRecipePage.placeholder.amount')"
-        :ariaLabel="$t('editRecipePage.ariaLabel.amount')"
-        :step="0.01"
-        type="number"
-        v-model:input="ingredient.amount"
-      />
-      <SelectField
-        :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
-        :placeholder="$t('editRecipePage.placeholder.unit')"
-        :items="
-          Object.values(RecipeUnits).map((unit) => ({
-            value: unit.toLowerCase(),
-            label: unit.toLowerCase()
-          }))
-        "
-        labelPrefix="editRecipePage.units."
-        v-model:selected="ingredient.unit"
-      />
-      <InputField
-        name="newIngredientName"
-        :placeholder="$t('editRecipePage.placeholder.ingredient')"
-        :ariaLabel="$t('editRecipePage.ariaLabel.ingredient')"
-        type="text"
-        v-model:input="ingredient.name"
-      />
+      <div class="addIngredient">
+        <InputField
+          name="newIngredientAmount"
+          :placeholder="$t('editRecipePage.placeholder.amount')"
+          :ariaLabel="$t('editRecipePage.ariaLabel.amount')"
+          :step="0.01"
+          type="number"
+          v-model:input="ingredient.amount"
+        />
+        <SelectField
+          :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
+          :placeholder="$t('editRecipePage.placeholder.unit')"
+          :items="
+            Object.values(RecipeUnits).map((unit) => ({
+              value: unit.toLowerCase(),
+              label: unit.toLowerCase()
+            }))
+          "
+          labelPrefix="editRecipePage.units."
+          v-model:selected="ingredient.unit"
+        />
+        <InputField
+          name="newIngredientName"
+          :placeholder="$t('editRecipePage.placeholder.ingredient')"
+          :ariaLabel="$t('editRecipePage.ariaLabel.ingredient')"
+          type="text"
+          v-model:input="ingredient.name"
+        />
 
-      <Button
-        @click="groceryListStore.setGroceryList(ingredient)"
-        :type="ButtonType.BUTTON"
-        :variant="ColorVariant.PRIMARY"
-      >
-        <font-awesome-icon :icon="['fas', 'plus']" />
-        <span class="desktop">{{ $t('groceryListPage.addIngredient') }}</span>
-      </Button>
+        <Button
+          @click="groceryListStore.setGroceryList(ingredient)"
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.PRIMARY"
+        >
+          <font-awesome-icon :icon="['fas', 'plus']" />
+          <span class="desktop">{{ $t('groceryListPage.addIngredient') }}</span>
+        </Button>
+      </div>
+      <ErrorMessage v-model:message="groceryListStore.errorMessage" />
     </div>
-    <ErrorMessage v-model:message="groceryListStore.errorMessage" />
-  </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">
@@ -101,6 +102,7 @@ const groceryListStore = useGroceryListStore();
 const ingredients = computed(() => {
   return groceryListStore.groceryList.map((ingredient) => {
     return {
+      id: ingredient.id,
       name: ingredient.name,
       label: ingredient.amount.toString(),
       slot: ingredient.unit

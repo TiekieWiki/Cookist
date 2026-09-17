@@ -40,6 +40,47 @@
   }
 }
 
+// Pop transition
+.pop {
+  &-enter-active,
+  &-leave-active {
+    transition:
+      opacity var(--speed-medium) ease-in-out,
+      transform var(--speed-medium) ease-in-out;
+  }
+
+  &-enter-from,
+  &-leave-to {
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0;
+  }
+}
+
+// List transition
+.list {
+  &-enter-active,
+  &-leave-active {
+    transition:
+      opacity var(--speed-medium) ease-in-out,
+      transform var(--speed-medium) ease-in-out;
+  }
+
+  &-enter-from,
+  &-leave-to {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+
+  &-leave-active {
+    position: absolute;
+    width: 100%;
+  }
+
+  &-move {
+    transition: transform var(--speed-medium) ease-in-out;
+  }
+}
+
 // Move transition
 .move {
   &-enter-active,

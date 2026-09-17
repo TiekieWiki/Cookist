@@ -17,17 +17,18 @@
       <div class="filtersRecipes">
         <RecipesFilter v-model:open-filters="openFilters" v-model:filter="filter" />
         <section class="recipesList">
-          <EmptyState
-            v-if="recipesStore.recipes.length <= 0"
-            icon="wine-glass-empty"
-            title="recipesPage.noRecipes"
-            subtitle="recipesPage.noRecipesSubtitle"
-            button-text="recipesPage.newRecipe"
-            button-icon="plus"
-            button-route="/create-recipe"
-          />
-          <div v-else>
-            <TransitionGroup name="move">
+          <Transition name="fade" mode="out-in">
+            <EmptyState
+              v-if="recipesStore.recipes.length <= 0"
+              key="empty"
+              icon="wine-glass-empty"
+              title="recipesPage.noRecipes"
+              subtitle="recipesPage.noRecipesSubtitle"
+              button-text="recipesPage.newRecipe"
+              button-icon="plus"
+              button-route="/create-recipe"
+            />
+            <TransitionGroup v-else key="list" name="move" tag="div" class="grid">
               <router-link
                 v-for="recipe in recipesStore.recipes"
                 :key="recipe.id"
@@ -38,7 +39,7 @@
                 <RecipeCard :recipe="recipe" />
               </router-link>
             </TransitionGroup>
-          </div>
+          </Transition>
         </section>
       </div>
     </article>

@@ -1,35 +1,37 @@
 <template>
   <main class="recipe">
-    <article v-if="recipeStore.recipe.name">
-      <router-link to="/recipes" tabindex="-1">
-        <Button :type="ButtonType.BUTTON" :variant="ColorVariant.TERTIARY" :size="Size.LARGE">
-          <font-awesome-icon :icon="['fas', 'arrow-left']" />
-          {{ $t('recipePage.allRecipes') }}</Button
-        ></router-link
-      >
-      <img :src="recipeStore.recipeImage" />
-      <div class="content">
-        <div class="main">
-          <RecipeInfo v-model:delete-open="deleteRecipeOpen" />
-          <RecipeIngredients />
-          <RecipeInstructions />
+    <Transition name="fade" mode="out-in">
+      <article v-if="recipeStore.recipe.name" key="recipe">
+        <router-link to="/recipes" tabindex="-1">
+          <Button :type="ButtonType.BUTTON" :variant="ColorVariant.TERTIARY" :size="Size.LARGE">
+            <font-awesome-icon :icon="['fas', 'arrow-left']" />
+            {{ $t('recipePage.allRecipes') }}</Button
+          ></router-link
+        >
+        <img :src="recipeStore.recipeImage" />
+        <div class="content">
+          <div class="main">
+            <RecipeInfo v-model:delete-open="deleteRecipeOpen" />
+            <RecipeIngredients />
+            <RecipeInstructions />
+          </div>
+          <div class="sidebar">
+            <RecipeLastEaten />
+            <TimerCard />
+          </div>
         </div>
-        <div class="sidebar">
-          <RecipeLastEaten />
-          <TimerCard />
-        </div>
-      </div>
-    </article>
-    <article v-else>
-      <EmptyState
-        icon="martini-glass-empty"
-        title="recipePage.recipeNotFound"
-        subtitle="recipePage.recipeNotFoundSubtitle"
-        button-text="recipesPage.title"
-        button-icon="arrow-left"
-        button-route="/recipes"
-      />
-    </article>
+      </article>
+      <article v-else key="notFound">
+        <EmptyState
+          icon="martini-glass-empty"
+          title="recipePage.recipeNotFound"
+          subtitle="recipePage.recipeNotFoundSubtitle"
+          button-text="recipesPage.title"
+          button-icon="arrow-left"
+          button-route="/recipes"
+        />
+      </article>
+    </Transition>
   </main>
   <ConfirmPopUp
     v-model:open-pop-up="deleteRecipeOpen"

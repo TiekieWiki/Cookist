@@ -1,35 +1,39 @@
 <template>
-  <teleport to="body" v-if="openPopUp">
-    <div class="overlay"></div>
-    <article class="confirmPopUp">
-      <div class="title">
-        <h2>{{ $t(title) }}</h2>
-        <Button
-          @click="openPopUp = false"
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.TERTIARY"
-        >
-          <font-awesome-icon :icon="['fas', 'xmark']" />
-        </Button>
-      </div>
-      <p>{{ $t(section) }}</p>
-      <div class="footer">
-        <Button
-          @click="openPopUp = false"
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.SECONDARY"
-        >
-          {{ $t(cancel) }}
-        </Button>
-        <Button
-          @click.prevent="emit('confirm', true)"
-          :type="ButtonType.SUBMIT"
-          :variant="ColorVariant.WARNING"
-        >
-          {{ $t(confirm) }}
-        </Button>
-      </div>
-    </article>
+  <teleport to="body">
+    <Transition name="fade">
+      <div v-if="openPopUp" class="overlay"></div>
+    </Transition>
+    <Transition name="pop">
+      <article v-if="openPopUp" class="confirmPopUp">
+        <div class="title">
+          <h2>{{ $t(title) }}</h2>
+          <Button
+            @click="openPopUp = false"
+            :type="ButtonType.BUTTON"
+            :variant="ColorVariant.TERTIARY"
+          >
+            <font-awesome-icon :icon="['fas', 'xmark']" />
+          </Button>
+        </div>
+        <p>{{ $t(section) }}</p>
+        <div class="footer">
+          <Button
+            @click="openPopUp = false"
+            :type="ButtonType.BUTTON"
+            :variant="ColorVariant.SECONDARY"
+          >
+            {{ $t(cancel) }}
+          </Button>
+          <Button
+            @click.prevent="emit('confirm', true)"
+            :type="ButtonType.SUBMIT"
+            :variant="ColorVariant.WARNING"
+          >
+            {{ $t(confirm) }}
+          </Button>
+        </div>
+      </article>
+    </Transition>
   </teleport>
 </template>
 

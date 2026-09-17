@@ -1,56 +1,58 @@
 <template>
   <main class="editRecipe">
-    <article v-if="$route.params.recipeId && !recipeStore.recipe.name">
-      <EmptyState
-        icon="martini-glass-empty"
-        title="recipePage.recipeNotFound"
-        subtitle="recipePage.recipeNotFoundSubtitle"
-        button-text="recipesPage.title"
-        button-icon="arrow-left"
-        button-route="/recipes"
-      />
-    </article>
-    <article v-else>
-      <router-link to="/recipes" tabindex="-1">
-        <Button :type="ButtonType.BUTTON" :variant="ColorVariant.TERTIARY" :size="Size.LARGE">
-          <font-awesome-icon :icon="['fas', 'arrow-left']" />
-          {{ $t('editRecipePage.backToRecipes') }}</Button
-        ></router-link
-      >
-      <div>
-        <h2>
-          {{ $route.params.recipeId ? $t('editRecipePage.title') : $t('createRecipePage.title') }}
-        </h2>
-        <p>{{ $t('editRecipePage.subtitle') }}</p>
-      </div>
-
-      <form>
-        <EditInfo v-model:recipe="recipe" />
-        <EditIngredients v-model:ingredients="recipe.ingredients" />
-        <EditInstructions v-model:instructions="recipe.instructions" />
-        <EditExtras v-model:notes="recipe.notes" v-model:image="image" />
-        <ErrorMessage v-model:message="recipeStore.errorMessage" />
-        <div class="compact">
-          <Button
-            @click="saveRecipe()"
-            id="save"
-            :type="ButtonType.BUTTON"
-            :variant="ColorVariant.PRIMARY"
-            :size="Size.LARGE"
-          >
-            {{ $t('editRecipePage.save') }}
-          </Button>
-          <Button
-            @click="$router.go(-1)"
-            :type="ButtonType.BUTTON"
-            :variant="ColorVariant.TERTIARY"
-            :size="Size.LARGE"
-          >
-            {{ $t('editRecipePage.cancel') }}
-          </Button>
+    <Transition name="fade" mode="out-in">
+      <article v-if="$route.params.recipeId && !recipeStore.recipe.name" key="notFound">
+        <EmptyState
+          icon="martini-glass-empty"
+          title="recipePage.recipeNotFound"
+          subtitle="recipePage.recipeNotFoundSubtitle"
+          button-text="recipesPage.title"
+          button-icon="arrow-left"
+          button-route="/recipes"
+        />
+      </article>
+      <article v-else key="form">
+        <router-link to="/recipes" tabindex="-1">
+          <Button :type="ButtonType.BUTTON" :variant="ColorVariant.TERTIARY" :size="Size.LARGE">
+            <font-awesome-icon :icon="['fas', 'arrow-left']" />
+            {{ $t('editRecipePage.backToRecipes') }}</Button
+          ></router-link
+        >
+        <div>
+          <h2>
+            {{ $route.params.recipeId ? $t('editRecipePage.title') : $t('createRecipePage.title') }}
+          </h2>
+          <p>{{ $t('editRecipePage.subtitle') }}</p>
         </div>
-      </form>
-    </article>
+
+        <form>
+          <EditInfo v-model:recipe="recipe" />
+          <EditIngredients v-model:ingredients="recipe.ingredients" />
+          <EditInstructions v-model:instructions="recipe.instructions" />
+          <EditExtras v-model:notes="recipe.notes" v-model:image="image" />
+          <ErrorMessage v-model:message="recipeStore.errorMessage" />
+          <div class="compact">
+            <Button
+              @click="saveRecipe()"
+              id="save"
+              :type="ButtonType.BUTTON"
+              :variant="ColorVariant.PRIMARY"
+              :size="Size.LARGE"
+            >
+              {{ $t('editRecipePage.save') }}
+            </Button>
+            <Button
+              @click="$router.go(-1)"
+              :type="ButtonType.BUTTON"
+              :variant="ColorVariant.TERTIARY"
+              :size="Size.LARGE"
+            >
+              {{ $t('editRecipePage.cancel') }}
+            </Button>
+          </div>
+        </form>
+      </article>
+    </Transition>
   </main>
 </template>
 
