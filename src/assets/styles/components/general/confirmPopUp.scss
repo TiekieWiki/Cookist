@@ -1,5 +1,5 @@
 .confirmPopUp {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -12,6 +12,10 @@
   border: var(--border-secondary);
   border-radius: var(--spacing-6);
   background-color: var(--color-background-secondary);
+
+  @media only screen and (max-width: 1100px) {
+    min-width: 90%;
+  }
 
   .footer {
     display: flex;
