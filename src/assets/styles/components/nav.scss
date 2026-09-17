@@ -1,4 +1,5 @@
 @import '../mixins/responsiveness.scss';
+@import '../mixins/interactions.scss';
 
 nav {
   display: flex;
@@ -14,6 +15,8 @@ nav {
   border-bottom: var(--border-secondary);
 
   .brand {
+    @include zoom-on-hover(var(--scale-medium));
+
     display: flex;
     align-items: center;
     gap: var(--spacing-4);
