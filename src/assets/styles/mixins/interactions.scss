@@ -5,12 +5,3 @@
     cursor: pointer;
   }
 }
-
-@mixin outline-on-focus {
-  &:focus-visible,
-  &:focus-within {
-    transition: border var(--speed-medium) ease-in-out;
-    outline: none;
-    box-shadow: 0 0 5px 1px var(--color-primary);
-  }
-}

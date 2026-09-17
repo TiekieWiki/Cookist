@@ -26,6 +26,11 @@
       &::before {
         box-shadow: inset var(--spacing-4) var(--spacing-4) var(--color-primary);
       }
+
+      &:hover,
+      &:focus {
+        border: var(--border-secondary);
+      }
     }
 
     &.secondary {
@@ -33,6 +38,11 @@
 
       &::before {
         box-shadow: inset var(--spacing-4) var(--spacing-4) var(--color-secondary);
+      }
+
+      &:hover,
+      &:focus {
+        border: var(--border-primary);
       }
     }
 
@@ -42,6 +52,11 @@
       &::before {
         box-shadow: inset var(--spacing-4) var(--spacing-4) var(--color-tertiary);
       }
+
+      &:hover,
+      &:focus {
+        border: var(--border-secondary);
+      }
     }
 
     &.accent {
@@ -50,6 +65,11 @@
       &::before {
         box-shadow: inset var(--spacing-4) var(--spacing-4) var(--color-accent);
       }
+
+      &:hover,
+      &:focus {
+        border: var(--border-secondary);
+      }
     }
 
     &.warning {
@@ -57,6 +77,11 @@
 
       &::before {
         box-shadow: inset var(--spacing-4) var(--spacing-4) var(--color-warning);
+      }
+
+      &:hover,
+      &:focus {
+        border: var(--border-secondary);
       }
     }
 
