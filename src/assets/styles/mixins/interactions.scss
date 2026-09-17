@@ -4,4 +4,8 @@
     transform: scale($scale);
     cursor: pointer;
   }
+
+  &:disabled {
+    transform: none;
+  }
 }

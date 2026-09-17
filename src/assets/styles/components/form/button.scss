@@ -1,7 +1,9 @@
 @import '../../mixins/form.scss';
+@import '../../mixins/interactions.scss';
 
 button {
   @include form-element;
+  @include zoom-on-hover(var(--scale-medium));
 
   display: flex;
   gap: var(--spacing-2);

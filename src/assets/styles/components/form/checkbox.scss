@@ -2,6 +2,8 @@
 @import '../../mixins/form.scss';
 
 .checkbox {
+  @include zoom-on-hover(var(--scale-medium));
+
   display: flex;
   flex-direction: row;
   gap: var(--spacing-3);

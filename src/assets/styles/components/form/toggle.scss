@@ -1,4 +1,8 @@
+@import '../../mixins/interactions.scss';
+
 .toggle {
+  @include zoom-on-hover(var(--scale-medium));
+
   position: relative;
   display: inline-block;
   width: var(--spacing-12);
