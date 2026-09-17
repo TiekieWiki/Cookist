@@ -6,18 +6,12 @@
           <h2>{{ $t('recipesPage.title') }}</h2>
           <p>{{ $t('recipesPage.totalRecipes', { count: recipesStore.recipes.length }) }}</p>
         </div>
-        <Button
-          @click="
-            $router.push({
-              path: '/create-recipe'
-            })
-          "
-          :type="ButtonType.BUTTON"
-          :size="Size.LARGE"
+        <router-link to="/create-recipe" tabindex="-1">
+          <Button :type="ButtonType.BUTTON" :size="Size.LARGE">
+            <font-awesome-icon :icon="['fas', 'plus']" />
+            {{ $t('recipesPage.newRecipe') }}</Button
+          ></router-link
         >
-          <font-awesome-icon :icon="['fas', 'plus']" />
-          {{ $t('recipesPage.newRecipe') }}
-        </Button>
       </section>
       <RecipeOrderFilter v-model:open-filters="openFilters" />
       <div class="filtersRecipes">
