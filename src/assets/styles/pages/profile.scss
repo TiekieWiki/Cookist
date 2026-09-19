@@ -44,6 +44,34 @@
       }
     }
 
+    .statistics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--spacing-6);
+
+      @media only screen and (max-width: 600px) {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+
+      .card {
+        gap: 0;
+
+        svg {
+          width: fit-content;
+          height: var(--spacing-4);
+          color: var(--color-primary);
+        }
+
+        h2 {
+          margin-top: var(--spacing-3);
+        }
+
+        p {
+          margin-top: var(--spacing-1);
+        }
+      }
+    }
+
     .card {
       .preference {
         display: flex;

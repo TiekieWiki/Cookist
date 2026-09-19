@@ -66,6 +66,11 @@ export const en = {
     title: 'Profile',
     account: 'Account',
     logout: 'Sign out',
+    statistics: {
+      recipesCreated: "Recipes created",
+      averageRating: "Average rating",
+      neverCooked: "Never cooked",
+    },
     preferences: 'Preferences',
     language: 'Language',
     languageDescription: 'When cooking is your second language, what is your first?',

@@ -68,6 +68,11 @@ export const nl: TranslationSchema = {
     title: 'Profiel',
     account: 'Account',
     logout: 'Log uit',
+    statistics: {
+      recipesCreated: "Recepten gecreëerd",
+      averageRating: "Gemiddelde beoordeling",
+      neverCooked: "Nooit gekookt",
+    },
     preferences: 'Voorkeuren',
     language: 'Taal',
     languageDescription: 'Als koken je tweede taal is, wat is je eerste?',

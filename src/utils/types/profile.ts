@@ -6,3 +6,9 @@ export interface Profile {
   colorscheme: ColorScheme;
   handedness: Handedness;
 }
+
+export interface UserStatistics {
+  recipesCreated: number;
+  averageRating: number;
+  neverCooked: number;
+}
