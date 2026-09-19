@@ -1,4 +1,4 @@
-import { ButtonType, ColorVariant, Size } from "./enums";
+import { ButtonType, ColorVariant, Size } from './enums';
 
 export interface ConfirmPopUpProps {
   title: string;

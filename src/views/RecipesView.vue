@@ -13,9 +13,9 @@
           ></router-link
         >
       </section>
-      <RecipeOrderFilter v-model:open-filters="openFilters" />
+      <RecipeSearchOrder v-model:open-filters="openFilters" />
       <div class="filtersRecipes">
-        <RecipesFilter v-model:open-filters="openFilters" v-model:filter="filter" />
+        <RecipesFilter v-model:open-filters="openFilters" v-model:filter="recipesStore.filter" />
         <section class="recipesList">
           <Transition name="fade" mode="out-in">
             <EmptyState
@@ -47,16 +47,13 @@
 </template>
 
 <script setup lang="ts">
-import RecipeOrderFilter from '@/components/recipes/RecipeOrderFilter.vue';
+import RecipeSearchOrder from '@/components/recipes/RecipeSearchOrder.vue';
 import Button from '@/components/form/Button.vue';
 import { ButtonType, Size } from '@/utils/types/enums';
 import { useRecipesStore } from '@/stores/useRecipesStore';
 import { onMounted } from 'vue';
 import RecipeCard from '@/components/recipes/RecipeCard.vue';
-import { type Filter } from '@/utils/types/orderFilter';
 import { ref } from 'vue';
-import i18n from '@/i18n/index.js';
-import { RecipeCategories } from '@/utils/types/recipe.js';
 import RecipesFilter from '@/components/recipes/RecipesFilter.vue';
 import EmptyState from '@/components/general/EmptyState.vue';
 
@@ -65,25 +62,5 @@ const openFilters = ref<boolean>(false);
 
 onMounted(() => {
   recipesStore.getRecipes();
-});
-
-const filter = ref<Filter>({
-  name: '',
-  categories: Object.values(RecipeCategories).map((category) => ({
-    id: category,
-    name: category,
-    label: i18n.global.t(`editRecipePage.categories.${category}`),
-    required: false,
-    disabled: false,
-    autocomplete: 'off',
-    checked: false
-  })),
-  durationMin: 0,
-  durationMax: 10080,
-  ratingMin: 0,
-  ratingMax: 5,
-  lastEatenMin: new Date(0).toISOString().slice(0, 10),
-  lastEatenMax: new Date('9999-12-31').toISOString().slice(0, 10),
-  ingredients: [{ name: '' }]
 });
 </script>

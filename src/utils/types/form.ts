@@ -49,6 +49,37 @@ export interface InputListProps {
   colAmount?: ColAmount;
 }
 
+export interface RadioButtonProps {
+  id?: string;
+  variant?: ColorVariant;
+  name: string;
+  value: string | number;
+  label: string | number;
+  required?: boolean;
+  disabled?: boolean;
+  autocomplete?: string;
+  slot?: string;
+}
+
+export interface RadioButtonItemProps {
+  id?: string;
+  variant?: ColorVariant;
+  name: string;
+  label: string | number;
+  required?: boolean;
+  disabled?: boolean;
+  autocomplete?: string;
+  checked?: boolean;
+  slot?: string;
+}
+
+export interface RadioButtonListProps {
+  id?: string;
+  name?: string;
+  label?: string | number;
+  required?: boolean;
+}
+
 export interface SelectFieldProps {
   id?: string;
   variant?: ColorVariant;

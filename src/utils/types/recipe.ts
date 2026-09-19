@@ -80,6 +80,6 @@ export function emptyRecipe(): Recipe {
     rating: undefined,
     ingredients: [emptyIngredient()],
     instructions: [emptyInstruction()],
-    notes: undefined,
+    notes: undefined
   };
 }

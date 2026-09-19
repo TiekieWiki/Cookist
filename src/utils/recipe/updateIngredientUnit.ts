@@ -113,11 +113,9 @@ export function getPossibleUnits(
  */
 export function updateIngredientUnit(
   initialIngredient: Ingredient,
-  currentIngredient: Ingredient,
+  currentIngredient: Ingredient
 ): Ingredient {
-
-  const currentUnit =
-    unitConversionMap[initialIngredient.unit as keyof typeof unitConversionMap];
+  const currentUnit = unitConversionMap[initialIngredient.unit as keyof typeof unitConversionMap];
   const baseAmount = currentUnit.toBase(initialIngredient.amount);
   const toUnit = unitConversionMap[currentIngredient.unit as keyof typeof unitConversionMap];
   const convertedAmount = toUnit.fromBase(baseAmount);

@@ -11,7 +11,7 @@ const EU_DATE = /^(\d{1,2})-(\d{1,2})-(\d{4})$/;
  * @returns {Date} The date at local midnight
  */
 function startOfDay(date: Date): Date {
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 }
 
 /**
@@ -20,20 +20,20 @@ function startOfDay(date: Date): Date {
  * @returns {Date | null} The date at local midnight, or null when unparsable
  */
 function parseDate(date: string | null): Date | null {
-    if (!date) return null;
+  if (!date) return null;
 
-    const isoDate = date.match(ISO_DATE);
-    const euDate = date.match(EU_DATE);
+  const isoDate = date.match(ISO_DATE);
+  const euDate = date.match(EU_DATE);
 
-    let parsed: Date;
+  let parsed: Date;
 
-    if (isoDate) parsed = new Date(Number(isoDate[1]), Number(isoDate[2]) - 1, Number(isoDate[3]));
-    else if (euDate) parsed = new Date(Number(euDate[3]), Number(euDate[2]) - 1, Number(euDate[1]));
-    else parsed = new Date(date);
+  if (isoDate) parsed = new Date(Number(isoDate[1]), Number(isoDate[2]) - 1, Number(isoDate[3]));
+  else if (euDate) parsed = new Date(Number(euDate[3]), Number(euDate[2]) - 1, Number(euDate[1]));
+  else parsed = new Date(date);
 
-    if (Number.isNaN(parsed.getTime())) return null;
+  if (Number.isNaN(parsed.getTime())) return null;
 
-    return startOfDay(parsed);
+  return startOfDay(parsed);
 }
 
 /**
@@ -43,9 +43,9 @@ function parseDate(date: string | null): Date | null {
  * @returns {number} The amount of whole months in between
  */
 function monthsBetween(from: Date, to: Date): number {
-    const months = ((to.getFullYear() - from.getFullYear()) * 12) + (to.getMonth() - from.getMonth());
+  const months = (to.getFullYear() - from.getFullYear()) * 12 + (to.getMonth() - from.getMonth());
 
-    return to.getDate() < from.getDate() ? months - 1 : months;
+  return to.getDate() < from.getDate() ? months - 1 : months;
 }
 
 /**
@@ -54,21 +54,25 @@ function monthsBetween(from: Date, to: Date): number {
  * @returns {string} The formatted date
  */
 export function formatDateAgo(date: string | null): string {
-    const dateToCompare = parseDate(date);
+  const dateToCompare = parseDate(date);
 
-    if (!dateToCompare) return '';
+  if (!dateToCompare) return '';
 
-    const today = startOfDay(new Date());
+  const today = startOfDay(new Date());
 
-    const diffDays = Math.round((today.getTime() - dateToCompare.getTime()) / MS_PER_DAY);
-    const diffMonths = monthsBetween(dateToCompare, today);
+  const diffDays = Math.round((today.getTime() - dateToCompare.getTime()) / MS_PER_DAY);
+  const diffMonths = monthsBetween(dateToCompare, today);
 
-    if (diffDays <= 0) return i18n.global.t('recipePage.today');
-    else if (diffDays === 1) return i18n.global.t('recipePage.yesterday');
-    else if (diffDays < 7) return `${diffDays} ${i18n.global.t('recipePage.daysAgo', { count: diffDays })}`;
-    else if (diffMonths < 1) return `${Math.floor(diffDays / 7)} ${i18n.global.t('recipePage.weeksAgo', { count: Math.floor(diffDays / 7) })}`;
-    else if (diffMonths < 12) return `${diffMonths} ${i18n.global.t('recipePage.monthsAgo', { count: diffMonths })}`;
-    else return `${Math.floor(diffMonths / 12)} ${i18n.global.t('recipePage.yearsAgo', { count: Math.floor(diffMonths / 12) })}`;
+  if (diffDays <= 0) return i18n.global.t('recipePage.today');
+  else if (diffDays === 1) return i18n.global.t('recipePage.yesterday');
+  else if (diffDays < 7)
+    return `${diffDays} ${i18n.global.t('recipePage.daysAgo', { count: diffDays })}`;
+  else if (diffMonths < 1)
+    return `${Math.floor(diffDays / 7)} ${i18n.global.t('recipePage.weeksAgo', { count: Math.floor(diffDays / 7) })}`;
+  else if (diffMonths < 12)
+    return `${diffMonths} ${i18n.global.t('recipePage.monthsAgo', { count: diffMonths })}`;
+  else
+    return `${Math.floor(diffMonths / 12)} ${i18n.global.t('recipePage.yearsAgo', { count: Math.floor(diffMonths / 12) })}`;
 }
 
 /**
@@ -77,9 +81,9 @@ export function formatDateAgo(date: string | null): string {
  * @returns {boolean} Boolean if date is today
  */
 export function isToday(date: string | null): boolean {
-    const parsed = parseDate(date);
+  const parsed = parseDate(date);
 
-    if (!parsed) return false;
+  if (!parsed) return false;
 
-    return parsed.getTime() === startOfDay(new Date()).getTime();
+  return parsed.getTime() === startOfDay(new Date()).getTime();
 }

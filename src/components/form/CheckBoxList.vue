@@ -1,6 +1,14 @@
 <template>
-  <label :id="id">
-    {{ required ? label + ' *' : label }}
+  <div
+    :id="id"
+    class="checkbox-list-group"
+    role="group"
+    :aria-labelledby="label ? labelId : undefined"
+  >
+    <span v-if="label" :id="labelId" class="list-label">
+      {{ required ? label + ' *' : label }}
+    </span>
+
     <div class="checkbox-list">
       <TransitionGroup name="list">
         <div v-for="(item, index) in items" :key="item.id ?? item.name" class="checkbox-list-item">
@@ -19,14 +27,17 @@
         </div>
       </TransitionGroup>
     </div>
-  </label>
+  </div>
 </template>
 
 <script setup lang="ts">
 import type { CheckBoxListProps, CheckBoxProps } from '@/utils/types/form';
 import CheckBox from './CheckBox.vue';
+import { useId } from 'vue';
 
 defineProps<CheckBoxListProps>();
 
 const items = defineModel<CheckBoxProps[]>('items');
+
+const labelId = useId();
 </script>

@@ -9,36 +9,36 @@ export const useUserStore = defineStore('user', () => {
   const isLoggedIn = ref<boolean>(false);
   const errorMessage = ref<string>('');
 
-    /**
-     * Get the current user
-     */
-    async function getUser(): Promise<void> {
-        const { data, error } = await supabase.auth.getUser();
+  /**
+   * Get the current user
+   */
+  async function getUser(): Promise<void> {
+    const { data, error } = await supabase.auth.getUser();
 
-        if (error) {
-            errorMessage.value = getErrorMessage(error.code);
-        } else {
-            user.value = data.user;
-        }
+    if (error) {
+      errorMessage.value = getErrorMessage(error.code);
+    } else {
+      user.value = data.user;
     }
+  }
 
-    /**
-     * Delete the profile of the current user
-     */
-    async function deleteUser(): Promise<void> {
-        const { error } = await supabase.functions.invoke('delete-user');
+  /**
+   * Delete the profile of the current user
+   */
+  async function deleteUser(): Promise<void> {
+    const { error } = await supabase.functions.invoke('delete-user');
 
-        if (error) {
-            errorMessage.value = getErrorMessage('unknown');
-        }
+    if (error) {
+      errorMessage.value = getErrorMessage('unknown');
     }
+  }
 
-    // Update user's logged in state
-    supabase.auth.onAuthStateChange((event, session) => {
-        isLoggedIn.value = !!session;
-        user.value = session?.user;
-    });
-    
+  // Update user's logged in state
+  supabase.auth.onAuthStateChange((event, session) => {
+    isLoggedIn.value = !!session;
+    user.value = session?.user;
+  });
+
   return {
     user,
     isLoggedIn,

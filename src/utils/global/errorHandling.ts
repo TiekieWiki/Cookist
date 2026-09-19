@@ -4,9 +4,7 @@
  * @param errorCode Error code for which the message needs to be retrieved
  * @returns The error message corresponding to the provided error code, or a default unknown error message if the code is not found
  */
-export function getErrorMessage(
-  errorCode: string | undefined
-): string {
+export function getErrorMessage(errorCode: string | undefined): string {
   if (!errorCode) {
     return 'errors.unknown';
   }
@@ -31,5 +29,5 @@ export const errorMessages: Record<string, string> = {
   recipe_ingredients_missing: 'errors.recipeIngredientsMissing',
   recipe_instructions_missing: 'errors.recipeInstructionsMissing',
   unsaved_changes: 'errors.unsavedChanges',
-  unknown: 'errors.unknown',
+  unknown: 'errors.unknown'
 };

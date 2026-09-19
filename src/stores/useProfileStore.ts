@@ -20,8 +20,12 @@ export const useProfileStore = defineStore('profile', () => {
     } else if (!userStore.user) {
       errorMessage.value = getErrorMessage('unknown');
     } else {
-      const { data, error } = await supabase.from('profiles').select('*').eq('id', userStore.user.id).single();
-    
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userStore.user.id)
+        .single();
+
       if (error || !data) {
         errorMessage.value = getErrorMessage('unknown');
       } else {
@@ -51,7 +55,7 @@ export const useProfileStore = defineStore('profile', () => {
           handedness: handedness
         })
         .eq('id', userStore.user.id);
-    
+
       if (error || !data) {
         errorMessage.value = getErrorMessage('unknown');
       } else {
@@ -63,28 +67,27 @@ export const useProfileStore = defineStore('profile', () => {
   /**
    * Set the local language of the current user
    */
-  async function setUsersLocalLanguage(
-  ): Promise<void> {
+  async function setUsersLocalLanguage(): Promise<void> {
     if (userStore.errorMessage) {
       errorMessage.value = userStore.errorMessage;
     } else if (!userStore.user) {
       errorMessage.value = getErrorMessage('unknown');
     } else {
       if (navigator.language.includes('nl')) {
-          const { data, error } = await supabase
-            .from('profiles')
-            .update({
-              language: 'nl',
-            })
-            .eq('id', userStore.user.id);
-    
-          if (error) {
-            errorMessage.value = getErrorMessage('unknown');
-          } 
+        const { data, error } = await supabase
+          .from('profiles')
+          .update({
+            language: 'nl'
+          })
+          .eq('id', userStore.user.id);
+
+        if (error) {
+          errorMessage.value = getErrorMessage('unknown');
+        }
       }
     }
   }
-  
+
   return {
     profile,
     errorMessage,

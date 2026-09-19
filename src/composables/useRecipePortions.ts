@@ -15,7 +15,7 @@ export function useRecipePortions(): {
   const recipeStore = useRecipeStore();
   const portionCount = ref<number>(recipeStore.recipe.portions || 1);
   const portionedIngredients = ref<Ingredient[]>(recipeStore.recipe.ingredients);
-  
+
   // Update ingredient amount and unit
   watch(
     () => portionCount.value,

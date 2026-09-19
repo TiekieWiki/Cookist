@@ -6,7 +6,8 @@ export const nl: TranslationSchema = {
     banner: {
       pill: 'Jouw kookboek, met een geheugen',
       title: 'Kook de recepten die je vergeten was dat je ze lekker vond.',
-      subtitle: 'Cookist houdt je recepten bij en registreert wanneer je ze voor het laatst hebt gemaakt — zodat de goede recepten weer boven komen drijven in plaats van stof te verzamelen.',
+      subtitle:
+        'Cookist houdt je recepten bij en registreert wanneer je ze voor het laatst hebt gemaakt — zodat de goede recepten weer boven komen drijven in plaats van stof te verzamelen.',
       browseRecipes: 'Bekijk mijn recepten',
       addRecipe: 'Voeg recept toe',
       longestUntouched: 'Lang niet aangeraakt',
@@ -14,22 +15,25 @@ export const nl: TranslationSchema = {
       lastEaten: '8 maanden'
     },
     forgottenRecipes: {
-      title: "Stof vergaren",
-      subtitle: "Drie gerechten die lang genoeg hebben gewacht",
-      allRecipes: "Alles weergeven",
+      title: 'Stof vergaren',
+      subtitle: 'Drie gerechten die lang genoeg hebben gewacht',
+      allRecipes: 'Alles weergeven'
     },
     actionPoints: {
       lastEaten: {
         title: 'Gesorteerd op vergeten',
-        subtitle: 'Elk recept draagt ​​een stille stofmeter met zich mee. Hoe langer geleden je het hebt bereid, des te hoger de meter oploopt.'
+        subtitle:
+          'Elk recept draagt ​​een stille stofmeter met zich mee. Hoe langer geleden je het hebt bereid, des te hoger de meter oploopt.'
       },
       nutrition: {
         title: 'Voedingswaarden — binnenkort',
-        subtitle: 'Voedingswaarden per portie berekend op basis van je ingrediëntenlijst – geen spreadsheet nodig.'
+        subtitle:
+          'Voedingswaarden per portie berekend op basis van je ingrediëntenlijst – geen spreadsheet nodig.'
       },
       recipeMatcher: {
         title: 'Recept matcher — binnenkort',
-        subtitle: 'Twee personen, één stapel recepten. Swipe tot jullie allebei bij hetzelfde recept uitkomen.'
+        subtitle:
+          'Twee personen, één stapel recepten. Swipe tot jullie allebei bij hetzelfde recept uitkomen.'
       }
     }
   },
@@ -38,7 +42,7 @@ export const nl: TranslationSchema = {
     banner: {
       title: '"We maakten dit elke week. Toen vergaten we het simpelweg."',
       subtitle: 'Cookist bestaat zodat dat nooit gebeurd.',
-      quote: 'Recepten, onthouden.',
+      quote: 'Recepten, onthouden.'
     },
     login: {
       title: 'Welkom terug',
@@ -54,24 +58,24 @@ export const nl: TranslationSchema = {
     },
     email: 'E-mail',
     password: 'Wachtwoord',
-    policy: "Door door te gaan, stem je ermee in om te blijven koken.",
+    policy: 'Door door te gaan, stem je ermee in om te blijven koken.',
     placeholder: {
       email: "john.doe{'@'}gmail.com",
       password: '********'
     },
     ariaLabel: {
       email: 'Email',
-      password: 'Wachtwoord',
-    },
+      password: 'Wachtwoord'
+    }
   },
   profilePage: {
     title: 'Profiel',
     account: 'Account',
     logout: 'Log uit',
     statistics: {
-      recipesCreated: "Recepten gecreëerd",
-      averageRating: "Gemiddelde beoordeling",
-      neverCooked: "Nooit gekookt",
+      recipesCreated: 'Recepten gecreëerd',
+      averageRating: 'Gemiddelde beoordeling',
+      neverCooked: 'Nooit gekookt'
     },
     preferences: 'Voorkeuren',
     language: 'Taal',
@@ -80,14 +84,15 @@ export const nl: TranslationSchema = {
       en: 'Engels',
       nl: 'Nederlands'
     },
-    colorScheme: "Dark mode",
-    colorSchemeDescription: "Aangenamer voor de ogen.",
+    colorScheme: 'Dark mode',
+    colorSchemeDescription: 'Aangenamer voor de ogen.',
     colorSchemes: {
       light: 'Licht',
       dark: 'Donker'
     },
-    handedness: "Handigheid",
-    handednessDescription: "Je hebt maar twee handen, laten we er maar een voor je telefoon gebruiken.",
+    handedness: 'Handigheid',
+    handednessDescription:
+      'Je hebt maar twee handen, laten we er maar een voor je telefoon gebruiken.',
     handednessType: {
       right: 'Rechtshandig',
       left: 'Linkshandig',
@@ -109,7 +114,8 @@ export const nl: TranslationSchema = {
   },
   recipesPage: {
     title: 'Mijn recepten',
-    totalRecipes: '{count} geweldige recepten | {count} geweldig recept | {count} geweldige recepten',
+    totalRecipes:
+      '{count} geweldige recepten | {count} geweldig recept | {count} geweldige recepten',
     newRecipe: 'Nieuw',
     filters: 'Filters',
     reset: 'Reset',
@@ -165,7 +171,7 @@ export const nl: TranslationSchema = {
     daysAgo: 'dagen geleden | dag geleden | dagen geleden',
     weeksAgo: 'weken geleden | week geleden | weken geleden',
     monthsAgo: 'maanden geleden | maand geleden | maanden geleden',
-    yearsAgo: 'jaar geleden | jaar geleden | jaar geleden',    
+    yearsAgo: 'jaar geleden | jaar geleden | jaar geleden',
     kitchenTimer: 'Kookwekker',
     start: 'Start',
     pause: 'Pauze',
@@ -175,22 +181,23 @@ export const nl: TranslationSchema = {
     recipeNotFound: 'Recept niet gevonden',
     recipeNotFoundSubtitle: 'Probeer een van je andere heerlijke recepten',
     placeholder: {
-      hours: "uu",
-      minutes: "mm",
-      seconds: "ss",
+      hours: 'uu',
+      minutes: 'mm',
+      seconds: 'ss'
     },
     ariaLabel: {
-      hours: "Uren",
-      minutes: "Minuten",
-      seconds: "Seconden",
+      hours: 'Uren',
+      minutes: 'Minuten',
+      seconds: 'Seconden'
     }
   },
   createRecipePage: {
-    title: 'Recept aanmaken',
+    title: 'Recept aanmaken'
   },
   editRecipePage: {
     title: 'Recept bewerken',
-    subtitle: 'Je kunt het zo kort of zo gedetailleerd houden als je wilt — je kan altijd terugkomen.',
+    subtitle:
+      'Je kunt het zo kort of zo gedetailleerd houden als je wilt — je kan altijd terugkomen.',
     backToRecipes: 'Terug naar recepten',
     name: 'Naam',
     category: 'Categorie',
@@ -265,7 +272,7 @@ export const nl: TranslationSchema = {
     },
     alt: {
       previewImage: 'Voorbeeld van de receptafbeelding'
-    },
+    }
   },
   groceryListPage: {
     title: 'Boodschappenlijst',
@@ -278,7 +285,8 @@ export const nl: TranslationSchema = {
     empty: 'Legen',
     clearAll: 'Alles wissen',
     emptyBasket: 'Je lijst is leeg',
-    emptyBasketSubtitle: 'Open een recept en klik "Toevoegen aan boodschappenlijst" — alles komt hier terecht als een nette lijst.',    
+    emptyBasketSubtitle:
+      'Open een recept en klik "Toevoegen aan boodschappenlijst" — alles komt hier terecht als een nette lijst.',
     browseRecipes: 'Recepten bekijken',
     addIngredient: 'Ingredient toevoegen',
     errors: {
@@ -299,24 +307,24 @@ export const nl: TranslationSchema = {
     }
   },
   errors: {
-      emailAddressMissing: 'E-mailadres ontbreekt',
-      emailAddressInvalid: 'E-mailadres is ongeldig',
-      emailExists: 'E-mailadres bestaat al',
-      invalidCredentials: 'Ongeldige inloggegevens',
-      userAlreadyExists: 'Gebruiker bestaat al',
-      userNotFound: 'Gebruiker niet gevonden',
-      passwordMissing: 'Wachtwoord ontbreekt',
-      weakPassword:
-        'Wachtwoord is te zwak. Een wachtwoord moet minimaal 8 tekens lang zijn en ten minste één hoofdletter, één kleine letter, één cijfer en één speciaal teken bevatten',
-      recipeNameMissing: 'Naam is verplicht',
-      recipeCategoryMissing: 'Categorie is verplicht',
-      recipeDurationMissing: 'Duur is verplicht',
-      recipePortionsMissing: 'Porties is verplicht',
-      recipeRatingMissing: 'Beoordeling is verplicht',
-      recipeIngredientsMissing: 'Ingredienten is verplicht',
-      recipeInstructionsMissing: 'Instructies is verplicht',
-      unsavedChanges:
-        'Er zijn niet opgeslagen wijzigingen. Weet je zeker dat je de pagina wilt verlaten?',
-      unknown: 'Er is een onbekende fout opgetreden. Probeer het later opnieuw'
+    emailAddressMissing: 'E-mailadres ontbreekt',
+    emailAddressInvalid: 'E-mailadres is ongeldig',
+    emailExists: 'E-mailadres bestaat al',
+    invalidCredentials: 'Ongeldige inloggegevens',
+    userAlreadyExists: 'Gebruiker bestaat al',
+    userNotFound: 'Gebruiker niet gevonden',
+    passwordMissing: 'Wachtwoord ontbreekt',
+    weakPassword:
+      'Wachtwoord is te zwak. Een wachtwoord moet minimaal 8 tekens lang zijn en ten minste één hoofdletter, één kleine letter, één cijfer en één speciaal teken bevatten',
+    recipeNameMissing: 'Naam is verplicht',
+    recipeCategoryMissing: 'Categorie is verplicht',
+    recipeDurationMissing: 'Duur is verplicht',
+    recipePortionsMissing: 'Porties is verplicht',
+    recipeRatingMissing: 'Beoordeling is verplicht',
+    recipeIngredientsMissing: 'Ingredienten is verplicht',
+    recipeInstructionsMissing: 'Instructies is verplicht',
+    unsavedChanges:
+      'Er zijn niet opgeslagen wijzigingen. Weet je zeker dat je de pagina wilt verlaten?',
+    unknown: 'Er is een onbekende fout opgetreden. Probeer het later opnieuw'
   }
 };

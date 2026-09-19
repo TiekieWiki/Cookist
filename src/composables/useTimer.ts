@@ -14,7 +14,7 @@ export function useTimer(): {
   const time = ref<Time>({
     hours: 0,
     minutes: 1,
-    seconds: 0,
+    seconds: 0
   });
 
   const runningTimer = ref<Timer>({
@@ -56,10 +56,13 @@ export function useTimer(): {
    */
   const progress = computed(() => {
     const total = time.value.hours * 3600 + time.value.minutes * 60 + time.value.seconds;
-    const current = runningTimer.value.hours * 3600 + runningTimer.value.minutes * 60 + runningTimer.value.seconds;
+    const current =
+      runningTimer.value.hours * 3600 +
+      runningTimer.value.minutes * 60 +
+      runningTimer.value.seconds;
 
-    return current / total * 100;
-  })
+    return (current / total) * 100;
+  });
 
   // Watch for time changes to update the running time
   watch(
@@ -81,7 +84,11 @@ export function useTimer(): {
     (isRunning) => {
       if (isRunning) {
         interval = setInterval(() => {
-          if (runningTimer.value.hours === 0 && runningTimer.value.minutes === 0 && runningTimer.value.seconds === 0) {
+          if (
+            runningTimer.value.hours === 0 &&
+            runningTimer.value.minutes === 0 &&
+            runningTimer.value.seconds === 0
+          ) {
             runningTimer.value.isRunning = false;
             runningTimer.value.isFinished = true;
             return;

@@ -43,9 +43,15 @@
         width: 100%;
       }
 
-      > label {
+      > label,
+      > .checkbox-list-group,
+      > .radiobutton-list-group {
         gap: var(--spacing-3);
         font-weight: 600;
+
+        .list-label {
+          font-weight: 600;
+        }
       }
 
       .range {

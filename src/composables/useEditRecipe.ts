@@ -1,7 +1,14 @@
 import i18n from '@/i18n';
-import { computed, onMounted, type Ref, ref, toRaw} from 'vue';
+import { computed, onMounted, type Ref, ref, toRaw } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
-import { emptyIngredient, emptyInstruction, emptyRecipe, type Ingredient, type Instruction, type Recipe } from '@/utils/types/recipe';
+import {
+  emptyIngredient,
+  emptyInstruction,
+  emptyRecipe,
+  type Ingredient,
+  type Instruction,
+  type Recipe
+} from '@/utils/types/recipe';
 import { useRecipeStore } from '@/stores/useRecipeStore';
 import router from '@/router';
 import { DEFAULT_RECIPE_IMAGE_SRC } from '@/utils/global/variables';
@@ -10,8 +17,8 @@ import { DEFAULT_RECIPE_IMAGE_SRC } from '@/utils/global/variables';
  * Edit recipe composable
  */
 export function useEditRecipe(): {
-  recipe: Ref<Recipe>,
-  image: Ref<File | string | null>,
+  recipe: Ref<Recipe>;
+  image: Ref<File | string | null>;
   saveRecipe: () => Promise<void>;
 } {
   const recipeStore = useRecipeStore();
@@ -30,24 +37,27 @@ export function useEditRecipe(): {
     if (!hasUnsavedChanges.value) {
       await router.push({
         path: `/recipe/${recipeStore.recipe.id}`
-      })
+      });
       return;
-    };
+    }
 
     const cleanedRecipe = structuredClone(toRaw(recipe.value));
 
     cleanedRecipe.ingredients = cleanedRecipe.ingredients.filter(
       (ingredient: Ingredient) => ingredient.amount !== 0 && ingredient.unit && ingredient.name
     );
-    cleanedRecipe.instructions = cleanedRecipe.instructions.filter(
-      (instruction: Instruction) => instruction.instruction
-    ).map((instruction: Instruction, index: number) => ({
-      ...instruction,
-      sort_order: index + 1
-    }));
+    cleanedRecipe.instructions = cleanedRecipe.instructions
+      .filter((instruction: Instruction) => instruction.instruction)
+      .map((instruction: Instruction, index: number) => ({
+        ...instruction,
+        sort_order: index + 1
+      }));
 
-    await recipeStore.setRecipe(cleanedRecipe, image.value && typeof image.value !== "string" ? image.value : null)
-    
+    await recipeStore.setRecipe(
+      cleanedRecipe,
+      image.value && typeof image.value !== 'string' ? image.value : null
+    );
+
     if (!recipeStore.errorMessage) {
       originalRecipe.value = structuredClone(toRaw(recipe.value));
       originalImage.value = image.value;
@@ -81,9 +91,7 @@ export function useEditRecipe(): {
       });
       originalRecipe.value = structuredClone(toRaw(recipe.value));
       image.value =
-        recipeStore.recipeImage !== DEFAULT_RECIPE_IMAGE_SRC
-          ? recipeStore.recipeImage
-          : null;
+        recipeStore.recipeImage !== DEFAULT_RECIPE_IMAGE_SRC ? recipeStore.recipeImage : null;
       originalImage.value = image.value;
     }
   });

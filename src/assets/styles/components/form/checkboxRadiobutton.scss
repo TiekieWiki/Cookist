@@ -1,7 +1,8 @@
 @import '../../mixins/interactions.scss';
 @import '../../mixins/form.scss';
 
-.checkbox {
+.checkbox,
+.radiobutton {
   @include zoom-on-hover(var(--scale-medium));
 
   display: flex;
@@ -9,7 +10,8 @@
   gap: var(--spacing-3);
   align-items: center;
 
-  input[type='checkbox'] {
+  input[type='checkbox'],
+  input[type='radio'] {
     @include form-element;
 
     -webkit-appearance: none;
@@ -19,7 +21,6 @@
     width: var(--spacing-5);
     height: var(--spacing-5);
     background-color: transparent;
-    border-radius: var(--spacing-1);
     cursor: pointer;
 
     &.primary {
@@ -91,7 +92,6 @@
       content: '';
       width: var(--spacing-3);
       height: var(--spacing-3);
-      border-radius: calc(var(--spacing-1) / 2);
       transform: scale(0);
       transition: var(--speed-medium) transform ease-in-out;
     }
@@ -103,6 +103,22 @@
     &:disabled {
       background-color: var(--color-disabled);
       cursor: auto;
+    }
+  }
+
+  input[type='checkbox'] {
+    border-radius: var(--spacing-1);
+
+    &::before {
+      border-radius: calc(var(--spacing-1) / 2);
+    }
+  }
+
+  input[type='radio'] {
+    border-radius: var(--spacing-4);
+
+    &::before {
+      border-radius: var(--spacing-4);
     }
   }
 }

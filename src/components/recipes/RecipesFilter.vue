@@ -17,8 +17,9 @@
         </Button>
       </div>
       <div class="divider"></div>
-      <CheckBoxList
+      <RadioButtonList
         id="category"
+        name="category"
         :label="$t('editRecipePage.category')"
         v-model:items="filter.categories"
       />
@@ -106,7 +107,6 @@
 </template>
 
 <script setup lang="ts">
-import CheckBoxList from '@/components/form/CheckBoxList.vue';
 import InputField from '@/components/form/InputField.vue';
 import InputList from '@/components/form/InputList.vue';
 import { addInputRow } from '@/utils/global/list';
@@ -114,6 +114,7 @@ import { ButtonType, ColAmount, ColorVariant, Size } from '@/utils/types/enums';
 import type { Filter } from '@/utils/types/orderFilter';
 import Button from '@/components/form/Button.vue';
 import { onMounted, onUnmounted, ref } from 'vue';
+import RadioButtonList from '../form/RadioButtonList.vue';
 
 const openFilters = defineModel<boolean>('openFilters', { required: true });
 const filter = defineModel<Filter>('filter', { required: true });

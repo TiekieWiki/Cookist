@@ -17,9 +17,7 @@ export function validateRecipe(recipe: Recipe): string {
     return getErrorMessage('recipe_portions_missing');
   } else if (recipe.rating === undefined) {
     return getErrorMessage('recipe_rating_missing');
-  } else if (
-    recipe.ingredients.length <= 0
-  ) {
+  } else if (recipe.ingredients.length <= 0) {
     return getErrorMessage('recipe_ingredients_missing');
   } else if (recipe.instructions.length <= 0) {
     return getErrorMessage('recipe_instructions_missing');

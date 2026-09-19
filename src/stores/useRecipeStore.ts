@@ -23,9 +23,9 @@ export const useRecipeStore = defineStore('recipe', () => {
    * @param recipeId Recipe id
    */
   async function getRecipeImage(recipeId: string): Promise<string> {
-
     const { data: image, error: imageError } = await supabase.storage
-      .from('recipe_images').createSignedUrl(recipeId, 3600);
+      .from('recipe_images')
+      .createSignedUrl(recipeId, 3600);
 
     if (image && !imageError) {
       return image.signedUrl;
@@ -41,10 +41,9 @@ export const useRecipeStore = defineStore('recipe', () => {
   async function getRecipe(recipeId: string): Promise<void> {
     errorMessage.value = '';
 
-    const { data, error: recipeError } =
-      await supabase.rpc('get_recipe', {
-        p_recipe_id: recipeId
-      });
+    const { data, error: recipeError } = await supabase.rpc('get_recipe', {
+      p_recipe_id: recipeId
+    });
 
     if (recipeError || !data) {
       errorMessage.value = getErrorMessage('unknown');
@@ -70,47 +69,44 @@ export const useRecipeStore = defineStore('recipe', () => {
 
     if (message) {
       errorMessage.value = message;
-    }
-    else if (userStore.errorMessage) {
+    } else if (userStore.errorMessage) {
       errorMessage.value = userStore.errorMessage;
     } else if (!userStore.user) {
       errorMessage.value = getErrorMessage('unknown');
     } else {
       let recipeData: any = null;
       let recipeError: PostgrestError | null = null;
-      
+
       if (newRecipe.id) {
-        const { data, error } =
-          await supabase.rpc('update_recipe', {
-            p_recipe_id: newRecipe.id,
-            p_name: newRecipe.name,
-            p_category: newRecipe.category,
-            p_duration: newRecipe.duration,
-            p_portions: newRecipe.portions,
-            p_rating: newRecipe.rating,
-            p_notes: newRecipe.notes ?? '',
-            p_ingredients: newRecipe.ingredients,
-            p_instructions: newRecipe.instructions
-          });
+        const { data, error } = await supabase.rpc('update_recipe', {
+          p_recipe_id: newRecipe.id,
+          p_name: newRecipe.name,
+          p_category: newRecipe.category,
+          p_duration: newRecipe.duration,
+          p_portions: newRecipe.portions,
+          p_rating: newRecipe.rating,
+          p_notes: newRecipe.notes ?? '',
+          p_ingredients: newRecipe.ingredients,
+          p_instructions: newRecipe.instructions
+        });
 
-          recipeData = data;
-          recipeError = error;
+        recipeData = data;
+        recipeError = error;
       } else {
-        const { data, error } =
-          await supabase.rpc('create_recipe', {
-            p_name: newRecipe.name,
-            p_category: newRecipe.category,
-            p_duration: newRecipe.duration,
-            p_portions: newRecipe.portions,
-            p_rating: newRecipe.rating,
-            p_notes: newRecipe.notes ?? '',
-            p_ingredients: newRecipe.ingredients,
-            p_instructions: newRecipe.instructions
-          })
+        const { data, error } = await supabase.rpc('create_recipe', {
+          p_name: newRecipe.name,
+          p_category: newRecipe.category,
+          p_duration: newRecipe.duration,
+          p_portions: newRecipe.portions,
+          p_rating: newRecipe.rating,
+          p_notes: newRecipe.notes ?? '',
+          p_ingredients: newRecipe.ingredients,
+          p_instructions: newRecipe.instructions
+        });
 
-          recipeData = data;
-          recipeError = error;
-        }
+        recipeData = data;
+        recipeError = error;
+      }
 
       if (recipeError || !recipeData) {
         errorMessage.value = getErrorMessage('unknown');
@@ -124,10 +120,9 @@ export const useRecipeStore = defineStore('recipe', () => {
               upsert: true
             });
 
-
           if (uploadError) {
             errorMessage.value = getErrorMessage('unknown');
-          } 
+          }
         }
       }
     }
@@ -145,13 +140,13 @@ export const useRecipeStore = defineStore('recipe', () => {
       const { data, error } = await supabase
         .from('recipe_users')
         .update({
-          last_eaten: new Date(),
+          last_eaten: new Date()
         })
         .eq('user_id', userStore.user.id)
         .eq('recipe_id', recipe.value.id)
         .select()
         .single();
-    
+
       if (error || !data) {
         errorMessage.value = getErrorMessage('unknown');
       } else {
@@ -171,9 +166,7 @@ export const useRecipeStore = defineStore('recipe', () => {
     }
 
     if (recipeImage.value !== DEFAULT_RECIPE_IMAGE_SRC) {
-      const { error: imageError } = await supabase.storage
-        .from('recipe_images')
-        .remove([recipeId]);
+      const { error: imageError } = await supabase.storage.from('recipe_images').remove([recipeId]);
 
       if (imageError) {
         errorMessage.value = getErrorMessage('unknown');
@@ -181,10 +174,7 @@ export const useRecipeStore = defineStore('recipe', () => {
       }
     }
 
-    const { error: recipeError } = await supabase
-      .from('recipes')
-      .delete()
-      .eq('id', recipeId);
+    const { error: recipeError } = await supabase.from('recipes').delete().eq('id', recipeId);
 
     if (recipeError) {
       errorMessage.value = getErrorMessage('unknown');

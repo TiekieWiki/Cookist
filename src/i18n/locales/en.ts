@@ -4,7 +4,8 @@ export const en = {
     banner: {
       pill: 'Your cookbook, with a memory',
       title: 'Cook the recipes you forgot you loved.',
-      subtitle: 'Cookist keeps your recipes and tracks when you last made each one — so the good ones resurface instead of gathering dust.',
+      subtitle:
+        'Cookist keeps your recipes and tracks when you last made each one — so the good ones resurface instead of gathering dust.',
       browseRecipes: 'Browse my recipes',
       addRecipe: 'Add recipe',
       longestUntouched: 'Longest untouched',
@@ -12,18 +13,20 @@ export const en = {
       lastEaten: '8 months'
     },
     forgottenRecipes: {
-      title: "Gathering dust",
-      subtitle: "Three dishes that have waited long enough",
-      allRecipes: "See all",
+      title: 'Gathering dust',
+      subtitle: 'Three dishes that have waited long enough',
+      allRecipes: 'See all'
     },
     actionPoints: {
       lastEaten: {
         title: 'Sorted by forgetting',
-        subtitle: 'Every recipe carries a quiet dust meter. The longer since you cooked it, the higher it climbs.'
+        subtitle:
+          'Every recipe carries a quiet dust meter. The longer since you cooked it, the higher it climbs.'
       },
       nutrition: {
         title: 'Nutrition — soon',
-        subtitle: 'Per-serving nutrition worked out from your ingredient list, no spreadsheet required.'
+        subtitle:
+          'Per-serving nutrition worked out from your ingredient list, no spreadsheet required.'
       },
       recipeMatcher: {
         title: 'Recipe matcher — soon',
@@ -36,13 +39,13 @@ export const en = {
     banner: {
       title: '"We made this every week. Then we simply stopped."',
       subtitle: 'Cookist exists so that never happens again.',
-      quote: 'Recipes, remembered.',
+      quote: 'Recipes, remembered.'
     },
     login: {
       title: 'Welcome back',
       subtitle: 'Pick up where your kitchen left off.',
       toggle: 'Sign in',
-      button: 'Sign in',
+      button: 'Sign in'
     },
     register: {
       title: 'Make yourself at home',
@@ -52,24 +55,24 @@ export const en = {
     },
     email: 'Email',
     password: 'Password',
-    policy: "By continuing you agree to keep cooking.",
+    policy: 'By continuing you agree to keep cooking.',
     placeholder: {
       email: "john.doe{'@'}gmail.com",
       password: '********'
     },
     ariaLabel: {
       email: 'Email',
-      password: 'Password',
-    },
+      password: 'Password'
+    }
   },
   profilePage: {
     title: 'Profile',
     account: 'Account',
     logout: 'Sign out',
     statistics: {
-      recipesCreated: "Recipes created",
-      averageRating: "Average rating",
-      neverCooked: "Never cooked",
+      recipesCreated: 'Recipes created',
+      averageRating: 'Average rating',
+      neverCooked: 'Never cooked'
     },
     preferences: 'Preferences',
     language: 'Language',
@@ -78,13 +81,13 @@ export const en = {
       en: 'English',
       nl: 'Dutch'
     },
-    colorScheme: "Dark mode",
-    colorSchemeDescription: "Easier on the eyes.",
+    colorScheme: 'Dark mode',
+    colorSchemeDescription: 'Easier on the eyes.',
     colorSchemes: {
       light: 'Light',
       dark: 'Dark'
     },
-    handedness: "Handedness",
+    handedness: 'Handedness',
     handednessDescription: "You only have two hands, let's only use one for your phone",
     handednessType: {
       right: 'Right-handed',
@@ -172,18 +175,18 @@ export const en = {
     recipeNotFound: 'Recipe not found',
     recipeNotFoundSubtitle: 'Try one of your other delicious recipes',
     placeholder: {
-      hours: "hh",
-      minutes: "mm",
-      seconds: "ss",
+      hours: 'hh',
+      minutes: 'mm',
+      seconds: 'ss'
     },
     ariaLabel: {
-      hours: "Hours",
-      minutes: "Minutes",
-      seconds: "Seconds",
+      hours: 'Hours',
+      minutes: 'Minutes',
+      seconds: 'Seconds'
     }
   },
   createRecipePage: {
-    title: 'Create recipe',
+    title: 'Create recipe'
   },
   editRecipePage: {
     title: 'Edit recipe',
@@ -262,7 +265,7 @@ export const en = {
     },
     alt: {
       previewImage: 'Preview of the recipe image'
-    },
+    }
   },
   groceryListPage: {
     title: 'Grocery list',
@@ -274,7 +277,8 @@ export const en = {
     empty: 'Empty',
     clearAll: 'Clear all',
     emptyBasket: 'Your list is empty',
-    emptyBasketSubtitle: 'Open a recipe and tap "Add to grocery list" — everything lands here as one tidy list.',
+    emptyBasketSubtitle:
+      'Open a recipe and tap "Add to grocery list" — everything lands here as one tidy list.',
     browseRecipes: 'Browse recipes',
     addIngredient: 'Add ingredient',
     errors: {

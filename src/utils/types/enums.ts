@@ -3,7 +3,7 @@ export enum ColorVariant {
   SECONDARY = 'secondary',
   TERTIARY = 'tertiary',
   ACCENT = 'accent',
-  WARNING = 'warning',
+  WARNING = 'warning'
 }
 
 export enum AutoCompleteVariant {
@@ -24,7 +24,7 @@ export enum Size {
   SMALL = 'small',
   MEDIUM = 'medium',
   LARGE = 'large',
-  XLARGE = 'xlarge',
+  XLARGE = 'xlarge'
 }
 
 export enum ColAmount {
