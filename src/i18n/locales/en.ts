@@ -11,6 +11,11 @@ export const en = {
       recipeTitle: 'Pumpkin brussels sprout salad',
       lastEaten: '8 months'
     },
+    forgottenRecipes: {
+      title: "Gathering dust",
+      subtitle: "Three dishes that have waited long enough",
+      allRecipes: "See all",
+    },
     actionPoints: {
       lastEaten: {
         title: 'Sorted by forgetting',

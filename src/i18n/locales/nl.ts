@@ -13,6 +13,11 @@ export const nl: TranslationSchema = {
       recipeTitle: 'Pompoen spruitjes salade',
       lastEaten: '8 maanden'
     },
+    forgottenRecipes: {
+      title: "Stof vergaren",
+      subtitle: "Drie gerechten die lang genoeg hebben gewacht",
+      allRecipes: "Alles weergeven",
+    },
     actionPoints: {
       lastEaten: {
         title: 'Gesorteerd op vergeten',
