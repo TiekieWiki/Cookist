@@ -54,6 +54,13 @@ export const useRecipesStore = defineStore('recipes', () => {
     }
   }
 
+  /**
+   * Reset filter
+   */
+  function resetFilter() {
+    filter.value = emptyFilter();
+  }
+
   watch(
     filter,
     () => {
@@ -67,6 +74,7 @@ export const useRecipesStore = defineStore('recipes', () => {
   return {
     recipes,
     filter,
-    getRecipes
+    getRecipes,
+    resetFilter
   };
 });

@@ -12,7 +12,12 @@
       </Button>
       <div class="title">
         <h3>{{ $t('recipesPage.filters') }}</h3>
-        <Button :type="ButtonType.BUTTON" :variant="ColorVariant.TERTIARY" :size="Size.SMALL">
+        <Button
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.TERTIARY"
+          :size="Size.SMALL"
+          @click="emit('reset', true)"
+        >
           {{ $t('recipesPage.reset') }}
         </Button>
       </div>
@@ -126,6 +131,7 @@ import RadioButtonList from '../form/RadioButtonList.vue';
 
 const openFilters = defineModel<boolean>('openFilters', { required: true });
 const filter = defineModel<Filter>('filter', { required: true });
+const emit = defineEmits<{ reset: [boolean] }>();
 
 const { t } = useI18n();
 

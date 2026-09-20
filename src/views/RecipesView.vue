@@ -15,7 +15,11 @@
       </section>
       <RecipeSearchOrder v-model:open-filters="openFilters" />
       <div class="filtersRecipes">
-        <RecipesFilter v-model:open-filters="openFilters" v-model:filter="recipesStore.filter" />
+        <RecipesFilter
+          v-model:open-filters="openFilters"
+          v-model:filter="recipesStore.filter"
+          @reset="recipesStore.resetFilter"
+        />
         <section class="recipesList">
           <Transition name="fade" mode="out-in">
             <EmptyState
