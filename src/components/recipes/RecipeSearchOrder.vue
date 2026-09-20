@@ -41,14 +41,13 @@
 <script setup lang="ts">
 import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
-import { emptyFilter, type Filter, RecipeOrderCategories } from '@/utils/types/orderFilter';
+import { type Filter, RecipeOrderCategories } from '@/utils/types/orderFilter';
 import { ref } from 'vue';
 import { AutoCompleteVariant, ButtonType, ColorVariant, Size } from '@/utils/types/enums';
 import Button from '@/components/form/Button.vue';
 
 const openFilters = defineModel<boolean>('openFilters', { required: true });
+const filter = defineModel<Filter>('filter', { required: true });
 
 const order = ref<RecipeOrderCategories>(RecipeOrderCategories.durationAsc);
-
-const filter = ref<Filter>(emptyFilter());
 </script>

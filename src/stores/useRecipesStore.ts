@@ -34,6 +34,7 @@ export const useRecipesStore = defineStore('recipes', () => {
       .filter((name) => name !== '');
 
     const { data, error: recipesError } = await supabase.rpc('get_recipes', {
+      p_name: filter.value.name,
       p_category: filter.value.category,
       p_duration_min: nullable(filter.value.durationMin),
       p_duration_max: nullable(filter.value.durationMax),
