@@ -28,6 +28,11 @@ export const useRecipesStore = defineStore('recipes', () => {
   async function getRecipes(): Promise<void> {
     const request = ++latestRequest;
 
+    // Remove the empty ingredient row
+    const ingredients = filter.value.ingredients
+      .map((ingredient) => ingredient.name.trim())
+      .filter((name) => name !== '');
+
     const { data, error: recipesError } = await supabase.rpc('get_recipes', {
       p_category: filter.value.category,
       p_duration_min: nullable(filter.value.durationMin),
@@ -36,6 +41,7 @@ export const useRecipesStore = defineStore('recipes', () => {
       p_rating_max: nullable(filter.value.ratingMax),
       p_last_eaten_min: nullable(filter.value.lastEatenMin),
       p_last_eaten_max: nullable(filter.value.lastEatenMax),
+      p_ingredients: ingredients.length ? ingredients : null
     });
 
     // Ignore responses of filters that are no longer the current ones
