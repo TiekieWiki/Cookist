@@ -48,6 +48,7 @@
           id="durationMin"
           name="durationMin"
           :label="$t('recipesPage.duration')"
+          placeholder="0"
           :ariaLabel="$t('recipesPage.ariaLabel.durationMin')"
           type="number"
           :min="0"
@@ -57,6 +58,7 @@
         <InputField
           id="durationMax"
           name="durationMax"
+          placeholder="60"
           :ariaLabel="$t('recipesPage.ariaLabel.durationMax')"
           type="number"
           :min="0"
@@ -70,6 +72,7 @@
           id="ratingMin"
           name="ratingMin"
           :label="$t('recipesPage.rating')"
+          placeholder="0"
           :ariaLabel="$t('recipesPage.ariaLabel.ratingMin')"
           type="number"
           :min="0"
@@ -79,6 +82,7 @@
         <InputField
           id="ratingMax"
           name="ratingMax"
+          placeholder="5"
           :ariaLabel="$t('recipesPage.ariaLabel.ratingMax')"
           type="number"
           :min="0"

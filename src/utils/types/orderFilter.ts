@@ -14,12 +14,12 @@ export enum RecipeOrderCategories {
 export interface Filter {
   name: string;
   category: RecipeCategories | null;
-  durationMin: number;
-  durationMax: number;
-  ratingMin: number;
-  ratingMax: number;
-  lastEatenMin: string;
-  lastEatenMax: string;
+  durationMin: number | null;
+  durationMax: number | null;
+  ratingMin: number | null;
+  ratingMax: number | null;
+  lastEatenMin: string | null;
+  lastEatenMax: string | null;
   ingredients: { name: string }[];
 }
 
@@ -27,12 +27,12 @@ export function emptyFilter(): Filter {
   return {
     name: '',
     category: null,
-    durationMin: 0,
-    durationMax: 10080,
-    ratingMin: 0,
-    ratingMax: 5,
-    lastEatenMin: new Date(0).toISOString().slice(0, 10),
-    lastEatenMax: new Date('9999-12-31').toISOString().slice(0, 10),
+    durationMin: null,
+    durationMax: null,
+    ratingMin: null,
+    ratingMax: null,
+    lastEatenMin: null,
+    lastEatenMax: null,
     ingredients: [{ name: '' }]
   };
 }

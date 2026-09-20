@@ -30,5 +30,5 @@ const props = withDefaults(defineProps<InputFieldProps>(), {
   autocomplete: AutoCompleteVariant.OFF
 });
 
-const input = defineModel<string | number | undefined>('input');
+const input = defineModel<string | number | null | undefined>('input');
 </script>
