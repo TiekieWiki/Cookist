@@ -34,6 +34,8 @@ export const useRecipesStore = defineStore('recipes', () => {
       p_duration_max: nullable(filter.value.durationMax),
       p_rating_min: nullable(filter.value.ratingMin),
       p_rating_max: nullable(filter.value.ratingMax),
+      p_last_eaten_min: nullable(filter.value.lastEatenMin),
+      p_last_eaten_max: nullable(filter.value.lastEatenMax),
     });
 
     // Ignore responses of filters that are no longer the current ones
