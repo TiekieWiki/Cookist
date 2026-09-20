@@ -21,7 +21,8 @@
         id="category"
         name="category"
         :label="$t('editRecipePage.category')"
-        v-model:items="filter.categories"
+        :items="categories"
+        v-model:selected="filter.category"
       />
       <div class="divider"></div>
       <div class="range">
@@ -112,15 +113,31 @@ import InputList from '@/components/form/InputList.vue';
 import { addInputRow } from '@/utils/global/list';
 import { ButtonType, ColAmount, ColorVariant, Size } from '@/utils/types/enums';
 import type { Filter } from '@/utils/types/orderFilter';
+import type { RadioButtonItemProps } from '@/utils/types/form';
+import { RecipeCategories } from '@/utils/types/recipe';
 import Button from '@/components/form/Button.vue';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import RadioButtonList from '../form/RadioButtonList.vue';
 
 const openFilters = defineModel<boolean>('openFilters', { required: true });
 const filter = defineModel<Filter>('filter', { required: true });
 
+const { t } = useI18n();
+
 const desktop = window.matchMedia('(min-width: 1101px)');
 const isDesktop = ref<boolean>(desktop.matches);
+
+const categories = computed<RadioButtonItemProps[]>(() =>
+  Object.values(RecipeCategories).map((category) => ({
+    id: category,
+    name: category,
+    label: t(`editRecipePage.categories.${category}`),
+    required: false,
+    disabled: false,
+    autocomplete: 'off'
+  }))
+);
 
 function setIsDesktop(event: MediaQueryListEvent): void {
   isDesktop.value = event.matches;

@@ -1,4 +1,3 @@
-import i18n from '@/i18n';
 import { RecipeCategories } from './recipe';
 
 export enum RecipeOrderCategories {
@@ -14,7 +13,7 @@ export enum RecipeOrderCategories {
 
 export interface Filter {
   name: string;
-  categories: Category[];
+  category: RecipeCategories | null;
   durationMin: number;
   durationMax: number;
   ratingMin: number;
@@ -24,28 +23,10 @@ export interface Filter {
   ingredients: { name: string }[];
 }
 
-export interface Category {
-  id: string;
-  name: string;
-  label: string;
-  required: boolean;
-  disabled: boolean;
-  autocomplete: string;
-  checked: boolean;
-}
-
 export function emptyFilter(): Filter {
   return {
     name: '',
-    categories: Object.values(RecipeCategories).map((category) => ({
-      id: category,
-      name: category,
-      label: i18n.global.t(`editRecipePage.categories.${category}`),
-      required: false,
-      disabled: false,
-      autocomplete: 'off',
-      checked: false
-    })),
+    category: null,
     durationMin: 0,
     durationMax: 10080,
     ratingMin: 0,

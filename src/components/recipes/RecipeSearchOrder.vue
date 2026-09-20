@@ -41,34 +41,14 @@
 <script setup lang="ts">
 import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
-import { type Filter, RecipeOrderCategories } from '@/utils/types/orderFilter';
+import { emptyFilter, type Filter, RecipeOrderCategories } from '@/utils/types/orderFilter';
 import { ref } from 'vue';
 import { AutoCompleteVariant, ButtonType, ColorVariant, Size } from '@/utils/types/enums';
-import { RecipeCategories } from '@/utils/types/recipe';
-import i18n from '@/i18n';
 import Button from '@/components/form/Button.vue';
 
 const openFilters = defineModel<boolean>('openFilters', { required: true });
 
 const order = ref<RecipeOrderCategories>(RecipeOrderCategories.durationAsc);
 
-const filter = ref<Filter>({
-  name: '',
-  categories: Object.values(RecipeCategories).map((category) => ({
-    id: category,
-    name: category,
-    label: i18n.global.t(`editRecipePage.categories.${category}`),
-    required: false,
-    disabled: false,
-    autocomplete: 'off',
-    checked: false
-  })),
-  durationMin: 0,
-  durationMax: 10080,
-  ratingMin: 0,
-  ratingMax: 5,
-  lastEatenMin: new Date(0).toISOString().slice(0, 10),
-  lastEatenMax: new Date('9999-12-31').toISOString().slice(0, 10),
-  ingredients: [{ name: '' }]
-});
+const filter = ref<Filter>(emptyFilter());
 </script>

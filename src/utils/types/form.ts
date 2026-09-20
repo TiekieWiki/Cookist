@@ -69,7 +69,6 @@ export interface RadioButtonItemProps {
   required?: boolean;
   disabled?: boolean;
   autocomplete?: string;
-  checked?: boolean;
   slot?: string;
 }
 
@@ -78,6 +77,7 @@ export interface RadioButtonListProps {
   name?: string;
   label?: string | number;
   required?: boolean;
+  items: RadioButtonItemProps[];
 }
 
 export interface SelectFieldProps {

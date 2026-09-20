@@ -1,9 +1,7 @@
 @import '../../mixins/form.scss';
-@import '../../mixins/interactions.scss';
 
 .select {
   @include form-element;
-  @include zoom-on-hover(var(--scale-medium));
 
   display: grid;
   grid-template-areas: 'select';

@@ -1,5 +1,4 @@
 @import '../../mixins/form.scss';
-@import '../../mixins/interactions.scss';
 
 label {
   display: flex;
@@ -16,7 +15,6 @@ label {
   input[type='date'],
   textarea {
     @include form-element;
-    @include zoom-on-hover(var(--scale-medium));
 
     width: 100%;
     min-height: var(--spacing-9);

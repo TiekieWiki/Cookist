@@ -23,5 +23,5 @@ withDefaults(defineProps<RadioButtonProps>(), {
   variant: ColorVariant.PRIMARY
 });
 
-const selected = defineModel<string | number>('selected');
+const selected = defineModel<string | number | null>('selected');
 </script>

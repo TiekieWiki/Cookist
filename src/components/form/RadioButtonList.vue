@@ -36,20 +36,15 @@
 </template>
 
 <script setup lang="ts">
-import type { RadioButtonItemProps, RadioButtonListProps } from '@/utils/types/form';
+import type { RadioButtonListProps } from '@/utils/types/form';
 import RadioButton from './RadioButton.vue';
 import { computed, useId } from 'vue';
 
 const props = defineProps<RadioButtonListProps>();
 
-const items = defineModel<RadioButtonItemProps[]>('items');
+const selected = defineModel<string | null>('selected');
 
 const labelId = useId();
 
 const groupName = computed<string>(() => props.name ?? props.id ?? labelId!);
-
-const selected = computed<string | number | undefined>({
-  get: () => items.value?.find((item) => item.checked)?.name,
-  set: (value) => items.value?.forEach((item) => (item.checked = item.name === value))
-});
 </script>

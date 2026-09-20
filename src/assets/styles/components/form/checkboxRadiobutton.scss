@@ -1,10 +1,7 @@
-@import '../../mixins/interactions.scss';
 @import '../../mixins/form.scss';
 
 .checkbox,
 .radiobutton {
-  @include zoom-on-hover(var(--scale-medium));
-
   display: flex;
   flex-direction: row;
   gap: var(--spacing-3);
