@@ -48,8 +48,8 @@
 </template>
 
 <script setup lang="ts">
-import i18n from '@/i18n';
 import { useProfileStore } from '@/stores/useProfileStore';
+import { setUserLanguage } from '@/utils/global/setLanguage';
 import { setColorScheme, setHandedness } from '@/utils/global/setInterfaceVariables';
 import {
   ButtonType,
@@ -94,7 +94,7 @@ watch(
 );
 
 watch(selectedLanguage, () => {
-  i18n.global.locale.value = (selectedLanguage.value as 'en' | 'nl') || 'en';
+  setUserLanguage(selectedLanguage.value || Language.EN);
 });
 
 watch(darkModeOn, () => {

@@ -1,4 +1,4 @@
-import { lazyLoadLocaleMessages } from '@/i18n/index';
+import i18n from '@/i18n/index';
 import { Language } from '@/utils/types/enums';
 
 /**
@@ -11,14 +11,15 @@ export function getSystemLanguage(): Language {
 
 /**
  * Set the user's language based on the user's language in the database
+ * @param language The language to set
  */
-export async function setUserLanguage(language: string): Promise<void> {
-  await lazyLoadLocaleMessages(language);
+export function setUserLanguage(language: Language): void {
+  i18n.global.locale.value = language;
 }
 
 /**
  * Set the system language to the user's language
  */
-export async function setSystemLanguage(): Promise<void> {
-  await setUserLanguage(getSystemLanguage());
+export function setSystemLanguage(): void {
+  setUserLanguage(getSystemLanguage());
 }

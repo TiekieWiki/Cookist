@@ -136,7 +136,6 @@
 import { RouterView, useRoute } from 'vue-router';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { lazyLoadLocaleMessages } from './i18n';
 import Button from './components/form/Button.vue';
 import { Size, ButtonType, ColorVariant } from './utils/types/enums';
 import { useUserStore } from './stores/useUserStore';
@@ -149,10 +148,9 @@ const menuOpen = ref<boolean>(false);
 
 useSession();
 
-// Set language
+// Translate the page title when the language changes
 watch(locale, () => {
   document.title = t(String(route.meta.title)) || 'Cookist';
-  lazyLoadLocaleMessages(locale.value);
 });
 
 // Reset menuOpen when the route changes
