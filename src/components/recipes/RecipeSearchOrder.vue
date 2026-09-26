@@ -16,12 +16,7 @@
       :ariaLabel="$t('recipesPage.ariaLabel.order')"
       :placeholder="$t('recipesPage.placeholder.order')"
       :required="false"
-      :items="
-        Object.values(RecipeOrderCategories).map((category) => ({
-          value: category,
-          label: category
-        }))
-      "
+      :items="orderCategories"
       labelPrefix="recipesPage.orders."
       v-model:selected="order"
     />
@@ -42,12 +37,16 @@
 import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
 import { type Filter, RecipeOrderCategories } from '@/utils/types/orderFilter';
-import { ref } from 'vue';
 import { AutoCompleteVariant, ButtonType, ColorVariant, Size } from '@/utils/types/enums';
 import Button from '@/components/form/Button.vue';
+import { recipeOrders } from '@/utils/recipes/order';
 
 const openFilters = defineModel<boolean>('openFilters', { required: true });
 const filter = defineModel<Filter>('filter', { required: true });
+const order = defineModel<RecipeOrderCategories>('order', { required: true });
 
-const order = ref<RecipeOrderCategories>(RecipeOrderCategories.durationAsc);
+const orderCategories = recipeOrders.map((recipeOrder) => ({
+  value: recipeOrder.value,
+  label: recipeOrder.value
+}));
 </script>

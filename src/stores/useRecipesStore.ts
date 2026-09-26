@@ -1,9 +1,16 @@
 import { getErrorMessage } from '@/utils/global/errorHandling';
 import { supabase } from '@/utils/global/supabase';
-import { emptyFilter, type Filter } from '@/utils/types/orderFilter';
+import { combineOrder, splitOrder } from '@/utils/recipes/order';
+import {
+  emptyFilter,
+  OrderBy,
+  OrderDirection,
+  RecipeOrderCategories,
+  type Filter
+} from '@/utils/types/orderFilter';
 import { type Recipe } from '@/utils/types/recipe';
 import { defineStore } from 'pinia';
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 /**
  * Clear input's empty string to null
@@ -17,7 +24,19 @@ function nullable<T>(value: T | '' | undefined): T | null {
 export const useRecipesStore = defineStore('recipes', () => {
   const recipes = ref<Recipe[]>([]);
   const filter = ref<Filter>(emptyFilter());
+  const orderBy = ref<OrderBy>(OrderBy.lastEaten);
+  const orderDirection = ref<OrderDirection>(OrderDirection.asc);
   const errorMessage = ref<string>('');
+
+  const order = computed<RecipeOrderCategories>({
+    get: () => combineOrder(orderBy.value, orderDirection.value),
+    set: (value) => {
+      const selected = splitOrder(value);
+
+      orderBy.value = selected.orderBy;
+      orderDirection.value = selected.orderDirection;
+    }
+  });
 
   let timeout: ReturnType<typeof setTimeout> | undefined;
   let latestRequest = 0;
@@ -42,7 +61,9 @@ export const useRecipesStore = defineStore('recipes', () => {
       p_rating_max: nullable(filter.value.ratingMax),
       p_last_eaten_min: nullable(filter.value.lastEatenMin),
       p_last_eaten_max: nullable(filter.value.lastEatenMax),
-      p_ingredients: ingredients.length ? ingredients : null
+      p_ingredients: ingredients.length ? ingredients : null,
+      p_order_by: orderBy.value,
+      p_order_direction: orderDirection.value,
     });
 
     // Ignore responses of filters that are no longer the current ones
@@ -72,9 +93,14 @@ export const useRecipesStore = defineStore('recipes', () => {
     { deep: true }
   );
 
+  watch([orderBy, orderDirection], getRecipes);
+
   return {
     recipes,
     filter,
+    orderBy,
+    orderDirection,
+    order,
     getRecipes,
     resetFilter
   };

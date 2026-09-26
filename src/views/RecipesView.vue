@@ -13,7 +13,11 @@
           ></router-link
         >
       </section>
-      <RecipeSearchOrder v-model:open-filters="openFilters" v-model:filter="recipesStore.filter" />
+      <RecipeSearchOrder
+        v-model:open-filters="openFilters"
+        v-model:filter="recipesStore.filter"
+        v-model:order="recipesStore.order"
+      />
       <div class="filtersRecipes">
         <RecipesFilter
           v-model:open-filters="openFilters"
