@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import Button from '../form/Button.vue';
+import Button from '@/components/form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
 

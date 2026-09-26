@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import { ButtonType, ColorVariant, Size } from '@/utils/types/enums';
-import Button from '../form/Button.vue';
+import Button from '@/components/form/Button.vue';
 import { onMounted, ref } from 'vue';
 import type { Recipe } from '@/utils/types/recipe.ts';
 import { getForgottenRecipes } from '@/utils/home/forgottenRecipes.ts';

@@ -127,7 +127,7 @@ import { RecipeCategories } from '@/utils/types/recipe';
 import Button from '@/components/form/Button.vue';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import RadioButtonList from '../form/RadioButtonList.vue';
+import RadioButtonList from '@/components/form/RadioButtonList.vue';
 
 const openFilters = defineModel<boolean>('openFilters', { required: true });
 const filter = defineModel<Filter>('filter', { required: true });

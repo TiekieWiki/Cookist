@@ -71,7 +71,7 @@
 <script lang="ts" setup>
 import { useTimer } from '@/composables/useTimer';
 import InputField from '@/components/form/InputField.vue';
-import Button from '../form/Button.vue';
+import Button from '@/components/form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
 
 const { time, runningTimer, progress, resetTimer } = useTimer();

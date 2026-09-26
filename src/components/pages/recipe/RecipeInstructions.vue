@@ -13,8 +13,8 @@
 
 <script setup lang="ts">
 import { useKeepScreenOn } from '@/composables/useKeepScreenOn';
-import Toggle from '../form/Toggle.vue';
-import CheckBoxList from '../form/CheckBoxList.vue';
+import Toggle from '@/components/form/Toggle.vue';
+import CheckBoxList from '@/components/form/CheckBoxList.vue';
 import { computed } from 'vue';
 import { type CheckBoxProps } from '@/utils/types/form';
 import { useRecipeStore } from '@/stores/useRecipeStore.js';

@@ -26,7 +26,7 @@ import { useUserStore } from '@/stores/useUserStore';
 import { computed } from 'vue';
 import { useLogout } from '@/composables/useAuthentication.js';
 import { ButtonType, ColorVariant, Size } from '@/utils/types/enums';
-import Button from '../form/Button.vue';
+import Button from '@/components/form/Button.vue';
 
 const userStore = useUserStore();
 const email = computed<string>(() => userStore.user?.email ?? '');

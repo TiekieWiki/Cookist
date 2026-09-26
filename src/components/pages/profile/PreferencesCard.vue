@@ -61,10 +61,10 @@ import {
 } from '@/utils/types/enums';
 import { ref, watch } from 'vue';
 import Button from '@/components/form/Button.vue';
-import SelectField from '../form/SelectField.vue';
-import SuccessMessage from '../form/SuccessMessage.vue';
-import ErrorMessage from '../form/ErrorMessage.vue';
-import Toggle from '../form/Toggle.vue';
+import SelectField from '@/components/form/SelectField.vue';
+import SuccessMessage from '@/components/form/SuccessMessage.vue';
+import ErrorMessage from '@/components/form/ErrorMessage.vue';
+import Toggle from '@/components/form/Toggle.vue';
 
 const profileStore = useProfileStore();
 const languages = [

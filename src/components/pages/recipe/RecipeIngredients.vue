@@ -58,9 +58,9 @@
 import SelectField from '@/components/form/SelectField.vue';
 import { getPossibleUnits } from '@/utils/recipe/updateIngredientUnit';
 import { useRecipePortions } from '@/composables/useRecipePortions';
-import Button from '../form/Button.vue';
+import Button from '@/components/form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
-import CheckBoxList from '../form/CheckBoxList.vue';
+import CheckBoxList from '@/components/form/CheckBoxList.vue';
 import { computed } from 'vue';
 import { type CheckBoxProps } from '@/utils/types/form';
 import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
