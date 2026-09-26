@@ -28,6 +28,5 @@ export const errorMessages: Record<string, string> = {
   recipe_rating_missing: 'errors.recipeRatingMissing',
   recipe_ingredients_missing: 'errors.recipeIngredientsMissing',
   recipe_instructions_missing: 'errors.recipeInstructionsMissing',
-  unsaved_changes: 'errors.unsavedChanges',
   unknown: 'errors.unknown'
 };

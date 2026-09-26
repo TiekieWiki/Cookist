@@ -110,7 +110,7 @@ router.beforeEach(async (to: RouteLocation) => {
   } else if (
     !to.meta.requiresAuth &&
     data.session &&
-    (to.name === 'Login' || to.name === 'Register')
+    (to.name === 'Login')
   ) {
     return '/';
   }

@@ -70,5 +70,4 @@ import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
 
 const recipe = defineModel<Recipe>('recipe', { required: true });
-const save = defineEmits<{ save: [boolean] }>();
 </script>

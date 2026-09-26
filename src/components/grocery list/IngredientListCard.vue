@@ -84,15 +84,14 @@
 import { getPossibleUnits, updateIngredientUnit } from '@/utils/recipe/updateIngredientUnit';
 import SelectField from '@/components/form/SelectField.vue';
 import Button from '../form/Button.vue';
-import { ButtonType, ColorVariant, Size } from '@/utils/types/enums';
+import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import CheckBoxList from '../form/CheckBoxList.vue';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { type CheckBoxProps } from '@/utils/types/form';
 import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
 import InputField from '@/components/form/InputField.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import { emptyIngredient, type Ingredient, RecipeUnits } from '@/utils/types/recipe';
-import { ref } from 'vue';
 import EmptyState from '../general/EmptyState.vue';
 
 const ingredient = ref<Ingredient>(emptyIngredient());

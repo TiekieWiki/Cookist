@@ -97,10 +97,3 @@ input[type='file'] {
     }
   }
 }
-
-input:disabled::file-selector-button {
-  background-image: none;
-  background-color: var(--color-disabled) !important;
-  color: var(--color-background-secondary-text) !important;
-  cursor: auto;
-}

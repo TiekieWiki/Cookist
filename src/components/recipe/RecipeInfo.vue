@@ -57,7 +57,6 @@ import Button from '../form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import { useRecipeStore } from '@/stores/useRecipeStore.js';
 import { useUserStore } from '@/stores/useUserStore.js';
-import type { counter } from '@fortawesome/fontawesome-svg-core';
 
 const userStore = useUserStore();
 const recipeStore = useRecipeStore();

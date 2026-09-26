@@ -9,8 +9,6 @@ interface UnitConversion {
   fromBase: (x: number) => number;
 }
 
-export type UnitKey = keyof typeof unitConversionMap;
-
 // This map defines how to convert between different units
 export const unitConversionMap = {
   // Count group

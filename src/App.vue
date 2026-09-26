@@ -126,16 +126,7 @@
   <router-view v-slot="{ Component }">
     <template v-if="Component">
       <Transition name="fade" mode="out-in">
-        <suspense>
-          <template #default>
-            <component :is="Component" />
-          </template>
-          <template #fallback>
-            <div class="loader">
-              <div class="loader-spinner"></div>
-            </div>
-          </template>
-        </suspense>
+        <component :is="Component" />
       </Transition>
     </template>
   </router-view>

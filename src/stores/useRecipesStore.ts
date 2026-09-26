@@ -109,8 +109,6 @@ export const useRecipesStore = defineStore('recipes', () => {
   return {
     recipes,
     filter,
-    orderBy,
-    orderDirection,
     order,
     errorMessage,
     getRecipes,

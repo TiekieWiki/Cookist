@@ -23,7 +23,7 @@
 import { AutoCompleteVariant, ColorVariant } from '@/utils/types/enums';
 import { type InputFieldProps } from '@/utils/types/form';
 
-const props = withDefaults(defineProps<InputFieldProps>(), {
+withDefaults(defineProps<InputFieldProps>(), {
   variant: ColorVariant.SECONDARY,
   required: false,
   disabled: false,

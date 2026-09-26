@@ -21,12 +21,11 @@
 </template>
 
 <script setup lang="ts">
-import { type Instruction, type Recipe } from '@/utils/types/recipe';
+import { type Instruction } from '@/utils/types/recipe';
 import { addInputRow } from '@/utils/global/list';
 import InputField from '@/components/form/InputField.vue';
 import InputList from '@/components/form/InputList.vue';
 import { ColAmount } from '@/utils/types/enums';
 
 const instructions = defineModel<Instruction[]>('instructions', { required: true });
-const save = defineEmits<{ save: [boolean] }>();
 </script>

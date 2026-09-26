@@ -74,9 +74,9 @@ const languages = [
 const selectedLanguage = ref<Language>();
 const darkModeOn = ref<boolean>();
 const handedness = [
-  { value: 'left', label: 'left' },
-  { value: 'right', label: 'right' },
-  { value: 'ambidextrous', label: 'ambidextrous' }
+  { value: Handedness.LEFT, label: Handedness.LEFT },
+  { value: Handedness.RIGHT, label: Handedness.RIGHT },
+  { value: Handedness.AMBIDEXTROUS, label: Handedness.AMBIDEXTROUS }
 ];
 const selectedHandedness = ref<Handedness>();
 const successMessage = ref<string>('');
@@ -102,7 +102,7 @@ watch(darkModeOn, () => {
 });
 
 watch(selectedHandedness, () => {
-  setHandedness(selectedHandedness.value || 'right');
+  setHandedness(selectedHandedness.value || Handedness.RIGHT);
 });
 
 /**

@@ -28,12 +28,12 @@ import { type InputListProps } from '@/utils/types/form';
 
 defineProps<InputListProps>();
 
-const items = defineModel<Object[]>('items');
+const items = defineModel<object[]>('items');
 
-const rowKeys = new WeakMap<Object, number>();
+const rowKeys = new WeakMap<object, number>();
 let nextRowKey = 0;
 
-function rowKey(item: Object): number {
+function rowKey(item: object): number {
   if (!rowKeys.has(item)) {
     rowKeys.set(item, nextRowKey++);
   }

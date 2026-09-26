@@ -49,5 +49,4 @@ import SelectField from '@/components/form/SelectField.vue';
 import { ColAmount } from '@/utils/types/enums';
 
 const ingredients = defineModel<Ingredient[]>('ingredients', { required: true });
-const save = defineEmits<{ save: [boolean] }>();
 </script>
