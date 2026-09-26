@@ -70,7 +70,6 @@ export const nl: TranslationSchema = {
   },
   profilePage: {
     title: 'Profiel',
-    account: 'Account',
     logout: 'Log uit',
     statistics: {
       recipesCreated: 'Recepten gecreëerd',
@@ -86,10 +85,6 @@ export const nl: TranslationSchema = {
     },
     colorScheme: 'Dark mode',
     colorSchemeDescription: 'Aangenamer voor de ogen.',
-    colorSchemes: {
-      light: 'Licht',
-      dark: 'Donker'
-    },
     handedness: 'Handigheid',
     handednessDescription:
       'Je hebt maar twee handen, laten we er maar een voor je telefoon gebruiken.',
@@ -106,9 +101,7 @@ export const nl: TranslationSchema = {
     cancel: 'Annuleren',
     delete: 'Verwijderen',
     ariaLabel: {
-      userEmail: 'Gebruiker e-mail',
       language: 'Taal',
-      colorScheme: 'Kleurenschema',
       handedness: 'Handigheid'
     }
   },
@@ -119,7 +112,6 @@ export const nl: TranslationSchema = {
     newRecipe: 'Nieuw',
     filters: 'Filters',
     reset: 'Reset',
-    order: 'Sorteer',
     orders: {
       lastEatenAsc: 'Laatst gegeten (oud-nieuw)',
       lastEatenDesc: 'Laatst gegeten (nieuw-oud)',
@@ -159,7 +151,6 @@ export const nl: TranslationSchema = {
     servings: 'porties',
     rating: 'sterren | ster | sterren',
     ingredients: 'Ingrediënten',
-    portions: 'porties | portie | porties',
     addToGroceryList: 'Toevoegen aan boodschappenlijst',
     instructions: 'Instructies',
     keepOnScreen: 'Scherm aanhouden',
@@ -215,9 +206,6 @@ export const nl: TranslationSchema = {
     rating: 'Beoordeling',
     image: 'Afbeelding',
     ingredients: 'Ingredienten',
-    ingredient: 'Ingredient',
-    amount: 'Hoeveelheid',
-    unit: 'Eenheid',
     units: {
       pc: 'stuk',
       ml: 'ml',
@@ -237,11 +225,9 @@ export const nl: TranslationSchema = {
       lb: 'lb'
     },
     instructions: 'Instructies',
-    instruction: 'Instructie',
     notes: 'Aantekeningen',
     save: 'Recept opslaan',
     cancel: 'Annuleren',
-    recipeNotFound: 'Recept niet gevonden',
     placeholder: {
       name: 'Pasta Carbonara',
       category: 'Avondeten',
@@ -262,11 +248,9 @@ export const nl: TranslationSchema = {
       portions: 'Aantal porties van het recept',
       rating: 'Beoordeling van het recept',
       image: 'Afbeelding van het recept',
-      ingredients: 'Ingredienten van het recept',
       ingredient: 'Ingredient van het recept',
       amount: 'Hoeveelheid van het ingredient',
       unit: 'Eenheid van het ingredient',
-      instructions: 'Instructies van het recept',
       instruction: 'Instructie van het recept',
       notes: 'Aantekeningen over het recept'
     },
@@ -288,23 +272,11 @@ export const nl: TranslationSchema = {
     emptyBasketSubtitle:
       'Open een recept en klik "Toevoegen aan boodschappenlijst" — alles komt hier terecht als een nette lijst.',
     browseRecipes: 'Recepten bekijken',
-    addIngredient: 'Ingredient toevoegen',
-    errors: {
-      invalidIngredient:
-        'Ongeldig ingrediënt. Zorg ervoor dat alle velden zijn ingevuld en de hoeveelheid groter is dan 0.'
-    }
+    addIngredient: 'Ingredient toevoegen'
   },
   notFoundPage: {
     title: 'Pagina niet gevonden',
     description: 'De pagina die je zoekt bestaat niet.'
-  },
-  database: {
-    errors: {
-      add: 'Er is een fout opgetreden bij het toevoegen van de data',
-      get: 'Er is een fout opgetreden bij het ophalen van de data',
-      update: 'Er is een fout opgetreden bij het updaten van de data',
-      delete: 'Er is een fout opgetreden bij het verwijderen van de data'
-    }
   },
   errors: {
     emailAddressMissing: 'E-mailadres ontbreekt',

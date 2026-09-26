@@ -67,7 +67,6 @@ export const en = {
   },
   profilePage: {
     title: 'Profile',
-    account: 'Account',
     logout: 'Sign out',
     statistics: {
       recipesCreated: 'Recipes created',
@@ -83,10 +82,6 @@ export const en = {
     },
     colorScheme: 'Dark mode',
     colorSchemeDescription: 'Easier on the eyes.',
-    colorSchemes: {
-      light: 'Light',
-      dark: 'Dark'
-    },
     handedness: 'Handedness',
     handednessDescription: "You only have two hands, let's only use one for your phone",
     handednessType: {
@@ -101,9 +96,7 @@ export const en = {
     cancel: 'Cancel',
     delete: 'Delete',
     ariaLabel: {
-      userEmail: 'User email',
       language: 'Language',
-      colorScheme: 'Color scheme',
       handedness: 'Handedness'
     }
   },
@@ -113,7 +106,6 @@ export const en = {
     newRecipe: 'New',
     filters: 'Filters',
     reset: 'Reset',
-    order: 'Order',
     orders: {
       lastEatenAsc: 'Last eaten (old-new)',
       lastEatenDesc: 'Last eaten (new-old)',
@@ -153,7 +145,6 @@ export const en = {
     servings: 'servings | serving | servings',
     rating: 'stars | star | stars',
     ingredients: 'Ingredients',
-    portions: 'portions | portion | portions',
     addToGroceryList: 'Add to grocery list',
     instructions: 'Instructions',
     keepOnScreen: 'Keep screen on',
@@ -208,9 +199,6 @@ export const en = {
     rating: 'Rating',
     image: 'Picture',
     ingredients: 'Ingredients',
-    ingredient: 'Ingredient',
-    amount: 'Amount',
-    unit: 'Unit',
     units: {
       pc: 'piece',
       ml: 'ml',
@@ -230,11 +218,9 @@ export const en = {
       lb: 'lb'
     },
     instructions: 'Instructions',
-    instruction: 'Instruction',
     notes: 'Notes',
     save: 'Save recipe',
     cancel: 'Cancel',
-    recipeNotFound: 'Recipe not found',
     placeholder: {
       name: 'Pasta Carbonara',
       category: 'Dinner',
@@ -255,11 +241,9 @@ export const en = {
       portions: 'Number of portions of the recipe',
       rating: 'Rating of the recipe',
       image: 'Picture of the recipe',
-      ingredients: 'Ingredients of the recipe',
       ingredient: 'Ingredient of the recipe',
       amount: 'Amount of the ingredient',
       unit: 'Unit of the ingredient',
-      instructions: 'Instructions of the recipe',
       instruction: 'Instruction of the recipe',
       notes: 'Notes about the recipe'
     },
@@ -280,23 +264,11 @@ export const en = {
     emptyBasketSubtitle:
       'Open a recipe and tap "Add to grocery list" — everything lands here as one tidy list.',
     browseRecipes: 'Browse recipes',
-    addIngredient: 'Add ingredient',
-    errors: {
-      invalidIngredient:
-        'Invalid ingredient. Make sure all fields are filled and the amount is greater than 0.'
-    }
+    addIngredient: 'Add ingredient'
   },
   notFoundPage: {
     title: 'Page not found',
     description: 'The page you are looking for does not exist.'
-  },
-  database: {
-    errors: {
-      add: 'An error occurred while adding the data',
-      get: 'An error occurred while retrieving the data',
-      update: 'An error occurred while updating the data',
-      delete: 'An error occurred while deleting the data'
-    }
   },
   errors: {
     emailAddressMissing: 'Email address is missing',
