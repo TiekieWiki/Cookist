@@ -2,12 +2,12 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { supabase } from '@/utils/global/supabase';
 import { getErrorMessage } from '@/utils/global/errorHandling';
+import { requireUser } from '@/utils/global/requireUser';
+import { getSystemLanguage } from '@/utils/global/setLanguage';
 import { type Profile } from '@/utils/types/profile';
-import { useUserStore } from './useUserStore';
 import { ColorScheme, Handedness, Language } from '@/utils/types/enums';
 
 export const useProfileStore = defineStore('profile', () => {
-  const userStore = useUserStore();
   const profile = ref<Profile>();
   const errorMessage = ref<string>('');
 
@@ -15,22 +15,15 @@ export const useProfileStore = defineStore('profile', () => {
    * Get the profile of the current user
    */
   async function getProfile(): Promise<void> {
-    if (userStore.errorMessage) {
-      errorMessage.value = userStore.errorMessage;
-    } else if (!userStore.user) {
+    const user = requireUser(errorMessage);
+    if (!user) return;
+
+    const { data, error } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+
+    if (error || !data) {
       errorMessage.value = getErrorMessage('unknown');
     } else {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userStore.user.id)
-        .single();
-
-      if (error || !data) {
-        errorMessage.value = getErrorMessage('unknown');
-      } else {
-        profile.value = data;
-      }
+      profile.value = data;
     }
   }
 
@@ -42,52 +35,58 @@ export const useProfileStore = defineStore('profile', () => {
     colorScheme: ColorScheme,
     handedness: Handedness
   ): Promise<void> {
-    if (userStore.errorMessage) {
-      errorMessage.value = userStore.errorMessage;
-    } else if (!userStore.user) {
+    const user = requireUser(errorMessage);
+    if (!user) return;
+
+    const { data, error } = await supabase
+      .from('profiles')
+      .update({
+        language: language,
+        colorscheme: colorScheme,
+        handedness: handedness
+      })
+      .eq('id', user.id)
+      .select()
+      .single();
+
+    if (error || !data) {
       errorMessage.value = getErrorMessage('unknown');
     } else {
-      const { data, error } = await supabase
-        .from('profiles')
-        .update({
-          language: language,
-          colorscheme: colorScheme,
-          handedness: handedness
-        })
-        .eq('id', userStore.user.id)
-        .select()
-        .single();
-
-      if (error || !data) {
-        errorMessage.value = getErrorMessage('unknown');
-      } else {
-        profile.value = data;
-      }
+      profile.value = data;
     }
   }
 
   /**
-   * Set the local language of the current user
+   * Set the language of a new user to their system language
+   * @param userId Id of the new user
    */
-  async function setUsersLocalLanguage(): Promise<void> {
-    if (userStore.errorMessage) {
-      errorMessage.value = userStore.errorMessage;
-    } else if (!userStore.user) {
+  async function setUsersLocalLanguage(userId: string): Promise<void> {
+    errorMessage.value = '';
+
+    const language = getSystemLanguage();
+
+    if (language === Language.EN) return;
+
+    const { data, error } = await supabase
+      .from('profiles')
+      .update({ language })
+      .eq('id', userId)
+      .select()
+      .single();
+
+    if (error || !data) {
       errorMessage.value = getErrorMessage('unknown');
     } else {
-      if (navigator.language.includes('nl')) {
-        const { data, error } = await supabase
-          .from('profiles')
-          .update({
-            language: 'nl'
-          })
-          .eq('id', userStore.user.id);
-
-        if (error) {
-          errorMessage.value = getErrorMessage('unknown');
-        }
-      }
+      profile.value = data;
     }
+  }
+
+  /**
+   * Clear the profile
+   */
+  function clearProfile(): void {
+    profile.value = undefined;
+    errorMessage.value = '';
   }
 
   return {
@@ -95,6 +94,7 @@ export const useProfileStore = defineStore('profile', () => {
     errorMessage,
     getProfile,
     setProfile,
-    setUsersLocalLanguage
+    setUsersLocalLanguage,
+    clearProfile
   };
 });

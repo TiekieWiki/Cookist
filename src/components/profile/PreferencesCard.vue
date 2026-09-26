@@ -116,7 +116,7 @@ async function saveSettings(): Promise<void> {
   );
 
   if (!profileStore.errorMessage) {
-    successMessage.value = i18n.global.t('profilePage.saveSuccess');
+    successMessage.value = 'profilePage.saveSuccess';
   }
 }
 </script>

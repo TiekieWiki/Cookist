@@ -16,6 +16,8 @@ export function usePasswordRegister(): {
   const errorMessage = ref<string>('');
 
   const passwordRegister = async (email: string, password: string) => {
+    errorMessage.value = '';
+
     if (!email) {
       errorMessage.value = getErrorMessage('email_address_missing');
       return;
@@ -34,11 +36,13 @@ export function usePasswordRegister(): {
       return;
     }
 
-    await profileStore.setUsersLocalLanguage();
+    if (data.session && data.user) {
+      await profileStore.setUsersLocalLanguage(data.user.id);
 
-    if (profileStore.errorMessage) {
-      errorMessage.value = profileStore.errorMessage;
-      return;
+      if (profileStore.errorMessage) {
+        errorMessage.value = profileStore.errorMessage;
+        return;
+      }
     }
 
     await router.push('/recipes');
@@ -61,6 +65,8 @@ export function usePasswordLogin(): {
   const errorMessage = ref<string>('');
 
   const passwordLogin = async (email: string, password: string) => {
+    errorMessage.value = '';
+
     if (!email) {
       errorMessage.value = getErrorMessage('email_address_missing');
       return;
@@ -69,7 +75,7 @@ export function usePasswordLogin(): {
       return;
     }
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password
     });

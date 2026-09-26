@@ -23,17 +23,11 @@
 
 <script setup lang="ts">
 import { useUserStore } from '@/stores/useUserStore';
-import { onMounted, ref } from 'vue';
+import { computed } from 'vue';
 import { useLogout } from '@/composables/useAuthentication.js';
 import { ButtonType, ColorVariant, Size } from '@/utils/types/enums';
 import Button from '../form/Button.vue';
 
 const userStore = useUserStore();
-const email = ref<string>('');
-
-onMounted(async () => {
-  if (userStore.user) {
-    email.value = userStore.user.email ?? '';
-  }
-});
+const email = computed<string>(() => userStore.user?.email ?? '');
 </script>

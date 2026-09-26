@@ -139,47 +139,24 @@
       </Transition>
     </template>
   </router-view>
-  <ErrorMessage v-model:message="profileStore.errorMessage" />
 </template>
 
 <script setup lang="ts">
 import { RouterView, useRoute } from 'vue-router';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
-import type { Profile } from './utils/types/profile';
-import { setSystemLanguage, setUserLanguage } from './utils/global/setLanguage';
 import { useI18n } from 'vue-i18n';
 import { lazyLoadLocaleMessages } from './i18n';
-import { setColorScheme, setHandedness } from './utils/global/setInterfaceVariables';
 import Button from './components/form/Button.vue';
 import { Size, ButtonType, ColorVariant } from './utils/types/enums';
-import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import { useUserStore } from './stores/useUserStore';
-import { useProfileStore } from './stores/useProfileStore';
+import { useSession } from './composables/useSession';
 
 const route = useRoute();
 const { t, locale } = useI18n();
 const userStore = useUserStore();
-const profileStore = useProfileStore();
-const profile = ref<Profile | undefined>(undefined);
 const menuOpen = ref<boolean>(false);
 
-// Set user language
-onMounted(async () => {
-  await userStore.getUser();
-
-  if (userStore.isLoggedIn) {
-    await profileStore.getProfile();
-
-    if (profileStore.profile) {
-      profile.value = profileStore.profile;
-      setUserLanguage(profile.value.language);
-      setColorScheme(profile.value.colorscheme);
-      setHandedness(profile.value.handedness);
-    } else {
-      setSystemLanguage();
-    }
-  }
-});
+useSession();
 
 // Set language
 watch(locale, () => {

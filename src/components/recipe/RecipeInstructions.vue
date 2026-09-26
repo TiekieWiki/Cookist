@@ -7,7 +7,7 @@
         <Toggle v-model:input="keepScreenOn" />
       </div>
     </div>
-    <CheckBoxList v-model:items="instructions" />
+    <CheckBoxList :items="instructions" />
   </section>
 </template>
 

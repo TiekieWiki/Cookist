@@ -23,6 +23,7 @@ export interface CheckBoxListProps {
   id?: string;
   label?: string | number;
   required?: boolean;
+  items: CheckBoxProps[];
 }
 
 export interface InputFieldProps {

@@ -1,22 +1,23 @@
 import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
-import { useUserStore } from './useUserStore';
 import { getErrorMessage } from '@/utils/global/errorHandling';
+import { requireUser } from '@/utils/global/requireUser';
 import { supabase } from '@/utils/global/supabase';
 import { validateRecipe } from '@/utils/recipe/validateRecipe';
-import { formatDateAgo } from '@/utils/global/date';
+import { formatDateAgo, toLocalISODate } from '@/utils/global/date';
 import { PostgrestError } from '@supabase/supabase-js';
 import { DEFAULT_RECIPE_IMAGE_SRC } from '@/utils/global/variables';
-import router from '@/router';
 
 export const useRecipeStore = defineStore('recipe', () => {
-  const userStore = useUserStore();
   const recipe = ref<Recipe>(emptyRecipe());
   const recipeImage = ref<string>(DEFAULT_RECIPE_IMAGE_SRC);
   const lastEatenDate = ref<string | null>(null);
   const lastEatenRecipe = computed<string>(() => formatDateAgo(lastEatenDate.value));
+  const isLoading = ref<boolean>(false);
   const errorMessage = ref<string>('');
+
+  let latestRequest = 0;
 
   /**
    * Get recipe image from database
@@ -39,23 +40,32 @@ export const useRecipeStore = defineStore('recipe', () => {
    * @param recipeId Recipe id
    */
   async function getRecipe(recipeId: string): Promise<void> {
-    errorMessage.value = '';
+    clearRecipe();
 
-    recipe.value = emptyRecipe();
-    lastEatenDate.value = null;
-    recipeImage.value = DEFAULT_RECIPE_IMAGE_SRC;
+    const request = latestRequest;
+    isLoading.value = true;
 
     const { data, error: recipeError } = await supabase.rpc('get_recipe', {
       p_recipe_id: recipeId
     });
+
+    if (request !== latestRequest) return;
 
     if (recipeError || !data) {
       errorMessage.value = getErrorMessage('unknown');
     } else {
       recipe.value = data.recipe;
       lastEatenDate.value = data.last_eaten;
+    }
 
-      recipeImage.value = await getRecipeImage(recipeId);
+    isLoading.value = false;
+
+    if (recipeError || !data) return;
+
+    const image = await getRecipeImage(recipeId);
+
+    if (request === latestRequest) {
+      recipeImage.value = image;
     }
   }
 
@@ -63,118 +73,109 @@ export const useRecipeStore = defineStore('recipe', () => {
    * Save recipe to database
    * @param recipe Recipe to save
    * @param image Image to save
+   * @returns {Promise<string | null>} Id of the saved recipe, also when only the image upload failed
    */
-  async function setRecipe(newRecipe: Recipe, image: File | null): Promise<void> {
+  async function setRecipe(newRecipe: Recipe, image: File | null): Promise<string | null> {
     errorMessage.value = '';
 
     const message = validateRecipe(newRecipe);
 
     if (message) {
       errorMessage.value = message;
-    } else if (userStore.errorMessage) {
-      errorMessage.value = userStore.errorMessage;
-    } else if (!userStore.user) {
-      errorMessage.value = getErrorMessage('unknown');
+      return null;
+    }
+
+    const user = requireUser(errorMessage);
+    if (!user) return null;
+
+    let recipeData: any = null;
+    let recipeError: PostgrestError | null = null;
+
+    if (newRecipe.id) {
+      const { data, error } = await supabase.rpc('update_recipe', {
+        p_recipe_id: newRecipe.id,
+        p_name: newRecipe.name,
+        p_category: newRecipe.category,
+        p_duration: newRecipe.duration,
+        p_portions: newRecipe.portions,
+        p_rating: newRecipe.rating,
+        p_notes: newRecipe.notes ?? '',
+        p_ingredients: newRecipe.ingredients,
+        p_instructions: newRecipe.instructions
+      });
+
+      recipeData = data;
+      recipeError = error;
     } else {
-      let recipeData: any = null;
-      let recipeError: PostgrestError | null = null;
+      const { data, error } = await supabase.rpc('create_recipe', {
+        p_name: newRecipe.name,
+        p_category: newRecipe.category,
+        p_duration: newRecipe.duration,
+        p_portions: newRecipe.portions,
+        p_rating: newRecipe.rating,
+        p_notes: newRecipe.notes ?? '',
+        p_ingredients: newRecipe.ingredients,
+        p_instructions: newRecipe.instructions
+      });
 
-      if (newRecipe.id) {
-        const { data, error } = await supabase.rpc('update_recipe', {
-          p_recipe_id: newRecipe.id,
-          p_name: newRecipe.name,
-          p_category: newRecipe.category,
-          p_duration: newRecipe.duration,
-          p_portions: newRecipe.portions,
-          p_rating: newRecipe.rating,
-          p_notes: newRecipe.notes ?? '',
-          p_ingredients: newRecipe.ingredients,
-          p_instructions: newRecipe.instructions
+      recipeData = data;
+      recipeError = error;
+    }
+
+    if (recipeError || !recipeData) {
+      errorMessage.value = getErrorMessage('unknown');
+      return null;
+    }
+
+    recipe.value = Array.isArray(recipeData) ? recipeData[0] : recipeData;
+
+    if (image) {
+      const { error: uploadError } = await supabase.storage
+        .from('recipe_images')
+        .upload(recipe.value.id, image, {
+          upsert: true
         });
 
-        recipeData = data;
-        recipeError = error;
-      } else {
-        const { data, error } = await supabase.rpc('create_recipe', {
-          p_name: newRecipe.name,
-          p_category: newRecipe.category,
-          p_duration: newRecipe.duration,
-          p_portions: newRecipe.portions,
-          p_rating: newRecipe.rating,
-          p_notes: newRecipe.notes ?? '',
-          p_ingredients: newRecipe.ingredients,
-          p_instructions: newRecipe.instructions
-        });
-
-        recipeData = data;
-        recipeError = error;
-      }
-
-      if (recipeError || !recipeData) {
+      if (uploadError) {
         errorMessage.value = getErrorMessage('unknown');
-      } else {
-        recipe.value = Array.isArray(recipeData) ? recipeData[0] : recipeData;
-
-        if (image) {
-          const { error: uploadError } = await supabase.storage
-            .from('recipe_images')
-            .upload(recipe.value.id, image, {
-              upsert: true
-            });
-
-          if (uploadError) {
-            errorMessage.value = getErrorMessage('unknown');
-          }
-        }
       }
     }
+
+    return recipe.value.id;
   }
 
   /**
-   * Update last eaten date of recipe to today
+   * Update last eaten date of recipe to today, in the user's timezone
    */
   async function setLastEaten(): Promise<void> {
-    if (userStore.errorMessage) {
-      errorMessage.value = userStore.errorMessage;
-    } else if (!userStore.user) {
+    const user = requireUser(errorMessage);
+    if (!user) return;
+
+    const { data, error } = await supabase
+      .from('recipe_users')
+      .update({
+        last_eaten: toLocalISODate(new Date())
+      })
+      .eq('user_id', user.id)
+      .eq('recipe_id', recipe.value.id)
+      .select()
+      .single();
+
+    if (error || !data) {
       errorMessage.value = getErrorMessage('unknown');
     } else {
-      const { data, error } = await supabase
-        .from('recipe_users')
-        .update({
-          last_eaten: new Date()
-        })
-        .eq('user_id', userStore.user.id)
-        .eq('recipe_id', recipe.value.id)
-        .select()
-        .single();
-
-      if (error || !data) {
-        errorMessage.value = getErrorMessage('unknown');
-      } else {
-        lastEatenDate.value = data.last_eaten;
-      }
+      lastEatenDate.value = data.last_eaten;
     }
   }
 
   /**
-   * Delete recipe from database
+   * Delete recipe and its image from database. The recipe is deleted first, so a failed delete
+   * never leaves a recipe without its image.
    * @param recipeId Recipe id
    */
   async function deleteRecipe(recipeId: string): Promise<void> {
-    if (userStore.errorMessage) {
-      errorMessage.value = userStore.errorMessage;
-      return;
-    }
-
-    if (recipeImage.value !== DEFAULT_RECIPE_IMAGE_SRC) {
-      const { error: imageError } = await supabase.storage.from('recipe_images').remove([recipeId]);
-
-      if (imageError) {
-        errorMessage.value = getErrorMessage('unknown');
-        return;
-      }
-    }
+    const user = requireUser(errorMessage);
+    if (!user) return;
 
     const { error: recipeError } = await supabase.from('recipes').delete().eq('id', recipeId);
 
@@ -183,17 +184,24 @@ export const useRecipeStore = defineStore('recipe', () => {
       return;
     }
 
-    recipe.value = emptyRecipe();
-    recipeImage.value = DEFAULT_RECIPE_IMAGE_SRC;
+    if (recipeImage.value !== DEFAULT_RECIPE_IMAGE_SRC) {
+      await supabase.storage.from('recipe_images').remove([recipeId]);
+    }
 
-    router.push({ path: '/recipes' });
+    clearRecipe();
   }
 
   /**
-   * Clear recipe
+   * Clear recipe and ignore running requests, for example before loading another recipe or after
+   * logging out
    */
   function clearRecipe(): void {
+    latestRequest++;
     recipe.value = emptyRecipe();
+    recipeImage.value = DEFAULT_RECIPE_IMAGE_SRC;
+    lastEatenDate.value = null;
+    isLoading.value = false;
+    errorMessage.value = '';
   }
 
   return {
@@ -201,6 +209,7 @@ export const useRecipeStore = defineStore('recipe', () => {
     recipeImage,
     lastEatenDate,
     lastEatenRecipe,
+    isLoading,
     errorMessage,
     getRecipe,
     getRecipeImage,

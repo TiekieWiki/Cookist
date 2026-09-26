@@ -84,6 +84,16 @@ export const useRecipesStore = defineStore('recipes', () => {
     filter.value = emptyFilter();
   }
 
+  /**
+   * Clear the recipes, for example after logging out
+   */
+  function clearRecipes(): void {
+    clearTimeout(timeout);
+    latestRequest++;
+    recipes.value = [];
+    errorMessage.value = '';
+  }
+
   watch(
     filter,
     () => {
@@ -104,6 +114,7 @@ export const useRecipesStore = defineStore('recipes', () => {
     order,
     errorMessage,
     getRecipes,
-    resetFilter
+    resetFilter,
+    clearRecipes
   };
 });

@@ -1,24 +1,28 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { supabase } from '@/utils/global/supabase';
 import { getErrorMessage } from '@/utils/global/errorHandling';
 import { type User } from '@supabase/supabase-js';
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<User>();
-  const isLoggedIn = ref<boolean>(false);
+  const isLoggedIn = computed<boolean>(() => !!user.value);
   const errorMessage = ref<string>('');
 
   /**
    * Get the current user
    */
   async function getUser(): Promise<void> {
+    errorMessage.value = '';
+
     const { data, error } = await supabase.auth.getUser();
 
-    if (error) {
-      errorMessage.value = getErrorMessage(error.code);
-    } else {
+    if (!error) {
       user.value = data.user;
+    } else if (error.name === 'AuthSessionMissingError') {
+      user.value = undefined;
+    } else {
+      errorMessage.value = getErrorMessage(error.code);
     }
   }
 
@@ -26,6 +30,8 @@ export const useUserStore = defineStore('user', () => {
    * Delete the profile of the current user
    */
   async function deleteUser(): Promise<void> {
+    errorMessage.value = '';
+
     const { error } = await supabase.functions.invoke('delete-user');
 
     if (error) {
@@ -33,9 +39,8 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  // Update user's logged in state
-  supabase.auth.onAuthStateChange((event, session) => {
-    isLoggedIn.value = !!session;
+  // Update user when logging in or out
+  supabase.auth.onAuthStateChange((_event, session) => {
     user.value = session?.user;
   });
 

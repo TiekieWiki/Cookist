@@ -1,8 +1,22 @@
 import type { Time, Timer } from '@/utils/types/timer';
-import { computed, ref, watch, type Ref } from 'vue';
+import { computed, onScopeDispose, ref, watch, type Ref } from 'vue';
 
 /**
- * Timer composable that manages a simple timer state.
+ * Converts a time to seconds
+ * @param time Time to convert
+ * @returns {number} Total amount of seconds
+ */
+function toSeconds(time: Time): number {
+  const hours = Number(time.hours) || 0;
+  const minutes = Number(time.minutes) || 0;
+  const seconds = Number(time.seconds) || 0;
+
+  return hours * 3600 + minutes * 60 + seconds;
+}
+
+/**
+ * Timer composable that manages a simple timer state. The remaining time is calculated from the
+ * end time, so the timer stays correct when the browser slows down intervals in background tabs.
  * @returns An object containing the timer state and functions to control it.
  */
 export function useTimer(): {
@@ -18,102 +32,91 @@ export function useTimer(): {
   });
 
   const runningTimer = ref<Timer>({
-    hours: time.value.hours,
-    minutes: time.value.minutes,
-    seconds: time.value.seconds,
+    ...time.value,
     isRunning: false,
     isFinished: false
   });
 
+  let endTime = 0;
+  let interval: ReturnType<typeof setInterval> | undefined;
+
   /**
-   * Starts the timer.
+   * Sets the remaining time of the running timer
+   * @param totalSeconds Remaining amount of seconds
    */
-  function startTimer(): void {
-    runningTimer.value.isRunning = true;
-    runningTimer.value.isFinished = false;
+  function setRemainingTime(totalSeconds: number): void {
+    runningTimer.value.hours = Math.floor(totalSeconds / 3600);
+    runningTimer.value.minutes = Math.floor((totalSeconds % 3600) / 60);
+    runningTimer.value.seconds = totalSeconds % 60;
   }
 
   /**
-   * Pauses the timer.
+   * Updates the remaining time and finishes the timer when no time is left
    */
-  function pauseTimer(): void {
-    runningTimer.value.isRunning = false;
+  function tick(): void {
+    const remainingSeconds = Math.max(Math.ceil((endTime - Date.now()) / 1000), 0);
+
+    setRemainingTime(remainingSeconds);
+
+    if (remainingSeconds === 0) {
+      runningTimer.value.isRunning = false;
+      runningTimer.value.isFinished = true;
+    }
+  }
+
+  /**
+   * Stops the interval of the timer
+   */
+  function stopInterval(): void {
+    clearInterval(interval);
+    interval = undefined;
   }
 
   /**
    * Resets the timer.
    */
   function resetTimer(): void {
-    runningTimer.value.hours = time.value.hours;
-    runningTimer.value.minutes = time.value.minutes;
-    runningTimer.value.seconds = time.value.seconds;
     runningTimer.value.isRunning = false;
     runningTimer.value.isFinished = false;
+    setRemainingTime(toSeconds(time.value));
   }
 
   /**
    * Get the progress of the timer.
    */
   const progress = computed(() => {
-    const total = time.value.hours * 3600 + time.value.minutes * 60 + time.value.seconds;
-    const current =
-      runningTimer.value.hours * 3600 +
-      runningTimer.value.minutes * 60 +
-      runningTimer.value.seconds;
+    const total = toSeconds(time.value);
 
-    return (current / total) * 100;
+    if (total === 0) return 0;
+
+    return (toSeconds(runningTimer.value) / total) * 100;
   });
 
-  // Watch for time changes to update the running time
   watch(
     time,
     (newTime) => {
       if (!runningTimer.value.isRunning) {
-        runningTimer.value.hours = newTime.hours;
-        runningTimer.value.minutes = newTime.minutes;
-        runningTimer.value.seconds = newTime.seconds;
+        setRemainingTime(toSeconds(newTime));
       }
     },
     { deep: true }
   );
 
-  // Watch for changes in the timer's isRunning state to update the timer
-  let interval: ReturnType<typeof setInterval> | null = null;
   watch(
     () => runningTimer.value.isRunning,
     (isRunning) => {
+      stopInterval();
+
       if (isRunning) {
-        interval = setInterval(() => {
-          if (
-            runningTimer.value.hours === 0 &&
-            runningTimer.value.minutes === 0 &&
-            runningTimer.value.seconds === 0
-          ) {
-            runningTimer.value.isRunning = false;
-            runningTimer.value.isFinished = true;
-            return;
-          }
-          if (runningTimer.value.seconds > 0) {
-            runningTimer.value.seconds--;
-          } else {
-            if (runningTimer.value.minutes > 0) {
-              runningTimer.value.minutes--;
-              runningTimer.value.seconds = 59;
-            } else if (runningTimer.value.hours > 0) {
-              runningTimer.value.hours--;
-              runningTimer.value.minutes = 59;
-              runningTimer.value.seconds = 59;
-            }
-          }
-        }, 1000);
-        startTimer();
-      } else if (interval) {
-        clearInterval(interval);
-        interval = null;
-        pauseTimer();
+        runningTimer.value.isFinished = false;
+        endTime = Date.now() + toSeconds(runningTimer.value) * 1000;
+        tick();
+        interval = setInterval(tick, 250);
       }
     }
   );
+
+  onScopeDispose(stopInterval);
 
   return { time, runningTimer, progress, resetTimer };
 }

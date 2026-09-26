@@ -7,10 +7,10 @@
   </main>
   <ConfirmPopUp
     v-model:open-pop-up="deleteGroceryListOpen"
-    :title="$t('groceryListPage.emptyGroceryList')"
-    :section="$t('groceryListPage.confirmEmpty')"
-    :cancel="'groceryListPage.cancel'"
-    :confirm="'groceryListPage.empty'"
+    title="groceryListPage.emptyGroceryList"
+    section="groceryListPage.confirmEmpty"
+    cancel="groceryListPage.cancel"
+    confirm="groceryListPage.empty"
     @confirm="deleteGroceryList()"
   />
 </template>

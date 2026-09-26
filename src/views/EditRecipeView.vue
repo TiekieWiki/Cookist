@@ -1,7 +1,10 @@
 <template>
   <main class="editRecipe">
     <Transition name="fade" mode="out-in">
-      <article v-if="$route.params.recipeId && !recipeStore.recipe.name" key="notFound">
+      <div v-if="recipeStore.isLoading" key="loading" class="loader">
+        <div class="loader-spinner"></div>
+      </div>
+      <article v-else-if="$route.params.recipeId && !recipeStore.recipe.name" key="notFound">
         <EmptyState
           icon="martini-glass-empty"
           title="recipePage.recipeNotFound"

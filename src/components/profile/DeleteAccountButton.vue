@@ -9,10 +9,10 @@
     {{ $t('profilePage.deleteAccount') }}
   </Button>
   <ConfirmPopUp
-    :title="$t('profilePage.deleteAccount')"
-    :section="$t('profilePage.confirmDelete')"
-    :cancel="'profilePage.cancel'"
-    :confirm="'profilePage.delete'"
+    title="profilePage.deleteAccount"
+    section="profilePage.confirmDelete"
+    cancel="profilePage.cancel"
+    confirm="profilePage.delete"
     v-model:openPopUp="deleteOpen"
     @confirm="deleteUserAccount()"
   />

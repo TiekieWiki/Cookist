@@ -2,11 +2,10 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { supabase } from '@/utils/global/supabase';
 import { getErrorMessage } from '@/utils/global/errorHandling';
+import { requireUser } from '@/utils/global/requireUser';
 import { type Ingredient } from '@/utils/types/recipe';
-import { useUserStore } from './useUserStore';
 
 export const useGroceryListStore = defineStore('groceryList', () => {
-  const userStore = useUserStore();
   const groceryList = ref<Ingredient[]>([]);
   const errorMessage = ref<string>('');
 
@@ -14,21 +13,18 @@ export const useGroceryListStore = defineStore('groceryList', () => {
    * Get the grocery list of the current user
    */
   async function getGroceryList(): Promise<void> {
-    if (userStore.errorMessage) {
-      errorMessage.value = userStore.errorMessage;
-    } else if (!userStore.user) {
+    const user = requireUser(errorMessage);
+    if (!user) return;
+
+    const { data, error } = await supabase
+      .from('user_grocerylist')
+      .select('*')
+      .eq('user_id', user.id);
+
+    if (error || !data) {
       errorMessage.value = getErrorMessage('unknown');
     } else {
-      const { data, error } = await supabase
-        .from('user_grocerylist')
-        .select('*')
-        .eq('user_id', userStore.user.id);
-
-      if (error || !data) {
-        errorMessage.value = getErrorMessage('unknown');
-      } else {
-        groceryList.value = data;
-      }
+      groceryList.value = data;
     }
   }
 
@@ -36,26 +32,23 @@ export const useGroceryListStore = defineStore('groceryList', () => {
    * Update an ingredient of the grocery list of the current user
    */
   async function setGroceryListIngredient(ingredient: Ingredient): Promise<void> {
-    if (userStore.errorMessage) {
-      errorMessage.value = userStore.errorMessage;
-    } else if (!userStore.user) {
+    const user = requireUser(errorMessage);
+    if (!user) return;
+
+    const { error } = await supabase
+      .from('user_grocerylist')
+      .update(ingredient)
+      .eq('user_id', user.id)
+      .eq('id', ingredient.id);
+
+    if (error) {
       errorMessage.value = getErrorMessage('unknown');
     } else {
-      const { error } = await supabase
-        .from('user_grocerylist')
-        .update(ingredient)
-        .eq('user_id', userStore.user?.id)
-        .eq('id', ingredient.id);
-
-      if (error) {
-        errorMessage.value = getErrorMessage('unknown');
+      const ingredientIndex = groceryList.value.findIndex((item) => item.id === ingredient.id);
+      if (ingredientIndex !== -1) {
+        groceryList.value[ingredientIndex] = ingredient;
       } else {
-        const ingredientIndex = groceryList.value.findIndex((item) => item.id === ingredient.id);
-        if (ingredientIndex !== -1) {
-          groceryList.value[ingredientIndex] = ingredient;
-        } else {
-          groceryList.value.push(ingredient);
-        }
+        groceryList.value.push(ingredient);
       }
     }
   }
@@ -64,23 +57,20 @@ export const useGroceryListStore = defineStore('groceryList', () => {
    * Add ingredients to the grocery list of the current user
    */
   async function setGroceryList(ingredients: Ingredient[] | Ingredient): Promise<void> {
-    if (userStore.errorMessage) {
-      errorMessage.value = userStore.errorMessage;
-    } else if (!userStore.user) {
+    const user = requireUser(errorMessage);
+    if (!user) return;
+
+    const ingredientArray = Array.isArray(ingredients) ? ingredients : [ingredients];
+
+    const { data, error } = await supabase
+      .from('user_grocerylist')
+      .insert(ingredientArray.map(({ name, unit, amount }) => ({ name, unit, amount })))
+      .select();
+
+    if (error || !data) {
       errorMessage.value = getErrorMessage('unknown');
     } else {
-      const ingredientArray = Array.isArray(ingredients) ? ingredients : [ingredients];
-
-      const { data, error } = await supabase
-        .from('user_grocerylist')
-        .insert(ingredientArray.map(({ name, unit, amount }) => ({ name, unit, amount })))
-        .select();
-
-      if (error || !data) {
-        errorMessage.value = getErrorMessage('unknown');
-      } else {
-        groceryList.value.push(...data);
-      }
+      groceryList.value.push(...data);
     }
   }
 
@@ -88,15 +78,13 @@ export const useGroceryListStore = defineStore('groceryList', () => {
    * Delete an ingredient of the grocery list of the current user
    */
   async function deleteGroceryListIngredient(ingredientId: string): Promise<void> {
-    if (userStore.errorMessage) {
-      errorMessage.value = userStore.errorMessage;
-      return;
-    }
+    const user = requireUser(errorMessage);
+    if (!user) return;
 
     const { error } = await supabase
       .from('user_grocerylist')
       .delete()
-      .eq('user_id', userStore.user?.id)
+      .eq('user_id', user.id)
       .eq('id', ingredientId);
 
     if (error) {
@@ -111,15 +99,10 @@ export const useGroceryListStore = defineStore('groceryList', () => {
    * Delete the grocery list of the current user
    */
   async function deleteGroceryList(): Promise<void> {
-    if (userStore.errorMessage) {
-      errorMessage.value = userStore.errorMessage;
-      return;
-    }
+    const user = requireUser(errorMessage);
+    if (!user) return;
 
-    const { error } = await supabase
-      .from('user_grocerylist')
-      .delete()
-      .eq('user_id', userStore.user?.id);
+    const { error } = await supabase.from('user_grocerylist').delete().eq('user_id', user.id);
 
     if (error) {
       errorMessage.value = getErrorMessage('unknown');
@@ -129,6 +112,14 @@ export const useGroceryListStore = defineStore('groceryList', () => {
     groceryList.value = [];
   }
 
+  /**
+   * Clear the grocery list, for example after logging out
+   */
+  function clearGroceryList(): void {
+    groceryList.value = [];
+    errorMessage.value = '';
+  }
+
   return {
     groceryList,
     errorMessage,
@@ -136,6 +127,7 @@ export const useGroceryListStore = defineStore('groceryList', () => {
     setGroceryListIngredient,
     setGroceryList,
     deleteGroceryListIngredient,
-    deleteGroceryList
+    deleteGroceryList,
+    clearGroceryList
   };
 });

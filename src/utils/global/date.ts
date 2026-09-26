@@ -76,6 +76,18 @@ export function formatDateAgo(date: string | null): string {
 }
 
 /**
+ * Formats a date as a `YYYY-MM-DD` string in the local timezone
+ * @param date The date to format
+ * @returns {string} The formatted date
+ */
+export function toLocalISODate(date: Date): string {
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${date.getFullYear()}-${month}-${day}`;
+}
+
+/**
  * Determines if a date is today
  * @param date The date string
  * @returns {boolean} Boolean if date is today

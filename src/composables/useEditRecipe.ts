@@ -36,7 +36,7 @@ export function useEditRecipe(): {
   async function saveRecipe(): Promise<void> {
     if (!hasUnsavedChanges.value) {
       await router.push({
-        path: `/recipe/${recipeStore.recipe.id}`
+        path: recipe.value.id ? `/recipe/${recipe.value.id}` : '/recipes'
       });
       return;
     }
@@ -53,10 +53,14 @@ export function useEditRecipe(): {
         sort_order: index + 1
       }));
 
-    await recipeStore.setRecipe(
+    const savedRecipeId = await recipeStore.setRecipe(
       cleanedRecipe,
       image.value && typeof image.value !== 'string' ? image.value : null
     );
+
+    if (savedRecipeId) {
+      recipe.value.id = savedRecipeId;
+    }
 
     if (!recipeStore.errorMessage) {
       originalRecipe.value = structuredClone(toRaw(recipe.value));

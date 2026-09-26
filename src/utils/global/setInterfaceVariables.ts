@@ -23,3 +23,10 @@ export function setHandedness(handedness: 'left' | 'right' | 'ambidextrous'): vo
     document.documentElement.classList.remove('left');
   }
 }
+
+/**
+ * Removes the color scheme and handedness, so the system defaults are used again
+ */
+export function clearInterfaceVariables(): void {
+  document.documentElement.classList.remove('light', 'dark', 'left');
+}
