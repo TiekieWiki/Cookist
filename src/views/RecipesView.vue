@@ -56,13 +56,13 @@
 </template>
 
 <script setup lang="ts">
-import RecipeSearchOrder from '@/components/recipes/RecipeSearchOrder.vue';
+import RecipeSearchOrder from '@/components/pages/recipes/RecipeSearchOrder.vue';
 import Button from '@/components/form/Button.vue';
 import { ButtonType, Size } from '@/utils/types/enums';
 import { useRecipesStore } from '@/stores/useRecipesStore';
-import RecipeCard from '@/components/recipes/RecipeCard.vue';
+import RecipeCard from '@/components/pages/recipes/RecipeCard.vue';
 import { onMounted, ref } from 'vue';
-import RecipesFilter from '@/components/recipes/RecipesFilter.vue';
+import RecipesFilter from '@/components/pages/recipes/RecipesFilter.vue';
 import EmptyState from '@/components/general/EmptyState.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 

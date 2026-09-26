@@ -64,10 +64,10 @@ import { useEditRecipe } from '@/composables/useEditRecipe';
 import { useRecipeStore } from '@/stores/useRecipeStore';
 import Button from '@/components/form/Button.vue';
 import { ButtonType, ColorVariant, Size } from '@/utils/types/enums';
-import EditInfo from '@/components/edit recipe/EditInfo.vue';
-import EditIngredients from '@/components/edit recipe/EditIngredients.vue';
-import EditInstructions from '@/components/edit recipe/EditInstructions.vue';
-import EditExtras from '@/components/edit recipe/EditExtras.vue';
+import EditInfo from '@/components/pages/edit recipe/EditInfo.vue';
+import EditIngredients from '@/components/pages/edit recipe/EditIngredients.vue';
+import EditInstructions from '@/components/pages/edit recipe/EditInstructions.vue';
+import EditExtras from '@/components/pages/edit recipe/EditExtras.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import EmptyState from '@/components/general/EmptyState.vue';
 

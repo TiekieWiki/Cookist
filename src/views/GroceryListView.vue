@@ -16,11 +16,11 @@
 </template>
 
 <script setup lang="ts">
-import IngredientListCard from '@/components/grocery list/IngredientListCard.vue';
+import IngredientListCard from '@/components/pages/grocery list/IngredientListCard.vue';
 import { useGroceryListStore } from '@/stores/useGroceryListStore';
 import { onMounted, ref } from 'vue';
 import ConfirmPopUp from '@/components/general/ConfirmPopUp.vue';
-import GroceryListTitle from '@/components/grocery list/GroceryListTitle.vue';
+import GroceryListTitle from '@/components/pages/grocery list/GroceryListTitle.vue';
 
 const groceryListStore = useGroceryListStore();
 

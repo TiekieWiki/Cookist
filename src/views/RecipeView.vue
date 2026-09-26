@@ -50,15 +50,15 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import ConfirmPopUp from '@/components/general/ConfirmPopUp.vue';
-import TimerCard from '@/components/recipe/TimerCard.vue';
-import RecipeInfo from '@/components/recipe/RecipeInfo.vue';
-import RecipeIngredients from '@/components/recipe/RecipeIngredients.vue';
-import RecipeInstructions from '@/components/recipe/RecipeInstructions.vue';
+import TimerCard from '@/components/pages/recipe/TimerCard.vue';
+import RecipeInfo from '@/components/pages/recipe/RecipeInfo.vue';
+import RecipeIngredients from '@/components/pages/recipe/RecipeIngredients.vue';
+import RecipeInstructions from '@/components/pages/recipe/RecipeInstructions.vue';
 import { useRecipeStore } from '@/stores/useRecipeStore';
 import { useRoute, useRouter } from 'vue-router';
 import Button from '@/components/form/Button.vue';
 import { ButtonType, ColorVariant, Size } from '@/utils/types/enums';
-import RecipeLastEaten from '@/components/recipe/RecipeLastEaten.vue';
+import RecipeLastEaten from '@/components/pages/recipe/RecipeLastEaten.vue';
 import EmptyState from '@/components/general/EmptyState.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 
