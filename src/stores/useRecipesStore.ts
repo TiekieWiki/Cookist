@@ -46,6 +46,7 @@ export const useRecipesStore = defineStore('recipes', () => {
    */
   async function getRecipes(): Promise<void> {
     const request = ++latestRequest;
+    errorMessage.value = '';
 
     // Remove the empty ingredient row
     const ingredients = filter.value.ingredients
@@ -101,6 +102,7 @@ export const useRecipesStore = defineStore('recipes', () => {
     orderBy,
     orderDirection,
     order,
+    errorMessage,
     getRecipes,
     resetFilter
   };

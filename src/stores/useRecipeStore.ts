@@ -41,6 +41,10 @@ export const useRecipeStore = defineStore('recipe', () => {
   async function getRecipe(recipeId: string): Promise<void> {
     errorMessage.value = '';
 
+    recipe.value = emptyRecipe();
+    lastEatenDate.value = null;
+    recipeImage.value = DEFAULT_RECIPE_IMAGE_SRC;
+
     const { data, error: recipeError } = await supabase.rpc('get_recipe', {
       p_recipe_id: recipeId
     });
@@ -50,8 +54,6 @@ export const useRecipeStore = defineStore('recipe', () => {
     } else {
       recipe.value = data.recipe;
       lastEatenDate.value = data.last_eaten;
-
-      recipeImage.value = DEFAULT_RECIPE_IMAGE_SRC;
 
       recipeImage.value = await getRecipeImage(recipeId);
     }

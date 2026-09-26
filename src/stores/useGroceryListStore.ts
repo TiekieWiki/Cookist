@@ -71,12 +71,15 @@ export const useGroceryListStore = defineStore('groceryList', () => {
     } else {
       const ingredientArray = Array.isArray(ingredients) ? ingredients : [ingredients];
 
-      const { error } = await supabase.from('user_grocerylist').insert(ingredientArray);
+      const { data, error } = await supabase
+        .from('user_grocerylist')
+        .insert(ingredientArray.map(({ name, unit, amount }) => ({ name, unit, amount })))
+        .select();
 
-      if (error) {
+      if (error || !data) {
         errorMessage.value = getErrorMessage('unknown');
       } else {
-        groceryList.value.push(...ingredientArray);
+        groceryList.value.push(...data);
       }
     }
   }
@@ -101,10 +104,7 @@ export const useGroceryListStore = defineStore('groceryList', () => {
       return;
     }
 
-    groceryList.value = groceryList.value.splice(
-      groceryList.value.findIndex((ingredient) => ingredient.id === ingredientId),
-      1
-    );
+    groceryList.value = groceryList.value.filter((ingredient) => ingredient.id !== ingredientId);
   }
 
   /**

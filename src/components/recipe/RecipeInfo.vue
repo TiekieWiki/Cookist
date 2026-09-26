@@ -18,8 +18,12 @@
           <font-awesome-icon :icon="['fas', 'pen']" />
           {{ $t('recipePage.edit') }}
         </Button>
-        <Button :type="ButtonType.BUTTON" :variant="ColorVariant.WARNING">
-          <font-awesome-icon @click="deleteOpen = true" :icon="['fas', 'trash-can']" />
+        <Button
+          @click="deleteOpen = true"
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.WARNING"
+        >
+          <font-awesome-icon :icon="['fas', 'trash-can']" />
           {{ $t('recipePage.delete') }}
         </Button>
       </div>

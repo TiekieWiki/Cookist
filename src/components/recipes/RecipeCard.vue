@@ -23,9 +23,9 @@
           <font-awesome-icon :icon="['fas', 'bowl-food']" />
           {{ $t('editRecipePage.categories.' + recipe.category) }}
         </p>
-        <p v-if="recipeStore.recipe.rating" class="small">
+        <p v-if="recipe.rating" class="small">
           <font-awesome-icon :icon="['fas', 'star']" />
-          {{ recipeStore.recipe.rating }}
+          {{ recipe.rating }}
         </p>
       </div>
     </div>

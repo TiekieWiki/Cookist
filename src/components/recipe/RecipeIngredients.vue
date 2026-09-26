@@ -34,7 +34,7 @@
       </div>
     </div>
     <CheckBoxList :items="ingredients">
-      <template #item="{ item }">
+      <template #item="{ item, index }">
         <SelectField
           :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
           :placeholder="$t('editRecipePage.placeholder.unit')"
@@ -45,8 +45,8 @@
             }))
           "
           labelPrefix="editRecipePage.units."
-          v-model:selected="item.slot"
-          @change="changeIngredientUnit()"
+          :selected="item.slot"
+          @update:selected="(unit) => changeIngredientUnit(index, unit!)"
         />
         <p>{{ item.name }}</p>
       </template>

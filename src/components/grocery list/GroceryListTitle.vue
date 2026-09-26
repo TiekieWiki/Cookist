@@ -11,8 +11,12 @@
       </p>
     </div>
     <div class="actions">
-      <Button :type="ButtonType.BUTTON" :variant="ColorVariant.SECONDARY">
-        <font-awesome-icon @click="deleteOpen = true" :icon="['fas', 'trash-can']" />
+      <Button
+        @click="deleteOpen = true"
+        :type="ButtonType.BUTTON"
+        :variant="ColorVariant.SECONDARY"
+      >
+        <font-awesome-icon :icon="['fas', 'trash-can']" />
         {{ $t('groceryListPage.clearAll') }}
       </Button>
     </div>

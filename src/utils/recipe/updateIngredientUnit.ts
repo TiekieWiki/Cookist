@@ -14,79 +14,79 @@ export type UnitKey = keyof typeof unitConversionMap;
 // This map defines how to convert between different units
 export const unitConversionMap = {
   // Count group
-  pc: { group: 'count', toBase: (x: number) => x, fromBase: (x: number) => x } as UnitConversion,
+  pc: { group: 'count', toBase: (x: number) => x, fromBase: (x: number) => x },
 
   // Volume group (base = ml)
-  ml: { group: 'volume', toBase: (x: number) => x, fromBase: (x: number) => x } as UnitConversion,
+  ml: { group: 'volume', toBase: (x: number) => x, fromBase: (x: number) => x },
   dl: {
     group: 'volume',
     toBase: (x: number) => x * 100,
     fromBase: (x: number) => x / 100
-  } as UnitConversion,
+  },
   l: {
     group: 'volume',
     toBase: (x: number) => x * 1000,
     fromBase: (x: number) => x / 1000
-  } as UnitConversion,
+  },
   tsp: {
     group: 'volume',
     toBase: (x: number) => x * 4.92892,
     fromBase: (x: number) => x / 4.92892
-  } as UnitConversion,
+  },
   tbsp: {
     group: 'volume',
     toBase: (x: number) => x * 14.7868,
     fromBase: (x: number) => x / 14.7868
-  } as UnitConversion,
-  'fl oz': {
+  },
+  floz: {
     group: 'volume',
     toBase: (x: number) => x * 29.5735,
     fromBase: (x: number) => x / 29.5735
-  } as UnitConversion,
+  },
   cup: {
     group: 'volume',
     toBase: (x: number) => x * 240,
     fromBase: (x: number) => x / 240
-  } as UnitConversion,
+  },
   pt: {
     group: 'volume',
     toBase: (x: number) => x * 473.176,
     fromBase: (x: number) => x / 473.176
-  } as UnitConversion,
+  },
   qt: {
     group: 'volume',
     toBase: (x: number) => x * 946.353,
     fromBase: (x: number) => x / 946.353
-  } as UnitConversion,
+  },
   gal: {
     group: 'volume',
     toBase: (x: number) => x * 3785.41,
     fromBase: (x: number) => x / 3785.41
-  } as UnitConversion,
+  },
 
   // Mass group (base = g)
   mg: {
     group: 'mass',
     toBase: (x: number) => x / 1000,
     fromBase: (x: number) => x * 1000
-  } as UnitConversion,
-  g: { group: 'mass', toBase: (x: number) => x, fromBase: (x: number) => x } as UnitConversion,
+  },
+  g: { group: 'mass', toBase: (x: number) => x, fromBase: (x: number) => x },
   kg: {
     group: 'mass',
     toBase: (x: number) => x * 1000,
     fromBase: (x: number) => x / 1000
-  } as UnitConversion,
+  },
   oz: {
     group: 'mass',
     toBase: (x: number) => x * 28.3495,
     fromBase: (x: number) => x / 28.3495
-  } as UnitConversion,
+  },
   lb: {
     group: 'mass',
     toBase: (x: number) => x * 453.592,
     fromBase: (x: number) => x / 453.592
-  } as UnitConversion
-};
+  }
+} satisfies Record<RecipeUnitsPiece | RecipeUnitsVolume | RecipeUnitsWeight, UnitConversion>;
 
 /**
  * Determines the possible units for an ingredient based on its unit.

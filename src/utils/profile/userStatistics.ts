@@ -8,7 +8,7 @@ import type { UserStatistics } from '../types/profile';
 export async function getUserStatistics(): Promise<UserStatistics | null> {
   const { data, error } = await supabase.rpc('get_user_statistics');
 
-  if (error || !data) {
+  if (error || !data?.length) {
     return null;
   } else {
     return {

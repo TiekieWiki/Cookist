@@ -4,7 +4,7 @@
       <h3>{{ $t('recipePage.instructions') }}</h3>
       <div class="actions">
         <p>{{ $t('recipePage.keepOnScreen') }}</p>
-        <Toggle @click="keepScreenOn = !keepScreenOn" />
+        <Toggle v-model:input="keepScreenOn" />
       </div>
     </div>
     <CheckBoxList v-model:items="instructions" />

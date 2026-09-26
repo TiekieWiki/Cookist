@@ -54,7 +54,9 @@ export const useProfileStore = defineStore('profile', () => {
           colorscheme: colorScheme,
           handedness: handedness
         })
-        .eq('id', userStore.user.id);
+        .eq('id', userStore.user.id)
+        .select()
+        .single();
 
       if (error || !data) {
         errorMessage.value = getErrorMessage('unknown');

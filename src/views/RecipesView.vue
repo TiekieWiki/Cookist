@@ -25,6 +25,7 @@
           @reset="recipesStore.resetFilter"
         />
         <section class="recipesList">
+          <ErrorMessage v-model:message="recipesStore.errorMessage" />
           <Transition name="fade" mode="out-in">
             <EmptyState
               v-if="recipesStore.recipes.length <= 0"
@@ -64,6 +65,7 @@ import RecipeCard from '@/components/recipes/RecipeCard.vue';
 import { ref } from 'vue';
 import RecipesFilter from '@/components/recipes/RecipesFilter.vue';
 import EmptyState from '@/components/general/EmptyState.vue';
+import ErrorMessage from '@/components/form/ErrorMessage.vue';
 
 const recipesStore = useRecipesStore();
 const openFilters = ref<boolean>(false);

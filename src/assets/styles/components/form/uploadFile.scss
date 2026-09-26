@@ -92,7 +92,7 @@ input[type='file'] {
   &:disabled {
     &::file-selector-button {
       background-image: none;
-      background-color: (--color-disabled);
+      background-color: var(--color-disabled);
       cursor: auto;
     }
   }
