@@ -14,17 +14,7 @@
       </div>
     </section>
     <section class="recipesList">
-      <router-link
-        v-for="recipe in forgottenRecipes"
-        :key="recipe.id"
-        :id="recipe.id"
-        :to="`/recipe/${recipe.id}`"
-        tabindex="0"
-      >
-        <div class="grid">
-          <RecipeCard :recipe="recipe" />
-        </div>
-      </router-link>
+      <RecipeGrid :recipes="forgottenRecipes" />
     </section>
   </article>
 </template>
@@ -35,7 +25,7 @@ import Button from '@/components/form/Button.vue';
 import { onMounted, ref } from 'vue';
 import type { Recipe } from '@/utils/types/recipe.ts';
 import { getForgottenRecipes } from '@/utils/home/forgottenRecipes.ts';
-import RecipeCard from '../recipes/RecipeCard.vue';
+import RecipeGrid from '../recipes/RecipeGrid.vue';
 
 const forgottenRecipes = ref<Recipe[]>([]);
 

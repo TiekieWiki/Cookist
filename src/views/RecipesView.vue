@@ -37,17 +37,7 @@
               button-icon="plus"
               button-route="/create-recipe"
             />
-            <TransitionGroup v-else key="list" name="move" tag="div" class="grid">
-              <router-link
-                v-for="recipe in recipesStore.recipes"
-                :key="recipe.id"
-                :id="recipe.id"
-                :to="`/recipe/${recipe.id}`"
-                tabindex="0"
-              >
-                <RecipeCard :recipe="recipe" />
-              </router-link>
-            </TransitionGroup>
+            <RecipeGrid v-else key="list" :recipes="recipesStore.recipes" />
           </Transition>
         </section>
       </div>
@@ -60,7 +50,7 @@ import RecipeSearchOrder from '@/components/pages/recipes/RecipeSearchOrder.vue'
 import Button from '@/components/form/Button.vue';
 import { ButtonType, Size } from '@/utils/types/enums';
 import { useRecipesStore } from '@/stores/useRecipesStore';
-import RecipeCard from '@/components/pages/recipes/RecipeCard.vue';
+import RecipeGrid from '@/components/pages/recipes/RecipeGrid.vue';
 import { onMounted, ref } from 'vue';
 import RecipesFilter from '@/components/pages/recipes/RecipesFilter.vue';
 import EmptyState from '@/components/general/EmptyState.vue';

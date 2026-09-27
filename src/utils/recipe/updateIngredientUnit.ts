@@ -88,11 +88,9 @@ export const unitConversionMap = {
 /**
  * Determines the possible units for an ingredient based on its unit.
  * @param ingredientUnit The unit of the ingredient to check
- * @returns {RecipeUnitsPiece | RecipeUnitsVolume | RecipeUnitsWeight | {}} The enum of possible units based on the ingredient unit.
+ * @returns {Record<string, string>} The enum of possible units based on the ingredient unit, or an empty object for unknown units.
  */
-export function getPossibleUnits(
-  ingredientUnit: string
-): RecipeUnitsPiece | RecipeUnitsVolume | RecipeUnitsWeight | {} {
+export function getPossibleUnits(ingredientUnit: string): Record<string, string> {
   if ((Object.values(RecipeUnitsPiece) as string[]).includes(ingredientUnit))
     return RecipeUnitsPiece;
   else if ((Object.values(RecipeUnitsVolume) as string[]).includes(ingredientUnit))

@@ -21,7 +21,7 @@
       </div>
     </section>
     <section class="image">
-      <img src="../../assets/images/Banner.jpg" alt="" />
+      <img src="@/assets/images/Banner.jpg" alt="" />
       <div class="image-info">
         <p class="small">{{ $t('homePage.banner.longestUntouched') }}</p>
         <p>{{ $t('homePage.banner.recipeTitle') }}</p>

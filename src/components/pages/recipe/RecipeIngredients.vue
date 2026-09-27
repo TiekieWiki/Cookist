@@ -38,12 +38,7 @@
         <SelectField
           :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
           :placeholder="$t('editRecipePage.placeholder.unit')"
-          :items="
-            Object.values(getPossibleUnits(item.slot!)).map((unit) => ({
-              value: (unit as string).toLowerCase(),
-              label: (unit as string).toLowerCase()
-            }))
-          "
+          :items="toSelectOptions(getPossibleUnits(item.slot!))"
           labelPrefix="editRecipePage.units."
           :selected="item.slot"
           @update:selected="(unit) => changeIngredientUnit(index, unit!)"
@@ -62,21 +57,13 @@ import Button from '@/components/form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import CheckBoxList from '@/components/form/CheckBoxList.vue';
 import { computed } from 'vue';
-import { type CheckBoxProps } from '@/utils/types/form';
 import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
+import { toSelectOptions } from '@/utils/global/selectOptions';
+import { toIngredientCheckBoxes } from '@/utils/recipe/ingredientCheckBoxes';
 
 const groceryListStore = useGroceryListStore();
 
 const { portionCount, portionedIngredients, changeIngredientUnit } = useRecipePortions();
 
-const ingredients = computed(() => {
-  return (portionedIngredients.value ?? []).map((ingredient) => {
-    return {
-      id: ingredient.id,
-      name: ingredient.name,
-      label: ingredient.amount.toString(),
-      slot: ingredient.unit
-    } as CheckBoxProps;
-  });
-});
+const ingredients = computed(() => toIngredientCheckBoxes(portionedIngredients.value));
 </script>

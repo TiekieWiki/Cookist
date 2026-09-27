@@ -16,12 +16,7 @@
       :ariaLabel="$t('editRecipePage.ariaLabel.category')"
       :placeholder="$t('editRecipePage.placeholder.category')"
       :required="true"
-      :items="
-        Object.values(RecipeCategories).map((category) => ({
-          value: category.toLowerCase(),
-          label: category.toLowerCase()
-        }))
-      "
+      :items="categoryOptions"
       labelPrefix="editRecipePage.categories."
       v-model:selected="recipe.category"
     />
@@ -68,6 +63,9 @@
 import { RecipeCategories, type Recipe } from '@/utils/types/recipe';
 import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
+import { toSelectOptions } from '@/utils/global/selectOptions';
 
 const recipe = defineModel<Recipe>('recipe', { required: true });
+
+const categoryOptions = toSelectOptions(RecipeCategories);
 </script>

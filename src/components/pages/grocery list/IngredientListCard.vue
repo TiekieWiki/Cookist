@@ -15,12 +15,7 @@
           <SelectField
             :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
             :placeholder="$t('editRecipePage.placeholder.unit')"
-            :items="
-              Object.values(getPossibleUnits(item.slot!)).map((unit) => ({
-                value: unit.toLowerCase(),
-                label: unit.toLowerCase()
-              }))
-            "
+            :items="toSelectOptions(getPossibleUnits(item.slot!))"
             labelPrefix="editRecipePage.units."
             v-model:selected="item.slot"
             @change="changeIngredientUnit(item, index)"
@@ -38,34 +33,7 @@
         </template>
       </CheckBoxList>
       <div class="addIngredient">
-        <InputField
-          name="newIngredientAmount"
-          :placeholder="$t('editRecipePage.placeholder.amount')"
-          :ariaLabel="$t('editRecipePage.ariaLabel.amount')"
-          :step="0.01"
-          type="number"
-          v-model:input="ingredient.amount"
-        />
-        <SelectField
-          :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
-          :placeholder="$t('editRecipePage.placeholder.unit')"
-          :items="
-            Object.values(RecipeUnits).map((unit) => ({
-              value: unit.toLowerCase(),
-              label: unit.toLowerCase()
-            }))
-          "
-          labelPrefix="editRecipePage.units."
-          v-model:selected="ingredient.unit"
-        />
-        <InputField
-          name="newIngredientName"
-          :placeholder="$t('editRecipePage.placeholder.ingredient')"
-          :ariaLabel="$t('editRecipePage.ariaLabel.ingredient')"
-          type="text"
-          v-model:input="ingredient.name"
-        />
-
+        <IngredientInputRow name="new-ingredient" v-model:ingredient="ingredient" />
         <Button
           @click="groceryListStore.setGroceryList(ingredient)"
           :type="ButtonType.BUTTON"
@@ -89,25 +57,18 @@ import CheckBoxList from '@/components/form/CheckBoxList.vue';
 import { computed, ref } from 'vue';
 import { type CheckBoxProps } from '@/utils/types/form';
 import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
-import InputField from '@/components/form/InputField.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
-import { emptyIngredient, type Ingredient, RecipeUnits } from '@/utils/types/recipe';
+import { emptyIngredient, type Ingredient } from '@/utils/types/recipe';
 import EmptyState from '@/components/general/EmptyState.vue';
+import IngredientInputRow from '@/components/general/IngredientInputRow.vue';
+import { toSelectOptions } from '@/utils/global/selectOptions';
+import { toIngredientCheckBoxes } from '@/utils/recipe/ingredientCheckBoxes';
 
 const ingredient = ref<Ingredient>(emptyIngredient());
 
 const groceryListStore = useGroceryListStore();
 
-const ingredients = computed(() => {
-  return groceryListStore.groceryList.map((ingredient) => {
-    return {
-      id: ingredient.id,
-      name: ingredient.name,
-      label: ingredient.amount.toString(),
-      slot: ingredient.unit
-    } as CheckBoxProps;
-  });
-});
+const ingredients = computed(() => toIngredientCheckBoxes(groceryListStore.groceryList));
 
 /**
  * Change the unit of an ingredient in the grocery list
