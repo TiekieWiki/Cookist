@@ -1,4 +1,10 @@
-import { ButtonType, ColorVariant, Size } from './enums';
+import { ColorVariant, Size } from './enums';
+
+export interface MenuItem {
+  route: string;
+  name: string;
+  condition?: boolean;
+}
 
 export interface ConfirmPopUpProps {
   title: string;

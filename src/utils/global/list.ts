@@ -4,9 +4,9 @@
  * @param index Index of the current ingredient or instruction
  */
 export function addInputRow(
-  list: (Object | string)[],
+  list: (object | string)[],
   index: number,
-  emptyObject: Object | string
+  emptyObject: object | string
 ): void {
   if (index === list.length - 1 && list[index] !== '') {
     list.push(emptyObject);
@@ -19,7 +19,7 @@ export function addInputRow(
  * @param index Index of the current ingredient or instruction
  */
 export function deleteRow(
-  list: Object[] | string[],
+  list: object[] | string[],
   index: number,
   empty: boolean | undefined
 ): void {

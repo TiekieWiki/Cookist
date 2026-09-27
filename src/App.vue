@@ -5,50 +5,20 @@
       <router-link to="/" tabindex="0">Cookist</router-link>
     </div>
     <div class="menu">
-      <router-link to="/" class="desktop" tabindex="-1">
-        <Button :type="ButtonType.BUTTON" :variant="ColorVariant.TERTIARY" :size="Size.LARGE">{{
-          $t('homePage.title')
-        }}</Button></router-link
+      <router-link
+        v-for="item in menuItems()"
+        :key="item.route"
+        :to="item.route"
+        class="desktop"
+        tabindex="-1"
       >
-      <router-link to="/recipes" class="desktop" tabindex="-1"
-        ><Button
-          v-if="userStore.isLoggedIn"
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.TERTIARY"
-          :size="Size.LARGE"
-        >
-          {{ $t('recipesPage.title') }}
-        </Button></router-link
-      >
-      <router-link to="/grocery-list" class="desktop" tabindex="-1"
-        ><Button
-          v-if="userStore.isLoggedIn"
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.TERTIARY"
-          :size="Size.LARGE"
-        >
-          {{ $t('groceryListPage.title') }}
-        </Button></router-link
-      >
-      <router-link to="/profile" class="desktop" tabindex="-1">
         <Button
-          v-if="userStore.isLoggedIn"
+          v-if="item.condition ?? true"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.TERTIARY"
           :size="Size.LARGE"
-        >
-          {{ $t('profilePage.title') }}
-        </Button>
-      </router-link>
-      <router-link to="/login" class="desktop" tabindex="-1">
-        <Button
-          v-if="!userStore.isLoggedIn"
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.TERTIARY"
-          :size="Size.LARGE"
-        >
-          {{ $t('loginPage.title') }}
-        </Button></router-link
+          >{{ $t(item.name) }}</Button
+        ></router-link
       >
       <Button
         v-if="!menuOpen"
@@ -75,52 +45,16 @@
       >
         <font-awesome-icon :icon="['fas', 'xmark']" />
       </Button>
-      <router-link to="/" tabindex="-1"
-        ><Button :type="ButtonType.BUTTON" :variant="ColorVariant.TERTIARY" :size="Size.LARGE">
-          {{ $t('homePage.title') }}
-        </Button></router-link
-      >
-
-      <router-link to="/recipes" tabindex="-1"
+      <router-link v-for="item in menuItems()" :key="item.route" :to="item.route" tabindex="-1"
         ><Button
-          v-if="userStore.isLoggedIn"
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.TERTIARY"
-          :size="Size.LARGE"
-          >{{ $t('recipesPage.title') }}
-        </Button></router-link
-      >
-
-      <router-link to="/grocery-list" tabindex="-1"
-        ><Button
-          v-if="userStore.isLoggedIn"
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.TERTIARY"
-          :size="Size.LARGE"
-          >{{ $t('groceryListPage.title') }}
-        </Button></router-link
-      >
-
-      <router-link to="/login" tabindex="-1"
-        ><Button
-          v-if="!userStore.isLoggedIn"
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.TERTIARY"
-          :size="Size.LARGE"
-          >{{ $t('loginPage.title') }}
-        </Button></router-link
-      >
-
-      <router-link to="/profile" tabindex="-1"
-        ><Button
-          v-if="userStore.isLoggedIn"
+          v-if="item.condition ?? true"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.TERTIARY"
           :size="Size.LARGE"
         >
-          {{ $t('profilePage.title') }}
-        </Button>
-      </router-link>
+          {{ $t(item.name) }}
+        </Button></router-link
+      >
     </aside>
   </Transition>
   <router-view v-slot="{ Component }">
@@ -133,63 +67,13 @@
 </template>
 
 <script setup lang="ts">
-import { RouterView, useRoute } from 'vue-router';
-import { onMounted, onUnmounted, ref, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { RouterView } from 'vue-router';
 import Button from './components/form/Button.vue';
 import { Size, ButtonType, ColorVariant } from './utils/types/enums';
-import { useUserStore } from './stores/useUserStore';
 import { useSession } from './composables/useSession';
+import { useMenu } from './composables/useMenu.ts';
+import { menuItems } from './utils/global/menu.ts';
 
-const route = useRoute();
-const { t, locale } = useI18n();
-const userStore = useUserStore();
-const menuOpen = ref<boolean>(false);
-
+const { menuOpen } = useMenu();
 useSession();
-
-// Translate the page title when the language changes
-watch(locale, () => {
-  document.title = t(String(route.meta.title)) || 'Cookist';
-});
-
-// Reset menuOpen when the route changes
-watch(
-  () => route.path,
-  () => {
-    menuOpen.value = false;
-  }
-);
-
-// Close menu when the window is resized
-function closeMenuOnResize(): void {
-  menuOpen.value = false;
-}
-
-// Close menu when escape is pressed
-function closeMenuOnEscape(event: KeyboardEvent): void {
-  if (event.key === 'Escape') {
-    menuOpen.value = false;
-  }
-}
-
-// Close menu when clicked outside of the menu
-function closeMenuOnOutsideClick(event: MouseEvent): void {
-  if (menuOpen.value && !(event.target as HTMLElement).closest('aside')) {
-    menuOpen.value = false;
-  }
-}
-
-onMounted(() => {
-  window.addEventListener('resize', closeMenuOnResize);
-  window.addEventListener('keydown', closeMenuOnEscape);
-  window.addEventListener('click', closeMenuOnOutsideClick);
-});
-
-// Remove event listeners when the component is unmounted
-onUnmounted(() => {
-  window.removeEventListener('resize', closeMenuOnResize);
-  window.removeEventListener('keydown', closeMenuOnEscape);
-  window.removeEventListener('click', closeMenuOnOutsideClick);
-});
 </script>
