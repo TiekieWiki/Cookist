@@ -1,11 +1,11 @@
 @mixin responsiveness() {
-  @media only screen and (max-width: 1100px) {
+  @media only screen and (max-width: $breakpoint-max-large) {
     .desktop {
       display: none;
     }
   }
 
-  @media only screen and (min-width: 1101px) {
+  @media only screen and (min-width: $breakpoint-min-large) {
     .mobile {
       display: none;
     }

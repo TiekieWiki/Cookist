@@ -3,7 +3,7 @@
     max-width: none;
     padding: var(--spacing-15) var(--spacing-12);
 
-    @media only screen and (max-width: 1100px) {
+    @media only screen and (max-width: $breakpoint-max-large) {
       padding: var(--spacing-11) var(--spacing-6);
     }
 
@@ -75,7 +75,7 @@
       border-top: var(--border-secondary);
       border-bottom: var(--border-secondary);
 
-      @media (max-width: 600px) {
+      @media (max-width: $breakpoint-max-small) {
         flex-direction: column;
         gap: var(--spacing-7);
       }

@@ -9,7 +9,7 @@ main {
     margin: 0 auto;
     padding: var(--spacing-10) var(--spacing-4);
 
-    @media only screen and (max-width: 1100px) {
+    @media only screen and (max-width: $breakpoint-max-large) {
       padding: var(--spacing-6) var(--spacing-4);
     }
   }

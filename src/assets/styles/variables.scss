@@ -52,6 +52,11 @@
   --color-border-secondary: #fcf8f11f;
 }
 
+// Breakpoints
+$breakpoint-max-small: 600px;
+$breakpoint-max-large: 1100px;
+$breakpoint-min-large: 1101px;
+
 :root {
   // Colors
   @include light-mode;
@@ -103,4 +108,7 @@
   // Box shadow
   --box-shadow-small: 0 1px 3px 0 #0000001a, 0 1px 2px -1px #0000001a;
   --box-shadow-medium: 0 1px 2px #00000059, 0 22px 44px -18px #00000099;
+
+  // Font
+  --font-family: 'Figtree', sans-serif;
 }

@@ -9,11 +9,11 @@
     grid-template-columns: 2fr 1fr;
     gap: var(--spacing-3);
 
-    @media only screen and (max-width: 1100px) {
+    @media only screen and (max-width: $breakpoint-max-large) {
       grid-template-columns: 2fr 1fr auto;
     }
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: $breakpoint-max-small) {
       grid-template-columns: 2fr 1fr;
 
       & > :first-child {
@@ -31,7 +31,7 @@
 
       width: 300px;
 
-      @media only screen and (min-width: 1101px) {
+      @media only screen and (min-width: $breakpoint-min-large) {
         position: static;
         flex: 0 0 256px;
         border: none;

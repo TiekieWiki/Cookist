@@ -4,7 +4,7 @@
       <div v-if="openPopUp" class="overlay"></div>
     </Transition>
     <Transition name="pop">
-      <article v-if="openPopUp" class="confirmPopUp">
+      <article v-if="openPopUp" class="confirmPopUp card">
         <div class="title">
           <h2>{{ $t(title) }}</h2>
           <Button

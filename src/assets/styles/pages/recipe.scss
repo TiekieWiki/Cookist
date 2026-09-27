@@ -19,7 +19,7 @@
       flex-direction: column;
       gap: var(--spacing-6);
 
-      @media only screen and (min-width: 1101px) {
+      @media only screen and (min-width: $breakpoint-min-large) {
         flex-direction: row;
       }
 
