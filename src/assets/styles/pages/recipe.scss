@@ -1,7 +1,8 @@
-@import '../mixins/animations.scss';
-@import '../mixins/components.scss';
-@import '../mixins/form.scss';
-@import '../mixins/responsiveness.scss';
+@use '../mixins/animations.scss' as *;
+@use '../mixins/breakpoints.scss' as *;
+@use '../mixins/components.scss' as *;
+@use '../mixins/form.scss' as *;
+@use '../mixins/responsiveness.scss' as *;
 
 .recipe {
   article {

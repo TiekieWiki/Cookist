@@ -1,3 +1,5 @@
+@use '../mixins/breakpoints.scss' as *;
+
 main {
   padding-top: var(--nav-height);
 

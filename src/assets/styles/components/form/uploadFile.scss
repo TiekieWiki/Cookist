@@ -1,5 +1,5 @@
-@import '../../mixins/form.scss';
-@import '../../mixins/interactions.scss';
+@use '../../mixins/form.scss' as *;
+@use '../../mixins/interactions.scss' as *;
 
 input[type='file'] {
   width: 100%;

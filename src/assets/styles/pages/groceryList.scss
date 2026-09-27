@@ -1,5 +1,5 @@
-@import '../mixins/form.scss';
-@import '../mixins/responsiveness.scss';
+@use '../mixins/form.scss' as *;
+@use '../mixins/responsiveness.scss' as *;
 
 .groceryList {
   @include compact-checkbox-list;

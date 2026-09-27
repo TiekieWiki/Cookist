@@ -1,4 +1,4 @@
-@import '../../mixins/form.scss';
+@use '../../mixins/form.scss' as *;
 
 .select {
   @include form-element;

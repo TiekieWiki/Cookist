@@ -1,4 +1,5 @@
-@import '../mixins/components.scss';
+@use '../mixins/breakpoints.scss' as *;
+@use '../mixins/components.scss' as *;
 
 .editRecipe {
   article {

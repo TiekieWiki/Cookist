@@ -1,31 +1,31 @@
-@import 'reset.scss';
-@import 'variables.scss';
-@import 'typography.scss';
+@use 'reset.scss';
+@use 'variables.scss';
+@use 'typography.scss';
 
-@import 'text.scss';
-@import 'transitions.scss';
+@use 'text.scss';
+@use 'transitions.scss';
 
 // Pages
-@import 'pages/editRecipe.scss';
-@import 'pages/groceryList.scss';
-@import 'pages/home.scss';
-@import 'pages/login.scss';
-@import 'pages/profile.scss';
-@import 'pages/recipe.scss';
-@import 'pages/recipes.scss';
+@use 'pages/editRecipe.scss';
+@use 'pages/groceryList.scss';
+@use 'pages/home.scss';
+@use 'pages/login.scss';
+@use 'pages/profile.scss';
+@use 'pages/recipe.scss';
+@use 'pages/recipes.scss';
 
 // Components
-@import 'components/article.scss';
-@import 'components/form.scss';
-@import 'components/loader.scss';
-@import 'components/nav.scss';
-@import 'components/overlay.scss';
+@use 'components/article.scss';
+@use 'components/form.scss';
+@use 'components/loader.scss';
+@use 'components/nav.scss';
+@use 'components/overlay.scss';
 
 // General components
-@import 'components/general/card.scss';
-@import 'components/general/confirmPopUp.scss';
-@import 'components/general/emptyState.scss';
-@import 'components/general/pill.scss';
-@import 'components/general/recipesList.scss';
-@import 'components/general/switch.scss';
-@import 'components/general/title.scss';
+@use 'components/general/card.scss';
+@use 'components/general/confirmPopUp.scss';
+@use 'components/general/emptyState.scss';
+@use 'components/general/pill.scss';
+@use 'components/general/recipesList.scss';
+@use 'components/general/switch.scss';
+@use 'components/general/title.scss';

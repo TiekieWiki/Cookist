@@ -1,3 +1,5 @@
+@use '../mixins/breakpoints.scss' as *;
+
 .login {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

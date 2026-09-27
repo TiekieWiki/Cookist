@@ -1,5 +1,6 @@
-@import '../mixins/responsiveness.scss';
-@import '../mixins/interactions.scss';
+@use '../mixins/breakpoints.scss' as *;
+@use '../mixins/interactions.scss' as *;
+@use '../mixins/responsiveness.scss' as *;
 
 nav {
   display: flex;

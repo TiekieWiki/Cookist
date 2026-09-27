@@ -52,11 +52,6 @@
   --color-border-secondary: #fcf8f11f;
 }
 
-// Breakpoints
-$breakpoint-max-small: 600px;
-$breakpoint-max-large: 1100px;
-$breakpoint-min-large: 1101px;
-
 :root {
   // Colors
   @include light-mode;

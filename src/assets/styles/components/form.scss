@@ -1,15 +1,14 @@
-@import '../mixins/interactions.scss';
+@use 'form/button.scss';
+@use 'form/checkboxRadiobutton.scss';
+@use 'form/checkboxRadiobuttonList.scss';
+@use 'form/input.scss';
+@use 'form/inputList.scss';
+@use 'form/select.scss';
+@use 'form/status.scss';
+@use 'form/toggle.scss';
+@use 'form/uploadFile.scss';
 
 // Components
-@import 'form/button.scss';
-@import 'form/checkboxRadiobutton.scss';
-@import 'form/checkboxRadiobuttonList.scss';
-@import 'form/input.scss';
-@import 'form/inputList.scss';
-@import 'form/select.scss';
-@import 'form/status.scss';
-@import 'form/toggle.scss';
-@import 'form/uploadFile.scss';
 
 form {
   display: grid;
