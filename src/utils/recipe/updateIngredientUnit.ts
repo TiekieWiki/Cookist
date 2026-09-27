@@ -1,7 +1,6 @@
 import type { Ingredient } from '@/utils/types/recipe';
 
 import { RecipeUnitsPiece, RecipeUnitsVolume, RecipeUnitsWeight } from '../types/recipe';
-import { toRaw } from 'vue';
 
 interface UnitConversion {
   group: 'count' | 'volume' | 'mass';
@@ -104,6 +103,31 @@ export function getPossibleUnits(
 }
 
 /**
+ * Converts an amount from one unit to another, without rounding.
+ * @param amount Amount to convert
+ * @param fromUnit Unit of the amount
+ * @param toUnit Unit to convert to
+ * @returns The converted amount, or the original amount when the units cannot be converted
+ */
+function convertAmount(amount: number, fromUnit: string, toUnit: string): number {
+  const from = unitConversionMap[fromUnit as keyof typeof unitConversionMap];
+  const to = unitConversionMap[toUnit as keyof typeof unitConversionMap];
+
+  if (!from || !to || from.group !== to.group) return amount;
+
+  return to.fromBase(from.toBase(amount));
+}
+
+/**
+ * Rounds an amount to 2 decimal places.
+ * @param amount Amount to round
+ * @returns The rounded amount
+ */
+function roundAmount(amount: number): number {
+  return parseFloat(amount.toFixed(2));
+}
+
+/**
  * Converts recipe ingredient unit based on the provided initial ingredient.
  * @param initialIngredient Initial ingredient to use for conversion
  * @param currentIngredient Current ingredient to update
@@ -113,22 +137,19 @@ export function updateIngredientUnit(
   initialIngredient: Ingredient,
   currentIngredient: Ingredient
 ): Ingredient {
-  const currentUnit = unitConversionMap[initialIngredient.unit as keyof typeof unitConversionMap];
-  const baseAmount = currentUnit.toBase(initialIngredient.amount);
-  const toUnit = unitConversionMap[currentIngredient.unit as keyof typeof unitConversionMap];
-  const convertedAmount = toUnit.fromBase(baseAmount);
-
   return {
     ...currentIngredient,
-    amount: parseFloat(convertedAmount.toFixed(2)), // Round to 2 decimal places
-    unit: currentIngredient.unit
+    amount: roundAmount(
+      convertAmount(initialIngredient.amount, initialIngredient.unit, currentIngredient.unit)
+    )
   };
 }
 
 /**
  * Converts recipe ingredients units based on the provided initial ingredients and portion counts.
+ * The ingredients are matched by position and only rounded after scaling.
  * @param initialIngredients Initial ingredients to use for conversion
- * @param currentIngredients Current ingredients to update
+ * @param currentIngredients Current ingredients, in the same order, with the units to convert to
  * @param recipePortions Amount of portions the recipe is for
  * @param portionCount Amount of portions to convert to
  * @returns Updated ingredients with converted amount and unit
@@ -139,36 +160,19 @@ export function updateIngredientsUnit(
   recipePortions: number | undefined,
   portionCount: number | undefined
 ): Ingredient[] {
-  let updatedIngredients = structuredClone(toRaw(initialIngredients));
+  const portionFactor =
+    recipePortions && recipePortions > 0 && portionCount != undefined
+      ? portionCount / recipePortions
+      : 1;
 
-  // Use initial ingredients to determine new amount based on unit conversion
-  updatedIngredients = updatedIngredients.map((ingredient: Ingredient) => {
-    const initialIngredient = initialIngredients.find((ing) => ing.name === ingredient.name);
-    const currentIngredient = currentIngredients.find((ing) => ing.name === ingredient.name);
+  return initialIngredients.map((initialIngredient, index) => {
+    const unit = currentIngredients[index]?.unit ?? initialIngredient.unit;
+    const amount = convertAmount(initialIngredient.amount, initialIngredient.unit, unit);
 
-    if (initialIngredient && currentIngredient) {
-      const currentUnit =
-        unitConversionMap[initialIngredient.unit as keyof typeof unitConversionMap];
-      const baseAmount = currentUnit.toBase(initialIngredient.amount);
-      const toUnit = unitConversionMap[currentIngredient.unit as keyof typeof unitConversionMap];
-      const convertedAmount = toUnit.fromBase(baseAmount);
-
-      return {
-        ...ingredient,
-        amount: parseFloat(convertedAmount.toFixed(2)), // Round to 2 decimal places
-        unit: currentIngredient.unit
-      };
-    } else {
-      return { ...ingredient };
-    }
-  });
-
-  // Convert the ingredient amount based on the recipe's portion count
-  if (!recipePortions || recipePortions <= 0 || portionCount == undefined)
-    return updatedIngredients;
-
-  return updatedIngredients.map((ingredient: Ingredient) => {
-    const newAmount = (ingredient.amount / recipePortions) * portionCount;
-    return { ...ingredient, amount: newAmount };
+    return {
+      ...initialIngredient,
+      amount: roundAmount(amount * portionFactor),
+      unit
+    };
   });
 }

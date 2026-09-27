@@ -6,7 +6,6 @@ import { requireUser } from '@/utils/global/requireUser';
 import { supabase } from '@/utils/global/supabase';
 import { validateRecipe } from '@/utils/recipe/validateRecipe';
 import { formatDateAgo, toLocalISODate } from '@/utils/global/date';
-import { PostgrestError } from '@supabase/supabase-js';
 import { DEFAULT_RECIPE_IMAGE_SRC } from '@/utils/global/variables';
 
 export const useRecipeStore = defineStore('recipe', () => {
@@ -88,39 +87,20 @@ export const useRecipeStore = defineStore('recipe', () => {
     const user = requireUser(errorMessage);
     if (!user) return null;
 
-    let recipeData: any = null;
-    let recipeError: PostgrestError | null = null;
+    const recipeParams = {
+      p_name: newRecipe.name,
+      p_category: newRecipe.category,
+      p_duration: newRecipe.duration,
+      p_portions: newRecipe.portions,
+      p_rating: newRecipe.rating,
+      p_notes: newRecipe.notes ?? '',
+      p_ingredients: newRecipe.ingredients,
+      p_instructions: newRecipe.instructions
+    };
 
-    if (newRecipe.id) {
-      const { data, error } = await supabase.rpc('update_recipe', {
-        p_recipe_id: newRecipe.id,
-        p_name: newRecipe.name,
-        p_category: newRecipe.category,
-        p_duration: newRecipe.duration,
-        p_portions: newRecipe.portions,
-        p_rating: newRecipe.rating,
-        p_notes: newRecipe.notes ?? '',
-        p_ingredients: newRecipe.ingredients,
-        p_instructions: newRecipe.instructions
-      });
-
-      recipeData = data;
-      recipeError = error;
-    } else {
-      const { data, error } = await supabase.rpc('create_recipe', {
-        p_name: newRecipe.name,
-        p_category: newRecipe.category,
-        p_duration: newRecipe.duration,
-        p_portions: newRecipe.portions,
-        p_rating: newRecipe.rating,
-        p_notes: newRecipe.notes ?? '',
-        p_ingredients: newRecipe.ingredients,
-        p_instructions: newRecipe.instructions
-      });
-
-      recipeData = data;
-      recipeError = error;
-    }
+    const { data: recipeData, error: recipeError } = newRecipe.id
+      ? await supabase.rpc('update_recipe', { p_recipe_id: newRecipe.id, ...recipeParams })
+      : await supabase.rpc('create_recipe', recipeParams);
 
     if (recipeError || !recipeData) {
       errorMessage.value = getErrorMessage('unknown');
