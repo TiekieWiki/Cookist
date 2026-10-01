@@ -1,3 +1,11 @@
+@mixin switch-variant($background, $color: null) {
+  background-color: $background;
+
+  button:not(.active) {
+    color: $color;
+  }
+}
+
 .switch {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -5,47 +13,23 @@
   border-radius: var(--spacing-5);
 
   &.primary {
-    background-color: var(--color-primary);
-
-    button {
-      &:not(.active) {
-        color: var(--color-primary-text);
-      }
-    }
+    @include switch-variant(var(--color-primary), var(--color-primary-text));
   }
 
   &.secondary {
-    background-color: var(--color-secondary);
-
-    button {
-      &:not(.active) {
-        color: var(--color-secondary-text);
-      }
-    }
+    @include switch-variant(var(--color-secondary), var(--color-secondary-text));
   }
 
   &.tertiary {
-    background-color: var(--color-disabled);
+    @include switch-variant(var(--color-disabled));
   }
 
   &.accent {
-    background-color: var(--color-accent);
-
-    button {
-      &:not(.active) {
-        color: var(--color-accent-text);
-      }
-    }
+    @include switch-variant(var(--color-accent), var(--color-accent-text));
   }
 
   &.warning {
-    background-color: var(--color-warning);
-
-    button {
-      &:not(.active) {
-        color: var(--color-warning-text);
-      }
-    }
+    @include switch-variant(var(--color-warning), var(--color-warning-text));
   }
 
   button {

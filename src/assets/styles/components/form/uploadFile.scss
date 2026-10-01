@@ -4,73 +4,49 @@
 input[type='file'] {
   width: 100%;
 
-  &.primary {
-    &::file-selector-button {
-      background-color: var(--color-primary);
-      color: var(--color-primary-text);
-      border: none;
-      box-shadow: var(--box-shadow-small);
-
-      &:hover,
-      &:focus {
-        background-color: color-mix(in srgb, var(--color-primary) 80%, transparent);
-      }
-    }
+  &.primary::file-selector-button {
+    @include button-variant(
+      $background: var(--color-primary),
+      $color: var(--color-primary-text),
+      $hover-background: color-mix(in srgb, var(--color-primary) 80%, transparent),
+      $shadow: var(--box-shadow-small)
+    );
   }
 
-  &.secondary {
-    &::file-selector-button {
-      background-color: var(--color-secondary);
-      color: var(--color-secondary-text);
-      border: var(--border-secondary);
-      box-shadow: var(--box-shadow-small);
-
-      &:hover,
-      &:focus {
-        background-color: var(--color-accent);
-        color: var(--color-accent-text);
-      }
-    }
+  &.secondary::file-selector-button {
+    @include button-variant(
+      $background: var(--color-secondary),
+      $color: var(--color-secondary-text),
+      $hover-background: var(--color-accent),
+      $hover-color: var(--color-accent-text),
+      $border: var(--border-secondary),
+      $shadow: var(--box-shadow-small)
+    );
   }
 
-  &.tertiary {
-    &::file-selector-button {
-      background-color: transparent;
-      color: var(--color-background-secondary-text);
-      border: none;
-
-      &:hover,
-      &:focus {
-        background-color: var(--color-secondary);
-        color: var(--color-secondary-text);
-      }
-    }
+  &.tertiary::file-selector-button {
+    @include button-variant(
+      $background: transparent,
+      $color: var(--color-background-secondary-text),
+      $hover-background: var(--color-secondary),
+      $hover-color: var(--color-secondary-text)
+    );
   }
 
-  &.accent {
-    &::file-selector-button {
-      background-color: var(--color-accent);
-      color: var(--color-accent-text);
-      border: none;
-
-      &:hover,
-      &:focus {
-        background-color: color-mix(in srgb, var(--color-accent) 80%, transparent);
-      }
-    }
+  &.accent::file-selector-button {
+    @include button-variant(
+      $background: var(--color-accent),
+      $color: var(--color-accent-text),
+      $hover-background: color-mix(in srgb, var(--color-accent) 80%, transparent)
+    );
   }
 
-  &.warning {
-    &::file-selector-button {
-      background-color: var(--color-warning);
-      color: var(--color-warning-text);
-      border: none;
-
-      &:hover,
-      &:focus {
-        background-color: color-mix(in srgb, var(--color-warning) 80%, transparent);
-      }
-    }
+  &.warning::file-selector-button {
+    @include button-variant(
+      $background: var(--color-warning),
+      $color: var(--color-warning-text),
+      $hover-background: color-mix(in srgb, var(--color-warning) 80%, transparent)
+    );
   }
 
   &::file-selector-button {

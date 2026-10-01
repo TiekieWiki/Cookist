@@ -1,5 +1,29 @@
 @use '../../mixins/form.scss' as *;
 
+@mixin select-variant(
+  $border,
+  $arrow,
+  $option-background: var(--color-background-primary),
+  $focus-border: var(--border-primary),
+  $shadow: var(--box-shadow-small)
+) {
+  background-color: transparent;
+  border: $border;
+  box-shadow: $shadow;
+
+  &::after {
+    background-color: $arrow;
+  }
+
+  option {
+    background-color: $option-background;
+  }
+
+  &:has(:focus-visible) {
+    border: $focus-border;
+  }
+}
+
 .select {
   @include form-element;
 
@@ -39,91 +63,35 @@
   }
 
   &.primary {
-    background-color: transparent;
-    border: var(--border-primary);
-    box-shadow: var(--box-shadow-small);
-
-    &::after {
-      background-color: var(--color-primary);
-    }
-
-    option {
-      background-color: var(--color-background-primary);
-    }
-
-    &:has(:focus-visible) {
-      border: var(--border-accent);
-    }
+    @include select-variant(
+      var(--border-primary),
+      var(--color-primary),
+      $focus-border: var(--border-accent)
+    );
   }
 
   &.secondary {
-    background-color: transparent;
-    border: var(--border-secondary);
-    box-shadow: var(--box-shadow-small);
-
-    &::after {
-      background-color: var(--color-secondary);
-    }
-
-    option {
-      background-color: var(--color-background-secondary);
-    }
-
-    &:has(:focus-visible) {
-      border: var(--border-primary);
-    }
+    @include select-variant(
+      var(--border-secondary),
+      var(--color-secondary),
+      var(--color-background-secondary)
+    );
   }
 
   &.tertiary {
-    background-color: transparent;
-    border: none;
-
-    &::after {
-      background-color: var(--color-tertiary);
-    }
-
-    option {
-      background-color: var(--color-background-tertiary);
-    }
-
-    &:has(:focus-visible) {
-      border: var(--border-primary);
-    }
+    @include select-variant(
+      none,
+      var(--color-tertiary),
+      var(--color-background-tertiary),
+      $shadow: null
+    );
   }
 
   &.accent {
-    background-color: transparent;
-    border: var(--border-accent);
-    box-shadow: var(--box-shadow-small);
-
-    &::after {
-      background-color: var(--color-accent);
-    }
-
-    option {
-      background-color: var(--color-background-primary);
-    }
-
-    &:has(:focus-visible) {
-      border: var(--border-primary);
-    }
+    @include select-variant(var(--border-accent), var(--color-accent));
   }
 
   &.warning {
-    background-color: transparent;
-    border: var(--border-warning);
-    box-shadow: var(--box-shadow-small);
-
-    &::after {
-      background-color: var(--color-warning);
-    }
-
-    option {
-      background-color: var(--color-background-primary);
-    }
-
-    &:has(:focus-visible) {
-      border: var(--border-primary);
-    }
+    @include select-variant(var(--border-warning), var(--color-warning));
   }
 }

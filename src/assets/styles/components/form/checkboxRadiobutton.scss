@@ -1,5 +1,18 @@
 @use '../../mixins/form.scss' as *;
 
+@mixin checkbox-variant($color, $border, $hover-border: var(--border-secondary)) {
+  border: $border;
+
+  &::before {
+    box-shadow: inset var(--spacing-4) var(--spacing-4) $color;
+  }
+
+  &:hover,
+  &:focus {
+    border: $hover-border;
+  }
+}
+
 .checkbox,
 .radiobutton {
   display: flex;
@@ -21,68 +34,27 @@
     cursor: pointer;
 
     &.primary {
-      border: var(--border-primary);
-
-      &::before {
-        box-shadow: inset var(--spacing-4) var(--spacing-4) var(--color-primary);
-      }
-
-      &:hover,
-      &:focus {
-        border: var(--border-secondary);
-      }
+      @include checkbox-variant(var(--color-primary), var(--border-primary));
     }
 
     &.secondary {
-      border: var(--border-secondary);
-
-      &::before {
-        box-shadow: inset var(--spacing-4) var(--spacing-4) var(--color-secondary);
-      }
-
-      &:hover,
-      &:focus {
-        border: var(--border-primary);
-      }
+      @include checkbox-variant(
+        var(--color-secondary),
+        var(--border-secondary),
+        var(--border-primary)
+      );
     }
 
     &.tertiary {
-      border: var(--border-tertiary);
-
-      &::before {
-        box-shadow: inset var(--spacing-4) var(--spacing-4) var(--color-tertiary);
-      }
-
-      &:hover,
-      &:focus {
-        border: var(--border-secondary);
-      }
+      @include checkbox-variant(var(--color-tertiary), var(--border-tertiary));
     }
 
     &.accent {
-      border: var(--border-accent);
-
-      &::before {
-        box-shadow: inset var(--spacing-4) var(--spacing-4) var(--color-accent);
-      }
-
-      &:hover,
-      &:focus {
-        border: var(--border-secondary);
-      }
+      @include checkbox-variant(var(--color-accent), var(--border-accent));
     }
 
     &.warning {
-      border: var(--border-warning);
-
-      &::before {
-        box-shadow: inset var(--spacing-4) var(--spacing-4) var(--color-warning);
-      }
-
-      &:hover,
-      &:focus {
-        border: var(--border-secondary);
-      }
+      @include checkbox-variant(var(--color-warning), var(--border-warning));
     }
 
     &::before {

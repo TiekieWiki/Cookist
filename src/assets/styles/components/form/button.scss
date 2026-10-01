@@ -15,62 +15,48 @@ button,
   border-radius: var(--spacing-5);
 
   &.primary {
-    background-color: var(--color-primary);
-    color: var(--color-primary-text);
-    border: none;
-    box-shadow: var(--box-shadow-small);
-
-    &:hover,
-    &:focus {
-      background-color: color-mix(in srgb, var(--color-primary) 80%, transparent);
-    }
+    @include button-variant(
+      $background: var(--color-primary),
+      $color: var(--color-primary-text),
+      $hover-background: color-mix(in srgb, var(--color-primary) 80%, transparent),
+      $shadow: var(--box-shadow-small)
+    );
   }
 
   &.secondary {
-    background-color: transparent;
-    color: var(--color-secondary-text);
-    border: var(--border-secondary);
-    box-shadow: var(--box-shadow-small);
-
-    &:hover,
-    &:focus {
-      background-color: var(--color-accent);
-      color: var(--color-accent-text);
-    }
+    @include button-variant(
+      $background: transparent,
+      $color: var(--color-secondary-text),
+      $hover-background: var(--color-accent),
+      $hover-color: var(--color-accent-text),
+      $border: var(--border-secondary),
+      $shadow: var(--box-shadow-small)
+    );
   }
 
   &.tertiary {
-    background-color: transparent;
-    color: var(--color-background-secondary-text);
-    border: none;
-
-    &:hover,
-    &:focus {
-      background-color: var(--color-secondary);
-      color: var(--color-secondary-text);
-    }
+    @include button-variant(
+      $background: transparent,
+      $color: var(--color-background-secondary-text),
+      $hover-background: var(--color-secondary),
+      $hover-color: var(--color-secondary-text)
+    );
   }
 
   &.accent {
-    background-color: var(--color-accent);
-    color: var(--color-accent-text);
-    border: none;
-
-    &:hover,
-    &:focus {
-      background-color: color-mix(in srgb, var(--color-accent) 80%, transparent);
-    }
+    @include button-variant(
+      $background: var(--color-accent),
+      $color: var(--color-accent-text),
+      $hover-background: color-mix(in srgb, var(--color-accent) 80%, transparent)
+    );
   }
 
   &.warning {
-    background-color: var(--color-warning);
-    color: var(--color-warning-text);
-    border: none;
-
-    &:hover,
-    &:focus {
-      background-color: color-mix(in srgb, var(--color-warning) 80%, transparent);
-    }
+    @include button-variant(
+      $background: var(--color-warning),
+      $color: var(--color-warning-text),
+      $hover-background: color-mix(in srgb, var(--color-warning) 80%, transparent)
+    );
   }
 
   &.small {

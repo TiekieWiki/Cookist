@@ -7,6 +7,26 @@
   }
 }
 
+@mixin button-variant(
+  $background,
+  $color,
+  $hover-background,
+  $hover-color: null,
+  $border: none,
+  $shadow: null
+) {
+  background-color: $background;
+  color: $color;
+  border: $border;
+  box-shadow: $shadow;
+
+  &:hover,
+  &:focus {
+    background-color: $hover-background;
+    color: $hover-color;
+  }
+}
+
 @mixin compact-checkbox-list {
   .checkbox-list-item {
     .checkbox {

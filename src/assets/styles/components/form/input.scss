@@ -1,5 +1,20 @@
 @use '../../mixins/form.scss' as *;
 
+@mixin input-variant(
+  $border,
+  $focus-border: var(--border-primary),
+  $color: null,
+  $shadow: var(--box-shadow-small)
+) {
+  color: $color;
+  border: $border;
+  box-shadow: $shadow;
+
+  &:focus-visible {
+    border: $focus-border;
+  }
+}
+
 label {
   display: flex;
   flex-direction: column;
@@ -23,49 +38,23 @@ label {
     border-radius: var(--spacing-5);
 
     &.primary {
-      border: var(--border-primary);
-      box-shadow: var(--box-shadow-small);
-
-      &:focus-visible {
-        border: var(--border-accent);
-      }
+      @include input-variant(var(--border-primary), var(--border-accent));
     }
 
     &.secondary {
-      border: var(--border-secondary);
-      box-shadow: var(--box-shadow-small);
-
-      &:focus-visible {
-        border: var(--border-primary);
-      }
+      @include input-variant(var(--border-secondary));
     }
 
     &.tertiary {
-      border: none;
-
-      &:focus-visible {
-        border: var(--border-primary);
-      }
+      @include input-variant(none, $shadow: null);
     }
 
     &.accent {
-      color: var(--color-accent-text);
-      border: var(--border-accent);
-      box-shadow: var(--box-shadow-small);
-
-      &:focus-visible {
-        border: var(--border-primary);
-      }
+      @include input-variant(var(--border-accent), $color: var(--color-accent-text));
     }
 
     &.warning {
-      color: var(--color-warning-text);
-      border: var(--border-warning);
-      box-shadow: var(--box-shadow-small);
-
-      &:focus-visible {
-        border: var(--border-primary);
-      }
+      @include input-variant(var(--border-warning), $color: var(--color-warning-text));
     }
 
     &:disabled {

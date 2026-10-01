@@ -1,3 +1,12 @@
+@mixin pill-variant($background, $color, $icon: null) {
+  background-color: $background;
+  color: $color;
+
+  svg {
+    color: $icon;
+  }
+}
+
 .pill {
   display: flex;
   gap: var(--spacing-2);
@@ -8,32 +17,39 @@
   font-size: 0.75rem;
 
   &.primary {
-    background-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
-    color: var(--color-primary);
-
-    svg {
-      color: var(--color-primary);
-    }
+    @include pill-variant(
+      color-mix(in srgb, var(--color-primary) 20%, transparent),
+      var(--color-primary),
+      var(--color-primary)
+    );
   }
 
   &.secondary {
-    background-color: color-mix(in srgb, var(--color-background-primary) 70%, transparent);
-    color: var(--color-background-secondary-text);
+    @include pill-variant(
+      color-mix(in srgb, var(--color-background-primary) 70%, transparent),
+      var(--color-background-secondary-text)
+    );
   }
 
   &.tertiary {
-    background-color: color-mix(in srgb, var(--color-tertiary) 20%, transparent);
-    color: var(--color-tertiary);
+    @include pill-variant(
+      color-mix(in srgb, var(--color-tertiary) 20%, transparent),
+      var(--color-tertiary)
+    );
   }
 
   &.accent {
-    background-color: color-mix(in srgb, var(--color-accent) 70%, transparent);
-    color: var(--color-accent-text);
+    @include pill-variant(
+      color-mix(in srgb, var(--color-accent) 70%, transparent),
+      var(--color-accent-text)
+    );
   }
 
   &.warning {
-    background-color: color-mix(in srgb, var(--color-warning) 20%, transparent);
-    color: var(--color-warning-text);
+    @include pill-variant(
+      color-mix(in srgb, var(--color-warning) 20%, transparent),
+      var(--color-warning-text)
+    );
   }
 
   &.medium {
