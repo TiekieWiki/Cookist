@@ -1,7 +1,7 @@
 <template>
   <section class="title">
     <div>
-      <h2>{{ $t('groceryListPage.title') }}</h2>
+      <h2>{{ $t('general.pageTitles.groceryList') }}</h2>
       <p>
         {{
           groceryListStore.groceryList.length <= 0

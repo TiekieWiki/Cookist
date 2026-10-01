@@ -7,24 +7,24 @@ export function menuItems(): MenuItem[] {
   return [
     {
       route: '/',
-      name: 'homePage.title'
+      name: 'general.pageTitles.home'
     },
     {
       route: '/recipes',
-      name: 'recipesPage.title'
+      name: 'general.pageTitles.recipes'
     },
     {
       route: 'grocery-list',
-      name: 'groceryListPage.title'
+      name: 'general.pageTitles.groceryList'
     },
     {
       route: '/profile',
-      name: 'profilePage.title',
+      name: 'general.pageTitles.profile',
       condition: userStore.isLoggedIn
     },
     {
       route: '/login',
-      name: 'loginPage.title',
+      name: 'general.pageTitles.login',
       condition: !userStore.isLoggedIn
     }
   ];

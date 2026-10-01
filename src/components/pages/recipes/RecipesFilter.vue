@@ -26,7 +26,7 @@
       <RadioButtonList
         id="category"
         name="category"
-        :label="$t('editRecipePage.category')"
+        :label="$t('general.recipe.category')"
         :items="categories"
         v-model:selected="filter.category"
       />
@@ -99,15 +99,15 @@
       <div class="divider"></div>
       <InputList
         id="ingredients"
-        :label="$t('editRecipePage.ingredients')"
+        :label="$t('general.recipe.ingredients')"
         :colAmount="ColAmount.TWO"
         v-model:items="filter.ingredients"
         v-slot="{ index }"
       >
         <InputField
           :name="'ingredient ' + index"
-          :placeholder="$t('editRecipePage.placeholder.ingredient')"
-          :ariaLabel="$t('editRecipePage.ariaLabel.ingredient')"
+          :placeholder="$t('general.recipe.placeholder.ingredient')"
+          :ariaLabel="$t('general.recipe.ariaLabel.ingredient')"
           type="text"
           v-model:input="filter.ingredients[index].name"
           @input="index < 9 ? addInputRow(filter.ingredients, index, { name: '' }) : null"
@@ -143,7 +143,7 @@ const categories = computed<RadioButtonItemProps[]>(() =>
   Object.values(RecipeCategories).map((category) => ({
     id: category,
     name: category,
-    label: t(`editRecipePage.categories.${category}`),
+    label: t(`general.recipe.categories.${category}`),
     required: false,
     disabled: false,
     autocomplete: 'off'

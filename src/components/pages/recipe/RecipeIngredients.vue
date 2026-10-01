@@ -39,10 +39,10 @@
     <CheckBoxList :items="ingredients">
       <template #item="{ item, index }">
         <SelectField
-          :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
-          :placeholder="$t('editRecipePage.placeholder.unit')"
+          :ariaLabel="$t('general.recipe.ariaLabel.unit')"
+          :placeholder="$t('general.recipe.placeholder.unit')"
           :items="toSelectOptions(getPossibleUnits(item.slot!))"
-          labelPrefix="editRecipePage.units."
+          labelPrefix="general.recipe.units."
           :selected="item.slot"
           @update:selected="(unit) => changeIngredientUnit(index, unit!)"
         />

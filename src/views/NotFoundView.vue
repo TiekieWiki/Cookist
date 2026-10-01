@@ -3,9 +3,9 @@
     <article>
       <EmptyState
         icon="link-slash"
-        title="notFoundPage.title"
+        title="general.pageTitles.notFound"
         subtitle="notFoundPage.description"
-        button-text="homePage.title"
+        button-text="general.pageTitles.home"
         button-route="/"
       />
     </article>

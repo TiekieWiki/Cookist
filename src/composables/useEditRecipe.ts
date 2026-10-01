@@ -103,7 +103,7 @@ export function useEditRecipe(): {
   // Prevent leaving the page if there are unsaved changes
   onBeforeRouteLeave(() => {
     if (hasUnsavedChanges.value) {
-      return window.confirm(i18n.global.t('errors.unsavedChanges'));
+      return window.confirm(i18n.global.t('general.errors.unsavedChanges'));
     }
 
     return true;

@@ -31,9 +31,9 @@
       <article v-else key="notFound">
         <EmptyState
           icon="martini-glass-empty"
-          title="recipePage.recipeNotFound"
-          subtitle="recipePage.recipeNotFoundSubtitle"
-          button-text="recipesPage.title"
+          title="general.recipe.notFound"
+          subtitle="general.recipe.notFoundSubtitle"
+          button-text="general.pageTitles.recipes"
           button-icon="arrow-left"
           button-route="/recipes"
         />
@@ -44,8 +44,8 @@
     v-model:open-pop-up="deleteRecipeOpen"
     title="recipePage.deleteRecipe"
     section="recipePage.confirmDelete"
-    cancel="recipePage.cancel"
-    confirm="recipePage.delete"
+    cancel="general.actions.cancel"
+    confirm="general.actions.delete"
     @confirm="deleteRecipe()"
   />
 </template>

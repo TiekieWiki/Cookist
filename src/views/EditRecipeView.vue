@@ -7,9 +7,9 @@
       <article v-else-if="$route.params.recipeId && !recipeStore.recipe.name" key="notFound">
         <EmptyState
           icon="martini-glass-empty"
-          title="recipePage.recipeNotFound"
-          subtitle="recipePage.recipeNotFoundSubtitle"
-          button-text="recipesPage.title"
+          title="general.recipe.notFound"
+          subtitle="general.recipe.notFoundSubtitle"
+          button-text="general.pageTitles.recipes"
           button-icon="arrow-left"
           button-route="/recipes"
         />
@@ -26,7 +26,7 @@
         >
         <div>
           <h2>
-            {{ $route.params.recipeId ? $t('editRecipePage.title') : $t('createRecipePage.title') }}
+            {{ $route.params.recipeId ? $t('general.pageTitles.editRecipe') : $t('general.pageTitles.createRecipe') }}
           </h2>
           <p>{{ $t('editRecipePage.subtitle') }}</p>
         </div>
@@ -53,7 +53,7 @@
               :variant="ColorVariant.TERTIARY"
               :size="Size.LARGE"
             >
-              {{ $t('editRecipePage.cancel') }}
+              {{ $t('general.actions.cancel') }}
             </Button>
           </div>
         </form>

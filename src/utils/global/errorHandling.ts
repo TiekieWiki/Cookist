@@ -6,27 +6,27 @@
  */
 export function getErrorMessage(errorCode: string | undefined): string {
   if (!errorCode) {
-    return 'errors.unknown';
+    return 'general.errors.unknown';
   }
 
-  return errorMessages[errorCode] || 'errors.unknown';
+  return errorMessages[errorCode] || 'general.errors.unknown';
 }
 
 export const errorMessages: Record<string, string> = {
-  email_address_missing: 'errors.emailAddressMissing',
-  email_address_invalid: 'errors.emailAddressInvalid',
-  email_exists: 'errors.emailExists',
-  invalid_credentials: 'errors.invalidCredentials',
-  user_already_exists: 'errors.userAlreadyExists',
-  user_not_found: 'errors.userNotFound',
-  password_missing: 'errors.passwordMissing',
-  weak_password: 'errors.weakPassword',
-  recipe_name_missing: 'errors.recipeNameMissing',
-  recipe_category_missing: 'errors.recipeCategoryMissing',
-  recipe_duration_missing: 'errors.recipeDurationMissing',
-  recipe_portions_missing: 'errors.recipePortionsMissing',
-  recipe_rating_missing: 'errors.recipeRatingMissing',
-  recipe_ingredients_missing: 'errors.recipeIngredientsMissing',
-  recipe_instructions_missing: 'errors.recipeInstructionsMissing',
-  unknown: 'errors.unknown'
+  email_address_missing: 'general.errors.emailAddressMissing',
+  email_address_invalid: 'general.errors.emailAddressInvalid',
+  email_exists: 'general.errors.emailExists',
+  invalid_credentials: 'general.errors.invalidCredentials',
+  user_already_exists: 'general.errors.userAlreadyExists',
+  user_not_found: 'general.errors.userNotFound',
+  password_missing: 'general.errors.passwordMissing',
+  weak_password: 'general.errors.weakPassword',
+  recipe_name_missing: 'general.errors.recipeNameMissing',
+  recipe_category_missing: 'general.errors.recipeCategoryMissing',
+  recipe_duration_missing: 'general.errors.recipeDurationMissing',
+  recipe_portions_missing: 'general.errors.recipePortionsMissing',
+  recipe_rating_missing: 'general.errors.recipeRatingMissing',
+  recipe_ingredients_missing: 'general.errors.recipeIngredientsMissing',
+  recipe_instructions_missing: 'general.errors.recipeInstructionsMissing',
+  unknown: 'general.errors.unknown'
 };

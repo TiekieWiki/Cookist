@@ -1,15 +1,29 @@
-import { createRouter, createWebHistory, type RouteLocation } from 'vue-router';
-import i18n from '@/i18n/index';
+import {
+  createRouter,
+  createWebHistory,
+  type RouteLocation,
+  type RouteRecordRaw
+} from 'vue-router';
+import i18n, { loadTranslations, type TranslationNamespace } from '@/i18n/index';
 import { supabase } from '@/utils/global/supabase.js';
 
-const routes = [
+declare module 'vue-router' {
+  interface RouteMeta {
+    requiresAuth: boolean;
+    title: string;
+    translations: TranslationNamespace;
+  }
+}
+
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'Home',
     component: () => import('../views/HomeView.vue'),
     meta: {
       requiresAuth: false,
-      title: 'homePage.title'
+      title: 'general.pageTitles.home',
+      translations: 'home'
     }
   },
   {
@@ -18,7 +32,8 @@ const routes = [
     component: () => import('../views/RecipesView.vue'),
     meta: {
       requiresAuth: true,
-      title: 'recipesPage.title'
+      title: 'general.pageTitles.recipes',
+      translations: 'recipes'
     }
   },
   {
@@ -27,7 +42,8 @@ const routes = [
     component: () => import('../views/RecipeView.vue'),
     meta: {
       requiresAuth: true,
-      title: 'recipePage.title'
+      title: 'general.pageTitles.recipe',
+      translations: 'recipe'
     }
   },
   {
@@ -36,7 +52,8 @@ const routes = [
     component: () => import('../views/EditRecipeView.vue'),
     meta: {
       requiresAuth: true,
-      title: 'createRecipePage.title'
+      title: 'general.pageTitles.createRecipe',
+      translations: 'editRecipe'
     }
   },
   {
@@ -45,7 +62,8 @@ const routes = [
     component: () => import('../views/EditRecipeView.vue'),
     meta: {
       requiresAuth: true,
-      title: 'editRecipePage.title'
+      title: 'general.pageTitles.editRecipe',
+      translations: 'editRecipe'
     }
   },
   {
@@ -54,7 +72,8 @@ const routes = [
     component: () => import('../views/GroceryListView.vue'),
     meta: {
       requiresAuth: true,
-      title: 'groceryListPage.title'
+      title: 'general.pageTitles.groceryList',
+      translations: 'groceryList'
     }
   },
   {
@@ -63,7 +82,8 @@ const routes = [
     component: () => import('../views/ProfileView.vue'),
     meta: {
       requiresAuth: true,
-      title: 'profilePage.title'
+      title: 'general.pageTitles.profile',
+      translations: 'profile'
     }
   },
   {
@@ -72,7 +92,8 @@ const routes = [
     component: () => import('../views/LoginView.vue'),
     meta: {
       requiresAuth: false,
-      title: 'loginPage.title'
+      title: 'general.pageTitles.login',
+      translations: 'login'
     }
   },
   {
@@ -81,7 +102,8 @@ const routes = [
     component: () => import('../views/NotFoundView.vue'),
     meta: {
       requiresAuth: false,
-      title: 'notFoundPage.title'
+      title: 'general.pageTitles.notFound',
+      translations: 'notFound'
     }
   }
 ];
@@ -107,15 +129,13 @@ router.beforeEach(async (to: RouteLocation) => {
 
   if (to.meta.requiresAuth && !data.session) {
     return '/login';
-  } else if (
-    !to.meta.requiresAuth &&
-    data.session &&
-    (to.name === 'Login')
-  ) {
+  } else if (!to.meta.requiresAuth && data.session && to.name === 'Login') {
     return '/';
   }
 
-  document.title = i18n.global.t(String(to.meta.title));
+  await loadTranslations(['general', to.meta.translations]);
+
+  document.title = i18n.global.t(to.meta.title);
 
   return true;
 });

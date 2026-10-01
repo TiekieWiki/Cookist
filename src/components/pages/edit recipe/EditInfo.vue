@@ -12,12 +12,12 @@
     />
     <SelectField
       id="category"
-      :label="$t('editRecipePage.category')"
+      :label="$t('general.recipe.category')"
       :ariaLabel="$t('editRecipePage.ariaLabel.category')"
       :placeholder="$t('editRecipePage.placeholder.category')"
       :required="true"
       :items="categoryOptions"
-      labelPrefix="editRecipePage.categories."
+      labelPrefix="general.recipe.categories."
       v-model:selected="recipe.category"
     />
     <div class="compact">

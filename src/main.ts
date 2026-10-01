@@ -72,9 +72,10 @@ library.add(
 
 const pinia = createPinia();
 
-createApp(App)
+const app = createApp(App)
   .use(pinia)
   .use(i18n)
   .use(router)
-  .component('font-awesome-icon', FontAwesomeIcon)
-  .mount('#app');
+  .component('font-awesome-icon', FontAwesomeIcon);
+
+router.isReady().then(() => app.mount('#app'));

@@ -63,16 +63,16 @@ export function formatDateAgo(date: string | null): string {
   const diffDays = Math.round((today.getTime() - dateToCompare.getTime()) / MS_PER_DAY);
   const diffMonths = monthsBetween(dateToCompare, today);
 
-  if (diffDays <= 0) return i18n.global.t('recipePage.today');
-  else if (diffDays === 1) return i18n.global.t('recipePage.yesterday');
+  if (diffDays <= 0) return i18n.global.t('general.date.today');
+  else if (diffDays === 1) return i18n.global.t('general.date.yesterday');
   else if (diffDays < 7)
-    return `${diffDays} ${i18n.global.t('recipePage.daysAgo', { count: diffDays })}`;
+    return `${diffDays} ${i18n.global.t('general.date.daysAgo', { count: diffDays })}`;
   else if (diffMonths < 1)
-    return `${Math.floor(diffDays / 7)} ${i18n.global.t('recipePage.weeksAgo', { count: Math.floor(diffDays / 7) })}`;
+    return `${Math.floor(diffDays / 7)} ${i18n.global.t('general.date.weeksAgo', { count: Math.floor(diffDays / 7) })}`;
   else if (diffMonths < 12)
-    return `${diffMonths} ${i18n.global.t('recipePage.monthsAgo', { count: diffMonths })}`;
+    return `${diffMonths} ${i18n.global.t('general.date.monthsAgo', { count: diffMonths })}`;
   else
-    return `${Math.floor(diffMonths / 12)} ${i18n.global.t('recipePage.yearsAgo', { count: Math.floor(diffMonths / 12) })}`;
+    return `${Math.floor(diffMonths / 12)} ${i18n.global.t('general.date.yearsAgo', { count: Math.floor(diffMonths / 12) })}`;
 }
 
 /**

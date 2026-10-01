@@ -4,7 +4,7 @@
       <div class="image">
         <img :src="recipeImage" :alt="recipe.name" />
         <Pill :variant="ColorVariant.SECONDARY" :size="Size.MEDIUM">
-          {{ lastEaten ? lastEaten : $t('recipePage.neverCooked') }}
+          {{ lastEaten ? lastEaten : $t('general.recipe.neverCooked') }}
         </Pill>
       </div>
       <div class="content">
@@ -13,7 +13,7 @@
         <div class="info">
           <p class="small">
             <font-awesome-icon :icon="['far', 'clock']" /> {{ recipe.duration }}
-            {{ $t('recipePage.minutes') }}
+            {{ $t('general.recipe.minutes') }}
           </p>
           <p class="small">
             <font-awesome-icon :icon="['fas', 'user-group']" />
@@ -22,7 +22,7 @@
           </p>
           <p class="small">
             <font-awesome-icon :icon="['fas', 'bowl-food']" />
-            {{ $t('editRecipePage.categories.' + recipe.category) }}
+            {{ $t('general.recipe.categories.' + recipe.category) }}
           </p>
           <p v-if="recipe.rating" class="small">
             <font-awesome-icon :icon="['fas', 'star']" />

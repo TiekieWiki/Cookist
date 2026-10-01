@@ -1,23 +1,23 @@
 <template>
   <InputField
     :name="name + '-amount'"
-    :placeholder="$t('editRecipePage.placeholder.amount')"
-    :ariaLabel="$t('editRecipePage.ariaLabel.amount')"
+    :placeholder="$t('general.recipe.placeholder.amount')"
+    :ariaLabel="$t('general.recipe.ariaLabel.amount')"
     :step="0.01"
     type="number"
     v-model:input="ingredient.amount"
   />
   <SelectField
-    :ariaLabel="$t('editRecipePage.ariaLabel.unit')"
-    :placeholder="$t('editRecipePage.placeholder.unit')"
+    :ariaLabel="$t('general.recipe.ariaLabel.unit')"
+    :placeholder="$t('general.recipe.placeholder.unit')"
     :items="unitOptions"
-    labelPrefix="editRecipePage.units."
+    labelPrefix="general.recipe.units."
     v-model:selected="ingredient.unit"
   />
   <InputField
     :name="name + '-name'"
-    :placeholder="$t('editRecipePage.placeholder.ingredient')"
-    :ariaLabel="$t('editRecipePage.ariaLabel.ingredient')"
+    :placeholder="$t('general.recipe.placeholder.ingredient')"
+    :ariaLabel="$t('general.recipe.ariaLabel.ingredient')"
     type="text"
     v-model:input="ingredient.name"
     @input="emit('nameInput')"

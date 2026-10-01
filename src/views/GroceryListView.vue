@@ -9,7 +9,7 @@
     v-model:open-pop-up="deleteGroceryListOpen"
     title="groceryListPage.emptyGroceryList"
     section="groceryListPage.confirmEmpty"
-    cancel="groceryListPage.cancel"
+    cancel="general.actions.cancel"
     confirm="groceryListPage.empty"
     @confirm="deleteGroceryList()"
   />

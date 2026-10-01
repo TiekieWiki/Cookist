@@ -11,8 +11,8 @@
   <ConfirmPopUp
     title="profilePage.deleteAccount"
     section="profilePage.confirmDelete"
-    cancel="profilePage.cancel"
-    confirm="profilePage.delete"
+    cancel="general.actions.cancel"
+    confirm="general.actions.delete"
     v-model:openPopUp="deleteOpen"
     @confirm="deleteUserAccount()"
   />

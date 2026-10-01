@@ -2,7 +2,7 @@
   <section class="card">
     <InputList
       id="ingredients"
-      :label="$t('editRecipePage.ingredients')"
+      :label="$t('general.recipe.ingredients')"
       :required="true"
       :colAmount="ColAmount.FOUR"
       v-model:items="ingredients"

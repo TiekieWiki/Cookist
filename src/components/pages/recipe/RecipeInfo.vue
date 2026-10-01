@@ -24,14 +24,14 @@
           :variant="ColorVariant.WARNING"
         >
           <font-awesome-icon :icon="['fas', 'trash-can']" />
-          {{ $t('recipePage.delete') }}
+          {{ $t('general.actions.delete') }}
         </Button>
       </div>
     </div>
     <div class="info">
       <p>
         <font-awesome-icon :icon="['far', 'clock']" /> {{ recipeStore.recipe.duration }}
-        {{ $t('recipePage.minutes', { count: recipeStore.recipe.duration }) }}
+        {{ $t('general.recipe.minutes', { count: recipeStore.recipe.duration }) }}
       </p>
       <p>
         <font-awesome-icon :icon="['fas', 'user-group']" />
@@ -41,7 +41,7 @@
       </p>
       <p>
         <font-awesome-icon :icon="['fas', 'bowl-food']" />
-        {{ $t('editRecipePage.categories.' + recipeStore.recipe.category) }}
+        {{ $t('general.recipe.categories.' + recipeStore.recipe.category) }}
       </p>
       <p v-if="recipeStore.recipe.rating">
         <font-awesome-icon :icon="['fas', 'star']" />

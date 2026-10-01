@@ -3,7 +3,7 @@
     <article>
       <section class="title">
         <div>
-          <h2>{{ $t('recipesPage.title') }}</h2>
+          <h2>{{ $t('general.pageTitles.recipes') }}</h2>
           <p>{{ $t('recipesPage.totalRecipes', { count: recipesStore.recipes.length }) }}</p>
         </div>
         <Button :type="ButtonType.BUTTON" :size="Size.LARGE" to="/create-recipe">
