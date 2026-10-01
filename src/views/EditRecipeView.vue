@@ -15,11 +15,14 @@
         />
       </article>
       <article v-else key="form">
-        <router-link to="/recipes" tabindex="-1">
-          <Button :type="ButtonType.BUTTON" :variant="ColorVariant.TERTIARY" :size="Size.LARGE">
-            <font-awesome-icon :icon="['fas', 'arrow-left']" />
-            {{ $t('editRecipePage.backToRecipes') }}</Button
-          ></router-link
+        <Button
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.TERTIARY"
+          :size="Size.LARGE"
+          to="/recipes"
+        >
+          <font-awesome-icon :icon="['fas', 'arrow-left']" />
+          {{ $t('editRecipePage.backToRecipes') }}</Button
         >
         <div>
           <h2>

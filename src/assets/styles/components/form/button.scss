@@ -1,7 +1,8 @@
 @use '../../mixins/form.scss' as *;
 @use '../../mixins/interactions.scss' as *;
 
-button {
+button,
+.button {
   @include form-element;
   @include zoom-on-hover(var(--scale-medium));
 

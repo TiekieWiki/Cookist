@@ -5,20 +5,16 @@
       <router-link to="/" tabindex="0">Cookist</router-link>
     </div>
     <div class="menu">
-      <router-link
-        v-for="item in menuItems()"
-        :key="item.route"
-        :to="item.route"
-        class="desktop"
-        tabindex="-1"
-      >
+      <template v-for="item in menuItems()" :key="item.route">
         <Button
           v-if="item.condition ?? true"
+          class="desktop"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.TERTIARY"
           :size="Size.LARGE"
+          :to="item.route"
           >{{ $t(item.name) }}</Button
-        ></router-link
+        ></template
       >
       <Button
         v-if="!menuOpen"
@@ -45,15 +41,16 @@
       >
         <font-awesome-icon :icon="['fas', 'xmark']" />
       </Button>
-      <router-link v-for="item in menuItems()" :key="item.route" :to="item.route" tabindex="-1"
+      <template v-for="item in menuItems()" :key="item.route"
         ><Button
           v-if="item.condition ?? true"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.TERTIARY"
           :size="Size.LARGE"
+          :to="item.route"
         >
           {{ $t(item.name) }}
-        </Button></router-link
+        </Button></template
       >
     </aside>
   </Transition>

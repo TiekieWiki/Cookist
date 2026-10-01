@@ -6,11 +6,9 @@
           <h2>{{ $t('recipesPage.title') }}</h2>
           <p>{{ $t('recipesPage.totalRecipes', { count: recipesStore.recipes.length }) }}</p>
         </div>
-        <router-link to="/create-recipe" tabindex="-1">
-          <Button :type="ButtonType.BUTTON" :size="Size.LARGE">
-            <font-awesome-icon :icon="['fas', 'plus']" />
-            {{ $t('recipesPage.newRecipe') }}</Button
-          ></router-link
+        <Button :type="ButtonType.BUTTON" :size="Size.LARGE" to="/create-recipe">
+          <font-awesome-icon :icon="['fas', 'plus']" />
+          {{ $t('recipesPage.newRecipe') }}</Button
         >
       </section>
       <RecipeSearchOrder

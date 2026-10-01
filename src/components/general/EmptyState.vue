@@ -8,12 +8,15 @@
         <h3>{{ $t(title) }}</h3>
         <p>{{ $t(subtitle) }}</p>
       </div>
-      <router-link :to="buttonRoute" tabindex="-1">
-        <Button :type="ButtonType.BUTTON" :variant="ColorVariant.PRIMARY" :size="Size.LARGE">
-          <font-awesome-icon v-if="buttonIcon" :icon="['fas', buttonIcon]" />{{
-            $t(buttonText)
-          }}</Button
-        ></router-link
+      <Button
+        :type="ButtonType.BUTTON"
+        :variant="ColorVariant.PRIMARY"
+        :size="Size.LARGE"
+        :to="buttonRoute"
+      >
+        <font-awesome-icon v-if="buttonIcon" :icon="['fas', buttonIcon]" />{{
+          $t(buttonText)
+        }}</Button
       >
     </div>
   </div>

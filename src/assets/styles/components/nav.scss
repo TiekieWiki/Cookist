@@ -58,19 +58,6 @@ nav {
     justify-content: end;
     align-items: center;
     gap: var(--spacing-1);
-
-    .active {
-      button {
-        background-color: var(--color-secondary);
-        color: var(--color-secondary-text);
-        box-shadow: none;
-
-        &:hover,
-        &:focus {
-          background-color: color-mix(in srgb, var(--color-secondary) 80%, transparent);
-        }
-      }
-    }
   }
 }
 
@@ -94,6 +81,17 @@ aside {
   & > button:first-child {
     display: flex;
     align-self: end;
+  }
+}
+
+.button.active {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-text);
+  box-shadow: none;
+
+  &:hover,
+  &:focus {
+    background-color: color-mix(in srgb, var(--color-secondary) 80%, transparent);
   }
 }
 

@@ -5,6 +5,7 @@ export interface ButtonProps {
   type: ButtonType;
   size?: Size;
   disabled?: boolean;
+  to?: string;
 }
 
 export interface CheckBoxProps {

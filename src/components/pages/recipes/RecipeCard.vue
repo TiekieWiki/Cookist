@@ -2,7 +2,7 @@
   <router-link :id="recipe.id" :to="`/recipe/${recipe.id}`" tabindex="0">
     <section class="recipeCard">
       <div class="image">
-        <img :src="recipeImage" />
+        <img :src="recipeImage" :alt="recipe.name" />
         <Pill :variant="ColorVariant.SECONDARY" :size="Size.MEDIUM">
           {{ lastEaten ? lastEaten : $t('recipePage.neverCooked') }}
         </Pill>

@@ -6,10 +6,13 @@
         <p>{{ $t('homePage.forgottenRecipes.subtitle') }}</p>
       </div>
       <div class="actions">
-        <router-link to="/recipes" tabindex="-1">
-          <Button :type="ButtonType.BUTTON" :variant="ColorVariant.TERTIARY" :size="Size.LARGE">
-            {{ $t('homePage.forgottenRecipes.allRecipes') }}</Button
-          ></router-link
+        <Button
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.TERTIARY"
+          :size="Size.LARGE"
+          to="/recipes"
+        >
+          {{ $t('homePage.forgottenRecipes.allRecipes') }}</Button
         >
       </div>
     </section>

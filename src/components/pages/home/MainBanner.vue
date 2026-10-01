@@ -8,16 +8,23 @@
       <h1>{{ $t('homePage.banner.title') }}</h1>
       <p>{{ $t('homePage.banner.subtitle') }}</p>
       <div class="buttons">
-        <router-link to="/recipes" tabindex="-1"
-          ><Button :type="ButtonType.BUTTON" :variant="ColorVariant.PRIMARY" :size="Size.LARGE">
-            {{ $t('homePage.banner.browseRecipes')
-            }}<font-awesome-icon :icon="['fas', 'arrow-right']" /> </Button
-        ></router-link>
-        <router-link to="/create-recipe" tabindex="-1"
-          ><Button :type="ButtonType.BUTTON" :variant="ColorVariant.SECONDARY" :size="Size.LARGE">
-            {{ $t('homePage.banner.addRecipe') }}
-          </Button></router-link
+        <Button
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.PRIMARY"
+          :size="Size.LARGE"
+          to="/recipes"
         >
+          {{ $t('homePage.banner.browseRecipes')
+          }}<font-awesome-icon :icon="['fas', 'arrow-right']" />
+        </Button>
+        <Button
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.SECONDARY"
+          :size="Size.LARGE"
+          to="/create-recipe"
+        >
+          {{ $t('homePage.banner.addRecipe') }}
+        </Button>
       </div>
     </section>
     <section class="image">

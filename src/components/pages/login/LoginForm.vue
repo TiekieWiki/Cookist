@@ -20,7 +20,7 @@
           :label="$t('loginPage.email')"
           :placeholder="$t('loginPage.placeholder.email')"
           :ariaLabel="$t('loginPage.ariaLabel.email')"
-          type="text"
+          type="email"
           :autocomplete="AutoCompleteVariant.EMAIL"
           v-model:input="email"
         />
@@ -30,7 +30,9 @@
           :placeholder="$t('loginPage.placeholder.password')"
           :ariaLabel="$t('loginPage.ariaLabel.password')"
           type="password"
-          :autocomplete="AutoCompleteVariant.CURRENT_PASSWORD"
+          :autocomplete="
+            isRegistering ? AutoCompleteVariant.NEW_PASSWORD : AutoCompleteVariant.CURRENT_PASSWORD
+          "
           v-model:input="password"
         />
         <ErrorMessage v-model:message="loginErrorMessage" />

@@ -1,5 +1,8 @@
 <template>
-  <button :class="[variant, size]" :type="type" :disabled="disabled">
+  <router-link v-if="to" :to="to" :class="['button', variant, size]">
+    <slot></slot>
+  </router-link>
+  <button v-else :class="[variant, size]" :type="type" :disabled="disabled">
     <slot></slot>
   </button>
 </template>
@@ -11,7 +14,6 @@ import { type ButtonProps } from '@/utils/types/form';
 withDefaults(defineProps<ButtonProps>(), {
   variant: ColorVariant.PRIMARY,
   size: Size.MEDIUM,
-  required: false,
   disabled: false
 });
 </script>

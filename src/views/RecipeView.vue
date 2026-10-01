@@ -5,13 +5,16 @@
         <div class="loader-spinner"></div>
       </div>
       <article v-else-if="recipeStore.recipe.name" key="recipe">
-        <router-link to="/recipes" tabindex="-1">
-          <Button :type="ButtonType.BUTTON" :variant="ColorVariant.TERTIARY" :size="Size.LARGE">
-            <font-awesome-icon :icon="['fas', 'arrow-left']" />
-            {{ $t('recipePage.allRecipes') }}</Button
-          ></router-link
+        <Button
+          :type="ButtonType.BUTTON"
+          :variant="ColorVariant.TERTIARY"
+          :size="Size.LARGE"
+          to="/recipes"
         >
-        <img :src="recipeStore.recipeImage" />
+          <font-awesome-icon :icon="['fas', 'arrow-left']" />
+          {{ $t('recipePage.allRecipes') }}</Button
+        >
+        <img :src="recipeStore.recipeImage" :alt="recipeStore.recipe.name" />
         <ErrorMessage v-model:message="recipeStore.errorMessage" />
         <div class="content">
           <div class="main">
