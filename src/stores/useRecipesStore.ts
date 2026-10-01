@@ -9,8 +9,12 @@ import {
   type Filter
 } from '@/utils/types/orderFilter';
 import { type RecipeSummary } from '@/utils/types/recipe';
+import { DEFAULT_RECIPE_IMAGE_SRC } from '@/utils/global/variables';
 import { defineStore } from 'pinia';
 import { computed, ref, watch } from 'vue';
+
+const IMAGE_URL_LIFETIME = 3600;
+const IMAGE_URL_MARGIN = 300;
 
 /**
  * Clear an empty input, so the database function uses its default for the filter
@@ -23,6 +27,7 @@ function optional<T>(value: T | '' | null | undefined): T | undefined {
 
 export const useRecipesStore = defineStore('recipes', () => {
   const recipes = ref<RecipeSummary[]>([]);
+  const recipeImages = ref<Record<string, string>>({});
   const filter = ref<Filter>(emptyFilter());
   const orderBy = ref<OrderBy>(OrderBy.lastEaten);
   const orderDirection = ref<OrderDirection>(OrderDirection.asc);
@@ -40,6 +45,7 @@ export const useRecipesStore = defineStore('recipes', () => {
 
   let timeout: ReturnType<typeof setTimeout> | undefined;
   let latestRequest = 0;
+  let imagesExpireAt = 0;
 
   /**
    * Get recipes from database
@@ -72,9 +78,59 @@ export const useRecipesStore = defineStore('recipes', () => {
 
     if (recipesError || !data) {
       errorMessage.value = getErrorMessage('unknown');
-    } else {
-      recipes.value = data;
+      return;
     }
+
+    recipes.value = data;
+    await getRecipeImages(data.map((recipe) => recipe.id));
+  }
+
+  /**
+   * Get signed image URLs for the recipes in one request. URLs that are already known are reused
+   * until they are close to expiring, so cards that stay visible after a filter change keep their
+   * image.
+   * @param recipeIds Recipe ids
+   */
+  async function getRecipeImages(recipeIds: string[]): Promise<void> {
+    if (Date.now() > imagesExpireAt) {
+      recipeImages.value = {};
+    }
+
+    const missingIds = recipeIds.filter((id) => !(id in recipeImages.value));
+    if (!missingIds.length) return;
+
+    const imageRequest = latestRequest;
+
+    const { data, error } = await supabase.storage
+      .from('recipe_images')
+      .createSignedUrls(missingIds, IMAGE_URL_LIFETIME);
+
+    if (imageRequest !== latestRequest || error) return;
+
+    if (!Object.keys(recipeImages.value).length) {
+      imagesExpireAt = Date.now() + (IMAGE_URL_LIFETIME - IMAGE_URL_MARGIN) * 1000;
+    }
+
+    const signedUrls = new Map(
+      data.map((image) => [image.path, image.error ? null : image.signedUrl])
+    );
+
+    recipeImages.value = {
+      ...recipeImages.value,
+      ...Object.fromEntries(
+        missingIds.map((id) => [id, signedUrls.get(id) || DEFAULT_RECIPE_IMAGE_SRC])
+      )
+    };
+  }
+
+  /**
+   * Forget the image URL of a recipe, so the next load requests a fresh one after the image changed
+   * @param recipeId Recipe id
+   */
+  function forgetRecipeImage(recipeId: string): void {
+    const images = { ...recipeImages.value };
+    delete images[recipeId];
+    recipeImages.value = images;
   }
 
   /**
@@ -91,6 +147,8 @@ export const useRecipesStore = defineStore('recipes', () => {
     clearTimeout(timeout);
     latestRequest++;
     recipes.value = [];
+    recipeImages.value = {};
+    imagesExpireAt = 0;
     errorMessage.value = '';
   }
 
@@ -108,10 +166,12 @@ export const useRecipesStore = defineStore('recipes', () => {
 
   return {
     recipes,
+    recipeImages,
     filter,
     order,
     errorMessage,
     getRecipes,
+    forgetRecipeImage,
     resetFilter,
     clearRecipes
   };

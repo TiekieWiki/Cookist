@@ -7,6 +7,7 @@ import { supabase } from '@/utils/global/supabase';
 import { validateRecipe } from '@/utils/recipe/validateRecipe';
 import { formatDateAgo, toLocalISODate } from '@/utils/global/date';
 import { DEFAULT_RECIPE_IMAGE_SRC } from '@/utils/global/variables';
+import { useRecipesStore } from '@/stores/useRecipesStore';
 
 export const useRecipeStore = defineStore('recipe', () => {
   const recipe = ref<Recipe>(emptyRecipe());
@@ -123,6 +124,8 @@ export const useRecipeStore = defineStore('recipe', () => {
 
       if (uploadError) {
         errorMessage.value = getErrorMessage('unknown');
+      } else {
+        useRecipesStore().forgetRecipeImage(recipe.value.id);
       }
     }
 
@@ -197,7 +200,6 @@ export const useRecipeStore = defineStore('recipe', () => {
     isLoading,
     errorMessage,
     getRecipe,
-    getRecipeImage,
     setRecipe,
     setLastEaten,
     deleteRecipe,

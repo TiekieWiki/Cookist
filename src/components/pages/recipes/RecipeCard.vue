@@ -37,8 +37,8 @@
 <script lang="ts" setup>
 import type { RecipeSummary } from '@/utils/types/recipe';
 import { formatDateAgo } from '@/utils/global/date';
-import { computed, onMounted, ref } from 'vue';
-import { useRecipeStore } from '@/stores/useRecipeStore';
+import { computed } from 'vue';
+import { useRecipesStore } from '@/stores/useRecipesStore';
 import Pill from '@/components/general/Pill.vue';
 import { ColorVariant, Size } from '@/utils/types/enums';
 
@@ -46,14 +46,8 @@ const props = defineProps<{
   recipe: RecipeSummary;
 }>();
 
-const recipeStore = useRecipeStore();
+const recipesStore = useRecipesStore();
 
 const lastEaten = computed(() => formatDateAgo(props.recipe.last_eaten ?? null));
-const recipeImage = ref<string>('');
-
-onMounted(async () => {
-  if (props.recipe.id) {
-    recipeImage.value = await recipeStore.getRecipeImage(props.recipe.id);
-  }
-});
+const recipeImage = computed<string>(() => recipesStore.recipeImages[props.recipe.id] ?? '');
 </script>
