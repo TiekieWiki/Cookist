@@ -7,16 +7,14 @@
   $focus-border: var(--border-primary),
   $shadow: var(--box-shadow-small)
 ) {
+  --select-option-background: #{$option-background};
+
   background-color: transparent;
   border: $border;
   box-shadow: $shadow;
 
   &::after {
     background-color: $arrow;
-  }
-
-  option {
-    background-color: $option-background;
   }
 
   &:has(:focus-visible) {
@@ -62,6 +60,10 @@
     cursor: inherit;
   }
 
+  option {
+    background-color: var(--select-option-background);
+  }
+
   &.primary {
     @include select-variant(
       var(--border-primary),
@@ -93,5 +95,53 @@
 
   &.warning {
     @include select-variant(var(--border-warning), var(--color-warning));
+  }
+
+  @supports (appearance: base-select) {
+    select,
+    select::picker(select) {
+      appearance: base-select;
+    }
+
+    select {
+      display: flex;
+      align-items: center;
+      padding: 0;
+    }
+
+    select::picker-icon {
+      display: none;
+    }
+
+    select::picker(select) {
+      margin-top: var(--spacing-1);
+      padding: var(--spacing-1);
+      border: var(--border-secondary);
+      border-radius: var(--spacing-5);
+      background-color: var(--select-option-background);
+      color: var(--color-background-primary-text);
+      box-shadow: var(--box-shadow-small);
+    }
+
+    option {
+      background-color: transparent;
+      color: inherit;
+      padding: var(--spacing-2) var(--spacing-3);
+      border-radius: var(--spacing-4);
+
+      &:hover,
+      &:focus-visible {
+        background-color: var(--color-secondary);
+      }
+
+      &:checked {
+        background-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
+        color: var(--color-primary);
+      }
+
+      &::checkmark {
+        display: none;
+      }
+    }
   }
 }
