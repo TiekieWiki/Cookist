@@ -1,6 +1,14 @@
 import type { TranslationSchema } from './en';
 
 export const nl: TranslationSchema = {
+  general: {
+    ariaLabel: {
+      openMenu: 'Menu openen',
+      closeMenu: 'Menu sluiten',
+      close: 'Sluiten',
+      deleteRow: 'Rij verwijderen'
+    }
+  },
   homePage: {
     title: 'Home',
     banner: {
@@ -139,7 +147,8 @@ export const nl: TranslationSchema = {
       ratingMin: 'Minimum beoordeling van het recept',
       ratingMax: 'Maximum beoordeling van het recept',
       lastEatenMin: 'Minimum laatst gegeten van het recept',
-      lastEatenMax: 'Maximum laatst gegeten van het recept'
+      lastEatenMax: 'Maximum laatst gegeten van het recept',
+      closeFilters: 'Filters sluiten'
     }
   },
   recipePage: {
@@ -179,7 +188,12 @@ export const nl: TranslationSchema = {
     ariaLabel: {
       hours: 'Uren',
       minutes: 'Minuten',
-      seconds: 'Seconden'
+      seconds: 'Seconden',
+      decreaseServings: 'Minder porties',
+      increaseServings: 'Meer porties',
+      resetTimer: 'Timer resetten',
+      decreaseMinutes: 'Eén minuut minder',
+      increaseMinutes: 'Eén minuut meer'
     }
   },
   createRecipePage: {
@@ -272,7 +286,10 @@ export const nl: TranslationSchema = {
     emptyBasketSubtitle:
       'Open een recept en klik "Toevoegen aan boodschappenlijst" — alles komt hier terecht als een nette lijst.',
     browseRecipes: 'Recepten bekijken',
-    addIngredient: 'Ingredient toevoegen'
+    addIngredient: 'Ingredient toevoegen',
+    ariaLabel: {
+      deleteIngredient: '{name} verwijderen'
+    }
   },
   notFoundPage: {
     title: 'Pagina niet gevonden',

@@ -4,18 +4,27 @@
       <div v-if="openPopUp" class="overlay"></div>
     </Transition>
     <Transition name="pop">
-      <article v-if="openPopUp" class="confirmPopUp card">
+      <article
+        v-if="openPopUp"
+        ref="popUp"
+        class="confirmPopUp card"
+        role="alertdialog"
+        aria-modal="true"
+        :aria-labelledby="`${id}-title`"
+        :aria-describedby="`${id}-section`"
+      >
         <div class="title">
-          <h2>{{ $t(title) }}</h2>
+          <h2 :id="`${id}-title`">{{ $t(title) }}</h2>
           <Button
             @click="openPopUp = false"
+            :aria-label="$t('general.ariaLabel.close')"
             :type="ButtonType.BUTTON"
             :variant="ColorVariant.TERTIARY"
           >
             <font-awesome-icon :icon="['fas', 'xmark']" />
           </Button>
         </div>
-        <p>{{ $t(section) }}</p>
+        <p :id="`${id}-section`">{{ $t(section) }}</p>
         <div class="footer">
           <Button
             @click="openPopUp = false"
@@ -38,12 +47,19 @@
 </template>
 
 <script setup lang="ts">
+import { useId, useTemplateRef } from 'vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import Button from '../form/Button.vue';
 import { type ConfirmPopUpProps } from '@/utils/types/general';
+import { useFocusTrap } from '@/composables/useFocusTrap';
 
 defineProps<ConfirmPopUpProps>();
 
 const emit = defineEmits<{ confirm: [boolean] }>();
 const openPopUp = defineModel<boolean>('openPopUp');
+
+const id = useId();
+const popUp = useTemplateRef<HTMLElement>('popUp');
+
+useFocusTrap(popUp, openPopUp);
 </script>

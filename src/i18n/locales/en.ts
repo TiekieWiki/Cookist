@@ -1,4 +1,12 @@
 export const en = {
+  general: {
+    ariaLabel: {
+      openMenu: 'Open menu',
+      closeMenu: 'Close menu',
+      close: 'Close',
+      deleteRow: 'Delete row'
+    }
+  },
   homePage: {
     title: 'Home',
     banner: {
@@ -133,7 +141,8 @@ export const en = {
       ratingMin: 'Minimum rating of the recipe',
       ratingMax: 'Maximum rating of the recipe',
       lastEatenMin: 'Minimum last eaten of the recipe',
-      lastEatenMax: 'Maximum last eaten of the recipe'
+      lastEatenMax: 'Maximum last eaten of the recipe',
+      closeFilters: 'Close filters'
     }
   },
   recipePage: {
@@ -173,7 +182,12 @@ export const en = {
     ariaLabel: {
       hours: 'Hours',
       minutes: 'Minutes',
-      seconds: 'Seconds'
+      seconds: 'Seconds',
+      decreaseServings: 'Fewer servings',
+      increaseServings: 'More servings',
+      resetTimer: 'Reset timer',
+      decreaseMinutes: 'One minute less',
+      increaseMinutes: 'One minute more'
     }
   },
   createRecipePage: {
@@ -264,7 +278,10 @@ export const en = {
     emptyBasketSubtitle:
       'Open a recipe and tap "Add to grocery list" — everything lands here as one tidy list.',
     browseRecipes: 'Browse recipes',
-    addIngredient: 'Add ingredient'
+    addIngredient: 'Add ingredient',
+    ariaLabel: {
+      deleteIngredient: 'Remove {name}'
+    }
   },
   notFoundPage: {
     title: 'Page not found',

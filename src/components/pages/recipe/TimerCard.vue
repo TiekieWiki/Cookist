@@ -23,7 +23,12 @@
           ><font-awesome-icon :icon="['fas', 'play']" />{{ $t('recipePage.start') }}</template
         >
       </Button>
-      <Button :type="ButtonType.BUTTON" :variant="ColorVariant.SECONDARY" @click="resetTimer">
+      <Button
+        :type="ButtonType.BUTTON"
+        :variant="ColorVariant.SECONDARY"
+        :aria-label="$t('recipePage.ariaLabel.resetTimer')"
+        @click="resetTimer"
+      >
         <font-awesome-icon :icon="['fas', 'rotate-left']" />
       </Button>
     </div>
@@ -31,6 +36,7 @@
       <Button
         :type="ButtonType.BUTTON"
         :variant="ColorVariant.SECONDARY"
+        :aria-label="$t('recipePage.ariaLabel.decreaseMinutes')"
         @click="time.minutes = Math.max(time.minutes - 1, 0)"
       >
         <font-awesome-icon :icon="['fas', 'minus']" />
@@ -61,7 +67,12 @@
         type="number"
         v-model:input="time.seconds"
       />
-      <Button :type="ButtonType.BUTTON" :variant="ColorVariant.SECONDARY" @click="time.minutes++">
+      <Button
+        :type="ButtonType.BUTTON"
+        :variant="ColorVariant.SECONDARY"
+        :aria-label="$t('recipePage.ariaLabel.increaseMinutes')"
+        @click="time.minutes++"
+      >
         <font-awesome-icon :icon="['fas', 'plus']"
       /></Button>
     </div>

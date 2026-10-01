@@ -20,6 +20,7 @@
         v-if="!menuOpen"
         class="mobile"
         @click.stop="menuOpen = true"
+        :aria-label="$t('general.ariaLabel.openMenu')"
         :type="ButtonType.BUTTON"
         :variant="ColorVariant.TERTIARY"
         :size="Size.LARGE"
@@ -35,6 +36,7 @@
     <aside v-if="menuOpen" class="mobile">
       <Button
         @click="menuOpen = false"
+        :aria-label="$t('general.ariaLabel.closeMenu')"
         :type="ButtonType.BUTTON"
         :variant="ColorVariant.TERTIARY"
         :size="Size.LARGE"

@@ -6,6 +6,7 @@
         <div class="servings">
           <Button
             @click="portionCount = Math.max(portionCount - 1, 1)"
+            :aria-label="$t('recipePage.ariaLabel.decreaseServings')"
             :type="ButtonType.BUTTON"
             :variant="ColorVariant.SECONDARY"
           >
@@ -17,6 +18,7 @@
           </p>
           <Button
             @click="portionCount++"
+            :aria-label="$t('recipePage.ariaLabel.increaseServings')"
             :type="ButtonType.BUTTON"
             :variant="ColorVariant.SECONDARY"
           >
@@ -25,6 +27,7 @@
         </div>
         <Button
           @click="groceryListStore.setGroceryList(portionedIngredients)"
+          :aria-label="$t('recipePage.addToGroceryList')"
           :type="ButtonType.SUBMIT"
           :variant="ColorVariant.SECONDARY"
         >

@@ -8,6 +8,7 @@
           <slot :index="index"></slot>
           <Button
             @click="deleteRow(items!, index, empty)"
+            :aria-label="$t('general.ariaLabel.deleteRow')"
             :type="ButtonType.BUTTON"
             :variant="ColorVariant.TERTIARY"
             :size="Size.MEDIUM"

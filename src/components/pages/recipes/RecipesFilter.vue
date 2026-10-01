@@ -7,6 +7,7 @@
         :variant="ColorVariant.TERTIARY"
         :size="Size.LARGE"
         @click="openFilters = !openFilters"
+        :aria-label="$t('recipesPage.ariaLabel.closeFilters')"
       >
         <font-awesome-icon :icon="['fas', 'xmark']" />
       </Button>

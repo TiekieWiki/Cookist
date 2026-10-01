@@ -24,6 +24,7 @@
           <Button
             :type="ButtonType.BUTTON"
             :variant="ColorVariant.TERTIARY"
+            :aria-label="$t('groceryListPage.ariaLabel.deleteIngredient', { name: item.name })"
             @click="
               groceryListStore.deleteGroceryListIngredient(groceryListStore.groceryList[index].id!)
             "
@@ -36,6 +37,7 @@
         <IngredientInputRow name="new-ingredient" v-model:ingredient="ingredient" />
         <Button
           @click="groceryListStore.setGroceryList(ingredient)"
+          :aria-label="$t('groceryListPage.addIngredient')"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.PRIMARY"
         >
