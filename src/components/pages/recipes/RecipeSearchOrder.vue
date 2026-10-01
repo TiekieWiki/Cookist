@@ -9,7 +9,7 @@
       :required="false"
       :disabled="false"
       :autocomplete="AutoCompleteVariant.OFF"
-      v-model:input="filter.name"
+      v-model:input="recipesStore.filter.name"
     />
     <SelectField
       id="order"
@@ -18,7 +18,7 @@
       :required="false"
       :items="orderCategories"
       labelPrefix="recipesPage.orders."
-      v-model:selected="order"
+      v-model:selected="recipesStore.order"
     />
     <Button
       class="mobile"
@@ -36,14 +36,14 @@
 <script setup lang="ts">
 import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
-import { type Filter, RecipeOrderCategories } from '@/utils/types/orderFilter';
 import { AutoCompleteVariant, ButtonType, ColorVariant, Size } from '@/utils/types/enums';
 import Button from '@/components/form/Button.vue';
 import { recipeOrders } from '@/utils/recipes/order';
+import { useRecipesStore } from '@/stores/useRecipesStore';
 
 const openFilters = defineModel<boolean>('openFilters', { required: true });
-const filter = defineModel<Filter>('filter', { required: true });
-const order = defineModel<RecipeOrderCategories>('order', { required: true });
+
+const recipesStore = useRecipesStore();
 
 const orderCategories = recipeOrders.map((recipeOrder) => ({
   value: recipeOrder.value,

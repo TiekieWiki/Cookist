@@ -17,7 +17,7 @@
       </div>
     </section>
     <section class="recipesList">
-      <RecipeGrid :recipes="forgottenRecipes" />
+      <RecipeGrid :recipes="forgottenRecipes" :images="recipeImages" />
     </section>
   </article>
 </template>
@@ -28,11 +28,15 @@ import Button from '@/components/form/Button.vue';
 import { onMounted, ref } from 'vue';
 import type { RecipeSummary } from '@/utils/types/recipe.ts';
 import { getForgottenRecipes } from '@/utils/home/forgottenRecipes.ts';
+import { getRecipeImageUrls } from '@/utils/recipe/recipeImages';
 import RecipeGrid from '../recipes/RecipeGrid.vue';
 
 const forgottenRecipes = ref<RecipeSummary[]>([]);
+const recipeImages = ref<Record<string, string>>({});
 
 onMounted(async () => {
   forgottenRecipes.value = await getForgottenRecipes();
+  recipeImages.value =
+    (await getRecipeImageUrls(forgottenRecipes.value.map((recipe) => recipe.id))) ?? {};
 });
 </script>

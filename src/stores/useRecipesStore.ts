@@ -9,12 +9,11 @@ import {
   type Filter
 } from '@/utils/types/orderFilter';
 import { type RecipeSummary } from '@/utils/types/recipe';
-import { DEFAULT_RECIPE_IMAGE_SRC } from '@/utils/global/variables';
+import { getRecipeImageUrls, IMAGE_URL_LIFETIME } from '@/utils/recipe/recipeImages';
 import { defineStore } from 'pinia';
 import { useLoading } from '@/composables/useLoading';
 import { computed, ref, watch } from 'vue';
 
-const IMAGE_URL_LIFETIME = 3600;
 const IMAGE_URL_MARGIN = 300;
 
 /**
@@ -108,26 +107,15 @@ export const useRecipesStore = defineStore('recipes', () => {
 
       const imageRequest = latestRequest;
 
-      const { data, error } = await supabase.storage
-        .from('recipe_images')
-        .createSignedUrls(missingIds, IMAGE_URL_LIFETIME);
+      const images = await getRecipeImageUrls(missingIds);
 
-      if (imageRequest !== latestRequest || error) return;
+      if (imageRequest !== latestRequest || !images) return;
 
       if (!Object.keys(recipeImages.value).length) {
         imagesExpireAt = Date.now() + (IMAGE_URL_LIFETIME - IMAGE_URL_MARGIN) * 1000;
       }
 
-      const signedUrls = new Map(
-        data.map((image) => [image.path, image.error ? null : image.signedUrl])
-      );
-
-      recipeImages.value = {
-        ...recipeImages.value,
-        ...Object.fromEntries(
-          missingIds.map((id) => [id, signedUrls.get(id) || DEFAULT_RECIPE_IMAGE_SRC])
-        )
-      };
+      recipeImages.value = { ...recipeImages.value, ...images };
     }
   );
 

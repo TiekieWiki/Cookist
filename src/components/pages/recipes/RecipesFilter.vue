@@ -17,7 +17,7 @@
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.TERTIARY"
           :size="Size.SMALL"
-          @click="emit('reset', true)"
+          @click="recipesStore.resetFilter()"
         >
           {{ $t('recipesPage.reset') }}
         </Button>
@@ -28,7 +28,7 @@
         name="category"
         :label="$t('general.recipe.category')"
         :items="categories"
-        v-model:selected="filter.category"
+        v-model:selected="recipesStore.filter.category"
       />
       <div class="divider"></div>
       <div class="range">
@@ -38,14 +38,14 @@
           :label="$t('recipesPage.lastEaten')"
           :ariaLabel="$t('recipesPage.ariaLabel.lastEatenMin')"
           type="date"
-          v-model:input="filter.lastEatenMin"
+          v-model:input="recipesStore.filter.lastEatenMin"
         />
         <InputField
           id="lastEatenMax"
           name="lastEatenMax"
           :ariaLabel="$t('recipesPage.ariaLabel.lastEatenMax')"
           type="date"
-          v-model:input="filter.lastEatenMax"
+          v-model:input="recipesStore.filter.lastEatenMax"
         />
       </div>
       <div class="divider"></div>
@@ -59,7 +59,7 @@
           type="number"
           :min="0"
           :max="10080"
-          v-model:input="filter.durationMin"
+          v-model:input="recipesStore.filter.durationMin"
         />
         <InputField
           id="durationMax"
@@ -69,7 +69,7 @@
           type="number"
           :min="0"
           :max="10080"
-          v-model:input="filter.durationMax"
+          v-model:input="recipesStore.filter.durationMax"
         />
       </div>
       <div class="divider"></div>
@@ -83,7 +83,7 @@
           type="number"
           :min="0"
           :max="5"
-          v-model:input="filter.ratingMin"
+          v-model:input="recipesStore.filter.ratingMin"
         />
         <InputField
           id="ratingMax"
@@ -93,7 +93,7 @@
           type="number"
           :min="0"
           :max="5"
-          v-model:input="filter.ratingMax"
+          v-model:input="recipesStore.filter.ratingMax"
         />
       </div>
       <div class="divider"></div>
@@ -101,7 +101,7 @@
         id="ingredients"
         :label="$t('general.recipe.ingredients')"
         :colAmount="ColAmount.TWO"
-        v-model:items="filter.ingredients"
+        v-model:items="recipesStore.filter.ingredients"
         v-slot="{ index }"
       >
         <InputField
@@ -109,8 +109,10 @@
           :placeholder="$t('general.recipe.placeholder.ingredient')"
           :ariaLabel="$t('general.recipe.ariaLabel.ingredient')"
           type="text"
-          v-model:input="filter.ingredients[index].name"
-          @input="index < 9 ? addInputRow(filter.ingredients, index, { name: '' }) : null"
+          v-model:input="recipesStore.filter.ingredients[index].name"
+          @input="
+            index < 9 ? addInputRow(recipesStore.filter.ingredients, index, { name: '' }) : null
+          "
         />
       </InputList>
     </aside>
@@ -122,19 +124,18 @@ import InputField from '@/components/form/InputField.vue';
 import InputList from '@/components/form/InputList.vue';
 import { addInputRow } from '@/utils/global/list';
 import { ButtonType, ColAmount, ColorVariant, Size } from '@/utils/types/enums';
-import type { Filter } from '@/utils/types/orderFilter';
 import type { RadioButtonItemProps } from '@/utils/types/form';
 import { RecipeCategories } from '@/utils/types/recipe';
 import Button from '@/components/form/Button.vue';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import RadioButtonList from '@/components/form/RadioButtonList.vue';
+import { useRecipesStore } from '@/stores/useRecipesStore';
 
 const openFilters = defineModel<boolean>('openFilters', { required: true });
-const filter = defineModel<Filter>('filter', { required: true });
-const emit = defineEmits<{ reset: [boolean] }>();
 
 const { t } = useI18n();
+const recipesStore = useRecipesStore();
 
 const desktop = window.matchMedia('(min-width: 1101px)');
 const isDesktop = ref<boolean>(desktop.matches);

@@ -11,17 +11,9 @@
           {{ $t('recipesPage.newRecipe') }}</Button
         >
       </section>
-      <RecipeSearchOrder
-        v-model:open-filters="openFilters"
-        v-model:filter="recipesStore.filter"
-        v-model:order="recipesStore.order"
-      />
+      <RecipeSearchOrder v-model:open-filters="openFilters" />
       <div class="filtersRecipes">
-        <RecipesFilter
-          v-model:open-filters="openFilters"
-          v-model:filter="recipesStore.filter"
-          @reset="recipesStore.resetFilter"
-        />
+        <RecipesFilter v-model:open-filters="openFilters" />
         <section class="recipesList">
           <ErrorMessage v-model:message="recipesStore.errorMessage" />
           <Transition name="fade" mode="out-in">
@@ -39,7 +31,12 @@
               button-icon="plus"
               button-route="/create-recipe"
             />
-            <RecipeGrid v-else key="list" :recipes="recipesStore.recipes" />
+            <RecipeGrid
+              v-else
+              key="list"
+              :recipes="recipesStore.recipes"
+              :images="recipesStore.recipeImages"
+            />
           </Transition>
         </section>
       </div>
