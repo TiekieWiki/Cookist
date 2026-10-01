@@ -11,6 +11,7 @@ import {
 import { type RecipeSummary } from '@/utils/types/recipe';
 import { DEFAULT_RECIPE_IMAGE_SRC } from '@/utils/global/variables';
 import { defineStore } from 'pinia';
+import { useLoading } from '@/composables/useLoading';
 import { computed, ref, watch } from 'vue';
 
 const IMAGE_URL_LIFETIME = 3600;
@@ -26,6 +27,10 @@ function optional<T>(value: T | '' | null | undefined): T | undefined {
 }
 
 export const useRecipesStore = defineStore('recipes', () => {
+  const { isLoading, isLoadingAction, trackLoading } = useLoading<
+    'getRecipes' | 'getRecipeImages'
+  >();
+
   const recipes = ref<RecipeSummary[]>([]);
   const recipeImages = ref<Record<string, string>>({});
   const filter = ref<Filter>(emptyFilter());
@@ -50,7 +55,7 @@ export const useRecipesStore = defineStore('recipes', () => {
   /**
    * Get recipes from database
    */
-  async function getRecipes(): Promise<void> {
+  const getRecipes = trackLoading('getRecipes', async (): Promise<void> => {
     const request = ++latestRequest;
     errorMessage.value = '';
 
@@ -83,7 +88,7 @@ export const useRecipesStore = defineStore('recipes', () => {
 
     recipes.value = data;
     await getRecipeImages(data.map((recipe) => recipe.id));
-  }
+  });
 
   /**
    * Get signed image URLs for the recipes in one request. URLs that are already known are reused
@@ -91,37 +96,40 @@ export const useRecipesStore = defineStore('recipes', () => {
    * image.
    * @param recipeIds Recipe ids
    */
-  async function getRecipeImages(recipeIds: string[]): Promise<void> {
-    if (Date.now() > imagesExpireAt) {
-      recipeImages.value = {};
+  const getRecipeImages = trackLoading(
+    'getRecipeImages',
+    async (recipeIds: string[]): Promise<void> => {
+      if (Date.now() > imagesExpireAt) {
+        recipeImages.value = {};
+      }
+
+      const missingIds = recipeIds.filter((id) => !(id in recipeImages.value));
+      if (!missingIds.length) return;
+
+      const imageRequest = latestRequest;
+
+      const { data, error } = await supabase.storage
+        .from('recipe_images')
+        .createSignedUrls(missingIds, IMAGE_URL_LIFETIME);
+
+      if (imageRequest !== latestRequest || error) return;
+
+      if (!Object.keys(recipeImages.value).length) {
+        imagesExpireAt = Date.now() + (IMAGE_URL_LIFETIME - IMAGE_URL_MARGIN) * 1000;
+      }
+
+      const signedUrls = new Map(
+        data.map((image) => [image.path, image.error ? null : image.signedUrl])
+      );
+
+      recipeImages.value = {
+        ...recipeImages.value,
+        ...Object.fromEntries(
+          missingIds.map((id) => [id, signedUrls.get(id) || DEFAULT_RECIPE_IMAGE_SRC])
+        )
+      };
     }
-
-    const missingIds = recipeIds.filter((id) => !(id in recipeImages.value));
-    if (!missingIds.length) return;
-
-    const imageRequest = latestRequest;
-
-    const { data, error } = await supabase.storage
-      .from('recipe_images')
-      .createSignedUrls(missingIds, IMAGE_URL_LIFETIME);
-
-    if (imageRequest !== latestRequest || error) return;
-
-    if (!Object.keys(recipeImages.value).length) {
-      imagesExpireAt = Date.now() + (IMAGE_URL_LIFETIME - IMAGE_URL_MARGIN) * 1000;
-    }
-
-    const signedUrls = new Map(
-      data.map((image) => [image.path, image.error ? null : image.signedUrl])
-    );
-
-    recipeImages.value = {
-      ...recipeImages.value,
-      ...Object.fromEntries(
-        missingIds.map((id) => [id, signedUrls.get(id) || DEFAULT_RECIPE_IMAGE_SRC])
-      )
-    };
-  }
+  );
 
   /**
    * Forget the image URL of a recipe, so the next load requests a fresh one after the image changed
@@ -165,6 +173,8 @@ export const useRecipesStore = defineStore('recipes', () => {
   watch([orderBy, orderDirection], getRecipes);
 
   return {
+    isLoading,
+    isLoadingAction,
     recipes,
     recipeImages,
     filter,

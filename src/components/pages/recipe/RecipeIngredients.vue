@@ -27,6 +27,8 @@
         </div>
         <Button
           @click="groceryListStore.setGroceryList(portionedIngredients)"
+          :disabled="groceryListStore.isLoadingAction('setGroceryList')"
+          :aria-busy="groceryListStore.isLoadingAction('setGroceryList')"
           :aria-label="$t('recipePage.addToGroceryList')"
           :type="ButtonType.SUBMIT"
           :variant="ColorVariant.SECONDARY"

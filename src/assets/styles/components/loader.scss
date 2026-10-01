@@ -2,8 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: calc(100vw - 2 * var(--spacing-3));
-  height: calc(100vh - 2 * var(--spacing-3));
+  width: 100%;
+  margin-top: var(--spacing-15);
 
   .loader-spinner {
     width: 60px;

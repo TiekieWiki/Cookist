@@ -11,6 +11,7 @@ export interface ConfirmPopUpProps {
   section: string;
   cancel: string;
   confirm: string;
+  loading?: boolean;
 }
 
 export interface EmptyStateProps {

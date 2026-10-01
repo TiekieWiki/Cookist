@@ -25,8 +25,12 @@
         <section class="recipesList">
           <ErrorMessage v-model:message="recipesStore.errorMessage" />
           <Transition name="fade" mode="out-in">
+            <LoadingSpinner
+              v-if="recipesStore.isLoadingAction('getRecipes') && !recipesStore.recipes.length"
+              key="loading"
+            />
             <EmptyState
-              v-if="recipesStore.recipes.length <= 0"
+              v-else-if="recipesStore.recipes.length <= 0"
               key="empty"
               icon="wine-glass-empty"
               title="recipesPage.noRecipes"
@@ -44,12 +48,13 @@
 </template>
 
 <script setup lang="ts">
+import LoadingSpinner from '@/components/general/LoadingSpinner.vue';
 import RecipeSearchOrder from '@/components/pages/recipes/RecipeSearchOrder.vue';
 import Button from '@/components/form/Button.vue';
 import { ButtonType, Size } from '@/utils/types/enums';
 import { useRecipesStore } from '@/stores/useRecipesStore';
 import RecipeGrid from '@/components/pages/recipes/RecipeGrid.vue';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import RecipesFilter from '@/components/pages/recipes/RecipesFilter.vue';
 import EmptyState from '@/components/general/EmptyState.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
@@ -57,7 +62,5 @@ import ErrorMessage from '@/components/form/ErrorMessage.vue';
 const recipesStore = useRecipesStore();
 const openFilters = ref<boolean>(false);
 
-onMounted(() => {
-  recipesStore.getRecipes();
-});
+recipesStore.getRecipes();
 </script>

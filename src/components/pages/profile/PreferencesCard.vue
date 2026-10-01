@@ -38,6 +38,8 @@
     <ErrorMessage v-model:message="profileStore.errorMessage" />
     <Button
       @click="saveSettings"
+      :disabled="profileStore.isLoadingAction('setProfile')"
+      :aria-busy="profileStore.isLoadingAction('setProfile')"
       :type="ButtonType.BUTTON"
       :variant="ColorVariant.PRIMARY"
       :size="Size.LARGE"

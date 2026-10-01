@@ -4,19 +4,22 @@ import { useUserStore } from '@/stores/useUserStore';
 import { getErrorMessage } from './errorHandling';
 
 /**
- * Get the current user
+ * Get the current user. Waits for the session to be restored first, so actions started while the
+ * page loads do not fail for a user who is logged in.
  * @param errorMessage Error message to set when there is no user
- * @returns {User | null} The current user, or null when there is no user
+ * @returns {Promise<User | null>} The current user, or null when there is no user
  */
-export function requireUser(errorMessage: Ref<string>): User | null {
+export async function requireUser(errorMessage: Ref<string>): Promise<User | null> {
   const userStore = useUserStore();
 
   errorMessage.value = '';
 
-  if (!userStore.user) {
+  const user = await userStore.waitForUser();
+
+  if (!user) {
     errorMessage.value = userStore.errorMessage || getErrorMessage('unknown');
     return null;
   }
 
-  return userStore.user;
+  return user;
 }

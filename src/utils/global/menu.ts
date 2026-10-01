@@ -14,7 +14,7 @@ export function menuItems(): MenuItem[] {
       name: 'general.pageTitles.recipes'
     },
     {
-      route: 'grocery-list',
+      route: '/grocery-list',
       name: 'general.pageTitles.groceryList'
     },
     {

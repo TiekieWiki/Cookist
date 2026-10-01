@@ -4,7 +4,8 @@ const messages = {
       openMenu: 'Open menu',
       closeMenu: 'Close menu',
       close: 'Close',
-      deleteRow: 'Delete row'
+      deleteRow: 'Delete row',
+      loading: 'Loading'
     },
     actions: {
       cancel: 'Cancel',

@@ -1,9 +1,7 @@
 <template>
   <main class="editRecipe">
     <Transition name="fade" mode="out-in">
-      <div v-if="recipeStore.isLoading" key="loading" class="loader">
-        <div class="loader-spinner"></div>
-      </div>
+      <LoadingSpinner v-if="recipeStore.isLoadingAction('getRecipe')" key="loading" />
       <article v-else-if="$route.params.recipeId && !recipeStore.recipe.name" key="notFound">
         <EmptyState
           icon="martini-glass-empty"
@@ -26,7 +24,11 @@
         >
         <div>
           <h2>
-            {{ $route.params.recipeId ? $t('general.pageTitles.editRecipe') : $t('general.pageTitles.createRecipe') }}
+            {{
+              $route.params.recipeId
+                ? $t('general.pageTitles.editRecipe')
+                : $t('general.pageTitles.createRecipe')
+            }}
           </h2>
           <p>{{ $t('editRecipePage.subtitle') }}</p>
         </div>
@@ -41,6 +43,8 @@
             <Button
               @click="saveRecipe()"
               id="save"
+              :disabled="recipeStore.isLoadingAction('setRecipe')"
+              :aria-busy="recipeStore.isLoadingAction('setRecipe')"
               :type="ButtonType.BUTTON"
               :variant="ColorVariant.PRIMARY"
               :size="Size.LARGE"
@@ -63,6 +67,7 @@
 </template>
 
 <script setup lang="ts">
+import LoadingSpinner from '@/components/general/LoadingSpinner.vue';
 import { useEditRecipe } from '@/composables/useEditRecipe';
 import { useRecipeStore } from '@/stores/useRecipeStore';
 import Button from '@/components/form/Button.vue';

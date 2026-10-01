@@ -1,5 +1,6 @@
 import { emptyRecipe, type Recipe, type RecipeDetails } from '@/utils/types/recipe';
 import { defineStore } from 'pinia';
+import { useLoading } from '@/composables/useLoading';
 import { computed, ref } from 'vue';
 import { getErrorMessage } from '@/utils/global/errorHandling';
 import { requireUser } from '@/utils/global/requireUser';
@@ -10,11 +11,14 @@ import { DEFAULT_RECIPE_IMAGE_SRC } from '@/utils/global/variables';
 import { useRecipesStore } from '@/stores/useRecipesStore';
 
 export const useRecipeStore = defineStore('recipe', () => {
+  const { isLoading, isLoadingAction, trackLoading } = useLoading<
+    'getRecipe' | 'setRecipe' | 'setLastEaten' | 'deleteRecipe'
+  >();
+
   const recipe = ref<Recipe>(emptyRecipe());
   const recipeImage = ref<string>(DEFAULT_RECIPE_IMAGE_SRC);
   const lastEatenDate = ref<string | null>(null);
   const lastEatenRecipe = computed<string>(() => formatDateAgo(lastEatenDate.value));
-  const isLoading = ref<boolean>(false);
   const errorMessage = ref<string>('');
 
   let latestRequest = 0;
@@ -39,19 +43,16 @@ export const useRecipeStore = defineStore('recipe', () => {
    * Get recipe from database
    * @param recipeId Recipe id
    */
-  async function getRecipe(recipeId: string): Promise<void> {
+  const getRecipe = trackLoading('getRecipe', async (recipeId: string): Promise<void> => {
     clearRecipe();
 
     const request = latestRequest;
-    isLoading.value = true;
 
     const { data, error: recipeError } = await supabase.rpc('get_recipe', {
       p_recipe_id: recipeId
     });
 
     if (request !== latestRequest) return;
-
-    isLoading.value = false;
 
     if (recipeError || !data) {
       errorMessage.value = getErrorMessage('unknown');
@@ -68,7 +69,7 @@ export const useRecipeStore = defineStore('recipe', () => {
     if (request === latestRequest) {
       recipeImage.value = image;
     }
-  }
+  });
 
   /**
    * Save recipe to database
@@ -76,67 +77,70 @@ export const useRecipeStore = defineStore('recipe', () => {
    * @param image Image to save
    * @returns {Promise<string | null>} Id of the saved recipe, also when only the image upload failed
    */
-  async function setRecipe(newRecipe: Recipe, image: File | null): Promise<string | null> {
-    errorMessage.value = '';
+  const setRecipe = trackLoading(
+    'setRecipe',
+    async (newRecipe: Recipe, image: File | null): Promise<string | null> => {
+      errorMessage.value = '';
 
-    const message = validateRecipe(newRecipe);
+      const message = validateRecipe(newRecipe);
 
-    if (message) {
-      errorMessage.value = message;
-      return null;
-    }
-
-    const user = requireUser(errorMessage);
-    if (!user) return null;
-
-    const recipeParams = {
-      p_name: newRecipe.name,
-      p_category: newRecipe.category,
-      p_duration: Number(newRecipe.duration),
-      p_portions: Number(newRecipe.portions),
-      p_rating: Number(newRecipe.rating),
-      p_notes: newRecipe.notes ?? '',
-      p_ingredients: newRecipe.ingredients,
-      p_instructions: newRecipe.instructions
-    };
-
-    const { data: recipeData, error: recipeError } = newRecipe.id
-      ? await supabase.rpc('update_recipe', { p_recipe_id: newRecipe.id, ...recipeParams })
-      : await supabase.rpc('create_recipe', recipeParams);
-
-    if (recipeError || !recipeData) {
-      errorMessage.value = getErrorMessage('unknown');
-      return null;
-    }
-
-    recipe.value = {
-      ...newRecipe,
-      ...recipeData,
-      notes: recipeData.notes ?? undefined
-    };
-
-    if (image) {
-      const { error: uploadError } = await supabase.storage
-        .from('recipe_images')
-        .upload(recipe.value.id, image, {
-          upsert: true
-        });
-
-      if (uploadError) {
-        errorMessage.value = getErrorMessage('unknown');
-      } else {
-        useRecipesStore().forgetRecipeImage(recipe.value.id);
+      if (message) {
+        errorMessage.value = message;
+        return null;
       }
-    }
 
-    return recipe.value.id;
-  }
+      const user = await requireUser(errorMessage);
+      if (!user) return null;
+
+      const recipeParams = {
+        p_name: newRecipe.name,
+        p_category: newRecipe.category,
+        p_duration: Number(newRecipe.duration),
+        p_portions: Number(newRecipe.portions),
+        p_rating: Number(newRecipe.rating),
+        p_notes: newRecipe.notes ?? '',
+        p_ingredients: newRecipe.ingredients,
+        p_instructions: newRecipe.instructions
+      };
+
+      const { data: recipeData, error: recipeError } = newRecipe.id
+        ? await supabase.rpc('update_recipe', { p_recipe_id: newRecipe.id, ...recipeParams })
+        : await supabase.rpc('create_recipe', recipeParams);
+
+      if (recipeError || !recipeData) {
+        errorMessage.value = getErrorMessage('unknown');
+        return null;
+      }
+
+      recipe.value = {
+        ...newRecipe,
+        ...recipeData,
+        notes: recipeData.notes ?? undefined
+      };
+
+      if (image) {
+        const { error: uploadError } = await supabase.storage
+          .from('recipe_images')
+          .upload(recipe.value.id, image, {
+            upsert: true
+          });
+
+        if (uploadError) {
+          errorMessage.value = getErrorMessage('unknown');
+        } else {
+          useRecipesStore().forgetRecipeImage(recipe.value.id);
+        }
+      }
+
+      return recipe.value.id;
+    }
+  );
 
   /**
    * Update last eaten date of recipe to today, in the user's timezone
    */
-  async function setLastEaten(): Promise<void> {
-    const user = requireUser(errorMessage);
+  const setLastEaten = trackLoading('setLastEaten', async (): Promise<void> => {
+    const user = await requireUser(errorMessage);
     if (!user) return;
 
     const { data, error } = await supabase
@@ -154,15 +158,15 @@ export const useRecipeStore = defineStore('recipe', () => {
     } else {
       lastEatenDate.value = data.last_eaten;
     }
-  }
+  });
 
   /**
    * Delete recipe and its image from database. The recipe is deleted first, so a failed delete
    * never leaves a recipe without its image.
    * @param recipeId Recipe id
    */
-  async function deleteRecipe(recipeId: string): Promise<void> {
-    const user = requireUser(errorMessage);
+  const deleteRecipe = trackLoading('deleteRecipe', async (recipeId: string): Promise<void> => {
+    const user = await requireUser(errorMessage);
     if (!user) return;
 
     const { error: recipeError } = await supabase.from('recipes').delete().eq('id', recipeId);
@@ -177,7 +181,7 @@ export const useRecipeStore = defineStore('recipe', () => {
     }
 
     clearRecipe();
-  }
+  });
 
   /**
    * Clear recipe and ignore running requests, for example before loading another recipe or after
@@ -188,16 +192,16 @@ export const useRecipeStore = defineStore('recipe', () => {
     recipe.value = emptyRecipe();
     recipeImage.value = DEFAULT_RECIPE_IMAGE_SRC;
     lastEatenDate.value = null;
-    isLoading.value = false;
     errorMessage.value = '';
   }
 
   return {
+    isLoading,
+    isLoadingAction,
     recipe,
     recipeImage,
     lastEatenDate,
     lastEatenRecipe,
-    isLoading,
     errorMessage,
     getRecipe,
     setRecipe,

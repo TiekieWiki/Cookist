@@ -1,9 +1,7 @@
 <template>
   <main class="recipe">
     <Transition name="fade" mode="out-in">
-      <div v-if="recipeStore.isLoading" key="loading" class="loader">
-        <div class="loader-spinner"></div>
-      </div>
+      <LoadingSpinner v-if="recipeStore.isLoadingAction('getRecipe')" key="loading" />
       <article v-else-if="recipeStore.recipe.name" key="recipe">
         <Button
           :type="ButtonType.BUTTON"
@@ -46,12 +44,14 @@
     section="recipePage.confirmDelete"
     cancel="general.actions.cancel"
     confirm="general.actions.delete"
+    :loading="recipeStore.isLoadingAction('deleteRecipe')"
     @confirm="deleteRecipe()"
   />
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import LoadingSpinner from '@/components/general/LoadingSpinner.vue';
+import { ref } from 'vue';
 import ConfirmPopUp from '@/components/general/ConfirmPopUp.vue';
 import TimerCard from '@/components/pages/recipe/TimerCard.vue';
 import RecipeInfo from '@/components/pages/recipe/RecipeInfo.vue';
@@ -69,9 +69,7 @@ const recipeStore = useRecipeStore();
 const route = useRoute();
 const router = useRouter();
 
-onMounted(() => {
-  recipeStore.getRecipe(route.params.recipeId as string);
-});
+recipeStore.getRecipe(route.params.recipeId as string);
 
 const deleteRecipeOpen = ref<boolean>(false);
 
@@ -79,9 +77,9 @@ const deleteRecipeOpen = ref<boolean>(false);
  * Delete recipe and go back to the recipes when it succeeded
  */
 async function deleteRecipe(): Promise<void> {
-  deleteRecipeOpen.value = false;
-
   await recipeStore.deleteRecipe(recipeStore.recipe.id);
+
+  deleteRecipeOpen.value = false;
 
   if (!recipeStore.errorMessage) {
     await router.push({ path: '/recipes' });

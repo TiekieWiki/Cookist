@@ -1,5 +1,6 @@
 @mixin header-back-button {
   a:first-child {
+    width: fit-content;
     margin-left: calc(var(--spacing-4) * -1);
   }
 }

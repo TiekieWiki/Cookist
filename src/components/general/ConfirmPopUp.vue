@@ -37,6 +37,8 @@
             @click.prevent="emit('confirm', true)"
             :type="ButtonType.SUBMIT"
             :variant="ColorVariant.WARNING"
+            :disabled="loading"
+            :aria-busy="loading"
           >
             {{ $t(confirm) }}
           </Button>

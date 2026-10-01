@@ -13,6 +13,7 @@
     section="profilePage.confirmDelete"
     cancel="general.actions.cancel"
     confirm="general.actions.delete"
+    :loading="userStore.isLoadingAction('deleteUser')"
     v-model:openPopUp="deleteOpen"
     @confirm="deleteUserAccount()"
   />

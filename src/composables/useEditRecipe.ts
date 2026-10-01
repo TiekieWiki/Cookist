@@ -1,5 +1,5 @@
 import i18n from '@/i18n';
-import { computed, onMounted, type Ref, ref, toRaw } from 'vue';
+import { computed, type Ref, ref, toRaw } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
 import {
   emptyIngredient,
@@ -83,8 +83,10 @@ export function useEditRecipe(): {
     return recipeChanged || imageChanged;
   });
 
-  // Get recipe on mount
-  onMounted(async () => {
+  /**
+   * Get the recipe to edit. It starts during setup, so the first render already shows the loader
+   */
+  async function loadRecipe(): Promise<void> {
     if (route.params.recipeId) {
       await recipeStore.getRecipe(route.params.recipeId as string);
       recipe.value = structuredClone(toRaw(recipeStore.recipe));
@@ -98,7 +100,9 @@ export function useEditRecipe(): {
         recipeStore.recipeImage !== DEFAULT_RECIPE_IMAGE_SRC ? recipeStore.recipeImage : null;
       originalImage.value = image.value;
     }
-  });
+  }
+
+  loadRecipe();
 
   // Prevent leaving the page if there are unsaved changes
   onBeforeRouteLeave(() => {

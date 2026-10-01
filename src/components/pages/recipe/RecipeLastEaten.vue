@@ -2,11 +2,14 @@
   <section class="lastEaten card">
     <p>{{ $t('recipePage.lastCooked') }}</p>
     <h3>
-      {{ recipeStore.lastEatenRecipe ? recipeStore.lastEatenRecipe : $t('general.recipe.neverCooked') }}
+      {{
+        recipeStore.lastEatenRecipe ? recipeStore.lastEatenRecipe : $t('general.recipe.neverCooked')
+      }}
     </h3>
     <Button
       @click="recipeStore.setLastEaten"
-      :disabled="lastEatenToday"
+      :disabled="lastEatenToday || recipeStore.isLoadingAction('setLastEaten')"
+      :aria-busy="recipeStore.isLoadingAction('setLastEaten')"
       :type="ButtonType.BUTTON"
       :variant="ColorVariant.PRIMARY"
     >

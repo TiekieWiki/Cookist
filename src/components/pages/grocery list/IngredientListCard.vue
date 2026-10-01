@@ -1,7 +1,13 @@
 <template>
   <Transition name="fade" mode="out-in">
+    <LoadingSpinner
+      v-if="
+        groceryListStore.isLoadingAction('getGroceryList') && !groceryListStore.groceryList.length
+      "
+      key="loading"
+    />
     <EmptyState
-      v-if="groceryListStore.groceryList.length <= 0"
+      v-else-if="groceryListStore.groceryList.length <= 0"
       key="empty"
       icon="basket-shopping"
       title="groceryListPage.emptyBasket"
@@ -17,6 +23,7 @@
             :placeholder="$t('general.recipe.placeholder.unit')"
             :items="toSelectOptions(getPossibleUnits(item.slot!))"
             labelPrefix="general.recipe.units."
+            :disabled="isUpdating(index)"
             v-model:selected="item.slot"
             @change="changeIngredientUnit(item, index)"
           />
@@ -25,6 +32,8 @@
             :type="ButtonType.BUTTON"
             :variant="ColorVariant.TERTIARY"
             :aria-label="$t('groceryListPage.ariaLabel.deleteIngredient', { name: item.name })"
+            :disabled="isUpdating(index)"
+            :aria-busy="isUpdating(index)"
             @click="
               groceryListStore.deleteGroceryListIngredient(groceryListStore.groceryList[index].id!)
             "
@@ -38,6 +47,8 @@
         <Button
           @click="groceryListStore.setGroceryList(ingredient)"
           :aria-label="$t('groceryListPage.addIngredient')"
+          :disabled="groceryListStore.isLoadingAction('setGroceryList')"
+          :aria-busy="groceryListStore.isLoadingAction('setGroceryList')"
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.PRIMARY"
         >
@@ -51,6 +62,7 @@
 </template>
 
 <script setup lang="ts">
+import LoadingSpinner from '@/components/general/LoadingSpinner.vue';
 import { getPossibleUnits, updateIngredientUnit } from '@/utils/recipe/updateIngredientUnit';
 import SelectField from '@/components/form/SelectField.vue';
 import Button from '@/components/form/Button.vue';
@@ -71,6 +83,21 @@ const ingredient = ref<Ingredient>(emptyIngredient());
 const groceryListStore = useGroceryListStore();
 
 const ingredients = computed(() => toIngredientCheckBoxes(groceryListStore.groceryList));
+
+/**
+ * Check whether an ingredient is being updated or deleted
+ * @param index Index of the ingredient in the grocery list
+ * @returns Whether the ingredient is busy
+ */
+function isUpdating(index: number): boolean {
+  const id = groceryListStore.groceryList[index]?.id;
+  if (!id) return false;
+
+  return (
+    groceryListStore.isLoadingAction('setGroceryListIngredient', id) ||
+    groceryListStore.isLoadingAction('deleteGroceryListIngredient', id)
+  );
+}
 
 /**
  * Change the unit of an ingredient in the grocery list
