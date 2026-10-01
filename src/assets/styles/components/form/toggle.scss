@@ -1,3 +1,29 @@
+@mixin toggle-variant($name, $color, $text, $hover) {
+  .slider.#{$name} {
+    border-color: $color;
+
+    &::before {
+      background-color: $color;
+    }
+
+    &:hover {
+      background-color: color-mix(in srgb, $color 15%, transparent);
+    }
+  }
+
+  input:checked + .slider.#{$name} {
+    background-color: $color;
+
+    &::before {
+      background-color: $text;
+    }
+
+    &:hover {
+      background-color: $hover;
+    }
+  }
+}
+
 .toggle {
   position: relative;
   display: inline-block;
@@ -9,12 +35,10 @@
     width: 0;
     height: 0;
 
-    &:checked + .slider {
-      &::before {
-        -webkit-transform: translateX(var(--spacing-6));
-        -ms-transform: translateX(var(--spacing-6));
-        transform: translateX(var(--spacing-6));
-      }
+    &:checked + .slider::before {
+      -webkit-transform: translate(var(--spacing-6), -50%);
+      -ms-transform: translate(var(--spacing-6), -50%);
+      transform: translate(var(--spacing-6), -50%);
     }
 
     &:focus + .slider {
@@ -30,6 +54,8 @@
     right: 0;
     bottom: 0;
     border-radius: var(--spacing-7);
+    border: 1px solid transparent;
+    background-color: transparent;
     -webkit-transition: 0.4s;
     transition: 0.4s;
 
@@ -39,76 +65,44 @@
       height: calc(var(--spacing-5) + var(--spacing-1) / 2);
       width: calc(var(--spacing-5) + var(--spacing-1) / 2);
       left: calc(var(--spacing-1) + var(--spacing-1) / 4);
-      bottom: var(--spacing-1);
+      top: 50%;
       border-radius: 50%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
       -webkit-transition: 0.4s;
       transition: 0.4s;
     }
-
-    &.primary {
-      background-color: var(--color-primary);
-
-      &::before {
-        background-color: var(--color-primary-text);
-      }
-
-      &:hover,
-      &:focus {
-        background-color: color-mix(in srgb, var(--color-primary) 80%, transparent);
-      }
-    }
-
-    &.secondary {
-      background-color: var(--color-secondary);
-      border: var(--border-secondary);
-
-      &::before {
-        background-color: var(--color-secondary-text);
-      }
-
-      &:hover,
-      &:focus {
-        background-color: var(--color-accent);
-      }
-    }
-
-    &.tertiary {
-      background-color: var(--color-tertiary);
-
-      &::before {
-        background-color: var(--color-tertiary-text);
-      }
-
-      &:hover,
-      &:focus {
-        background-color: var(--color-secondary);
-      }
-    }
-
-    &.accent {
-      background-color: var(--color-accent);
-
-      &::before {
-        background-color: var(--color-accent-text);
-      }
-
-      &:hover,
-      &:focus {
-        background-color: color-mix(in srgb, var(--color-accent) 80%, transparent);
-      }
-    }
-
-    &.warning {
-      background-color: var(--color-warning);
-
-      &::before {
-        background-color: var(--color-warning-text);
-      }
-
-      &:hover,
-      &:focus {
-        background-color: color-mix(in srgb, var(--color-warning) 80%, transparent);
-      }
-    }
   }
+
+  @include toggle-variant(
+    primary,
+    var(--color-primary),
+    var(--color-primary-text),
+    color-mix(in srgb, var(--color-primary) 80%, transparent)
+  );
+  @include toggle-variant(
+    secondary,
+    var(--color-secondary),
+    var(--color-secondary-text),
+    var(--color-accent)
+  );
+  @include toggle-variant(
+    tertiary,
+    var(--color-tertiary),
+    var(--color-tertiary-text),
+    color-mix(in srgb, var(--color-tertiary) 80%, transparent)
+  );
+  @include toggle-variant(
+    accent,
+    var(--color-accent),
+    var(--color-accent-text),
+    color-mix(in srgb, var(--color-accent) 80%, transparent)
+  );
+  @include toggle-variant(
+    warning,
+    var(--color-warning),
+    var(--color-warning-text),
+    color-mix(in srgb, var(--color-warning) 80%, transparent)
+  );
 }
