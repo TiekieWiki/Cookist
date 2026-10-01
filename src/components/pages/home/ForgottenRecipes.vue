@@ -23,11 +23,11 @@
 import { ButtonType, ColorVariant, Size } from '@/utils/types/enums';
 import Button from '@/components/form/Button.vue';
 import { onMounted, ref } from 'vue';
-import type { Recipe } from '@/utils/types/recipe.ts';
+import type { RecipeSummary } from '@/utils/types/recipe.ts';
 import { getForgottenRecipes } from '@/utils/home/forgottenRecipes.ts';
 import RecipeGrid from '../recipes/RecipeGrid.vue';
 
-const forgottenRecipes = ref<Recipe[]>([]);
+const forgottenRecipes = ref<RecipeSummary[]>([]);
 
 onMounted(async () => {
   forgottenRecipes.value = await getForgottenRecipes();

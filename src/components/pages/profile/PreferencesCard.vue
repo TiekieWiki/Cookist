@@ -49,6 +49,7 @@
 
 <script setup lang="ts">
 import { useProfileStore } from '@/stores/useProfileStore';
+import type { Profile } from '@/utils/types/profile';
 import { setUserLanguage } from '@/utils/global/setLanguage';
 import { setColorScheme, setHandedness } from '@/utils/global/setInterfaceVariables';
 import {
@@ -71,14 +72,14 @@ const languages = [
   { value: 'en', label: 'en' },
   { value: 'nl', label: 'nl' }
 ];
-const selectedLanguage = ref<Language>();
+const selectedLanguage = ref<Profile['language']>();
 const darkModeOn = ref<boolean>();
 const handedness = [
   { value: Handedness.LEFT, label: Handedness.LEFT },
   { value: Handedness.RIGHT, label: Handedness.RIGHT },
   { value: Handedness.AMBIDEXTROUS, label: Handedness.AMBIDEXTROUS }
 ];
-const selectedHandedness = ref<Handedness>();
+const selectedHandedness = ref<Profile['handedness']>();
 const successMessage = ref<string>('');
 
 watch(

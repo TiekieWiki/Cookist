@@ -1,3 +1,5 @@
+import type { Database } from './database';
+
 export interface Recipe {
   id: string;
   owner: string | undefined;
@@ -12,17 +14,24 @@ export interface Recipe {
   last_eaten?: string | null;
 }
 
-export interface Ingredient {
+export type RecipeSummary = Database['public']['Functions']['get_recipes']['Returns'][number];
+
+export interface RecipeDetails {
+  recipe: Recipe;
+  last_eaten: string | null;
+}
+
+export type Ingredient = {
   id?: string;
   name: string;
   unit: string;
   amount: number;
-}
+};
 
-export interface Instruction {
+export type Instruction = {
   sort_order: number;
   instruction: string;
-}
+};
 
 export enum RecipeCategories {
   Breakfast = 'breakfast',

@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Recipe } from '@/utils/types/recipe';
+import type { RecipeSummary } from '@/utils/types/recipe';
 import { formatDateAgo } from '@/utils/global/date';
 import { computed, onMounted, ref } from 'vue';
 import { useRecipeStore } from '@/stores/useRecipeStore';
@@ -43,7 +43,7 @@ import Pill from '@/components/general/Pill.vue';
 import { ColorVariant, Size } from '@/utils/types/enums';
 
 const props = defineProps<{
-  recipe: Recipe;
+  recipe: RecipeSummary;
 }>();
 
 const recipeStore = useRecipeStore();

@@ -21,14 +21,12 @@ import { useRecipeStore } from '@/stores/useRecipeStore.js';
 
 const recipeStore = useRecipeStore();
 
-const instructions = computed(() => {
-  return (recipeStore.recipe.instructions ?? []).map((instruction) => {
-    return {
-      name: instruction.instruction,
-      label: instruction.instruction
-    } as CheckBoxProps;
-  });
-});
+const instructions = computed<CheckBoxProps[]>(() =>
+  (recipeStore.recipe.instructions ?? []).map((instruction) => ({
+    name: instruction.instruction,
+    label: instruction.instruction
+  }))
+);
 
 const { keepScreenOn } = useKeepScreenOn();
 </script>

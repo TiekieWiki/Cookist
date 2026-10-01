@@ -108,8 +108,9 @@ export function getPossibleUnits(ingredientUnit: string): Record<string, string>
  * @returns The converted amount, or the original amount when the units cannot be converted
  */
 function convertAmount(amount: number, fromUnit: string, toUnit: string): number {
-  const from = unitConversionMap[fromUnit as keyof typeof unitConversionMap];
-  const to = unitConversionMap[toUnit as keyof typeof unitConversionMap];
+  const conversions: Partial<Record<string, UnitConversion>> = unitConversionMap;
+  const from = conversions[fromUnit];
+  const to = conversions[toUnit];
 
   if (!from || !to || from.group !== to.group) return amount;
 

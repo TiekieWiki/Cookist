@@ -1,4 +1,4 @@
-import { emptyRecipe, type Recipe } from '@/utils/types/recipe';
+import { emptyRecipe, type Recipe, type RecipeDetails } from '@/utils/types/recipe';
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 import { getErrorMessage } from '@/utils/global/errorHandling';
@@ -50,16 +50,17 @@ export const useRecipeStore = defineStore('recipe', () => {
 
     if (request !== latestRequest) return;
 
-    if (recipeError || !data) {
-      errorMessage.value = getErrorMessage('unknown');
-    } else {
-      recipe.value = data.recipe;
-      lastEatenDate.value = data.last_eaten;
-    }
-
     isLoading.value = false;
 
-    if (recipeError || !data) return;
+    if (recipeError || !data) {
+      errorMessage.value = getErrorMessage('unknown');
+      return;
+    }
+
+    const details = data as unknown as RecipeDetails;
+
+    recipe.value = details.recipe;
+    lastEatenDate.value = details.last_eaten;
 
     const image = await getRecipeImage(recipeId);
 
@@ -90,9 +91,9 @@ export const useRecipeStore = defineStore('recipe', () => {
     const recipeParams = {
       p_name: newRecipe.name,
       p_category: newRecipe.category,
-      p_duration: newRecipe.duration,
-      p_portions: newRecipe.portions,
-      p_rating: newRecipe.rating,
+      p_duration: Number(newRecipe.duration),
+      p_portions: Number(newRecipe.portions),
+      p_rating: Number(newRecipe.rating),
       p_notes: newRecipe.notes ?? '',
       p_ingredients: newRecipe.ingredients,
       p_instructions: newRecipe.instructions
@@ -107,7 +108,11 @@ export const useRecipeStore = defineStore('recipe', () => {
       return null;
     }
 
-    recipe.value = Array.isArray(recipeData) ? recipeData[0] : recipeData;
+    recipe.value = {
+      ...newRecipe,
+      ...recipeData,
+      notes: recipeData.notes ?? undefined
+    };
 
     if (image) {
       const { error: uploadError } = await supabase.storage

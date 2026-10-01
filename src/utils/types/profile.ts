@@ -1,11 +1,6 @@
-import { ColorScheme, Handedness, Language } from './enums';
+import type { Tables } from './database';
 
-export interface Profile {
-  id: string | undefined;
-  language: Language;
-  colorscheme: ColorScheme;
-  handedness: Handedness;
-}
+export type Profile = Tables<'profiles'>;
 
 export interface UserStatistics {
   recipesCreated: number;

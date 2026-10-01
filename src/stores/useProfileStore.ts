@@ -5,7 +5,7 @@ import { getErrorMessage } from '@/utils/global/errorHandling';
 import { requireUser } from '@/utils/global/requireUser';
 import { getSystemLanguage } from '@/utils/global/setLanguage';
 import { type Profile } from '@/utils/types/profile';
-import { ColorScheme, Handedness, Language } from '@/utils/types/enums';
+import { Language } from '@/utils/types/enums';
 
 export const useProfileStore = defineStore('profile', () => {
   const profile = ref<Profile>();
@@ -31,9 +31,9 @@ export const useProfileStore = defineStore('profile', () => {
    * Set the profile of the current user
    */
   async function setProfile(
-    language: Language,
-    colorScheme: ColorScheme,
-    handedness: Handedness
+    language: Profile['language'],
+    colorScheme: Profile['colorscheme'],
+    handedness: Profile['handedness']
   ): Promise<void> {
     const user = requireUser(errorMessage);
     if (!user) return;

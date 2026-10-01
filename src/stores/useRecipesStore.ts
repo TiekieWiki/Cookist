@@ -8,21 +8,21 @@ import {
   RecipeOrderCategories,
   type Filter
 } from '@/utils/types/orderFilter';
-import { type Recipe } from '@/utils/types/recipe';
+import { type RecipeSummary } from '@/utils/types/recipe';
 import { defineStore } from 'pinia';
 import { computed, ref, watch } from 'vue';
 
 /**
- * Clear input's empty string to null
+ * Clear an empty input, so the database function uses its default for the filter
  * @param value Value to clear
- * @returns Null if empty string
+ * @returns Undefined if empty
  */
-function nullable<T>(value: T | '' | undefined): T | null {
-  return value === '' || value === undefined ? null : value;
+function optional<T>(value: T | '' | null | undefined): T | undefined {
+  return value === '' || value === null ? undefined : value;
 }
 
 export const useRecipesStore = defineStore('recipes', () => {
-  const recipes = ref<Recipe[]>([]);
+  const recipes = ref<RecipeSummary[]>([]);
   const filter = ref<Filter>(emptyFilter());
   const orderBy = ref<OrderBy>(OrderBy.lastEaten);
   const orderDirection = ref<OrderDirection>(OrderDirection.asc);
@@ -55,16 +55,16 @@ export const useRecipesStore = defineStore('recipes', () => {
 
     const { data, error: recipesError } = await supabase.rpc('get_recipes', {
       p_name: filter.value.name,
-      p_category: filter.value.category,
-      p_duration_min: nullable(filter.value.durationMin),
-      p_duration_max: nullable(filter.value.durationMax),
-      p_rating_min: nullable(filter.value.ratingMin),
-      p_rating_max: nullable(filter.value.ratingMax),
-      p_last_eaten_min: nullable(filter.value.lastEatenMin),
-      p_last_eaten_max: nullable(filter.value.lastEatenMax),
-      p_ingredients: ingredients.length ? ingredients : null,
+      p_category: optional(filter.value.category),
+      p_duration_min: optional(filter.value.durationMin),
+      p_duration_max: optional(filter.value.durationMax),
+      p_rating_min: optional(filter.value.ratingMin),
+      p_rating_max: optional(filter.value.ratingMax),
+      p_last_eaten_min: optional(filter.value.lastEatenMin),
+      p_last_eaten_max: optional(filter.value.lastEatenMax),
+      p_ingredients: ingredients.length ? ingredients : undefined,
       p_order_by: orderBy.value,
-      p_order_direction: orderDirection.value,
+      p_order_direction: orderDirection.value
     });
 
     // Ignore responses of filters that are no longer the current ones

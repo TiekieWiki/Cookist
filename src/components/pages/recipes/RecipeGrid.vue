@@ -5,8 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Recipe } from '@/utils/types/recipe';
+import type { RecipeSummary } from '@/utils/types/recipe';
 import RecipeCard from './RecipeCard.vue';
 
-defineProps<{ recipes: Recipe[] }>();
+defineProps<{ recipes: RecipeSummary[] }>();
 </script>

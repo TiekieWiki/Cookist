@@ -1,5 +1,6 @@
 import i18n from '@/i18n/index';
 import { Language } from '@/utils/types/enums';
+import type { Profile } from '@/utils/types/profile';
 
 /**
  * Get the supported language that matches the browser's language
@@ -13,7 +14,7 @@ export function getSystemLanguage(): Language {
  * Set the user's language based on the user's language in the database
  * @param language The language to set
  */
-export function setUserLanguage(language: Language): void {
+export function setUserLanguage(language: Profile['language']): void {
   i18n.global.locale.value = language;
 }
 

@@ -35,6 +35,11 @@ export const useGroceryListStore = defineStore('groceryList', () => {
     const user = requireUser(errorMessage);
     if (!user) return;
 
+    if (!ingredient.id) {
+      errorMessage.value = getErrorMessage('unknown');
+      return;
+    }
+
     const { error } = await supabase
       .from('user_grocerylist')
       .update(ingredient)
