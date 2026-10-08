@@ -38,6 +38,7 @@
           .info {
             display: flex;
             gap: var(--spacing-5);
+            flex-wrap: wrap;
 
             p {
               display: flex;
@@ -62,7 +63,8 @@
 
               align-items: center;
 
-              .servings {
+              .servings,
+              .keepScreenOn {
                 display: flex;
                 gap: var(--spacing-2);
                 align-items: center;
@@ -71,6 +73,7 @@
               p {
                 margin-top: 0;
                 color: var(--color-background-primary-text);
+                white-space: nowrap;
               }
             }
           }

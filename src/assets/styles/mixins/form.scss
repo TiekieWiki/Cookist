@@ -29,6 +29,8 @@
 
 @mixin compact-checkbox-list {
   .checkbox-list-item {
+    flex-wrap: wrap;
+
     .checkbox {
       width: fit-content;
     }

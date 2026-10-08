@@ -1,0 +1,43 @@
+@use '../../mixins/breakpoints.scss' as *;
+
+.dropdown {
+  position: relative;
+
+  .ellipsis {
+    @media only screen and (min-width: $breakpoint-min-small) {
+      display: none;
+    }
+  }
+
+  .items {
+    display: flex;
+    gap: var(--spacing-4);
+
+    @media only screen and (max-width: $breakpoint-max-small) {
+      flex-direction: column;
+      gap: var(--spacing-3);
+      position: absolute;
+      top: var(--spacing-11);
+      right: 0;
+      z-index: 10;
+      padding: var(--spacing-3);
+      border: var(--border-secondary);
+      border-radius: var(--spacing-6);
+      background-color: var(--color-background-secondary);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(calc(var(--spacing-1) * -1)) scale(0.95);
+      transform-origin: top right;
+      transition:
+        opacity var(--speed-medium) ease-in-out,
+        transform var(--speed-medium) ease-in-out,
+        visibility var(--speed-medium);
+
+      &.open {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+      }
+    }
+  }
+}

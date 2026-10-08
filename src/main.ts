@@ -21,6 +21,7 @@ import {
   faCarrot,
   faCircleCheck,
   faCircleExclamation,
+  faEllipsisVertical,
   faHandshake,
   faLinkSlash,
   faMartiniGlassEmpty,
@@ -79,7 +80,8 @@ library.add(
   faWifi,
   faWineGlassEmpty,
   faXmark,
-  farClock
+  farClock,
+  faEllipsisVertical
 );
 
 const pinia = createPinia();

@@ -7,7 +7,8 @@ const messages: typeof en = {
       closeMenu: 'Menu sluiten',
       close: 'Sluiten',
       deleteRow: 'Rij verwijderen',
-      loading: 'Laden'
+      loading: 'Laden',
+      toggleDropdown: 'Toggle dropdown menu'
     },
     actions: {
       cancel: 'Annuleren',

@@ -25,6 +25,10 @@
           display: flex;
           gap: var(--spacing-3);
           margin-top: var(--spacing-3);
+
+          @media only screen and (max-width: $breakpoint-max-small) {
+            flex-direction: column;
+          }
         }
       }
 

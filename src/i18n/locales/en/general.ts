@@ -5,7 +5,8 @@ const messages = {
       closeMenu: 'Close menu',
       close: 'Close',
       deleteRow: 'Delete row',
-      loading: 'Loading'
+      loading: 'Loading',
+      toggleDropdown: 'Toggle dropdown menu'
     },
     actions: {
       cancel: 'Cancel',

@@ -11,11 +11,13 @@ export function menuItems(): MenuItem[] {
     },
     {
       route: '/recipes',
-      name: 'general.pageTitles.recipes'
+      name: 'general.pageTitles.recipes',
+      condition: userStore.isLoggedIn
     },
     {
       route: '/grocery-list',
-      name: 'general.pageTitles.groceryList'
+      name: 'general.pageTitles.groceryList',
+      condition: userStore.isLoggedIn
     },
     {
       route: '/profile',

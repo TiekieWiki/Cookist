@@ -6,26 +6,28 @@
         <p v-if="recipeStore.recipe.notes">{{ recipeStore.recipe.notes }}</p>
       </div>
       <div v-if="recipeStore.recipe.owner === userStore.user?.id" class="actions">
-        <Button
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.SECONDARY"
-          @click="
-            $router.push({
-              path: `/edit-recipe/${recipeStore.recipe.id}`
-            })
-          "
-        >
-          <font-awesome-icon :icon="['fas', 'pen']" />
-          {{ $t('recipePage.edit') }}
-        </Button>
-        <Button
-          @click="deleteOpen = true"
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.WARNING"
-        >
-          <font-awesome-icon :icon="['fas', 'trash-can']" />
-          {{ $t('general.actions.delete') }}
-        </Button>
+        <DropDown>
+          <Button
+            :type="ButtonType.BUTTON"
+            :variant="ColorVariant.SECONDARY"
+            @click="
+              $router.push({
+                path: `/edit-recipe/${recipeStore.recipe.id}`
+              })
+            "
+          >
+            <font-awesome-icon :icon="['fas', 'pen']" />
+            {{ $t('recipePage.edit') }}
+          </Button>
+          <Button
+            @click="deleteOpen = true"
+            :type="ButtonType.BUTTON"
+            :variant="ColorVariant.WARNING"
+          >
+            <font-awesome-icon :icon="['fas', 'trash-can']" />
+            {{ $t('general.actions.delete') }}
+          </Button>
+        </DropDown>
       </div>
     </div>
     <div class="info">
@@ -57,6 +59,7 @@ import Button from '@/components/form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import { useRecipeStore } from '@/stores/useRecipeStore.js';
 import { useUserStore } from '@/stores/useUserStore.js';
+import DropDown from '@/components/general/DropDown.vue';
 
 const userStore = useUserStore();
 const recipeStore = useRecipeStore();
