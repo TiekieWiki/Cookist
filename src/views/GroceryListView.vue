@@ -4,17 +4,17 @@
       <GroceryListTitle v-model:delete-open="deleteGroceryListOpen" />
       <IngredientListCard />
     </article>
+    <ConfirmPopUp
+      v-model:open-pop-up="deleteGroceryListOpen"
+      title="groceryListPage.emptyGroceryList"
+      section="groceryListPage.confirmEmpty"
+      cancel="general.actions.cancel"
+      confirm="groceryListPage.empty"
+      :loading="groceryListStore.isLoadingAction('deleteGroceryList')"
+      :error="groceryListStore.errorFor('deleteGroceryList')"
+      @confirm="deleteGroceryList()"
+    />
   </main>
-  <ConfirmPopUp
-    v-model:open-pop-up="deleteGroceryListOpen"
-    title="groceryListPage.emptyGroceryList"
-    section="groceryListPage.confirmEmpty"
-    cancel="general.actions.cancel"
-    confirm="groceryListPage.empty"
-    :loading="groceryListStore.isLoadingAction('deleteGroceryList')"
-    :error="groceryListStore.errorFor('deleteGroceryList')"
-    @confirm="deleteGroceryList()"
-  />
 </template>
 
 <script setup lang="ts">

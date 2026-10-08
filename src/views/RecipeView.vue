@@ -39,17 +39,17 @@
         />
       </article>
     </Transition>
+    <ConfirmPopUp
+      v-model:open-pop-up="deleteRecipeOpen"
+      title="recipePage.deleteRecipe"
+      section="recipePage.confirmDelete"
+      cancel="general.actions.cancel"
+      confirm="general.actions.delete"
+      :loading="recipeStore.isLoadingAction('deleteRecipe')"
+      :error="recipeStore.errorFor('deleteRecipe')"
+      @confirm="deleteRecipe()"
+    />
   </main>
-  <ConfirmPopUp
-    v-model:open-pop-up="deleteRecipeOpen"
-    title="recipePage.deleteRecipe"
-    section="recipePage.confirmDelete"
-    cancel="general.actions.cancel"
-    confirm="general.actions.delete"
-    :loading="recipeStore.isLoadingAction('deleteRecipe')"
-    :error="recipeStore.errorFor('deleteRecipe')"
-    @confirm="deleteRecipe()"
-  />
 </template>
 
 <script setup lang="ts">
