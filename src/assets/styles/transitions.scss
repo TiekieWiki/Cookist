@@ -100,3 +100,19 @@
     transition: transform var(--speed-medium) ease;
   }
 }
+
+// Toast
+.toast {
+  &-enter-active,
+  &-leave-active {
+    transition:
+      opacity var(--speed-medium) ease,
+      transform var(--speed-medium) ease;
+  }
+
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(var(--spacing-3));
+  }
+}

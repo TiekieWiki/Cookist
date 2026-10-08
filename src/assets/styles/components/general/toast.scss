@@ -14,7 +14,6 @@
   .toast {
     position: relative;
     display: flex;
-    align-items: flex-start;
     gap: var(--spacing-3);
     padding: var(--spacing-3) var(--spacing-3) var(--spacing-3) var(--spacing-4);
     border-radius: var(--spacing-5);
@@ -66,17 +65,4 @@
     left: var(--spacing-4);
     width: auto;
   }
-}
-
-.toast-enter-active,
-.toast-leave-active {
-  transition:
-    opacity var(--speed-medium) ease,
-    transform var(--speed-medium) ease;
-}
-
-.toast-enter-from,
-.toast-leave-to {
-  opacity: 0;
-  transform: translateY(var(--spacing-3));
 }
