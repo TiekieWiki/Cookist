@@ -2,6 +2,9 @@
   <main class="editRecipe">
     <Transition name="fade" mode="out-in">
       <LoadingSpinner v-if="recipeStore.isLoadingAction('getRecipe')" key="loading" />
+      <article v-else-if="loadError" key="error">
+        <ErrorState :error="loadError" @retry="loadRecipe" />
+      </article>
       <article v-else-if="$route.params.recipeId && !recipeStore.recipe.name" key="notFound">
         <EmptyState
           icon="martini-glass-empty"
@@ -34,11 +37,17 @@
         </div>
 
         <form>
-          <EditInfo v-model:recipe="recipe" />
-          <EditIngredients v-model:ingredients="recipe.ingredients" />
-          <EditInstructions v-model:instructions="recipe.instructions" />
+          <EditInfo v-model:recipe="recipe" :errors="fieldErrors" />
+          <EditIngredients
+            v-model:ingredients="recipe.ingredients"
+            :error="fieldErrors.ingredients"
+          />
+          <EditInstructions
+            v-model:instructions="recipe.instructions"
+            :error="fieldErrors.instructions"
+          />
           <EditExtras v-model:notes="recipe.notes" v-model:image="image" />
-          <ErrorMessage v-model:message="recipeStore.errorMessage" />
+          <ErrorMessage :error="recipeStore.errorFor('setRecipe')" />
           <div class="compact">
             <Button
               @click="saveRecipe()"
@@ -78,7 +87,11 @@ import EditInstructions from '@/components/pages/edit recipe/EditInstructions.vu
 import EditExtras from '@/components/pages/edit recipe/EditExtras.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import EmptyState from '@/components/general/EmptyState.vue';
+import ErrorState from '@/components/general/ErrorState.vue';
+import { computed } from 'vue';
 
 const recipeStore = useRecipeStore();
-const { recipe, image, saveRecipe } = useEditRecipe();
+const { recipe, image, fieldErrors, saveRecipe, loadRecipe } = useEditRecipe();
+
+const loadError = computed(() => recipeStore.errorFor('getRecipe'));
 </script>

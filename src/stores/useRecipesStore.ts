@@ -1,4 +1,3 @@
-import { getErrorMessage } from '@/utils/global/errorHandling';
 import { supabase } from '@/utils/global/supabase';
 import { combineOrder, splitOrder } from '@/utils/recipes/order';
 import {
@@ -11,7 +10,7 @@ import {
 import { type RecipeSummary } from '@/utils/types/recipe';
 import { getRecipeImageUrls, IMAGE_URL_LIFETIME } from '@/utils/recipe/recipeImages';
 import { defineStore } from 'pinia';
-import { useLoading } from '@/composables/useLoading';
+import { useActions } from '@/composables/useActions';
 import { computed, ref, watch } from 'vue';
 
 const IMAGE_URL_MARGIN = 300;
@@ -26,7 +25,7 @@ function optional<T>(value: T | '' | null | undefined): T | undefined {
 }
 
 export const useRecipesStore = defineStore('recipes', () => {
-  const { isLoading, isLoadingAction, trackLoading } = useLoading<
+  const { isLoading, isLoadingAction, errorFor, clearErrors, trackAction } = useActions<
     'getRecipes' | 'getRecipeImages'
   >();
 
@@ -35,7 +34,6 @@ export const useRecipesStore = defineStore('recipes', () => {
   const filter = ref<Filter>(emptyFilter());
   const orderBy = ref<OrderBy>(OrderBy.lastEaten);
   const orderDirection = ref<OrderDirection>(OrderDirection.asc);
-  const errorMessage = ref<string>('');
 
   const order = computed<RecipeOrderCategories>({
     get: () => combineOrder(orderBy.value, orderDirection.value),
@@ -54,9 +52,8 @@ export const useRecipesStore = defineStore('recipes', () => {
   /**
    * Get recipes from database
    */
-  const getRecipes = trackLoading('getRecipes', async (): Promise<void> => {
+  const getRecipes = trackAction('getRecipes', async (): Promise<void> => {
     const request = ++latestRequest;
-    errorMessage.value = '';
 
     // Remove the empty ingredient row
     const ingredients = filter.value.ingredients
@@ -80,22 +77,19 @@ export const useRecipesStore = defineStore('recipes', () => {
     // Ignore responses of filters that are no longer the current ones
     if (request !== latestRequest) return;
 
-    if (recipesError || !data) {
-      errorMessage.value = getErrorMessage('unknown');
-      return;
-    }
+    if (recipesError) throw recipesError;
 
-    recipes.value = data;
-    await getRecipeImages(data.map((recipe) => recipe.id));
+    recipes.value = data ?? [];
+    await getRecipeImages(recipes.value.map((recipe) => recipe.id));
   });
 
   /**
    * Get signed image URLs for the recipes in one request. URLs that are already known are reused
    * until they are close to expiring, so cards that stay visible after a filter change keep their
-   * image.
+   * image. A failure is not shown, because the cards fall back to the default image.
    * @param recipeIds Recipe ids
    */
-  const getRecipeImages = trackLoading(
+  const getRecipeImages = trackAction(
     'getRecipeImages',
     async (recipeIds: string[]): Promise<void> => {
       if (Date.now() > imagesExpireAt) {
@@ -145,7 +139,7 @@ export const useRecipesStore = defineStore('recipes', () => {
     recipes.value = [];
     recipeImages.value = {};
     imagesExpireAt = 0;
-    errorMessage.value = '';
+    clearErrors();
   }
 
   watch(
@@ -163,11 +157,11 @@ export const useRecipesStore = defineStore('recipes', () => {
   return {
     isLoading,
     isLoadingAction,
+    errorFor,
     recipes,
     recipeImages,
     filter,
     order,
-    errorMessage,
     getRecipes,
     forgetRecipeImage,
     resetFilter,

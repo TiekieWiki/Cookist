@@ -31,7 +31,8 @@ const messages: typeof en = {
       resetTimer: 'Timer resetten',
       decreaseMinutes: 'Eén minuut minder',
       increaseMinutes: 'Eén minuut meer'
-    }
+    },
+    addedToGroceryList: 'Toegevoegd aan je boodschappenlijst'
   }
 };
 

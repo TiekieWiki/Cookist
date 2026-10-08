@@ -16,7 +16,7 @@ export enum AutoCompleteVariant {
 
 export enum ButtonType {
   BUTTON = 'button',
-  SUBMIT = 'submit',
+  SUBMIT = 'submit'
 }
 
 export enum Size {

@@ -1,14 +1,21 @@
-import { OrderBy, OrderDirection, RecipeOrderCategories, type RecipeOrder } from "../types/orderFilter";
+import {
+  OrderBy,
+  OrderDirection,
+  RecipeOrderCategories,
+  type RecipeOrder
+} from '../types/orderFilter';
 
 /**
  * Every order by / order direction combination, keyed by its combined category
  */
-export const recipeOrders: RecipeOrder[] = Object.entries(OrderBy).flatMap(([orderByKey, orderBy]) =>
-  Object.entries(OrderDirection).map(([directionKey, orderDirection]) => ({
-    value: `${orderByKey}${directionKey.charAt(0).toUpperCase()}${directionKey.slice(1)}` as RecipeOrderCategories,
-    orderBy,
-    orderDirection
-  }))
+export const recipeOrders: RecipeOrder[] = Object.entries(OrderBy).flatMap(
+  ([orderByKey, orderBy]) =>
+    Object.entries(OrderDirection).map(([directionKey, orderDirection]) => ({
+      value:
+        `${orderByKey}${directionKey.charAt(0).toUpperCase()}${directionKey.slice(1)}` as RecipeOrderCategories,
+      orderBy,
+      orderDirection
+    }))
 );
 
 /**
@@ -37,4 +44,3 @@ export function combineOrder(
 export function splitOrder(value: RecipeOrderCategories): RecipeOrder {
   return recipeOrders.find((recipeOrder) => recipeOrder.value === value) ?? recipeOrders[0];
 }
-

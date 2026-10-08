@@ -41,6 +41,7 @@ export interface InputFieldProps {
   min?: number;
   max?: number;
   step?: number;
+  error?: string;
 }
 
 export interface InputListProps {
@@ -49,6 +50,7 @@ export interface InputListProps {
   required?: boolean;
   empty?: boolean;
   colAmount?: ColAmount;
+  error?: string;
 }
 
 export interface RadioButtonProps {
@@ -92,6 +94,7 @@ export interface SelectFieldProps {
   disabled?: boolean;
   items: { value: string; label: string }[];
   labelPrefix?: string;
+  error?: string;
 }
 
 export interface TextAreaProps {

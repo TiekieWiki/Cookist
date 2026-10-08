@@ -1,5 +1,10 @@
 <template>
-  <section class="card">
+  <ErrorState
+    v-if="profileStore.errorFor('getProfile')"
+    :error="profileStore.errorFor('getProfile')!"
+    @retry="profileStore.getProfile()"
+  />
+  <section v-else class="card">
     <h3>{{ $t('profilePage.preferences') }}</h3>
     <div class="preference">
       <div class="name">
@@ -35,7 +40,7 @@
       />
     </div>
     <SuccessMessage v-model:message="successMessage" />
-    <ErrorMessage v-model:message="profileStore.errorMessage" />
+    <ErrorMessage :error="profileStore.errorFor('setProfile')" />
     <Button
       @click="saveSettings"
       :disabled="profileStore.isLoadingAction('setProfile')"
@@ -68,6 +73,7 @@ import SelectField from '@/components/form/SelectField.vue';
 import SuccessMessage from '@/components/form/SuccessMessage.vue';
 import ErrorMessage from '@/components/form/ErrorMessage.vue';
 import Toggle from '@/components/form/Toggle.vue';
+import ErrorState from '@/components/general/ErrorState.vue';
 
 const profileStore = useProfileStore();
 const languages = [
@@ -112,13 +118,13 @@ watch(selectedHandedness, () => {
  * Save the user settings to the database
  */
 async function saveSettings(): Promise<void> {
-  await profileStore.setProfile(
+  const saved = await profileStore.setProfile(
     selectedLanguage.value || Language.EN,
     !darkModeOn.value ? ColorScheme.LIGHT : ColorScheme.DARK,
     selectedHandedness.value || Handedness.RIGHT
   );
 
-  if (!profileStore.errorMessage) {
+  if (saved) {
     successMessage.value = 'profilePage.saveSuccess';
   }
 }

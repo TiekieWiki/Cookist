@@ -5,6 +5,7 @@
       :label="$t('general.recipe.ingredients')"
       :required="true"
       :colAmount="ColAmount.FOUR"
+      :error="error"
       v-model:items="ingredients"
       v-slot="{ index }"
     >
@@ -23,6 +24,8 @@ import { addInputRow } from '@/utils/global/list';
 import InputList from '@/components/form/InputList.vue';
 import IngredientInputRow from '@/components/general/IngredientInputRow.vue';
 import { ColAmount } from '@/utils/types/enums';
+
+defineProps<{ error?: string }>();
 
 const ingredients = defineModel<Ingredient[]>('ingredients', { required: true });
 </script>

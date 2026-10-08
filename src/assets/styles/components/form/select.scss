@@ -97,6 +97,10 @@
     @include select-variant(var(--border-warning), var(--color-warning));
   }
 
+  &:has(select[aria-invalid='true']) {
+    border: var(--border-warning);
+  }
+
   @supports (appearance: base-select) {
     select,
     select::picker(select) {

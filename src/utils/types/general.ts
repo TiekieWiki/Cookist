@@ -1,4 +1,5 @@
 import { ColorVariant, Size } from './enums';
+import { type ActionError } from '../global/errorHandling';
 
 export interface MenuItem {
   route: string;
@@ -12,6 +13,7 @@ export interface ConfirmPopUpProps {
   cancel: string;
   confirm: string;
   loading?: boolean;
+  error?: ActionError | null;
 }
 
 export interface EmptyStateProps {

@@ -29,7 +29,8 @@ const messages = {
       resetTimer: 'Reset timer',
       decreaseMinutes: 'One minute less',
       increaseMinutes: 'One minute more'
-    }
+    },
+    addedToGroceryList: 'Added to your grocery list'
   }
 };
 

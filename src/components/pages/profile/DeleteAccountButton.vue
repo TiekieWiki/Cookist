@@ -14,6 +14,7 @@
     cancel="general.actions.cancel"
     confirm="general.actions.delete"
     :loading="userStore.isLoadingAction('deleteUser')"
+    :error="userStore.errorFor('deleteUser')"
     v-model:openPopUp="deleteOpen"
     @confirm="deleteUserAccount()"
   />
@@ -21,7 +22,7 @@
 
 <script setup lang="ts">
 import { useUserStore } from '@/stores/useUserStore';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useLogout } from '@/composables/useAuthentication.js';
 import Button from '@/components/form/Button.vue';
 import { ButtonType, ColorVariant, Size } from '@/utils/types/enums';
@@ -31,15 +32,16 @@ const userStore = useUserStore();
 const deleteOpen = ref<boolean>(false);
 
 /**
- * Delete the user account and log out the user
+ * Delete the user account and log out the user. When it fails, the pop-up stays open and shows why.
  */
 async function deleteUserAccount(): Promise<void> {
-  await userStore.deleteUser();
+  if (!(await userStore.deleteUser())) return;
 
   deleteOpen.value = false;
-
-  if (!userStore.errorMessage) {
-    await useLogout();
-  }
+  await useLogout();
 }
+
+watch(deleteOpen, (open) => {
+  if (open) userStore.clearError('deleteUser');
+});
 </script>

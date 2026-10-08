@@ -26,7 +26,7 @@
           </Button>
         </div>
         <Button
-          @click="groceryListStore.setGroceryList(portionedIngredients)"
+          @click="addToGroceryList"
           :disabled="groceryListStore.isLoadingAction('setGroceryList')"
           :aria-busy="groceryListStore.isLoadingAction('setGroceryList')"
           :aria-label="$t('recipePage.addToGroceryList')"
@@ -63,12 +63,23 @@ import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import CheckBoxList from '@/components/form/CheckBoxList.vue';
 import { computed } from 'vue';
 import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
+import { useToastStore } from '@/stores/useToastStore';
 import { toSelectOptions } from '@/utils/global/selectOptions';
 import { toIngredientCheckBoxes } from '@/utils/recipe/ingredientCheckBoxes';
 
 const groceryListStore = useGroceryListStore();
+const toastStore = useToastStore();
 
 const { portionCount, portionedIngredients, changeIngredientUnit } = useRecipePortions();
 
 const ingredients = computed(() => toIngredientCheckBoxes(portionedIngredients.value));
+
+/**
+ * Add the ingredients for the chosen servings to the grocery list, and confirm it with a toast
+ */
+async function addToGroceryList(): Promise<void> {
+  if (await groceryListStore.setGroceryList(portionedIngredients.value)) {
+    toastStore.showToast({ type: 'success', title: 'recipePage.addedToGroceryList' });
+  }
+}
 </script>

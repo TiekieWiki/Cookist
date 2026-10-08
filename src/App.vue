@@ -63,11 +63,13 @@
       </Transition>
     </template>
   </router-view>
+  <ToastStack />
 </template>
 
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
 import Button from './components/form/Button.vue';
+import ToastStack from './components/general/ToastStack.vue';
 import { Size, ButtonType, ColorVariant } from './utils/types/enums';
 import { useSession } from './composables/useSession';
 import { useMenu } from './composables/useMenu.ts';

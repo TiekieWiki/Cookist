@@ -6,6 +6,12 @@
       "
       key="loading"
     />
+    <ErrorState
+      v-else-if="groceryListStore.errorFor('getGroceryList')"
+      key="error"
+      :error="groceryListStore.errorFor('getGroceryList')!"
+      @retry="groceryListStore.getGroceryList()"
+    />
     <EmptyState
       v-else-if="groceryListStore.groceryList.length <= 0"
       key="empty"
@@ -56,7 +62,6 @@
           <span class="desktop">{{ $t('groceryListPage.addIngredient') }}</span>
         </Button>
       </div>
-      <ErrorMessage v-model:message="groceryListStore.errorMessage" />
     </div>
   </Transition>
 </template>
@@ -71,7 +76,7 @@ import CheckBoxList from '@/components/form/CheckBoxList.vue';
 import { computed, ref } from 'vue';
 import { type CheckBoxProps } from '@/utils/types/form';
 import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
-import ErrorMessage from '@/components/form/ErrorMessage.vue';
+import ErrorState from '@/components/general/ErrorState.vue';
 import { emptyIngredient, type Ingredient } from '@/utils/types/recipe';
 import EmptyState from '@/components/general/EmptyState.vue';
 import IngredientInputRow from '@/components/general/IngredientInputRow.vue';

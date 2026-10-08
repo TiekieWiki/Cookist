@@ -18,6 +18,7 @@
         </li>
       </TransitionGroup>
     </ul>
+    <FieldError :id="errorId" :message="error" announce />
   </label>
 </template>
 
@@ -26,10 +27,14 @@ import { deleteRow } from '@/utils/global/list';
 import Button from './Button.vue';
 import { ButtonType, ColorVariant, Size } from '@/utils/types/enums';
 import { type InputListProps } from '@/utils/types/form';
+import { useId } from 'vue';
+import FieldError from './FieldError.vue';
 
 defineProps<InputListProps>();
 
 const items = defineModel<object[]>('items');
+
+const errorId = useId();
 
 const rowKeys = new WeakMap<object, number>();
 let nextRowKey = 0;

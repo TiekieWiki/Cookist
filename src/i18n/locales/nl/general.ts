@@ -11,7 +11,8 @@ const messages: typeof en = {
     },
     actions: {
       cancel: 'Annuleren',
-      delete: 'Verwijderen'
+      delete: 'Verwijderen',
+      tryAgain: 'Opnieuw proberen'
     },
     pageTitles: {
       home: 'Home',
@@ -78,25 +79,50 @@ const messages: typeof en = {
       yearsAgo: 'jaar geleden | jaar geleden | jaar geleden'
     },
     errors: {
-      emailAddressMissing: 'E-mailadres ontbreekt',
-      emailAddressInvalid: 'E-mailadres is ongeldig',
-      emailExists: 'E-mailadres bestaat al',
-      invalidCredentials: 'Ongeldige inloggegevens',
-      userAlreadyExists: 'Gebruiker bestaat al',
-      userNotFound: 'Gebruiker niet gevonden',
-      passwordMissing: 'Wachtwoord ontbreekt',
-      weakPassword:
-        'Wachtwoord is te zwak. Een wachtwoord moet minimaal 8 tekens lang zijn en ten minste één hoofdletter, één kleine letter, één cijfer en één speciaal teken bevatten',
-      recipeNameMissing: 'Naam is verplicht',
-      recipeCategoryMissing: 'Categorie is verplicht',
-      recipeDurationMissing: 'Duur is verplicht',
-      recipePortionsMissing: 'Porties is verplicht',
-      recipeRatingMissing: 'Beoordeling is verplicht',
-      recipeIngredientsMissing: 'Ingredienten is verplicht',
-      recipeInstructionsMissing: 'Instructies is verplicht',
+      actions: {
+        getRecipes: 'Je recepten konden niet worden geladen',
+        getRecipe: 'Dit recept kon niet worden geladen',
+        setRecipe: 'Je recept kon niet worden opgeslagen',
+        uploadRecipeImage: 'Je recept is opgeslagen, maar de foto kon niet worden geüpload',
+        setLastEaten: 'Kon niet bijwerken wanneer je dit voor het laatst kookte',
+        deleteRecipe: 'Dit recept kon niet worden verwijderd',
+        getRecipeImages: "De foto's van de recepten konden niet worden geladen",
+        getGroceryList: 'Je boodschappenlijst kon niet worden geladen',
+        setGroceryList: 'Toevoegen aan je boodschappenlijst is mislukt',
+        setGroceryListIngredient: 'Dit ingrediënt kon niet worden bijgewerkt',
+        deleteGroceryListIngredient: 'Dit ingrediënt kon niet worden verwijderd',
+        deleteGroceryList: 'Je boodschappenlijst kon niet worden geleegd',
+        getProfile: 'Je voorkeuren konden niet worden geladen',
+        setProfile: 'Je voorkeuren konden niet worden opgeslagen',
+        setUsersLocalLanguage: 'Je taal kon niet worden ingesteld',
+        getUser: 'Je account kon niet worden gecontroleerd',
+        deleteUser: 'Je account kon niet worden verwijderd',
+        login: 'Inloggen is mislukt',
+        register: 'Je account kon niet worden aangemaakt',
+        loadPage: 'Deze pagina kon niet worden geladen',
+        unexpected: 'Er ging iets mis'
+      },
+      causes: {
+        offline:
+          'Het lijkt erop dat je offline bent. Controleer je verbinding en probeer het opnieuw.',
+        network: 'De server is niet bereikbaar. Controleer je verbinding en probeer het opnieuw.',
+        sessionExpired: 'Je sessie is verlopen. Log opnieuw in om verder te gaan.',
+        permissionDenied: 'Je hebt geen toestemming om dit te doen.',
+        notFound: 'Misschien is het verwijderd.',
+        rateLimited: 'Te veel pogingen. Wacht even en probeer het opnieuw.',
+        invalidCredentials: 'Het e-mailadres of wachtwoord klopt niet.',
+        emailExists: 'Er bestaat al een account met dit e-mailadres. Log in plaats daarvan in.',
+        emailNotConfirmed: 'Bevestig eerst je e-mailadres. Kijk in je inbox voor de link.',
+        emailAddressInvalid: 'Dit e-mailadres is niet geldig.',
+        fileTooLarge: 'De foto is te groot. Kies een kleinere foto.',
+        invalidFileType:
+          'Dit bestandstype wordt niet ondersteund. Kies een JPG-, PNG- of WebP-foto.',
+        unknown: 'Probeer het opnieuw. Blijft het misgaan, probeer het dan later nog eens.',
+        weakPassword:
+          'Wachtwoord is te zwak. Een wachtwoord moet minimaal 8 tekens lang zijn en ten minste één hoofdletter, één kleine letter, één cijfer en één speciaal teken bevatten'
+      },
       unsavedChanges:
-        'Er zijn niet opgeslagen wijzigingen. Weet je zeker dat je de pagina wilt verlaten?',
-      unknown: 'Er is een onbekende fout opgetreden. Probeer het later opnieuw'
+        'Er zijn niet opgeslagen wijzigingen. Weet je zeker dat je de pagina wilt verlaten?'
     }
   }
 };

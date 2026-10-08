@@ -8,6 +8,7 @@
       :ariaLabel="$t('editRecipePage.ariaLabel.name')"
       type="text"
       :required="true"
+      :error="errors.name"
       v-model:input="recipe.name"
     />
     <SelectField
@@ -18,6 +19,7 @@
       :required="true"
       :items="categoryOptions"
       labelPrefix="general.recipe.categories."
+      :error="errors.category"
       v-model:selected="recipe.category"
     />
     <div class="compact">
@@ -30,6 +32,7 @@
         type="number"
         :required="true"
         :min="1"
+        :error="errors.duration"
         v-model:input="recipe.duration"
       />
       <InputField
@@ -41,6 +44,7 @@
         type="number"
         :required="true"
         :min="1"
+        :error="errors.portions"
         v-model:input="recipe.portions"
       />
       <InputField
@@ -53,6 +57,7 @@
         :required="true"
         :min="0"
         :max="5"
+        :error="errors.rating"
         v-model:input="recipe.rating"
       />
     </div>
@@ -64,6 +69,9 @@ import { RecipeCategories, type Recipe } from '@/utils/types/recipe';
 import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
 import { toSelectOptions } from '@/utils/global/selectOptions';
+import { type RecipeErrors } from '@/utils/recipe/validateRecipe';
+
+defineProps<{ errors: RecipeErrors }>();
 
 const recipe = defineModel<Recipe>('recipe', { required: true });
 

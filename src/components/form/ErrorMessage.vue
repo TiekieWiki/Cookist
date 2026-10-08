@@ -1,31 +1,14 @@
 <template>
   <Transition name="fade">
-    <p v-if="message" class="error">
-      {{ $t(message) }}
+    <p v-if="error" class="status error" role="alert">
+      <strong>{{ $t(`general.errors.actions.${error.action}`) }}</strong>
+      {{ $t(`general.errors.causes.${error.code}`) }}
     </p>
   </Transition>
 </template>
 
 <script setup lang="ts">
-import { onUnmounted, watch } from 'vue';
+import { type ActionError } from '@/utils/global/errorHandling';
 
-const message = defineModel<string>('message');
-
-let timeout: ReturnType<typeof setTimeout> | undefined;
-
-watch(
-  message,
-  (newValue) => {
-    clearTimeout(timeout);
-
-    if (newValue) {
-      timeout = setTimeout(() => {
-        message.value = '';
-      }, 5000);
-    }
-  },
-  { immediate: true }
-);
-
-onUnmounted(() => clearTimeout(timeout));
+defineProps<{ error?: ActionError | null }>();
 </script>

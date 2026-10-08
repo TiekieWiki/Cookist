@@ -15,11 +15,16 @@
       <div class="filtersRecipes">
         <RecipesFilter v-model:open-filters="openFilters" />
         <section class="recipesList">
-          <ErrorMessage v-model:message="recipesStore.errorMessage" />
           <Transition name="fade" mode="out-in">
             <LoadingSpinner
               v-if="recipesStore.isLoadingAction('getRecipes') && !recipesStore.recipes.length"
               key="loading"
+            />
+            <ErrorState
+              v-else-if="recipesStore.errorFor('getRecipes')"
+              key="error"
+              :error="recipesStore.errorFor('getRecipes')!"
+              @retry="recipesStore.getRecipes()"
             />
             <EmptyState
               v-else-if="recipesStore.recipes.length <= 0"
@@ -54,7 +59,7 @@ import RecipeGrid from '@/components/pages/recipes/RecipeGrid.vue';
 import { ref } from 'vue';
 import RecipesFilter from '@/components/pages/recipes/RecipesFilter.vue';
 import EmptyState from '@/components/general/EmptyState.vue';
-import ErrorMessage from '@/components/form/ErrorMessage.vue';
+import ErrorState from '@/components/general/ErrorState.vue';
 
 const recipesStore = useRecipesStore();
 const openFilters = ref<boolean>(false);

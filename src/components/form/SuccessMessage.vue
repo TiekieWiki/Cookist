@@ -1,6 +1,6 @@
 <template>
   <Transition name="fade">
-    <p v-if="message" class="success">
+    <p v-if="message" class="status success">
       {{ $t(message) }}
     </p>
   </Transition>

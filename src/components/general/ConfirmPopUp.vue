@@ -25,6 +25,7 @@
           </Button>
         </div>
         <p :id="`${id}-section`">{{ $t(section) }}</p>
+        <ErrorMessage :error="error" />
         <div class="footer">
           <Button
             @click="openPopUp = false"
@@ -52,6 +53,7 @@
 import { useId, useTemplateRef } from 'vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import Button from '../form/Button.vue';
+import ErrorMessage from '../form/ErrorMessage.vue';
 import { type ConfirmPopUpProps } from '@/utils/types/general';
 import { useFocusTrap } from '@/composables/useFocusTrap';
 

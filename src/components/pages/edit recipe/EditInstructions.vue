@@ -5,6 +5,7 @@
       :label="$t('editRecipePage.instructions')"
       :required="true"
       :colAmount="ColAmount.TWO"
+      :error="error"
       v-model:items="instructions"
       v-slot="{ index }"
     >
@@ -26,6 +27,8 @@ import { addInputRow } from '@/utils/global/list';
 import InputField from '@/components/form/InputField.vue';
 import InputList from '@/components/form/InputList.vue';
 import { ColAmount } from '@/utils/types/enums';
+
+defineProps<{ error?: string }>();
 
 const instructions = defineModel<Instruction[]>('instructions', { required: true });
 </script>

@@ -1,23 +1,21 @@
 import { defineStore } from 'pinia';
-import { useLoading } from '@/composables/useLoading';
+import { useActions } from '@/composables/useActions';
 import { computed, ref } from 'vue';
 import { supabase } from '@/utils/global/supabase';
-import { getErrorMessage } from '@/utils/global/errorHandling';
 import { type User } from '@supabase/supabase-js';
 
 export const useUserStore = defineStore('user', () => {
-  const { isLoading, isLoadingAction, trackLoading } = useLoading<'getUser' | 'deleteUser'>();
+  const { isLoading, isLoadingAction, errorFor, clearError, trackAction } = useActions<
+    'getUser' | 'deleteUser'
+  >();
 
   const user = ref<User>();
   const isLoggedIn = computed<boolean>(() => !!user.value);
-  const errorMessage = ref<string>('');
 
   /**
    * Get the current user
    */
-  const getUser = trackLoading('getUser', async (): Promise<void> => {
-    errorMessage.value = '';
-
+  const getUser = trackAction('getUser', async (): Promise<void> => {
     const { data, error } = await supabase.auth.getUser();
 
     if (!error) {
@@ -25,21 +23,17 @@ export const useUserStore = defineStore('user', () => {
     } else if (error.name === 'AuthSessionMissingError') {
       user.value = undefined;
     } else {
-      errorMessage.value = getErrorMessage(error.code);
+      throw error;
     }
   });
 
   /**
-   * Delete the profile of the current user
+   * Delete the account of the current user
    */
-  const deleteUser = trackLoading('deleteUser', async (): Promise<void> => {
-    errorMessage.value = '';
-
+  const deleteUser = trackAction('deleteUser', async (): Promise<void> => {
     const { error } = await supabase.functions.invoke('delete-user');
 
-    if (error) {
-      errorMessage.value = getErrorMessage('unknown');
-    }
+    if (error) throw error;
   });
 
   let resolveSessionRestored: () => void;
@@ -66,9 +60,10 @@ export const useUserStore = defineStore('user', () => {
   return {
     isLoading,
     isLoadingAction,
+    errorFor,
+    clearError,
     user,
     isLoggedIn,
-    errorMessage,
     getUser,
     deleteUser,
     waitForUser

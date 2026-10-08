@@ -1,0 +1,82 @@
+@use '../../mixins/breakpoints.scss' as *;
+
+.toasts {
+  position: fixed;
+  z-index: 1100;
+  right: var(--spacing-6);
+  bottom: var(--spacing-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  width: min(400px, calc(100vw - 2 * var(--spacing-4)));
+  pointer-events: none;
+
+  .toast {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+    padding: var(--spacing-3) var(--spacing-3) var(--spacing-3) var(--spacing-4);
+    border-radius: var(--spacing-5);
+    box-shadow: var(--box-shadow-small);
+    pointer-events: auto;
+
+    &.error {
+      background-color: var(--color-warning);
+      color: var(--color-warning-text);
+    }
+
+    &.success {
+      background-color: var(--color-tertiary);
+      color: var(--color-tertiary-text);
+    }
+
+    > svg {
+      margin-top: var(--spacing-1);
+    }
+
+    .content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: var(--spacing-1);
+      padding-top: calc(var(--spacing-1) / 2);
+
+      strong {
+        font-weight: 600;
+      }
+
+      p {
+        color: inherit;
+        font-size: 0.9rem;
+      }
+    }
+
+    button {
+      position: absolute;
+      top: var(--spacing-2);
+      right: var(--spacing-1);
+      color: inherit;
+    }
+  }
+
+  @media only screen and (max-width: $breakpoint-max-small) {
+    right: var(--spacing-4);
+    bottom: var(--spacing-4);
+    left: var(--spacing-4);
+    width: auto;
+  }
+}
+
+.toast-enter-active,
+.toast-leave-active {
+  transition:
+    opacity var(--speed-medium) ease,
+    transform var(--speed-medium) ease;
+}
+
+.toast-enter-from,
+.toast-leave-to {
+  opacity: 0;
+  transform: translateY(var(--spacing-3));
+}

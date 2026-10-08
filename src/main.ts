@@ -4,6 +4,8 @@ import App from './App.vue';
 import router from './router';
 import './assets/styles/main.scss';
 import i18n from './i18n/index';
+import { useToastStore } from './stores/useToastStore';
+import { toActionError } from './utils/global/errorHandling';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -17,6 +19,8 @@ import {
   faBowlFood,
   faCalendar,
   faCarrot,
+  faCircleCheck,
+  faCircleExclamation,
   faHandshake,
   faLinkSlash,
   faMartiniGlassEmpty,
@@ -26,13 +30,16 @@ import {
   faPlay,
   faPlus,
   faRotateLeft,
+  faRotateRight,
   faSliders,
   faStar,
   faStopwatch,
   faTrash,
   faTrashCan,
+  faTriangleExclamation,
   faUserGroup,
   faUtensils,
+  faWifi,
   faWineGlassEmpty,
   faXmark
 } from '@fortawesome/free-solid-svg-icons';
@@ -49,6 +56,8 @@ library.add(
   faBowlFood,
   faCalendar,
   faCarrot,
+  faCircleCheck,
+  faCircleExclamation,
   faHandshake,
   faLinkSlash,
   faMartiniGlassEmpty,
@@ -58,13 +67,16 @@ library.add(
   faPlay,
   faPlus,
   faRotateLeft,
+  faRotateRight,
   faSliders,
   faStar,
   faStopwatch,
   faTrash,
   faTrashCan,
+  faTriangleExclamation,
   faUserGroup,
   faUtensils,
+  faWifi,
   faWineGlassEmpty,
   faXmark,
   farClock
@@ -78,4 +90,21 @@ const app = createApp(App)
   .use(router)
   .component('font-awesome-icon', FontAwesomeIcon);
 
-router.isReady().then(() => app.mount('#app'));
+const toastStore = useToastStore(pinia);
+
+app.config.errorHandler = (error) => {
+  toastStore.showActionError(toActionError('unexpected', error));
+};
+
+router.onError((error) => {
+  toastStore.showActionError(toActionError('loadPage', error));
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+  toastStore.showActionError(toActionError('unexpected', event.reason));
+});
+
+router
+  .isReady()
+  .catch(() => undefined)
+  .then(() => app.mount('#app'));

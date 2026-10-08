@@ -35,6 +35,17 @@ const messages: typeof en = {
     },
     alt: {
       previewImage: 'Voorbeeld van de receptafbeelding'
+    },
+    errors: {
+      nameMissing: 'Geef je recept een naam',
+      categoryMissing: 'Kies een categorie',
+      durationMissing: 'Vul in hoe lang het duurt',
+      durationInvalid: 'De duur moet minstens 1 minuut zijn',
+      portionsMissing: 'Vul het aantal porties in',
+      portionsInvalid: 'Er moet minstens 1 portie zijn',
+      ratingInvalid: 'Geef een beoordeling van 0 tot 5',
+      ingredientsMissing: 'Voeg minstens één ingrediënt toe met een hoeveelheid, eenheid en naam',
+      instructionsMissing: 'Voeg minstens één stap toe'
     }
   }
 };

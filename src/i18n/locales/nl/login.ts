@@ -29,6 +29,10 @@ const messages: typeof en = {
     ariaLabel: {
       email: 'Email',
       password: 'Wachtwoord'
+    },
+    errors: {
+      emailMissing: 'Vul je e-mailadres in',
+      passwordMissing: 'Vul je wachtwoord in'
     }
   }
 };

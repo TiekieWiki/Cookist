@@ -27,6 +27,10 @@ const messages = {
     ariaLabel: {
       email: 'Email',
       password: 'Password'
+    },
+    errors: {
+      emailMissing: 'Fill in your email address',
+      passwordMissing: 'Fill in your password'
     }
   }
 };

@@ -9,7 +9,8 @@ const messages = {
     },
     actions: {
       cancel: 'Cancel',
-      delete: 'Delete'
+      delete: 'Delete',
+      tryAgain: 'Try again'
     },
     pageTitles: {
       home: 'Home',
@@ -76,24 +77,47 @@ const messages = {
       yearsAgo: 'years ago | year ago | years ago'
     },
     errors: {
-      emailAddressMissing: 'Email address is missing',
-      emailAddressInvalid: 'Email address is invalid',
-      emailExists: 'Email address already exists',
-      invalidCredentials: 'Invalid credentials',
-      userAlreadyExists: 'User already exists',
-      userNotFound: 'User not found',
-      passwordMissing: 'Password is missing',
-      weakPassword:
-        'Password is too weak. A password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character',
-      recipeNameMissing: 'Name is required',
-      recipeCategoryMissing: 'Category is required',
-      recipeDurationMissing: 'Duration is required',
-      recipePortionsMissing: 'Portions is required',
-      recipeRatingMissing: 'Rating is required',
-      recipeIngredientsMissing: 'Ingredients is required',
-      recipeInstructionsMissing: 'Instructions is required',
-      unsavedChanges: 'You have unsaved changes. Are you sure you want to leave?',
-      unknown: 'An unknown error occurred. Please try again later'
+      actions: {
+        getRecipes: "Couldn't load your recipes",
+        getRecipe: "Couldn't load this recipe",
+        setRecipe: "Couldn't save your recipe",
+        uploadRecipeImage: "Your recipe is saved, but the picture couldn't be uploaded",
+        setLastEaten: "Couldn't update when you last cooked this",
+        deleteRecipe: "Couldn't delete this recipe",
+        getRecipeImages: "Couldn't load the recipe pictures",
+        getGroceryList: "Couldn't load your grocery list",
+        setGroceryList: "Couldn't add to your grocery list",
+        setGroceryListIngredient: "Couldn't update this ingredient",
+        deleteGroceryListIngredient: "Couldn't remove this ingredient",
+        deleteGroceryList: "Couldn't empty your grocery list",
+        getProfile: "Couldn't load your preferences",
+        setProfile: "Couldn't save your preferences",
+        setUsersLocalLanguage: "Couldn't set your language",
+        getUser: "Couldn't check your account",
+        deleteUser: "Couldn't delete your account",
+        login: "Couldn't sign you in",
+        register: "Couldn't create your account",
+        loadPage: "Couldn't load this page",
+        unexpected: 'Something went wrong'
+      },
+      causes: {
+        offline: 'You seem to be offline. Check your connection and try again.',
+        network: "We couldn't reach the server. Check your connection and try again.",
+        sessionExpired: 'Your session has expired. Sign in again to continue.',
+        permissionDenied: "You don't have permission to do this.",
+        notFound: 'It may have been deleted.',
+        rateLimited: 'Too many attempts. Wait a moment and try again.',
+        invalidCredentials: 'The email address or password is incorrect.',
+        emailExists: "There's already an account with this email address. Sign in instead.",
+        emailNotConfirmed: 'Confirm your email address first. Check your inbox for the link.',
+        emailAddressInvalid: "This email address isn't valid.",
+        fileTooLarge: 'The picture is too large. Choose a smaller one.',
+        invalidFileType: "This file type isn't supported. Choose a JPG, PNG or WebP picture.",
+        unknown: 'Please try again. If it keeps happening, try again later.',
+        weakPassword:
+          'Password is too weak. A password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character'
+      },
+      unsavedChanges: 'You have unsaved changes. Are you sure you want to leave?'
     }
   }
 };

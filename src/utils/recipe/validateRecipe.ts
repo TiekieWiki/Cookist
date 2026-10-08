@@ -1,5 +1,15 @@
 import type { Recipe } from '../types/recipe';
-import { getErrorMessage } from '../global/errorHandling';
+
+export type RecipeField =
+  | 'name'
+  | 'category'
+  | 'duration'
+  | 'portions'
+  | 'rating'
+  | 'ingredients'
+  | 'instructions';
+
+export type RecipeErrors = Partial<Record<RecipeField, string>>;
 
 /**
  * Checks if a form value is missing, including cleared inputs
@@ -11,26 +21,44 @@ function isMissing(value: unknown): boolean {
 }
 
 /**
- * Validates a recipe object to ensure all required fields are filled out
+ * Validates a recipe, so every problem can be shown next to its field at once
  * @param recipe The recipe to validate
- * @returns {string} Validation error message key or empty string if valid
+ * @returns {RecipeErrors} Translation key of the problem per field, in the order of the form
  */
-export function validateRecipe(recipe: Recipe): string {
-  if (!recipe.name) {
-    return getErrorMessage('recipe_name_missing');
-  } else if (!recipe.category) {
-    return getErrorMessage('recipe_category_missing');
-  } else if (isMissing(recipe.duration)) {
-    return getErrorMessage('recipe_duration_missing');
-  } else if (isMissing(recipe.portions)) {
-    return getErrorMessage('recipe_portions_missing');
-  } else if (isMissing(recipe.rating)) {
-    return getErrorMessage('recipe_rating_missing');
-  } else if (recipe.ingredients.length <= 0) {
-    return getErrorMessage('recipe_ingredients_missing');
-  } else if (recipe.instructions.length <= 0) {
-    return getErrorMessage('recipe_instructions_missing');
-  } else {
-    return '';
+export function validateRecipe(recipe: Recipe): RecipeErrors {
+  const errors: RecipeErrors = {};
+
+  if (!recipe.name?.trim()) {
+    errors.name = 'editRecipePage.errors.nameMissing';
   }
+
+  if (!recipe.category) {
+    errors.category = 'editRecipePage.errors.categoryMissing';
+  }
+
+  if (isMissing(recipe.duration)) {
+    errors.duration = 'editRecipePage.errors.durationMissing';
+  } else if (Number(recipe.duration) < 1) {
+    errors.duration = 'editRecipePage.errors.durationInvalid';
+  }
+
+  if (isMissing(recipe.portions)) {
+    errors.portions = 'editRecipePage.errors.portionsMissing';
+  } else if (Number(recipe.portions) < 1) {
+    errors.portions = 'editRecipePage.errors.portionsInvalid';
+  }
+
+  if (isMissing(recipe.rating) || Number(recipe.rating) < 0 || Number(recipe.rating) > 5) {
+    errors.rating = 'editRecipePage.errors.ratingInvalid';
+  }
+
+  if (recipe.ingredients.length <= 0) {
+    errors.ingredients = 'editRecipePage.errors.ingredientsMissing';
+  }
+
+  if (recipe.instructions.length <= 0) {
+    errors.instructions = 'editRecipePage.errors.instructionsMissing';
+  }
+
+  return errors;
 }

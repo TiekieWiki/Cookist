@@ -32,6 +32,17 @@ const messages = {
     },
     alt: {
       previewImage: 'Preview of the recipe image'
+    },
+    errors: {
+      nameMissing: 'Give your recipe a name',
+      categoryMissing: 'Choose a category',
+      durationMissing: 'Fill in how long it takes',
+      durationInvalid: 'The duration must be at least 1 minute',
+      portionsMissing: 'Fill in the number of portions',
+      portionsInvalid: 'There must be at least 1 portion',
+      ratingInvalid: 'Give a rating from 0 to 5',
+      ingredientsMissing: 'Add at least one ingredient with an amount, unit and name',
+      instructionsMissing: 'Add at least one step'
     }
   }
 };

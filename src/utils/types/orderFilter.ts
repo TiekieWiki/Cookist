@@ -4,12 +4,12 @@ export enum OrderBy {
   lastEaten = 'last_eaten',
   rating = 'rating',
   duration = 'duration',
-  name = 'name',
+  name = 'name'
 }
 
 export enum OrderDirection {
   asc = 'asc',
-  desc = 'desc',
+  desc = 'desc'
 }
 
 export enum RecipeOrderCategories {
