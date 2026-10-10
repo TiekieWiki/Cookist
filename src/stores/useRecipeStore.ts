@@ -145,23 +145,28 @@ export const useRecipeStore = defineStore('recipe', () => {
   );
 
   /**
-   * Delete recipe and its image from database. The recipe is deleted first, so a failed delete
-   * never leaves a recipe without its image.
+   * Delete recipe and its image from database. The image is deleted first, because the storage
+   * policy checks recipe ownership through the recipe itself. A failed image delete is logged but
+   * does not stop the recipe from being deleted.
    * @param recipeId Recipe id
    */
   const deleteRecipe = trackAction('deleteRecipe', async (recipeId: string): Promise<void> => {
     await requireUser();
 
+    if (recipeImage.value !== DEFAULT_RECIPE_IMAGE_SRC) {
+      const { data: removed, error: imageError } = await supabase.storage
+        .from('recipe_images')
+        .remove([recipeId]);
+
+      if (imageError) logError('deleteRecipeImage', imageError);
+      else if (!removed?.length) logError('deleteRecipeImage', new AppError('unknown'));
+    }
+
     const { error } = await supabase.from('recipes').delete().eq('id', recipeId);
 
     if (error) throw error;
 
-    if (recipeImage.value !== DEFAULT_RECIPE_IMAGE_SRC) {
-      const { error: imageError } = await supabase.storage.from('recipe_images').remove([recipeId]);
-
-      if (imageError) logError('deleteRecipeImage', imageError);
-    }
-
+    useRecipesStore().forgetRecipeImage(recipeId);
     clearRecipe();
   });
 
