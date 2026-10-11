@@ -2,7 +2,7 @@
   <section class="instructions card">
     <div class="title">
       <h3>{{ $t('recipePage.instructions') }}</h3>
-      <div class="actions">
+      <div v-if="isSupported" class="actions">
         <DropDown>
           <div class="keepScreenOn">
             <p>{{ $t('recipePage.keepOnScreen') }}</p>
@@ -33,5 +33,5 @@ const instructions = computed<CheckBoxProps[]>(() =>
   }))
 );
 
-const { keepScreenOn } = useKeepScreenOn();
+const { isSupported, keepScreenOn } = useKeepScreenOn();
 </script>
