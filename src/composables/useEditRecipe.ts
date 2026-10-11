@@ -24,6 +24,7 @@ export function useEditRecipe(): {
   fieldErrors: Ref<RecipeErrors>;
   saveRecipe: () => Promise<void>;
   loadRecipe: () => Promise<void>;
+  cancel: () => void;
 } {
   const recipeStore = useRecipeStore();
   const recipe = ref<Recipe>(emptyRecipe());
@@ -96,6 +97,16 @@ export function useEditRecipe(): {
   }
 
   /**
+   * Discard the changes and go back to the previous page without the unsaved changes prompt
+   */
+  function cancel(): void {
+    recipe.value = structuredClone(toRaw(originalRecipe.value));
+    image.value = originalImage.value;
+    recipeStore.clearRecipe();
+    router.go(-1);
+  }
+
+  /**
    * Check if the recipe has unsaved changes
    */
   const hasUnsavedChanges = computed(() => {
@@ -148,5 +159,5 @@ export function useEditRecipe(): {
     return true;
   });
 
-  return { recipe, image, fieldErrors, saveRecipe, loadRecipe };
+  return { recipe, image, fieldErrors, saveRecipe, loadRecipe, cancel };
 }

@@ -12,14 +12,14 @@
       <IngredientInputRow
         :name="'ingredient-' + index"
         v-model:ingredient="ingredients[index]"
-        @name-input="addInputRow(ingredients, index, { amount: 0, unit: '', name: '' })"
+        @name-input="addInputRow(ingredients, index, emptyIngredient())"
       />
     </InputList>
   </section>
 </template>
 
 <script setup lang="ts">
-import { type Ingredient } from '@/utils/types/recipe';
+import { emptyIngredient, type Ingredient } from '@/utils/types/recipe';
 import { addInputRow } from '@/utils/global/list';
 import InputList from '@/components/form/InputList.vue';
 import IngredientInputRow from '@/components/general/IngredientInputRow.vue';

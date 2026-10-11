@@ -143,6 +143,12 @@
         color: var(--color-primary);
       }
 
+      &[value='']:disabled {
+        background-color: transparent;
+        color: var(--color-background-secondary-text);
+        cursor: default;
+      }
+
       &::checkmark {
         display: none;
       }

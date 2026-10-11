@@ -19,7 +19,7 @@
       title="groceryListPage.emptyBasket"
       subtitle="groceryListPage.emptyBasketSubtitle"
       buttonText="groceryListPage.browseRecipes"
-      buttonRoute="/"
+      buttonRoute="/recipes"
     />
     <div v-else key="list" class="card">
       <CheckBoxList :items="ingredients">

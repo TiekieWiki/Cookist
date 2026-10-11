@@ -4,6 +4,10 @@
 input[type='file'] {
   width: 100%;
 
+  & + img {
+    max-height: calc(4 * var(--spacing-15));
+  }
+
   &.primary::file-selector-button {
     @include button-variant(
       $background: var(--color-primary),

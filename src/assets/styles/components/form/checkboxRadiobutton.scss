@@ -28,6 +28,7 @@
     appearance: none;
     display: grid;
     place-content: center;
+    flex-shrink: 0;
     width: var(--spacing-5);
     height: var(--spacing-5);
     background-color: transparent;

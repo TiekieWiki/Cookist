@@ -61,7 +61,7 @@
               {{ $t('editRecipePage.save') }}
             </Button>
             <Button
-              @click="$router.go(-1)"
+              @click="cancel()"
               :type="ButtonType.BUTTON"
               :variant="ColorVariant.TERTIARY"
               :size="Size.LARGE"
@@ -91,7 +91,7 @@ import ErrorState from '@/components/general/ErrorState.vue';
 import { computed } from 'vue';
 
 const recipeStore = useRecipeStore();
-const { recipe, image, fieldErrors, saveRecipe, loadRecipe } = useEditRecipe();
+const { recipe, image, fieldErrors, saveRecipe, loadRecipe, cancel } = useEditRecipe();
 
 const loadError = computed(() => recipeStore.errorFor('getRecipe'));
 </script>
