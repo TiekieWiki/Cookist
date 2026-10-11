@@ -9,7 +9,7 @@ const messages: typeof en = {
     ingredients: 'Ingrediënten',
     addToGroceryList: 'Toevoegen aan boodschappenlijst',
     instructions: 'Instructies',
-    keepOnScreen: 'Scherm aanhouden',
+    keepOnScreen: 'Scherm aan',
     lastCooked: 'Laatst gekookt',
     eatenToday: 'Ik heb dit vandaag gekookt',
     kitchenTimer: 'Kookwekker',

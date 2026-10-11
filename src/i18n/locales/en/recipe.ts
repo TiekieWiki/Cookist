@@ -7,7 +7,7 @@ const messages = {
     ingredients: 'Ingredients',
     addToGroceryList: 'Add to grocery list',
     instructions: 'Instructions',
-    keepOnScreen: 'Keep screen on',
+    keepOnScreen: 'Screen on',
     lastCooked: 'Last cooked',
     eatenToday: 'I cooked this today',
     kitchenTimer: 'Kitchen timer',

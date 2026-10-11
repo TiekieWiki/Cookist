@@ -3,12 +3,10 @@
     <div class="title">
       <h3>{{ $t('recipePage.instructions') }}</h3>
       <div v-if="isSupported" class="actions">
-        <DropDown>
-          <div class="keepScreenOn">
-            <p>{{ $t('recipePage.keepOnScreen') }}</p>
-            <Toggle v-model:input="keepScreenOn" />
-          </div>
-        </DropDown>
+        <div class="keepScreenOn">
+          <p>{{ $t('recipePage.keepOnScreen') }}</p>
+          <Toggle v-model:input="keepScreenOn" />
+        </div>
       </div>
     </div>
     <CheckBoxList :items="instructions" />
@@ -22,7 +20,6 @@ import CheckBoxList from '@/components/form/CheckBoxList.vue';
 import { computed } from 'vue';
 import { type CheckBoxProps } from '@/utils/types/form';
 import { useRecipeStore } from '@/stores/useRecipeStore.js';
-import DropDown from '@/components/general/DropDown.vue';
 
 const recipeStore = useRecipeStore();
 

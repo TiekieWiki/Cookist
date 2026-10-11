@@ -3,41 +3,39 @@
     <div class="title">
       <h3>{{ $t('recipePage.ingredients') }}</h3>
       <div class="actions">
-        <DropDown>
-          <div class="servings">
-            <Button
-              @click="portionCount = Math.max(portionCount - 1, 1)"
-              :aria-label="$t('recipePage.ariaLabel.decreaseServings')"
-              :type="ButtonType.BUTTON"
-              :variant="ColorVariant.SECONDARY"
-            >
-              <font-awesome-icon :icon="['fas', 'minus']" />
-            </Button>
-            <p>
-              {{ portionCount }}
-              <span>{{ $t('recipePage.servings', portionCount) }}</span>
-            </p>
-            <Button
-              @click="portionCount++"
-              :aria-label="$t('recipePage.ariaLabel.increaseServings')"
-              :type="ButtonType.BUTTON"
-              :variant="ColorVariant.SECONDARY"
-            >
-              <font-awesome-icon :icon="['fas', 'plus']" />
-            </Button>
-          </div>
+        <div class="servings">
           <Button
-            @click="addToGroceryList"
-            :disabled="groceryListStore.isLoadingAction('setGroceryList')"
-            :aria-busy="groceryListStore.isLoadingAction('setGroceryList')"
-            :aria-label="$t('recipePage.addToGroceryList')"
-            :type="ButtonType.SUBMIT"
+            @click="portionCount = Math.max(portionCount - 1, 1)"
+            :aria-label="$t('recipePage.ariaLabel.decreaseServings')"
+            :type="ButtonType.BUTTON"
             :variant="ColorVariant.SECONDARY"
           >
-            <font-awesome-icon :icon="['fas', 'basket-shopping']" />
-            <span class="desktop">{{ $t('recipePage.addToGroceryList') }}</span>
+            <font-awesome-icon :icon="['fas', 'minus']" />
           </Button>
-        </DropDown>
+          <p>
+            {{ portionCount }}
+            <span class="desktop">{{ $t('recipePage.servings', portionCount) }}</span>
+          </p>
+          <Button
+            @click="portionCount++"
+            :aria-label="$t('recipePage.ariaLabel.increaseServings')"
+            :type="ButtonType.BUTTON"
+            :variant="ColorVariant.SECONDARY"
+          >
+            <font-awesome-icon :icon="['fas', 'plus']" />
+          </Button>
+        </div>
+        <Button
+          @click="addToGroceryList"
+          :disabled="groceryListStore.isLoadingAction('setGroceryList')"
+          :aria-busy="groceryListStore.isLoadingAction('setGroceryList')"
+          :aria-label="$t('recipePage.addToGroceryList')"
+          :type="ButtonType.SUBMIT"
+          :variant="ColorVariant.SECONDARY"
+        >
+          <font-awesome-icon :icon="['fas', 'basket-shopping']" />
+          <span class="desktop">{{ $t('recipePage.addToGroceryList') }}</span>
+        </Button>
       </div>
     </div>
     <CheckBoxList :items="ingredients">
@@ -68,7 +66,6 @@ import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
 import { useToastStore } from '@/stores/useToastStore';
 import { toSelectOptions } from '@/utils/global/selectOptions';
 import { toIngredientCheckBoxes } from '@/utils/recipe/ingredientCheckBoxes';
-import DropDown from '@/components/general/DropDown.vue';
 
 const groceryListStore = useGroceryListStore();
 const toastStore = useToastStore();
