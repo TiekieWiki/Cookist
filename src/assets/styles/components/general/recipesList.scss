@@ -4,6 +4,12 @@
 .recipesList {
   flex: 1;
 
+  .results {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-5);
+  }
+
   .grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));

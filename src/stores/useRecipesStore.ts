@@ -14,6 +14,7 @@ import { useActions } from '@/composables/useActions';
 import { computed, ref, watch } from 'vue';
 
 const IMAGE_URL_MARGIN = 300;
+const GET_RECIPES_LIMIT = 30;
 
 /**
  * Clear an empty input, so the database function uses its default for the filter
@@ -34,6 +35,8 @@ export const useRecipesStore = defineStore('recipes', () => {
   const filter = ref<Filter>(emptyFilter());
   const orderBy = ref<OrderBy>(OrderBy.lastEaten);
   const orderDirection = ref<OrderDirection>(OrderDirection.asc);
+  const recipesOffset = ref<number>(0);
+  const hasMoreRecipes = ref<boolean>(true);
 
   const order = computed<RecipeOrderCategories>({
     get: () => combineOrder(orderBy.value, orderDirection.value),
@@ -71,7 +74,9 @@ export const useRecipesStore = defineStore('recipes', () => {
       p_last_eaten_max: optional(filter.value.lastEatenMax),
       p_ingredients: ingredients.length ? ingredients : undefined,
       p_order_by: orderBy.value,
-      p_order_direction: orderDirection.value
+      p_order_direction: orderDirection.value,
+      p_limit: GET_RECIPES_LIMIT,
+      p_offset: recipesOffset.value
     });
 
     // Ignore responses of filters that are no longer the current ones
@@ -79,7 +84,9 @@ export const useRecipesStore = defineStore('recipes', () => {
 
     if (recipesError) throw recipesError;
 
-    recipes.value = data ?? [];
+    recipes.value = recipesOffset.value === 0 ? data : [...recipes.value, ...data];
+    hasMoreRecipes.value = data.length === GET_RECIPES_LIMIT;
+
     await getRecipeImages(recipes.value.map((recipe) => recipe.id));
   });
 
@@ -114,6 +121,35 @@ export const useRecipesStore = defineStore('recipes', () => {
   );
 
   /**
+   * Start over from the first page. Pending requests are ignored and no next page is loaded until
+   * the first page is in, so a page of the previous filter can not end up in the new results.
+   */
+  function restartRecipes(): void {
+    clearTimeout(timeout);
+    latestRequest++;
+    recipesOffset.value = 0;
+    hasMoreRecipes.value = false;
+  }
+
+  /**
+   * Get the recipes from the first page
+   */
+  function refreshRecipes(): void {
+    restartRecipes();
+    getRecipes();
+  }
+
+  /**
+   * Load the next page of recipes
+   */
+  function loadMoreRecipes(): void {
+    if (!hasMoreRecipes.value || isLoadingAction('getRecipes')) return;
+
+    recipesOffset.value += GET_RECIPES_LIMIT;
+    getRecipes();
+  }
+
+  /**
    * Forget the image URL of a recipe, so the next load requests a fresh one after the image changed
    * @param recipeId Recipe id
    */
@@ -134,8 +170,7 @@ export const useRecipesStore = defineStore('recipes', () => {
    * Clear the recipes, for example after logging out
    */
   function clearRecipes(): void {
-    clearTimeout(timeout);
-    latestRequest++;
+    restartRecipes();
     recipes.value = [];
     recipeImages.value = {};
     imagesExpireAt = 0;
@@ -146,13 +181,13 @@ export const useRecipesStore = defineStore('recipes', () => {
     filter,
     () => {
       // Debounce so typing in a filter field does not fire a request per keystroke
-      clearTimeout(timeout);
+      restartRecipes();
       timeout = setTimeout(getRecipes, 300);
     },
     { deep: true }
   );
 
-  watch([orderBy, orderDirection], getRecipes);
+  watch([orderBy, orderDirection], refreshRecipes);
 
   return {
     isLoading,
@@ -162,7 +197,10 @@ export const useRecipesStore = defineStore('recipes', () => {
     recipeImages,
     filter,
     order,
+    hasMoreRecipes,
     getRecipes,
+    refreshRecipes,
+    loadMoreRecipes,
     forgetRecipeImage,
     resetFilter,
     clearRecipes

@@ -21,9 +21,9 @@
               key="loading"
             />
             <ErrorState
-              v-else-if="recipesStore.errorFor('getRecipes')"
+              v-else-if="recipesError && !recipesStore.recipes.length"
               key="error"
-              :error="recipesStore.errorFor('getRecipes')!"
+              :error="recipesError"
               @retry="recipesStore.getRecipes()"
             />
             <EmptyState
@@ -36,12 +36,17 @@
               button-icon="plus"
               button-route="/create-recipe"
             />
-            <RecipeGrid
-              v-else
-              key="list"
-              :recipes="recipesStore.recipes"
-              :images="recipesStore.recipeImages"
-            />
+            <div v-else key="list" class="results">
+              <RecipeGrid :recipes="recipesStore.recipes" :images="recipesStore.recipeImages" />
+              <Transition name="fade">
+                <ErrorState
+                  v-if="recipesError"
+                  :error="recipesError"
+                  @retry="recipesStore.getRecipes()"
+                />
+              </Transition>
+              <div ref="end" aria-hidden="true"></div>
+            </div>
           </Transition>
         </section>
       </div>
@@ -56,13 +61,29 @@ import Button from '@/components/form/Button.vue';
 import { ButtonType, Size } from '@/utils/types/enums';
 import { useRecipesStore } from '@/stores/useRecipesStore';
 import RecipeGrid from '@/components/pages/recipes/RecipeGrid.vue';
-import { ref } from 'vue';
+import { computed, ref, useTemplateRef, watch } from 'vue';
 import RecipesFilter from '@/components/pages/recipes/RecipesFilter.vue';
 import EmptyState from '@/components/general/EmptyState.vue';
 import ErrorState from '@/components/general/ErrorState.vue';
+import { useInView } from '@/composables/useInView';
 
 const recipesStore = useRecipesStore();
 const openFilters = ref<boolean>(false);
+const isEndInView = useInView(useTemplateRef<HTMLElement>('end'));
 
-recipesStore.getRecipes();
+const recipesError = computed(() => recipesStore.errorFor('getRecipes'));
+
+const shouldLoadMore = computed(
+  () =>
+    isEndInView.value &&
+    recipesStore.hasMoreRecipes &&
+    !recipesStore.isLoadingAction('getRecipes') &&
+    !recipesError.value
+);
+
+watch(shouldLoadMore, (load) => {
+  if (load) recipesStore.loadMoreRecipes();
+});
+
+recipesStore.refreshRecipes();
 </script>
