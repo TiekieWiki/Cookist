@@ -7,7 +7,7 @@
       }}
     </h3>
     <Button
-      @click="recipeStore.setLastEaten"
+      @click="recipeStore.setLastEaten()"
       :disabled="lastEatenToday || recipeStore.isLoadingAction('setLastEaten')"
       :aria-busy="recipeStore.isLoadingAction('setLastEaten')"
       :type="ButtonType.BUTTON"

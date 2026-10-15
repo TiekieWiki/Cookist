@@ -6,6 +6,7 @@ const messages = {
     duration: 'Duration (min)',
     portions: 'Portions',
     rating: 'Rating',
+    lastEaten: 'Last eaten',
     image: 'Picture',
     instructions: 'Instructions',
     notes: 'Notes',
@@ -26,6 +27,7 @@ const messages = {
       duration: 'Duration of the recipe',
       portions: 'Number of portions of the recipe',
       rating: 'Rating of the recipe',
+      lastEaten: 'When the recipe was last eaten',
       image: 'Picture of the recipe',
       instruction: 'Instruction of the recipe',
       notes: 'Notes about the recipe'

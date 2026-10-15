@@ -9,6 +9,7 @@ const messages: typeof en = {
     duration: 'Duur (min)',
     portions: 'Porties',
     rating: 'Beoordeling',
+    lastEaten: 'Laatst gegeten',
     image: 'Afbeelding',
     instructions: 'Instructies',
     notes: 'Aantekeningen',
@@ -29,6 +30,7 @@ const messages: typeof en = {
       duration: 'Duur van het recept',
       portions: 'Aantal porties van het recept',
       rating: 'Beoordeling van het recept',
+      lastEaten: 'Wanneer het recept het laatst gegeten is',
       image: 'Afbeelding van het recept',
       instruction: 'Instructie van het recept',
       notes: 'Aantekeningen over het recept'

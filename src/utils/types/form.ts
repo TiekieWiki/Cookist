@@ -38,8 +38,8 @@ export interface InputFieldProps {
   required?: boolean;
   disabled?: boolean;
   autocomplete?: AutoCompleteVariant;
-  min?: number;
-  max?: number;
+  min?: number | string;
+  max?: number | string;
   step?: number;
   error?: string;
 }

@@ -60,6 +60,16 @@
         :error="errors.rating"
         v-model:input="recipe.rating"
       />
+      <InputField
+        id="lastEaten"
+        name="lastEaten"
+        :label="$t('editRecipePage.lastEaten')"
+        :ariaLabel="$t('editRecipePage.ariaLabel.lastEaten')"
+        type="date"
+        :required="false"
+        :max="today"
+        v-model:input="recipe.last_eaten"
+      />
     </div>
   </section>
 </template>
@@ -70,10 +80,13 @@ import InputField from '@/components/form/InputField.vue';
 import SelectField from '@/components/form/SelectField.vue';
 import { toSelectOptions } from '@/utils/global/selectOptions';
 import { type RecipeErrors } from '@/utils/recipe/validateRecipe';
+import { toLocalISODate } from '@/utils/global/date';
 
 defineProps<{ errors: RecipeErrors }>();
 
 const recipe = defineModel<Recipe>('recipe', { required: true });
 
 const categoryOptions = toSelectOptions(RecipeCategories);
+
+const today = toLocalISODate(new Date());
 </script>

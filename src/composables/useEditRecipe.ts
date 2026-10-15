@@ -87,6 +87,12 @@ export function useEditRecipe(): {
 
     if (!saved) return;
 
+    const lastEaten = recipe.value.last_eaten || null;
+
+    if (lastEaten !== (originalRecipe.value.last_eaten || null)) {
+      await recipeStore.setLastEaten(lastEaten);
+    }
+
     recipe.value.id = recipeStore.recipe.id;
     originalRecipe.value = structuredClone(toRaw(recipe.value));
     originalImage.value = image.value;
@@ -126,7 +132,10 @@ export function useEditRecipe(): {
 
     if (!loaded) return;
 
-    recipe.value = structuredClone(toRaw(recipeStore.recipe));
+    recipe.value = {
+      ...structuredClone(toRaw(recipeStore.recipe)),
+      last_eaten: recipeStore.lastEatenDate
+    };
     recipe.value.ingredients.push(emptyIngredient());
     recipe.value.instructions.push({
       ...emptyInstruction(),

@@ -120,17 +120,18 @@ export const useRecipeStore = defineStore('recipe', () => {
   );
 
   /**
-   * Update last eaten date of recipe to today, in the user's timezone
+   * Update last eaten date of recipe
+   * @param date Date as `YYYY-MM-DD`, `null` to clear it. Defaults to today, in the user's timezone
    */
   const setLastEaten = trackAction(
     'setLastEaten',
-    async (): Promise<void> => {
+    async (date: string | null = toLocalISODate(new Date())): Promise<void> => {
       const user = await requireUser();
 
       const { data, error } = await supabase
         .from('recipe_users')
         .update({
-          last_eaten: toLocalISODate(new Date())
+          last_eaten: date
         })
         .eq('user_id', user.id)
         .eq('recipe_id', recipe.value.id)
