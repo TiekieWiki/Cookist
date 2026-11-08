@@ -51,8 +51,10 @@ import { computed } from 'vue';
 import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
 import { useToastStore } from '@/stores/useToastStore';
 import { toIngredientCheckBoxes } from '@/utils/recipe/ingredientCheckBoxes';
+import { useRecipeStore } from '@/stores/useRecipeStore';
 
 const groceryListStore = useGroceryListStore();
+const recipeStore = useRecipeStore();
 const toastStore = useToastStore();
 
 const { portionCount, portionedIngredients } = useRecipePortions();
@@ -63,7 +65,7 @@ const ingredients = computed(() => toIngredientCheckBoxes(portionedIngredients.v
  * Add the ingredients for the chosen servings to the grocery list, and confirm it with a toast
  */
 async function addToGroceryList(): Promise<void> {
-  if (await groceryListStore.setGroceryList(portionedIngredients.value)) {
+  if (await groceryListStore.setGroceryList(portionedIngredients.value, recipeStore.recipe.id)) {
     toastStore.showToast({ type: 'success', title: 'recipePage.addedToGroceryList' });
   }
 }

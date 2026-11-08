@@ -33,14 +33,21 @@ export const useGroceryListStore = defineStore('groceryList', () => {
    */
   const setGroceryList = trackAction(
     'setGroceryList',
-    async (ingredients: Ingredient[] | Ingredient): Promise<void> => {
+    async (ingredients: Ingredient[] | Ingredient, recipeId?: string): Promise<void> => {
       await requireUser();
 
       const ingredientArray = Array.isArray(ingredients) ? ingredients : [ingredients];
 
       const { data, error } = await supabase
         .from('user_grocerylist')
-        .insert(ingredientArray.map(({ name, unit, amount }) => ({ name, unit, amount })))
+        .insert(
+          ingredientArray.map(({ name, unit, amount }) => ({
+            name,
+            unit,
+            amount,
+            recipe_id: recipeId
+          }))
+        )
         .select();
 
       if (error) throw error;
