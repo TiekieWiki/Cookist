@@ -2,6 +2,34 @@
   <main class="pantry">
     <article>
       <PantryTitle v-model:delete-open="deletePantryOpen" />
+      <Transition name="fade" mode="out-in">
+        <LoadingSpinner
+          v-if="pantryStore.isLoadingAction('getPantry') && !pantryStore.pantry.length"
+          key="loading"
+        />
+        <ErrorState
+          v-else-if="pantryStore.errorFor('getPantry')"
+          key="error"
+          :error="pantryStore.errorFor('getPantry')!"
+          @retry="pantryStore.getPantry()"
+        />
+        <div v-else key="list" class="groups">
+          <Transition name="fade" mode="out-in">
+            <EmptyState
+              v-if="pantryStore.pantry.length <= 0"
+              key="empty"
+              icon="kitchen-set"
+              title="pantryPage.emptyPantryTitle"
+              subtitle="pantryPage.emptyPantrySubtitle"
+              buttonText="pantryPage.browseRecipes"
+              buttonRoute="/recipes"
+            />
+            <div v-else>
+              <TransitionGroup name="list"> Test </TransitionGroup>
+            </div>
+          </Transition>
+        </div>
+      </Transition>
     </article>
   </main>
   <ConfirmPopUp
@@ -21,10 +49,15 @@ import { usePantryStore } from '@/stores/usePantryStore';
 import { ref, watch } from 'vue';
 import PantryTitle from '@/components/pages/pantry/PantryTitle.vue';
 import ConfirmPopUp from '@/components/general/ConfirmPopUp.vue';
+import LoadingSpinner from '@/components/general/LoadingSpinner.vue';
+import ErrorState from '@/components/general/ErrorState.vue';
+import EmptyState from '@/components/general/EmptyState.vue';
 
 const pantryStore = usePantryStore();
 
 const deletePantryOpen = ref<boolean>(false);
+
+pantryStore.getPantry();
 
 /**
  * Delete pantry. When it fails, the pop-up stays open and shows why.

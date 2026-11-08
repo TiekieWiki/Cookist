@@ -27,6 +27,4 @@ import { usePantryStore } from '@/stores/usePantryStore';
 const pantryStore = usePantryStore();
 
 const deleteOpen = defineModel<boolean>('deleteOpen', { required: true });
-
-pantryStore.getPantry();
 </script>

@@ -8,7 +8,11 @@ const messages: typeof en = {
     confirmEmpty:
       'Weet je zeker dat je de voorraadkast wilt legen? Dit kan niet ongedaan worden gemaakt.',
     empty: 'Legen',
-    clearAll: 'Alles wissen'
+    clearAll: 'Alles wissen',
+    emptyPantryTitle: 'Je voorraadkast is leeg',
+    emptyPantrySubtitle:
+      'Open een recept en klik "Toevoegen aan boodschappenlijst" — het recept komt hier terecht voor een lijst van recepten.',
+    browseRecipes: 'Recepten bekijken'
   }
 };
 
