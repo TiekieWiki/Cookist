@@ -41,6 +41,13 @@
     </div>
     <div class="preference">
       <div class="name">
+        <p>{{ $t('profilePage.usePantry') }}</p>
+        <p class="small">{{ $t('profilePage.usePantryDescription') }}</p>
+      </div>
+      <Toggle v-model:input="usePantry" />
+    </div>
+    <div class="preference">
+      <div class="name">
         <p>{{ $t('profilePage.handedness') }}</p>
         <p class="small">{{ $t('profilePage.handednessDescription') }}</p>
       </div>
@@ -101,6 +108,7 @@ const measuringSystem = [
   { value: MeasuringSystem.US_CUSTOMARY, label: MeasuringSystem.US_CUSTOMARY }
 ];
 const selectedMeasuringSystem = ref<Profile['measuring_system']>();
+const usePantry = ref<boolean>(true);
 const handedness = [
   { value: Handedness.LEFT, label: Handedness.LEFT },
   { value: Handedness.RIGHT, label: Handedness.RIGHT },
@@ -117,6 +125,7 @@ watch(
     selectedLanguage.value = profile.language;
     darkModeOn.value = profile.colorscheme === ColorScheme.DARK;
     selectedMeasuringSystem.value = profile.measuring_system;
+    usePantry.value = profile.use_pantry;
     selectedHandedness.value = profile.handedness;
   },
   { immediate: true }
@@ -142,6 +151,7 @@ async function saveSettings(): Promise<void> {
     selectedLanguage.value || Language.EN,
     !darkModeOn.value ? ColorScheme.LIGHT : ColorScheme.DARK,
     selectedMeasuringSystem.value || MeasuringSystem.METRIC,
+    usePantry.value,
     selectedHandedness.value || Handedness.RIGHT
   );
 

@@ -27,6 +27,7 @@
 .toggle {
   position: relative;
   display: inline-block;
+  flex-shrink: 0;
   width: var(--spacing-12);
   height: calc(var(--spacing-7) + var(--spacing-1) / 2);
 

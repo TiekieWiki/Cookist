@@ -23,6 +23,9 @@ const messages: typeof en = {
       metric: 'Metrisch',
       us_customary: 'Amerikaans gebruikelijk'
     },
+    usePantry: 'Gebruik voorraadkast',
+    usePantryDescription:
+      'Schakel de voorraadkast in om bij te houden welke recepten je hebt gekookt of ingredienten voor hebt gekocht.',
     handedness: 'Handigheid',
     handednessDescription:
       'Je hebt maar twee handen, laten we er maar een voor je telefoon gebruiken.',

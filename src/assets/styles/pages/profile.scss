@@ -86,6 +86,10 @@
         align-items: center;
         gap: var(--spacing-4);
 
+        @media only screen and (max-width: $breakpoint-max-small) {
+          align-items: start;
+        }
+
         .name {
           display: flex;
           flex-direction: column;
@@ -106,7 +110,7 @@
           }
         }
 
-        &:nth-of-type(-n + 3) {
+        &:nth-of-type(-n + 4) {
           padding-bottom: var(--spacing-4);
           border-bottom: var(--border-secondary);
         }

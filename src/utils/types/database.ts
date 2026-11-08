@@ -15,6 +15,7 @@ export type Database = {
           email: string | null;
           handedness: Database['public']['Enums']['handednesstypes'];
           measuring_system: Database['public']['Enums']['measuring_system'];
+          use_pantry: boolean;
           id: string;
           language: Database['public']['Enums']['languages'];
         };
@@ -24,6 +25,7 @@ export type Database = {
           email?: string | null;
           handedness?: Database['public']['Enums']['handednesstypes'];
           measuring_system: Database['public']['Enums']['measuring_system'];
+          use_pantry?: boolean;
           id: string;
           language?: Database['public']['Enums']['languages'];
         };
@@ -33,6 +35,7 @@ export type Database = {
           email?: string | null;
           handedness?: Database['public']['Enums']['handednesstypes'];
           measuring_system?: Database['public']['Enums']['measuring_system'];
+          use_pantry?: boolean;
           id?: string;
           language?: Database['public']['Enums']['languages'];
         };

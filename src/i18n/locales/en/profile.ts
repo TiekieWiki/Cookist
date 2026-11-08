@@ -21,6 +21,9 @@ const messages = {
       metric: 'Metric',
       us_customary: 'US customary'
     },
+    usePantry: 'Use pantry',
+    usePantryDescription:
+      'Enable pantry to keep track of the recipes you have cooked or bought ingredients for.',
     handedness: 'Handedness',
     handednessDescription: "You only have two hands, let's only use one for your phone",
     handednessType: {
