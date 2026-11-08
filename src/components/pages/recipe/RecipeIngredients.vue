@@ -52,9 +52,11 @@ import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
 import { useToastStore } from '@/stores/useToastStore';
 import { toIngredientCheckBoxes } from '@/utils/recipe/ingredientCheckBoxes';
 import { useRecipeStore } from '@/stores/useRecipeStore';
+import { usePantryStore } from '@/stores/usePantryStore';
 
 const groceryListStore = useGroceryListStore();
 const recipeStore = useRecipeStore();
+const pantryStore = usePantryStore();
 const toastStore = useToastStore();
 
 const { portionCount, portionedIngredients } = useRecipePortions();
@@ -66,6 +68,7 @@ const ingredients = computed(() => toIngredientCheckBoxes(portionedIngredients.v
  */
 async function addToGroceryList(): Promise<void> {
   if (await groceryListStore.setGroceryList(portionedIngredients.value, recipeStore.recipe.id)) {
+    await pantryStore.setPantry(recipeStore.recipe.id);
     toastStore.showToast({ type: 'success', title: 'recipePage.addedToGroceryList' });
   }
 }

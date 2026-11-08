@@ -7,7 +7,7 @@
       }}
     </h3>
     <Button
-      @click="recipeStore.setLastEaten()"
+      @click="setLastEaten()"
       :disabled="lastEatenToday || recipeStore.isLoadingAction('setLastEaten')"
       :aria-busy="recipeStore.isLoadingAction('setLastEaten')"
       :type="ButtonType.BUTTON"
@@ -24,8 +24,15 @@ import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import { computed } from 'vue';
 import { useRecipeStore } from '@/stores/useRecipeStore.js';
 import { isToday } from '@/utils/global/date.js';
+import { usePantryStore } from '@/stores/usePantryStore';
 
 const recipeStore = useRecipeStore();
+const pantryStore = usePantryStore();
+
+const setLastEaten = async () => {
+  if (!(await recipeStore.setLastEaten())) return;
+  await pantryStore.deletePantryRecipe(recipeStore.recipe.id);
+};
 
 const lastEatenToday = computed(() => {
   return isToday(recipeStore.lastEatenDate);

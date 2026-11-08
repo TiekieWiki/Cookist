@@ -4,6 +4,7 @@ import { useProfileStore } from '@/stores/useProfileStore';
 import { useRecipeStore } from '@/stores/useRecipeStore';
 import { useRecipesStore } from '@/stores/useRecipesStore';
 import { useGroceryListStore } from '@/stores/useGroceryListStore';
+import { usePantryStore } from '@/stores/usePantryStore';
 import { setSystemLanguage, setUserLanguage } from '@/utils/global/setLanguage';
 import {
   clearInterfaceVariables,
@@ -22,6 +23,7 @@ export function useSession(): void {
   const recipeStore = useRecipeStore();
   const recipesStore = useRecipesStore();
   const groceryListStore = useGroceryListStore();
+  const pantryStore = usePantryStore();
 
   watch(
     () => userStore.user?.id,
@@ -31,6 +33,7 @@ export function useSession(): void {
         recipeStore.clearRecipe();
         recipesStore.clearRecipes();
         groceryListStore.clearGroceryList();
+        pantryStore.clearPantry();
       }
 
       if (userId) {

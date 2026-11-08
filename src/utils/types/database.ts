@@ -196,6 +196,32 @@ export type Database = {
           }
         ];
       };
+      user_pantry: {
+        Row: {
+          id: string;
+          recipe_id: string;
+          user_id: string;
+        };
+        Insert: {
+          id?: string;
+          recipe_id: string;
+          user_id?: string;
+        };
+        Update: {
+          id?: string;
+          recipe_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'user_pantry_recipe_id_fkey';
+            columns: ['recipe_id'];
+            isOneToOne: false;
+            referencedRelation: 'recipes';
+            referencedColumns: ['id'];
+          }
+        ];
+      };
     };
     Views: {
       [_ in never]: never;

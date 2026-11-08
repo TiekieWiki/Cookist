@@ -1,8 +1,10 @@
 import { useUserStore } from '@/stores/useUserStore';
 import type { MenuItem } from '../types/general';
+import { useProfileStore } from '@/stores/useProfileStore';
 
 export function menuItems(): MenuItem[] {
   const userStore = useUserStore();
+  const profileStore = useProfileStore();
 
   return [
     {
@@ -22,7 +24,7 @@ export function menuItems(): MenuItem[] {
     {
       route: '/pantry',
       name: 'general.pageTitles.pantry',
-      condition: userStore.isLoggedIn
+      condition: userStore.isLoggedIn && profileStore.profile?.use_pantry
     },
     {
       route: '/profile',
