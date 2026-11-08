@@ -78,6 +78,16 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
+    path: '/pantry',
+    name: 'Pantry',
+    component: () => import('../views/PantryView.vue'),
+    meta: {
+      requiresAuth: true,
+      title: 'general.pageTitles.pantry',
+      translations: 'pantry'
+    }
+  },
+  {
     path: '/profile',
     name: 'Profile',
     component: () => import('../views/ProfileView.vue'),

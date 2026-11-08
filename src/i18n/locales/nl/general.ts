@@ -22,6 +22,7 @@ const messages: typeof en = {
       createRecipe: 'Recept aanmaken',
       editRecipe: 'Recept bewerken',
       groceryList: 'Boodschappenlijst',
+      pantry: 'Voorraadkast',
       profile: 'Profiel',
       login: 'Log in',
       notFound: 'Pagina niet gevonden'

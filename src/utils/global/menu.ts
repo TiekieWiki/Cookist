@@ -20,6 +20,11 @@ export function menuItems(): MenuItem[] {
       condition: userStore.isLoggedIn
     },
     {
+      route: '/pantry',
+      name: 'general.pageTitles.pantry',
+      condition: userStore.isLoggedIn
+    },
+    {
       route: '/profile',
       name: 'general.pageTitles.profile',
       condition: userStore.isLoggedIn

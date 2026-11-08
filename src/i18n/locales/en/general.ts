@@ -20,6 +20,7 @@ const messages = {
       createRecipe: 'Create recipe',
       editRecipe: 'Edit recipe',
       groceryList: 'Grocery list',
+      pantry: 'Pantry',
       profile: 'Profile',
       login: 'Login',
       notFound: 'Page not found'

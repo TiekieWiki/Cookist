@@ -11,6 +11,7 @@ export type TranslationNamespace =
   | 'recipe'
   | 'editRecipe'
   | 'groceryList'
+  | 'pantry'
   | 'notFound';
 
 const loaders = import.meta.glob<{ default: Record<string, unknown> }>('./locales/*/*.ts');
