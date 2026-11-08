@@ -8,6 +8,8 @@ const messages: typeof en = {
     confirmEmpty:
       'Weet je zeker dat je de boodschappenlijst wilt legen? Dit kan niet ongedaan worden gemaakt.',
     empty: 'Legen',
+    combineIngredients: 'Ingrediënten combineren',
+    groupIngredients: 'Ingrediënten groeperen',
     clearAll: 'Alles wissen',
     emptyBasket: 'Je lijst is leeg',
     emptyBasketSubtitle:
@@ -15,6 +17,7 @@ const messages: typeof en = {
     browseRecipes: 'Recepten bekijken',
     addIngredient: 'Ingredient toevoegen',
     other: 'Overig',
+    allIngredients: 'Alle ingrediënten',
     ariaLabel: {
       deleteIngredient: '{name} verwijderen'
     }

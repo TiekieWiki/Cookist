@@ -12,12 +12,29 @@
     </div>
     <div class="actions">
       <Button
-        @click="deleteOpen = true"
+        @click="combineIngredients = !combineIngredients"
         :type="ButtonType.BUTTON"
         :variant="ColorVariant.SECONDARY"
       >
+        <font-awesome-icon
+          :icon="[
+            'fas',
+            combineIngredients
+              ? 'up-right-and-down-left-from-center'
+              : 'down-left-and-up-right-to-center'
+          ]"
+        />
+        <span class="desktop">{{
+          $t(
+            combineIngredients
+              ? 'groceryListPage.groupIngredients'
+              : 'groceryListPage.combineIngredients'
+          )
+        }}</span>
+      </Button>
+      <Button @click="deleteOpen = true" :type="ButtonType.BUTTON" :variant="ColorVariant.WARNING">
         <font-awesome-icon :icon="['fas', 'trash-can']" />
-        {{ $t('groceryListPage.clearAll') }}
+        <span class="desktop">{{ $t('groceryListPage.clearAll') }}</span>
       </Button>
     </div>
   </section>
@@ -30,5 +47,6 @@ import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
 
 const groceryListStore = useGroceryListStore();
 
+const combineIngredients = defineModel<boolean>('combineIngredients', { required: true });
 const deleteOpen = defineModel<boolean>('deleteOpen', { required: true });
 </script>

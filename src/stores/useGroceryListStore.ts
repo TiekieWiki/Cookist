@@ -59,24 +59,28 @@ export const useGroceryListStore = defineStore('groceryList', () => {
   );
 
   /**
-   * Delete an ingredient of the grocery list of the current user
+   * Delete ingredients of the grocery list of the current user. A combined ingredient consists of
+   * several rows, which are deleted together.
+   * @param ingredientIds Ids of the rows to delete
    */
   const deleteGroceryListIngredient = trackAction(
     'deleteGroceryListIngredient',
-    async (ingredientId: string): Promise<void> => {
+    async (ingredientIds: string[]): Promise<void> => {
       const user = await requireUser();
 
       const { error } = await supabase
         .from('user_grocerylist')
         .delete()
         .eq('user_id', user.id)
-        .eq('id', ingredientId);
+        .in('id', ingredientIds);
 
       if (error) throw error;
 
-      groceryList.value = groceryList.value.filter((ingredient) => ingredient.id !== ingredientId);
+      groceryList.value = groceryList.value.filter(
+        (ingredient) => !ingredientIds.includes(ingredient.id)
+      );
     },
-    { id: (ingredientId) => ingredientId, toast: true }
+    { id: (ingredientIds) => ingredientIds.join(','), toast: true }
   );
 
   /**

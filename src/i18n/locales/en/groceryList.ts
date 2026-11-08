@@ -5,6 +5,8 @@ const messages = {
     emptyGroceryList: 'Empty grocery list',
     confirmEmpty: 'Are you sure you want to empty the grocery list? This cannot be undone.',
     empty: 'Empty',
+    combineIngredients: 'Combine ingredients',
+    groupIngredients: 'Group ingredients',
     clearAll: 'Clear all',
     emptyBasket: 'Your list is empty',
     emptyBasketSubtitle:
@@ -12,6 +14,7 @@ const messages = {
     browseRecipes: 'Browse recipes',
     addIngredient: 'Add ingredient',
     other: 'Other',
+    allIngredients: 'All ingredients',
     ariaLabel: {
       deleteIngredient: 'Remove {name}'
     }

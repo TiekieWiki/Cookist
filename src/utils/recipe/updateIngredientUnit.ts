@@ -98,7 +98,7 @@ export const unitConversionMap = {
  * @param toUnit Unit to convert to
  * @returns The converted amount, or the original amount when the units cannot be converted
  */
-function convertAmount(amount: number, fromUnit: string, toUnit: string): number {
+export function convertAmount(amount: number, fromUnit: string, toUnit: string): number {
   const conversions: Partial<Record<string, UnitConversion>> = unitConversionMap;
   const from = conversions[fromUnit];
   const to = conversions[toUnit];
@@ -109,11 +109,22 @@ function convertAmount(amount: number, fromUnit: string, toUnit: string): number
 }
 
 /**
+ * Gets the group of a unit. Amounts in units of the same group can be converted into each other.
+ * @param unit Unit to get the group of
+ * @returns The group of the unit, or the unit itself for unknown units
+ */
+export function getUnitGroup(unit: string): string {
+  const conversions: Partial<Record<string, UnitConversion>> = unitConversionMap;
+
+  return conversions[unit]?.group ?? unit;
+}
+
+/**
  * Rounds an amount to 2 decimal places.
  * @param amount Amount to round
  * @returns The rounded amount
  */
-function roundAmount(amount: number): number {
+export function roundAmount(amount: number): number {
   return parseFloat(amount.toFixed(2));
 }
 
