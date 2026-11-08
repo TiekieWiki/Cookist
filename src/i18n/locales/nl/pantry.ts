@@ -1,7 +1,15 @@
 import type en from '../en/pantry';
 
 const messages: typeof en = {
-  pantryPage: {}
+  pantryPage: {
+    noRecipes: 'Nog niks op de lijst',
+    recipesToCook: 'recepten om te koken | recept om te koken | recepten om te koken',
+    emptyPantry: 'Voorraadkast legen',
+    confirmEmpty:
+      'Weet je zeker dat je de voorraadkast wilt legen? Dit kan niet ongedaan worden gemaakt.',
+    empty: 'Legen',
+    clearAll: 'Alles wissen'
+  }
 };
 
 export default messages;
