@@ -1,7 +1,8 @@
 import { ref, toRaw, watch, type Ref } from 'vue';
 import { type Ingredient } from '@/utils/types/recipe';
-import { updateIngredientsUnit } from '@/utils/recipe/updateIngredientUnit';
+import { getPreferredUnit, updateIngredientsUnit } from '@/utils/recipe/updateIngredientUnit';
 import { useRecipeStore } from '@/stores/useRecipeStore';
+import { useProfileStore } from '@/stores/useProfileStore';
 
 /**
  * Composable to manage recipe portion state.
@@ -10,18 +11,22 @@ import { useRecipeStore } from '@/stores/useRecipeStore';
 export function useRecipePortions(): {
   portionCount: Ref<number>;
   portionedIngredients: Ref<Ingredient[]>;
-  changeIngredientUnit: (index: number, unit: string) => void;
 } {
   const recipeStore = useRecipeStore();
+  const profileStore = useProfileStore();
   const portionCount = ref<number>(1);
   const portionedIngredients = ref<Ingredient[]>([]);
 
   // Reset portions and ingredients whenever another recipe is loaded
   watch(
-    () => recipeStore.recipe,
-    (recipe) => {
+    [() => recipeStore.recipe, () => profileStore.profile?.measuring_system],
+    ([recipe, measuringSystem]) => {
       portionCount.value = recipe.portions || 1;
-      portionedIngredients.value = structuredClone(toRaw(recipe.ingredients));
+      portionedIngredients.value = recipe.ingredients.map((ingredient) => ({
+        ...structuredClone(toRaw(ingredient)),
+        unit: measuringSystem ? getPreferredUnit(ingredient, measuringSystem) : ingredient.unit
+      }));
+      updateIngredients();
     },
     { immediate: true }
   );
@@ -33,16 +38,6 @@ export function useRecipePortions(): {
       updateIngredients();
     }
   );
-
-  /**
-   * Update the unit of an ingredient
-   * @param index Index of the ingredient to update
-   * @param unit New unit of the ingredient
-   */
-  function changeIngredientUnit(index: number, unit: string): void {
-    portionedIngredients.value[index].unit = unit;
-    updateIngredients();
-  }
 
   /**
    * Recalculate the ingredient amounts based on their units and the portion count
@@ -58,7 +53,6 @@ export function useRecipePortions(): {
 
   return {
     portionCount,
-    portionedIngredients,
-    changeIngredientUnit
+    portionedIngredients
   };
 }

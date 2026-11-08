@@ -43,7 +43,7 @@ const messages: typeof en = {
       },
       ingredients: 'Ingredienten',
       units: {
-        pc: 'stuk',
+        pc: 'stuk | stuks',
         ml: 'ml',
         dl: 'dl',
         l: 'l',
@@ -90,7 +90,6 @@ const messages: typeof en = {
         getRecipeImages: "De foto's van de recepten konden niet worden geladen",
         getGroceryList: 'Je boodschappenlijst kon niet worden geladen',
         setGroceryList: 'Toevoegen aan je boodschappenlijst is mislukt',
-        setGroceryListIngredient: 'Dit ingrediënt kon niet worden bijgewerkt',
         deleteGroceryListIngredient: 'Dit ingrediënt kon niet worden verwijderd',
         deleteGroceryList: 'Je boodschappenlijst kon niet worden geleegd',
         getProfile: 'Je voorkeuren konden niet worden geladen',

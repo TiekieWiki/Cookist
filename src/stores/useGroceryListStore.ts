@@ -2,17 +2,12 @@ import { defineStore } from 'pinia';
 import { useActions } from '@/composables/useActions';
 import { ref } from 'vue';
 import { supabase } from '@/utils/global/supabase';
-import { AppError } from '@/utils/global/errorHandling';
 import { requireUser } from '@/utils/global/requireUser';
 import { type Ingredient } from '@/utils/types/recipe';
 
 export const useGroceryListStore = defineStore('groceryList', () => {
   const { isLoading, isLoadingAction, errorFor, clearError, clearErrors, trackAction } = useActions<
-    | 'getGroceryList'
-    | 'setGroceryListIngredient'
-    | 'setGroceryList'
-    | 'deleteGroceryListIngredient'
-    | 'deleteGroceryList'
+    'getGroceryList' | 'setGroceryList' | 'deleteGroceryListIngredient' | 'deleteGroceryList'
   >();
 
   const groceryList = ref<Ingredient[]>([]);
@@ -32,34 +27,6 @@ export const useGroceryListStore = defineStore('groceryList', () => {
 
     groceryList.value = data ?? [];
   });
-
-  /**
-   * Update an ingredient of the grocery list of the current user
-   */
-  const setGroceryListIngredient = trackAction(
-    'setGroceryListIngredient',
-    async (ingredient: Ingredient): Promise<void> => {
-      const user = await requireUser();
-
-      if (!ingredient.id) throw new AppError('notFound');
-
-      const { error } = await supabase
-        .from('user_grocerylist')
-        .update(ingredient)
-        .eq('user_id', user.id)
-        .eq('id', ingredient.id);
-
-      if (error) throw error;
-
-      const ingredientIndex = groceryList.value.findIndex((item) => item.id === ingredient.id);
-      if (ingredientIndex !== -1) {
-        groceryList.value[ingredientIndex] = ingredient;
-      } else {
-        groceryList.value.push(ingredient);
-      }
-    },
-    { id: (ingredient) => ingredient.id, toast: true }
-  );
 
   /**
    * Add ingredients to the grocery list of the current user
@@ -132,7 +99,6 @@ export const useGroceryListStore = defineStore('groceryList', () => {
     clearError,
     groceryList,
     getGroceryList,
-    setGroceryListIngredient,
     setGroceryList,
     deleteGroceryListIngredient,
     deleteGroceryList,

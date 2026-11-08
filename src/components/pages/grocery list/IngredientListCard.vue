@@ -27,16 +27,6 @@
       <div v-else key="list" class="card">
         <CheckBoxList :items="ingredients">
           <template #item="{ item, index }">
-            <SelectField
-              :ariaLabel="$t('general.recipe.ariaLabel.unit')"
-              :placeholder="$t('general.recipe.placeholder.unit')"
-              :items="toSelectOptions(getPossibleUnits(item.slot!))"
-              labelPrefix="general.recipe.units."
-              :disabled="isUpdating(index)"
-              v-model:selected="item.slot"
-              @change="changeIngredientUnit(item, index)"
-            />
-            <p>{{ item.name }}</p>
             <Button
               :type="ButtonType.BUTTON"
               :variant="ColorVariant.TERTIARY"
@@ -61,17 +51,13 @@
 
 <script setup lang="ts">
 import LoadingSpinner from '@/components/general/LoadingSpinner.vue';
-import { getPossibleUnits, updateIngredientUnit } from '@/utils/recipe/updateIngredientUnit';
-import SelectField from '@/components/form/SelectField.vue';
 import Button from '@/components/form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import CheckBoxList from '@/components/form/CheckBoxList.vue';
 import { computed } from 'vue';
-import { type CheckBoxProps } from '@/utils/types/form';
 import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
 import ErrorState from '@/components/general/ErrorState.vue';
 import EmptyState from '@/components/general/EmptyState.vue';
-import { toSelectOptions } from '@/utils/global/selectOptions';
 import { toIngredientCheckBoxes } from '@/utils/recipe/ingredientCheckBoxes';
 import AddIngredient from './AddIngredient.vue';
 
@@ -88,21 +74,6 @@ function isUpdating(index: number): boolean {
   const id = groceryListStore.groceryList[index]?.id;
   if (!id) return false;
 
-  return (
-    groceryListStore.isLoadingAction('setGroceryListIngredient', id) ||
-    groceryListStore.isLoadingAction('deleteGroceryListIngredient', id)
-  );
-}
-
-/**
- * Change the unit of an ingredient in the grocery list
- * @param ingredient Ingredient to update
- */
-function changeIngredientUnit(ingredient: CheckBoxProps, index: number): void {
-  const updatedIngredient = updateIngredientUnit(groceryListStore.groceryList[index], {
-    ...groceryListStore.groceryList[index],
-    unit: ingredient.slot ? ingredient.slot : ''
-  });
-  groceryListStore.setGroceryListIngredient(updatedIngredient);
+  return groceryListStore.isLoadingAction('deleteGroceryListIngredient', id);
 }
 </script>

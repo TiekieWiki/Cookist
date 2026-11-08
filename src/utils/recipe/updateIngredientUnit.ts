@@ -1,6 +1,12 @@
 import type { Ingredient } from '@/utils/types/recipe';
 
-import { RecipeUnitsPiece, RecipeUnitsVolume, RecipeUnitsWeight } from '../types/recipe';
+import {
+  metricUnits,
+  RecipeUnitsPiece,
+  RecipeUnitsVolume,
+  RecipeUnitsWeight,
+  sharedUnits
+} from '../types/recipe';
 
 interface UnitConversion {
   group: 'count' | 'volume' | 'mass';
@@ -86,21 +92,6 @@ export const unitConversionMap = {
 } satisfies Record<RecipeUnitsPiece | RecipeUnitsVolume | RecipeUnitsWeight, UnitConversion>;
 
 /**
- * Determines the possible units for an ingredient based on its unit.
- * @param ingredientUnit The unit of the ingredient to check
- * @returns {Record<string, string>} The enum of possible units based on the ingredient unit, or an empty object for unknown units.
- */
-export function getPossibleUnits(ingredientUnit: string): Record<string, string> {
-  if ((Object.values(RecipeUnitsPiece) as string[]).includes(ingredientUnit))
-    return RecipeUnitsPiece;
-  else if ((Object.values(RecipeUnitsVolume) as string[]).includes(ingredientUnit))
-    return RecipeUnitsVolume;
-  else if ((Object.values(RecipeUnitsWeight) as string[]).includes(ingredientUnit))
-    return RecipeUnitsWeight;
-  else return {};
-}
-
-/**
  * Converts an amount from one unit to another, without rounding.
  * @param amount Amount to convert
  * @param fromUnit Unit of the amount
@@ -124,24 +115,6 @@ function convertAmount(amount: number, fromUnit: string, toUnit: string): number
  */
 function roundAmount(amount: number): number {
   return parseFloat(amount.toFixed(2));
-}
-
-/**
- * Converts recipe ingredient unit based on the provided initial ingredient.
- * @param initialIngredient Initial ingredient to use for conversion
- * @param currentIngredient Current ingredient to update
- * @returns Updated ingredient with converted amount and unit
- */
-export function updateIngredientUnit(
-  initialIngredient: Ingredient,
-  currentIngredient: Ingredient
-): Ingredient {
-  return {
-    ...currentIngredient,
-    amount: roundAmount(
-      convertAmount(initialIngredient.amount, initialIngredient.unit, currentIngredient.unit)
-    )
-  };
 }
 
 /**
@@ -174,4 +147,33 @@ export function updateIngredientsUnit(
       unit
     };
   });
+}
+
+/**
+ * Picks the unit to show an ingredient in for a measuring system. Pieces, spoons and units that
+ * already belong to the system are kept, other units become a unit of the system that fits the amount.
+ * @param ingredient Ingredient to pick the unit for
+ * @param measuringSystem Measuring system of the user
+ * @returns The unit to show the ingredient in
+ */
+export function getPreferredUnit(
+  ingredient: Ingredient,
+  measuringSystem: 'metric' | 'us_customary'
+): string {
+  const conversions: Partial<Record<string, UnitConversion>> = unitConversionMap;
+  const conversion = conversions[ingredient.unit];
+  const isMetric = measuringSystem === 'metric';
+
+  if (!conversion || sharedUnits.includes(ingredient.unit)) return ingredient.unit;
+  if (metricUnits.includes(ingredient.unit) === isMetric) return ingredient.unit;
+
+  const base = conversion.toBase(ingredient.amount);
+
+  if (conversion.group === 'mass') {
+    if (isMetric) return base >= 1000 ? RecipeUnitsWeight.Kilogram : RecipeUnitsWeight.Gram;
+    return base >= 453.592 ? RecipeUnitsWeight.Pound : RecipeUnitsWeight.Ounce;
+  }
+
+  if (isMetric) return base >= 1000 ? RecipeUnitsVolume.Liters : RecipeUnitsVolume.Milliliters;
+  return base >= 60 ? RecipeUnitsVolume.Cup : RecipeUnitsVolume.Tablespoon;
 }

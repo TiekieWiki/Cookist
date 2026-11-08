@@ -70,6 +70,21 @@ export enum RecipeUnitsWeight {
 
 export const RecipeUnits = { ...RecipeUnitsPiece, ...RecipeUnitsVolume, ...RecipeUnitsWeight };
 
+export const metricUnits: string[] = [
+  RecipeUnitsWeight.Milligram,
+  RecipeUnitsWeight.Gram,
+  RecipeUnitsWeight.Kilogram,
+  RecipeUnitsVolume.Milliliters,
+  RecipeUnitsVolume.Deciliters,
+  RecipeUnitsVolume.Liters
+];
+
+export const sharedUnits: string[] = [
+  RecipeUnitsPiece.Piece,
+  RecipeUnitsVolume.Teaspoon,
+  RecipeUnitsVolume.Tablespoon
+];
+
 export function emptyIngredient(): Ingredient {
   return { amount: 0, unit: RecipeUnits.Piece, name: '' };
 }

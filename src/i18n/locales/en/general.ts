@@ -41,7 +41,7 @@ const messages = {
       },
       ingredients: 'Ingredients',
       units: {
-        pc: 'piece',
+        pc: 'piece | pieces',
         ml: 'ml',
         dl: 'dl',
         l: 'l',
@@ -88,7 +88,6 @@ const messages = {
         getRecipeImages: "Couldn't load the recipe pictures",
         getGroceryList: "Couldn't load your grocery list",
         setGroceryList: "Couldn't add to your grocery list",
-        setGroceryListIngredient: "Couldn't update this ingredient",
         deleteGroceryListIngredient: "Couldn't remove this ingredient",
         deleteGroceryList: "Couldn't empty your grocery list",
         getProfile: "Couldn't load your preferences",

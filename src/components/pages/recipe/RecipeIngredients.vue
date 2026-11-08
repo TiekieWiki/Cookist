@@ -38,25 +38,11 @@
         </Button>
       </div>
     </div>
-    <CheckBoxList :items="ingredients">
-      <template #item="{ item, index }">
-        <SelectField
-          :ariaLabel="$t('general.recipe.ariaLabel.unit')"
-          :placeholder="$t('general.recipe.placeholder.unit')"
-          :items="toSelectOptions(getPossibleUnits(item.slot!))"
-          labelPrefix="general.recipe.units."
-          :selected="item.slot"
-          @update:selected="(unit) => changeIngredientUnit(index, unit!)"
-        />
-        <p>{{ item.name }}</p>
-      </template>
-    </CheckBoxList>
+    <CheckBoxList :items="ingredients" />
   </section>
 </template>
 
 <script setup lang="ts">
-import SelectField from '@/components/form/SelectField.vue';
-import { getPossibleUnits } from '@/utils/recipe/updateIngredientUnit';
 import { useRecipePortions } from '@/composables/useRecipePortions';
 import Button from '@/components/form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
@@ -64,13 +50,12 @@ import CheckBoxList from '@/components/form/CheckBoxList.vue';
 import { computed } from 'vue';
 import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
 import { useToastStore } from '@/stores/useToastStore';
-import { toSelectOptions } from '@/utils/global/selectOptions';
 import { toIngredientCheckBoxes } from '@/utils/recipe/ingredientCheckBoxes';
 
 const groceryListStore = useGroceryListStore();
 const toastStore = useToastStore();
 
-const { portionCount, portionedIngredients, changeIngredientUnit } = useRecipePortions();
+const { portionCount, portionedIngredients } = useRecipePortions();
 
 const ingredients = computed(() => toIngredientCheckBoxes(portionedIngredients.value));
 
