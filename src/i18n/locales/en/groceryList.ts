@@ -11,6 +11,7 @@ const messages = {
       'Open a recipe and tap "Add to grocery list" — everything lands here as one tidy list.',
     browseRecipes: 'Browse recipes',
     addIngredient: 'Add ingredient',
+    other: 'Other',
     ariaLabel: {
       deleteIngredient: 'Remove {name}'
     }

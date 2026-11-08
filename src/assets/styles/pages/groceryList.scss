@@ -4,7 +4,7 @@
 .groceryList {
   @include compact-checkbox-list;
 
-  .emptyList {
+  .groups {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-6);

@@ -14,6 +14,7 @@ const messages: typeof en = {
       'Open een recept en klik "Toevoegen aan boodschappenlijst" — alles komt hier terecht als een nette lijst.',
     browseRecipes: 'Recepten bekijken',
     addIngredient: 'Ingredient toevoegen',
+    other: 'Overig',
     ariaLabel: {
       deleteIngredient: '{name} verwijderen'
     }

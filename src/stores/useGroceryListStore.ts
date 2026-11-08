@@ -4,13 +4,14 @@ import { ref } from 'vue';
 import { supabase } from '@/utils/global/supabase';
 import { requireUser } from '@/utils/global/requireUser';
 import { type Ingredient } from '@/utils/types/recipe';
+import { type GroceryListItem } from '@/utils/types/groceryList';
 
 export const useGroceryListStore = defineStore('groceryList', () => {
   const { isLoading, isLoadingAction, errorFor, clearError, clearErrors, trackAction } = useActions<
     'getGroceryList' | 'setGroceryList' | 'deleteGroceryListIngredient' | 'deleteGroceryList'
   >();
 
-  const groceryList = ref<Ingredient[]>([]);
+  const groceryList = ref<GroceryListItem[]>([]);
 
   /**
    * Get the grocery list of the current user
@@ -20,7 +21,7 @@ export const useGroceryListStore = defineStore('groceryList', () => {
 
     const { data, error } = await supabase
       .from('user_grocerylist')
-      .select('*')
+      .select('*, recipes(name)')
       .eq('user_id', user.id);
 
     if (error) throw error;
@@ -45,10 +46,10 @@ export const useGroceryListStore = defineStore('groceryList', () => {
             name,
             unit,
             amount,
-            recipe_id: recipeId
+            recipe_id: recipeId ?? null
           }))
         )
-        .select();
+        .select('*, recipes(name)');
 
       if (error) throw error;
 

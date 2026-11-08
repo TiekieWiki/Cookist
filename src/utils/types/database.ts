@@ -32,7 +32,7 @@ export type Database = {
           created_at?: string | null;
           email?: string | null;
           handedness?: Database['public']['Enums']['handednesstypes'];
-          measuring_system: Database['public']['Enums']['measuring_system'];
+          measuring_system?: Database['public']['Enums']['measuring_system'];
           id?: string;
           language?: Database['public']['Enums']['languages'];
         };
@@ -165,6 +165,7 @@ export type Database = {
           name: string;
           unit: string;
           user_id: string;
+          recipe_id: string | null;
         };
         Insert: {
           amount: number;
@@ -172,6 +173,7 @@ export type Database = {
           name: string;
           unit: string;
           user_id?: string;
+          recipe_id?: string | null;
         };
         Update: {
           amount?: number;
@@ -179,8 +181,17 @@ export type Database = {
           name?: string;
           unit?: string;
           user_id?: string;
+          recipe_id?: string | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: 'user_grocerylist_recipe_id_fkey';
+            columns: ['recipe_id'];
+            isOneToOne: false;
+            referencedRelation: 'recipes';
+            referencedColumns: ['id'];
+          }
+        ];
       };
     };
     Views: {
