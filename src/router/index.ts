@@ -1,6 +1,7 @@
 import {
   createRouter,
   createWebHistory,
+  START_LOCATION,
   type RouteLocation,
   type RouteRecordRaw
 } from 'vue-router';
@@ -124,13 +125,15 @@ const router = createRouter({
 });
 
 // Navigation guard to check if user is logged in
-router.beforeEach(async (to: RouteLocation) => {
+router.beforeEach(async (to: RouteLocation, from: RouteLocation) => {
   const { data } = await supabase.auth.getSession();
 
   if (to.meta.requiresAuth && !data.session) {
     return '/login';
   } else if (!to.meta.requiresAuth && data.session && to.name === 'Login') {
     return '/';
+  } else if (data.session && to.name === 'Home' && from === START_LOCATION) {
+    return '/recipes';
   }
 
   await loadTranslations(['general', to.meta.translations]);
