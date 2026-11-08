@@ -12,55 +12,48 @@
       :error="groceryListStore.errorFor('getGroceryList')!"
       @retry="groceryListStore.getGroceryList()"
     />
-    <EmptyState
-      v-else-if="groceryListStore.groceryList.length <= 0"
-      key="empty"
-      icon="basket-shopping"
-      title="groceryListPage.emptyBasket"
-      subtitle="groceryListPage.emptyBasketSubtitle"
-      buttonText="groceryListPage.browseRecipes"
-      buttonRoute="/recipes"
-    />
-    <div v-else key="list" class="card">
-      <CheckBoxList :items="ingredients">
-        <template #item="{ item, index }">
-          <SelectField
-            :ariaLabel="$t('general.recipe.ariaLabel.unit')"
-            :placeholder="$t('general.recipe.placeholder.unit')"
-            :items="toSelectOptions(getPossibleUnits(item.slot!))"
-            labelPrefix="general.recipe.units."
-            :disabled="isUpdating(index)"
-            v-model:selected="item.slot"
-            @change="changeIngredientUnit(item, index)"
-          />
-          <p>{{ item.name }}</p>
-          <Button
-            :type="ButtonType.BUTTON"
-            :variant="ColorVariant.TERTIARY"
-            :aria-label="$t('groceryListPage.ariaLabel.deleteIngredient', { name: item.name })"
-            :disabled="isUpdating(index)"
-            :aria-busy="isUpdating(index)"
-            @click="
-              groceryListStore.deleteGroceryListIngredient(groceryListStore.groceryList[index].id!)
-            "
-          >
-            <font-awesome-icon :icon="['fas', 'trash']" />
-          </Button>
-        </template>
-      </CheckBoxList>
-      <div class="addIngredient">
-        <IngredientInputRow name="new-ingredient" v-model:ingredient="ingredient" />
-        <Button
-          @click="groceryListStore.setGroceryList(ingredient)"
-          :aria-label="$t('groceryListPage.addIngredient')"
-          :disabled="groceryListStore.isLoadingAction('setGroceryList')"
-          :aria-busy="groceryListStore.isLoadingAction('setGroceryList')"
-          :type="ButtonType.BUTTON"
-          :variant="ColorVariant.PRIMARY"
-        >
-          <font-awesome-icon :icon="['fas', 'plus']" />
-          <span class="desktop">{{ $t('groceryListPage.addIngredient') }}</span>
-        </Button>
+    <div v-else>
+      <div class="emptyList" v-if="groceryListStore.groceryList.length <= 0">
+        <EmptyState
+          key="empty"
+          icon="basket-shopping"
+          title="groceryListPage.emptyBasket"
+          subtitle="groceryListPage.emptyBasketSubtitle"
+          buttonText="groceryListPage.browseRecipes"
+          buttonRoute="/recipes"
+        />
+        <AddIngredient class="card" />
+      </div>
+      <div v-else key="list" class="card">
+        <CheckBoxList :items="ingredients">
+          <template #item="{ item, index }">
+            <SelectField
+              :ariaLabel="$t('general.recipe.ariaLabel.unit')"
+              :placeholder="$t('general.recipe.placeholder.unit')"
+              :items="toSelectOptions(getPossibleUnits(item.slot!))"
+              labelPrefix="general.recipe.units."
+              :disabled="isUpdating(index)"
+              v-model:selected="item.slot"
+              @change="changeIngredientUnit(item, index)"
+            />
+            <p>{{ item.name }}</p>
+            <Button
+              :type="ButtonType.BUTTON"
+              :variant="ColorVariant.TERTIARY"
+              :aria-label="$t('groceryListPage.ariaLabel.deleteIngredient', { name: item.name })"
+              :disabled="isUpdating(index)"
+              :aria-busy="isUpdating(index)"
+              @click="
+                groceryListStore.deleteGroceryListIngredient(
+                  groceryListStore.groceryList[index].id!
+                )
+              "
+            >
+              <font-awesome-icon :icon="['fas', 'trash']" />
+            </Button>
+          </template>
+        </CheckBoxList>
+        <AddIngredient />
       </div>
     </div>
   </Transition>
@@ -73,17 +66,14 @@ import SelectField from '@/components/form/SelectField.vue';
 import Button from '@/components/form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
 import CheckBoxList from '@/components/form/CheckBoxList.vue';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { type CheckBoxProps } from '@/utils/types/form';
 import { useGroceryListStore } from '@/stores/useGroceryListStore.js';
 import ErrorState from '@/components/general/ErrorState.vue';
-import { emptyIngredient, type Ingredient } from '@/utils/types/recipe';
 import EmptyState from '@/components/general/EmptyState.vue';
-import IngredientInputRow from '@/components/general/IngredientInputRow.vue';
 import { toSelectOptions } from '@/utils/global/selectOptions';
 import { toIngredientCheckBoxes } from '@/utils/recipe/ingredientCheckBoxes';
-
-const ingredient = ref<Ingredient>(emptyIngredient());
+import AddIngredient from './AddIngredient.vue';
 
 const groceryListStore = useGroceryListStore();
 
