@@ -35,6 +35,7 @@ export const useProfileStore = defineStore('profile', () => {
     async (
       language: Profile['language'],
       colorScheme: Profile['colorscheme'],
+      measuringSystem: Profile['measuring_system'],
       handedness: Profile['handedness']
     ): Promise<void> => {
       const user = await requireUser();
@@ -44,6 +45,7 @@ export const useProfileStore = defineStore('profile', () => {
         .update({
           language: language,
           colorscheme: colorScheme,
+          measuring_system: measuringSystem,
           handedness: handedness
         })
         .eq('id', user.id)

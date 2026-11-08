@@ -15,6 +15,12 @@ const messages = {
     },
     colorScheme: 'Dark mode',
     colorSchemeDescription: 'Easier on the eyes.',
+    measuringSystem: 'Measuring system',
+    measuringSystemDescription: 'What system of measuring do you prefer?',
+    measuringSystems: {
+      metric: 'Metric',
+      us_customary: 'US customary'
+    },
     handedness: 'Handedness',
     handednessDescription: "You only have two hands, let's only use one for your phone",
     handednessType: {
@@ -28,7 +34,8 @@ const messages = {
     confirmDelete: 'Are you sure you want to delete your account? This cannot be undone.',
     ariaLabel: {
       language: 'Language',
-      handedness: 'Handedness'
+      handedness: 'Handedness',
+      measuringSystem: 'Measuring system'
     }
   }
 };

@@ -42,6 +42,11 @@ export enum ColorScheme {
   DARK = 'dark'
 }
 
+export enum MeasuringSystem {
+  METRIC = 'metric',
+  US_CUSTOMARY = 'us_customary'
+}
+
 export enum Handedness {
   LEFT = 'left',
   RIGHT = 'right',

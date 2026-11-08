@@ -28,6 +28,19 @@
     </div>
     <div class="preference">
       <div class="name">
+        <p>{{ $t('profilePage.measuringSystem') }}</p>
+        <p class="small">{{ $t('profilePage.measuringSystemDescription') }}</p>
+      </div>
+      <SelectField
+        :ariaLabel="$t('profilePage.ariaLabel.measuringSystem')"
+        :items="measuringSystem"
+        :variant="ColorVariant.PRIMARY"
+        labelPrefix="profilePage.measuringSystems."
+        v-model:selected="selectedMeasuringSystem"
+      />
+    </div>
+    <div class="preference">
+      <div class="name">
         <p>{{ $t('profilePage.handedness') }}</p>
         <p class="small">{{ $t('profilePage.handednessDescription') }}</p>
       </div>
@@ -65,6 +78,7 @@ import {
   ColorVariant,
   Handedness,
   Language,
+  MeasuringSystem,
   Size
 } from '@/utils/types/enums';
 import { ref, watch } from 'vue';
@@ -82,6 +96,11 @@ const languages = [
 ];
 const selectedLanguage = ref<Profile['language']>();
 const darkModeOn = ref<boolean>();
+const measuringSystem = [
+  { value: MeasuringSystem.METRIC, label: MeasuringSystem.METRIC },
+  { value: MeasuringSystem.US_CUSTOMARY, label: MeasuringSystem.US_CUSTOMARY }
+];
+const selectedMeasuringSystem = ref<Profile['measuring_system']>();
 const handedness = [
   { value: Handedness.LEFT, label: Handedness.LEFT },
   { value: Handedness.RIGHT, label: Handedness.RIGHT },
@@ -97,6 +116,7 @@ watch(
 
     selectedLanguage.value = profile.language;
     darkModeOn.value = profile.colorscheme === ColorScheme.DARK;
+    selectedMeasuringSystem.value = profile.measuring_system;
     selectedHandedness.value = profile.handedness;
   },
   { immediate: true }
@@ -121,6 +141,7 @@ async function saveSettings(): Promise<void> {
   const saved = await profileStore.setProfile(
     selectedLanguage.value || Language.EN,
     !darkModeOn.value ? ColorScheme.LIGHT : ColorScheme.DARK,
+    selectedMeasuringSystem.value || MeasuringSystem.METRIC,
     selectedHandedness.value || Handedness.RIGHT
   );
 

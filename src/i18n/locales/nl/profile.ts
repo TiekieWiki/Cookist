@@ -17,6 +17,12 @@ const messages: typeof en = {
     },
     colorScheme: 'Dark mode',
     colorSchemeDescription: 'Aangenamer voor de ogen.',
+    measuringSystem: 'Meet systeem',
+    measuringSystemDescription: 'Welk meetsysteem heeft je voorkeur?',
+    measuringSystems: {
+      metric: 'Metrisch',
+      us_customary: 'Amerikaans gebruikelijk'
+    },
     handedness: 'Handigheid',
     handednessDescription:
       'Je hebt maar twee handen, laten we er maar een voor je telefoon gebruiken.',
@@ -32,7 +38,8 @@ const messages: typeof en = {
       'Weet je zeker dat je je account wilt verwijderen? Dit kan niet ongedaan worden gemaakt.',
     ariaLabel: {
       language: 'Taal',
-      handedness: 'Handigheid'
+      handedness: 'Handigheid',
+      measuringSystem: 'Meet systeem'
     }
   }
 };

@@ -14,6 +14,7 @@ export type Database = {
           created_at: string | null;
           email: string | null;
           handedness: Database['public']['Enums']['handednesstypes'];
+          measuring_system: Database['public']['Enums']['measuring_system'];
           id: string;
           language: Database['public']['Enums']['languages'];
         };
@@ -22,6 +23,7 @@ export type Database = {
           created_at?: string | null;
           email?: string | null;
           handedness?: Database['public']['Enums']['handednesstypes'];
+          measuring_system: Database['public']['Enums']['measuring_system'];
           id: string;
           language?: Database['public']['Enums']['languages'];
         };
@@ -30,6 +32,7 @@ export type Database = {
           created_at?: string | null;
           email?: string | null;
           handedness?: Database['public']['Enums']['handednesstypes'];
+          measuring_system: Database['public']['Enums']['measuring_system'];
           id?: string;
           language?: Database['public']['Enums']['languages'];
         };
@@ -283,6 +286,7 @@ export type Database = {
     Enums: {
       colorschemes: 'dark' | 'light';
       handednesstypes: 'left' | 'right' | 'ambidextrous';
+      measuring_system: 'metric' | 'us_customary';
       languages: 'en' | 'nl';
       recipecategories: 'breakfast' | 'lunch' | 'dinner' | 'dessert' | 'snack' | 'drink' | 'other';
       recipeunit:
@@ -430,6 +434,7 @@ export const Constants = {
       colorschemes: ['dark', 'light'],
       handednesstypes: ['left', 'right', 'ambidextrous'],
       languages: ['en', 'nl'],
+      measuring_system: ['metric', 'us_customary'],
       recipecategories: ['breakfast', 'lunch', 'dinner', 'dessert', 'snack', 'drink', 'other'],
       recipeunit: [
         'pc',
