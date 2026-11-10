@@ -24,9 +24,9 @@
               buttonText="pantryPage.browseRecipes"
               buttonRoute="/recipes"
             />
-            <div v-else>
-              <TransitionGroup name="list"> Test </TransitionGroup>
-            </div>
+            <section v-else key="list" class="recipesList">
+              <RecipeGrid :recipes="pantryStore.recipes" :images="pantryStore.recipeImages" />
+            </section>
           </Transition>
         </div>
       </Transition>
@@ -52,6 +52,7 @@ import ConfirmPopUp from '@/components/general/ConfirmPopUp.vue';
 import LoadingSpinner from '@/components/general/LoadingSpinner.vue';
 import ErrorState from '@/components/general/ErrorState.vue';
 import EmptyState from '@/components/general/EmptyState.vue';
+import RecipeGrid from '@/components/pages/recipes/RecipeGrid.vue';
 
 const pantryStore = usePantryStore();
 

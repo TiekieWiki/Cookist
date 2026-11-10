@@ -1,10 +1,15 @@
 import { defineStore } from 'pinia';
 import { useActions } from '@/composables/useActions';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { supabase } from '@/utils/global/supabase';
 import { requireUser } from '@/utils/global/requireUser';
+import { getRecipeImageUrls } from '@/utils/recipe/recipeImages';
 import type { PantryItem } from '@/utils/types/pantry';
+import type { RecipeSummary } from '@/utils/types/recipe';
 import { useProfileStore } from './useProfileStore';
+import { useUserStore } from './useUserStore';
+
+const PANTRY_SELECT = '*, recipes(*, recipe_users(user_id, last_eaten))';
 
 export const usePantryStore = defineStore('pantry', () => {
   const { isLoading, isLoadingAction, errorFor, clearError, clearErrors, trackAction } = useActions<
@@ -12,8 +17,47 @@ export const usePantryStore = defineStore('pantry', () => {
   >();
 
   const profileStore = useProfileStore();
+  const userStore = useUserStore();
 
   const pantry = ref<PantryItem[]>([]);
+  const recipeImages = ref<Record<string, string>>({});
+
+  /**
+   * The recipes in the pantry, in the shape the recipe cards use. A recipe that was added more than
+   * once is shown once for every time it was added, with the id of the pantry item as key. Recipes
+   * that were deleted or can no longer be accessed are left out.
+   */
+  const recipes = computed<(RecipeSummary & { key: string })[]>(() =>
+    pantry.value.flatMap(({ id, recipes: recipe }) => {
+      if (!recipe) return [];
+
+      const { recipe_users: recipeUsers, ...details } = recipe;
+      const lastEaten = recipeUsers.find((recipeUser) => recipeUser.user_id === userStore.user?.id);
+
+      return [
+        {
+          ...details,
+          key: id,
+          notes: details.notes ?? '',
+          last_eaten: lastEaten?.last_eaten ?? ''
+        }
+      ];
+    })
+  );
+
+  /**
+   * Get signed image URLs for the recipes in the pantry that do not have one yet. A failure is not
+   * shown, because the cards fall back to the default image.
+   */
+  async function getRecipeImages(): Promise<void> {
+    const missingIds = [...new Set(recipes.value.map((recipe) => recipe.id))].filter(
+      (id) => !(id in recipeImages.value)
+    );
+
+    const images = await getRecipeImageUrls(missingIds);
+
+    if (images) recipeImages.value = { ...recipeImages.value, ...images };
+  }
 
   /**
    * Check whether the current user uses the pantry, after waiting for their profile to load
@@ -33,12 +77,15 @@ export const usePantryStore = defineStore('pantry', () => {
 
     const { data, error } = await supabase
       .from('user_pantry')
-      .select('*, recipes(name)')
+      .select(PANTRY_SELECT)
       .eq('user_id', user.id);
 
     if (error) throw error;
 
     pantry.value = data ?? [];
+    recipeImages.value = {};
+
+    await getRecipeImages();
   });
 
   /**
@@ -58,11 +105,13 @@ export const usePantryStore = defineStore('pantry', () => {
           recipe_id: recipeId,
           user_id: user.id
         })
-        .select('*, recipes(name)');
+        .select(PANTRY_SELECT);
 
       if (error) throw error;
 
       pantry.value.push(...(data ?? []));
+
+      await getRecipeImages();
     },
     { toast: true }
   );
@@ -123,6 +172,7 @@ export const usePantryStore = defineStore('pantry', () => {
    */
   function clearPantry(): void {
     pantry.value = [];
+    recipeImages.value = {};
     clearErrors();
   }
 
@@ -132,6 +182,8 @@ export const usePantryStore = defineStore('pantry', () => {
     errorFor,
     clearError,
     pantry,
+    recipes,
+    recipeImages,
     getPantry,
     setPantry,
     deletePantryRecipe,
