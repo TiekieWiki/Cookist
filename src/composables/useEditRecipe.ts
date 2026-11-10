@@ -37,15 +37,21 @@ export function useEditRecipe(): {
   let triedToSave = false;
 
   /**
-   * Get the recipe without the empty rows and with renumbered instructions, as it will be saved
+   * Get the recipe without the empty rows and with renumbered ingredients and instructions, as it
+   * will be saved
    * @returns The cleaned recipe
    */
   function cleanRecipe(): Recipe {
     const cleanedRecipe = structuredClone(toRaw(recipe.value));
 
-    cleanedRecipe.ingredients = cleanedRecipe.ingredients.filter(
-      (ingredient: Ingredient) => ingredient.amount !== 0 && ingredient.unit && ingredient.name
-    );
+    cleanedRecipe.ingredients = cleanedRecipe.ingredients
+      .filter(
+        (ingredient: Ingredient) => ingredient.amount !== 0 && ingredient.unit && ingredient.name
+      )
+      .map((ingredient: Ingredient, index: number) => ({
+        ...ingredient,
+        sort_order: index + 1
+      }));
     cleanedRecipe.instructions = cleanedRecipe.instructions
       .filter((instruction: Instruction) => instruction.instruction)
       .map((instruction: Instruction, index: number) => ({

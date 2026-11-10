@@ -26,6 +26,7 @@ export type Ingredient = {
   name: string;
   unit: string;
   amount: number;
+  sort_order?: number;
 };
 
 export type Instruction = {

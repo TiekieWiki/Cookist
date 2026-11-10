@@ -47,6 +47,7 @@ export type Database = {
           id: string;
           name: string;
           recipe_id: string;
+          sort_order: number;
           unit: string;
         };
         Insert: {
@@ -54,6 +55,7 @@ export type Database = {
           id?: string;
           name: string;
           recipe_id: string;
+          sort_order?: number;
           unit: string;
         };
         Update: {
@@ -61,6 +63,7 @@ export type Database = {
           id?: string;
           name?: string;
           recipe_id?: string;
+          sort_order?: number;
           unit?: string;
         };
         Relationships: [
