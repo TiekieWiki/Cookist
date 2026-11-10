@@ -5,6 +5,7 @@
       :label="$t('editRecipePage.instructions')"
       :required="true"
       :colAmount="ColAmount.TWO"
+      :sortable="true"
       :error="error"
       v-model:items="instructions"
       v-slot="{ index }"
