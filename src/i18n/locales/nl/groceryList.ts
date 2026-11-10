@@ -19,7 +19,9 @@ const messages: typeof en = {
     other: 'Overig',
     allIngredients: 'Alle ingrediënten',
     ariaLabel: {
-      deleteIngredient: '{name} verwijderen'
+      deleteRecipe: '{name} verwijderen uit je boodschappenlijst',
+      deleteIngredient: '{name} verwijderen',
+      deleteGroup: 'Alle ingrediënten van {name} verwijderen'
     }
   }
 };

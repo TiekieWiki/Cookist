@@ -16,7 +16,9 @@ const messages = {
     other: 'Other',
     allIngredients: 'All ingredients',
     ariaLabel: {
-      deleteIngredient: 'Remove {name}'
+      deleteRecipe: 'Remove {name} from your grocery list',
+      deleteIngredient: 'Remove {name}',
+      deleteGroup: 'Remove all ingredients of {name}'
     }
   }
 };

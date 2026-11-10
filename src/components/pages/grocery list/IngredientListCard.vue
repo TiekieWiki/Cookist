@@ -1,17 +1,30 @@
 <template>
   <section class="card">
-    <h3>{{ title }}</h3>
+    <div class="title">
+      <h3>{{ title }}</h3>
+      <Button
+        :type="ButtonType.BUTTON"
+        :variant="ColorVariant.WARNING"
+        :aria-label="$t('groceryListPage.ariaLabel.deleteGroup', { name: title })"
+        :disabled="isDeletingGroup"
+        :aria-busy="isDeletingGroup"
+        @click="groceryListStore.deleteGroceryListIngredient(groupIds)"
+      >
+        <font-awesome-icon :icon="['fas', 'trash-can']" />
+        <span class="desktop">{{ $t('groceryListPage.clearAll') }}</span>
+      </Button>
+    </div>
     <CheckBoxList :items="checkBoxes">
       <template #item="{ item }">
         <Button
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.TERTIARY"
           :aria-label="$t('groceryListPage.ariaLabel.deleteIngredient', { name: item.name })"
-          :disabled="isDeleting(item.id)"
+          :disabled="isDeletingGroup || isDeleting(item.id)"
           :aria-busy="isDeleting(item.id)"
           @click="groceryListStore.deleteGroceryListIngredient(idsOf(item.id))"
         >
-          <font-awesome-icon :icon="['fas', 'trash']" />
+          <font-awesome-icon :icon="['fas', 'trash-can']" />
         </Button>
       </template>
     </CheckBoxList>
@@ -32,6 +45,12 @@ const props = defineProps<{ title: string; ingredients: GroceryListEntry[] }>();
 const groceryListStore = useGroceryListStore();
 
 const checkBoxes = computed(() => toIngredientCheckBoxes(props.ingredients));
+
+const groupIds = computed(() => props.ingredients.flatMap((ingredient) => ingredient.ids));
+
+const isDeletingGroup = computed(() =>
+  groceryListStore.isLoadingAction('deleteGroceryListIngredient', groupIds.value.join(','))
+);
 
 /**
  * Get the ids of the rows an ingredient consists of, which are several for a combined ingredient
