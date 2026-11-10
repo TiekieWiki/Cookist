@@ -9,7 +9,12 @@ const messages = {
     emptyPantryTitle: 'Your pantry is empty',
     emptyPantrySubtitle:
       'Open a recipe and tap "Add to grocery list" — the recipe lands here for one list of meals.',
-    browseRecipes: 'Browse recipes'
+    browseRecipes: 'Browse recipes',
+    cookedToday: 'Cooked today',
+    ariaLabel: {
+      cookedToday: 'Mark {name} as cooked today',
+      removeRecipe: 'Remove {name} from your pantry'
+    }
   }
 };
 

@@ -168,6 +168,22 @@ export const usePantryStore = defineStore('pantry', () => {
   });
 
   /**
+   * Update the last eaten date of a recipe in the pantry, after it was saved elsewhere, so every card
+   * of that recipe shows the new date without loading the pantry again
+   * @param recipeId Id of the recipe that was eaten
+   * @param date Date as `YYYY-MM-DD`
+   */
+  function updateLastEaten(recipeId: string, date: string): void {
+    for (const { recipes: recipe } of pantry.value) {
+      if (recipe?.id !== recipeId) continue;
+
+      for (const recipeUser of recipe.recipe_users) {
+        if (recipeUser.user_id === userStore.user?.id) recipeUser.last_eaten = date;
+      }
+    }
+  }
+
+  /**
    * Clear the pantry, for example after logging out
    */
   function clearPantry(): void {
@@ -188,6 +204,7 @@ export const usePantryStore = defineStore('pantry', () => {
     setPantry,
     deletePantryRecipe,
     deletePantry,
+    updateLastEaten,
     clearPantry
   };
 });

@@ -5,7 +5,10 @@
       :key="recipe.key ?? recipe.id"
       :recipe="recipe"
       :image="images[recipe.id] ?? ''"
-    />
+    >
+      <template v-if="$slots.actions" #actions>
+        <slot name="actions" :recipe="recipe" /> </template
+    ></RecipeCard>
   </TransitionGroup>
 </template>
 

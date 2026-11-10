@@ -12,7 +12,12 @@ const messages: typeof en = {
     emptyPantryTitle: 'Je voorraadkast is leeg',
     emptyPantrySubtitle:
       'Open een recept en klik "Toevoegen aan boodschappenlijst" — het recept komt hier terecht voor een lijst van recepten.',
-    browseRecipes: 'Recepten bekijken'
+    browseRecipes: 'Recepten bekijken',
+    cookedToday: 'Vandaag gekookt',
+    ariaLabel: {
+      cookedToday: '{name} markeren als vandaag gekookt',
+      removeRecipe: '{name} uit je voorraadkast verwijderen'
+    }
   }
 };
 
