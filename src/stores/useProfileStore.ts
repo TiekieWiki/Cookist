@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { useActions } from '@/composables/useActions';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { supabase } from '@/utils/global/supabase';
 import { requireUser } from '@/utils/global/requireUser';
 import { getSystemLanguage } from '@/utils/global/setLanguage';
@@ -86,6 +86,27 @@ export const useProfileStore = defineStore('profile', () => {
   );
 
   /**
+   * Wait until the profile is loaded. Resolves straight away when it already is, and with undefined
+   * when loading it failed, so callers never wait forever.
+   * @returns The profile of the current user
+   */
+  function whenProfileLoaded(): Promise<Profile | undefined> {
+    if (profile.value) return Promise.resolve(profile.value);
+
+    return new Promise((resolve) => {
+      const stop = watch(
+        () => [profile.value, errorFor('getProfile')] as const,
+        ([loadedProfile, error]) => {
+          if (!loadedProfile && !error) return;
+
+          stop();
+          resolve(loadedProfile);
+        }
+      );
+    });
+  }
+
+  /**
    * Clear the profile
    */
   function clearProfile(): void {
@@ -102,6 +123,7 @@ export const useProfileStore = defineStore('profile', () => {
     getProfile,
     setProfile,
     setUsersLocalLanguage,
+    whenProfileLoaded,
     clearProfile
   };
 });

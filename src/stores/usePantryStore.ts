@@ -16,12 +16,20 @@ export const usePantryStore = defineStore('pantry', () => {
   const pantry = ref<PantryItem[]>([]);
 
   /**
+   * Check whether the current user uses the pantry, after waiting for their profile to load
+   * @returns Whether the pantry is turned on
+   */
+  async function usesPantry(): Promise<boolean> {
+    return !!(await profileStore.whenProfileLoaded())?.use_pantry;
+  }
+
+  /**
    * Get the pantry of the current user
    */
   const getPantry = trackAction('getPantry', async (): Promise<void> => {
-    if (!profileStore.profile?.use_pantry) return;
-
     const user = await requireUser();
+
+    if (!(await usesPantry())) return;
 
     const { data, error } = await supabase
       .from('user_pantry')
@@ -40,9 +48,9 @@ export const usePantryStore = defineStore('pantry', () => {
   const setPantry = trackAction(
     'setPantry',
     async (recipeId: string): Promise<void> => {
-      if (!profileStore.profile?.use_pantry) return;
-
       const user = await requireUser();
+
+      if (!(await usesPantry())) return;
 
       const { data, error } = await supabase
         .from('user_pantry')
@@ -67,9 +75,9 @@ export const usePantryStore = defineStore('pantry', () => {
   const deletePantryRecipe = trackAction(
     'deletePantryRecipe',
     async (recipeId: string): Promise<void> => {
-      if (!profileStore.profile?.use_pantry) return;
-
       const user = await requireUser();
+
+      if (!(await usesPantry())) return;
 
       const { data: item, error: selectError } = await supabase
         .from('user_pantry')
@@ -99,9 +107,9 @@ export const usePantryStore = defineStore('pantry', () => {
    * Delete the pantry of the current user
    */
   const deletePantry = trackAction('deletePantry', async (): Promise<void> => {
-    if (!profileStore.profile?.use_pantry) return;
-
     const user = await requireUser();
+
+    if (!(await usesPantry())) return;
 
     const { error } = await supabase.from('user_pantry').delete().eq('user_id', user.id);
 
