@@ -17,6 +17,7 @@
       :aria-invalid="error ? true : undefined"
       :aria-describedby="error ? errorId : undefined"
       v-model="input"
+      @input="updateWhileComposing"
     />
     <FieldError :id="errorId" :message="error" />
   </label>
@@ -38,4 +39,15 @@ withDefaults(defineProps<InputFieldProps>(), {
 const input = defineModel<string | number | null | undefined>('input');
 
 const errorId = useId();
+
+/**
+ * Update the value while a mobile keyboard is still composing a word. v-model waits until the word
+ * is finished, so on mobile the value would only change after a space or a chosen suggestion.
+ * @param event Input event of the field
+ */
+function updateWhileComposing(event: Event): void {
+  if ((event as InputEvent).isComposing) {
+    input.value = (event.target as HTMLInputElement).value;
+  }
+}
 </script>
