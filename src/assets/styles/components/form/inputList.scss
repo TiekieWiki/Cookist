@@ -3,11 +3,19 @@
     li {
       grid-template-columns: 1fr auto;
     }
+
+    &.sortable li {
+      grid-template-columns: auto 1fr auto;
+    }
   }
 
   &.fourCols {
     li {
       grid-template-columns: 80px 80px minmax(0, 1fr) auto;
+    }
+
+    &.sortable li {
+      grid-template-columns: auto 80px 80px minmax(0, 1fr) auto;
     }
   }
 
@@ -21,5 +29,36 @@
       display: grid;
       gap: var(--spacing-2);
     }
+
+    &.sorting .list-move {
+      transition: none;
+    }
+
+    .sortable-ghost {
+      opacity: 0.4;
+    }
+  }
+
+  .dragHandle {
+    padding: var(--spacing-1) var(--spacing-1);
+    cursor: grab;
+    touch-action: none;
+
+    &:active {
+      cursor: grabbing;
+    }
+
+    &.hidden {
+      visibility: hidden;
+    }
+  }
+
+  .announcement {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }

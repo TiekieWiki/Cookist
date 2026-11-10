@@ -50,6 +50,7 @@ export interface InputListProps {
   required?: boolean;
   empty?: boolean;
   colAmount?: ColAmount;
+  sortable?: boolean;
   error?: string;
 }
 

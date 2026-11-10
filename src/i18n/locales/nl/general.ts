@@ -6,6 +6,8 @@ const messages: typeof en = {
       openMenu: 'Menu openen',
       closeMenu: 'Menu sluiten',
       close: 'Sluiten',
+      moveRow: 'Rij verplaatsen, sleep of gebruik de pijltjestoetsen',
+      rowMoved: 'Verplaatst naar positie {position} van {total}',
       deleteRow: 'Rij verwijderen',
       loading: 'Laden',
       toggleDropdown: 'Toggle dropdown menu'

@@ -5,6 +5,8 @@ const messages = {
       closeMenu: 'Close menu',
       close: 'Close',
       deleteRow: 'Delete row',
+      moveRow: 'Move row, drag it or use the arrow keys',
+      rowMoved: 'Moved to position {position} of {total}',
       loading: 'Loading',
       toggleDropdown: 'Toggle dropdown menu'
     },

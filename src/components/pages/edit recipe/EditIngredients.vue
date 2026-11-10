@@ -5,6 +5,7 @@
       :label="$t('general.recipe.ingredients')"
       :required="true"
       :colAmount="ColAmount.FOUR"
+      :sortable="true"
       :error="error"
       v-model:items="ingredients"
       v-slot="{ index }"
