@@ -20,10 +20,10 @@
           :type="ButtonType.BUTTON"
           :variant="ColorVariant.TERTIARY"
           :size="Size.LARGE"
-          to="/recipes"
+          :to="`/recipe/${$route.params.recipeId || ''}`"
         >
           <font-awesome-icon :icon="['fas', 'arrow-left']" />
-          {{ $t('editRecipePage.backToRecipes') }}</Button
+          {{ $t('editRecipePage.backToRecipe') }}</Button
         >
         <div>
           <h2>

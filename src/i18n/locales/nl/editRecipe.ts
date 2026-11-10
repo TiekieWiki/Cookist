@@ -4,7 +4,7 @@ const messages: typeof en = {
   editRecipePage: {
     subtitle:
       'Je kunt het zo kort of zo gedetailleerd houden als je wilt — je kan altijd terugkomen.',
-    backToRecipes: 'Terug naar recepten',
+    backToRecipe: 'Terug naar recept',
     name: 'Naam',
     duration: 'Duur (min)',
     portions: 'Porties',

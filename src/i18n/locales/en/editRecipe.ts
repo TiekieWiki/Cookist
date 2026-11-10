@@ -1,7 +1,7 @@
 const messages = {
   editRecipePage: {
     subtitle: 'Keep it as short or as detailed as you like — you can always come back.',
-    backToRecipes: 'Back to recipes',
+    backToRecipe: 'Back to recipe',
     name: 'Name',
     duration: 'Duration (min)',
     portions: 'Portions',
