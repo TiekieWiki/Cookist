@@ -1,5 +1,7 @@
 import type { Time, Timer } from '@/utils/types/timer';
 import { computed, onScopeDispose, ref, watch, type Ref } from 'vue';
+import { useKeepScreenOn } from './useKeepScreenOn';
+import { useTimerAlarm } from './useTimerAlarm';
 
 /**
  * Converts a time to seconds
@@ -17,6 +19,8 @@ function toSeconds(time: Time): number {
 /**
  * Timer composable that manages a simple timer state. The remaining time is calculated from the
  * end time, so the timer stays correct when the browser slows down intervals in background tabs.
+ * While the timer runs, the screen stays on, so a phone keeps running the page, and an alarm sounds
+ * when the time is up.
  * @returns An object containing the timer state and functions to control it.
  */
 export function useTimer(): {
@@ -24,7 +28,11 @@ export function useTimer(): {
   runningTimer: Ref<Timer>;
   progress: Ref<number>;
   resetTimer: () => void;
+  unlockAlarm: () => void;
 } {
+  const alarm = useTimerAlarm();
+  const { keepScreenOn } = useKeepScreenOn();
+
   const time = ref<Time>({
     hours: 0,
     minutes: 1,
@@ -73,9 +81,10 @@ export function useTimer(): {
   }
 
   /**
-   * Resets the timer.
+   * Resets the timer, which also silences the alarm
    */
   function resetTimer(): void {
+    alarm.cancel();
     runningTimer.value.isRunning = false;
     runningTimer.value.isFinished = false;
     setRemainingTime(toSeconds(time.value));
@@ -106,17 +115,23 @@ export function useTimer(): {
     () => runningTimer.value.isRunning,
     (isRunning) => {
       stopInterval();
+      keepScreenOn.value = isRunning;
 
       if (isRunning) {
+        const remainingSeconds = toSeconds(runningTimer.value);
+
         runningTimer.value.isFinished = false;
-        endTime = Date.now() + toSeconds(runningTimer.value) * 1000;
+        endTime = Date.now() + remainingSeconds * 1000;
+        alarm.schedule(remainingSeconds);
         tick();
         interval = setInterval(tick, 250);
+      } else if (!runningTimer.value.isFinished) {
+        alarm.cancel();
       }
     }
   );
 
   onScopeDispose(stopInterval);
 
-  return { time, runningTimer, progress, resetTimer };
+  return { time, runningTimer, progress, resetTimer, unlockAlarm: alarm.unlock };
 }

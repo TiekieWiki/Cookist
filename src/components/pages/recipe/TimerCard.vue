@@ -15,8 +15,11 @@
       }}</span>
     </div>
     <div class="actions">
-      <Button @click="runningTimer.isRunning = !runningTimer.isRunning" :type="ButtonType.BUTTON">
-        <template v-if="runningTimer.isRunning">
+      <Button @click="toggleTimer()" :type="ButtonType.BUTTON">
+        <template v-if="runningTimer.isFinished">
+          <font-awesome-icon :icon="['fas', 'stop']" />{{ $t('recipePage.stop') }}
+        </template>
+        <template v-else-if="runningTimer.isRunning">
           <font-awesome-icon :icon="['fas', 'pause']" />{{ $t('recipePage.pause') }}
         </template>
         <template v-else
@@ -85,5 +88,20 @@ import InputField from '@/components/form/InputField.vue';
 import Button from '@/components/form/Button.vue';
 import { ButtonType, ColorVariant } from '@/utils/types/enums';
 
-const { time, runningTimer, progress, resetTimer } = useTimer();
+const { time, runningTimer, progress, resetTimer, unlockAlarm } = useTimer();
+
+/**
+ * Start or pause the timer. When the time is up, this stops the alarm and resets the timer to the
+ * time that was set. The alarm sound is unlocked here, because browsers only allow sound that is
+ * started from a click.
+ */
+function toggleTimer(): void {
+  if (runningTimer.value.isFinished) {
+    resetTimer();
+    return;
+  }
+
+  unlockAlarm();
+  runningTimer.value.isRunning = !runningTimer.value.isRunning;
+}
 </script>

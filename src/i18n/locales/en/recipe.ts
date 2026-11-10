@@ -13,6 +13,7 @@ const messages = {
     kitchenTimer: 'Kitchen timer',
     start: 'Start',
     pause: 'Pause',
+    stop: 'Stop',
     deleteRecipe: 'Delete recipe',
     confirmDelete: 'Are you sure you want to delete this recipe?',
     placeholder: {

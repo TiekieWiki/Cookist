@@ -15,6 +15,7 @@ const messages: typeof en = {
     kitchenTimer: 'Kookwekker',
     start: 'Start',
     pause: 'Pauze',
+    stop: 'Stop',
     deleteRecipe: 'Verwijder recept',
     confirmDelete: 'Weet je zeker dat je dit recept wilt verwijderen?',
     placeholder: {
