@@ -54,17 +54,17 @@
         </div>
       </Transition>
     </article>
+    <ConfirmPopUp
+      v-model:open-pop-up="deletePantryOpen"
+      title="pantryPage.emptyPantry"
+      section="pantryPage.confirmEmpty"
+      cancel="general.actions.cancel"
+      confirm="pantryPage.empty"
+      :loading="pantryStore.isLoadingAction('deletePantry')"
+      :error="pantryStore.errorFor('deletePantry')"
+      @confirm="deletePantry()"
+    />
   </main>
-  <ConfirmPopUp
-    v-model:open-pop-up="deletePantryOpen"
-    title="pantryPage.emptyPantry"
-    section="pantryPage.confirmEmpty"
-    cancel="general.actions.cancel"
-    confirm="pantryPage.empty"
-    :loading="pantryStore.isLoadingAction('deletePantry')"
-    :error="pantryStore.errorFor('deletePantry')"
-    @confirm="deletePantry()"
-  />
 </template>
 
 <script setup lang="ts">
